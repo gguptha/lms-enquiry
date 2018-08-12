@@ -1,0 +1,149 @@
+<div id="loan-enquiry" class="w-100-p p-16" fxLayout="column" fusePerfectScrollbar>
+
+    <div class="horizontal-stepper-wrapper">
+
+        <mat-horizontal-stepper class="mat-elevation-z2" [linear]="true">
+
+            <!-- PROJECT DETAILS STEP -->
+            <mat-step [stepControl]="loanEnquiryFormStep1">
+
+                <form [formGroup]="loanEnquiryFormStep1">
+
+                    <ng-template matStepLabel>Project Details</ng-template>
+
+                    <div fxLayout="row">
+
+                        <mat-form-field fxFlex="50">
+                            <mat-select placeholder="Loan Class" formControlName="loanClass" required>
+                                <mat-option [value]="'U.A.E'">UAE</mat-option>
+                                <mat-option [value]="'India'">India</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="50">
+                            <mat-select placeholder="Financing Type" formControlName="financingType" required>
+                                <mat-option [value]="'U.A.E'">UAE</mat-option>
+                                <mat-option [value]="'India'">India</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="pt-12" fxLayout="row">
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Next
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step>
+
+            <!--         
+        <mat-step [stepControl]="horizontalStepperStep2">
+
+            <form [formGroup]="horizontalStepperStep2">
+
+                <ng-template matStepLabel>Fill out your address</ng-template>
+
+                <div fxFlex="1 0 auto" fxLayout="row">
+
+                    <mat-form-field fxFlex="100">
+                        <textarea matInput placeholder="Address" formControlName="address" required>
+                            1600 Amphitheatre Pkwy
+                        </textarea>
+                        <mat-error *ngIf="horizontalStepperStep2Errors.address.required">
+                            Address is required!
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                    <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                        Previous
+                    </button>
+                    <button mat-raised-button matStepperNext type="button" color="accent">
+                        Next
+                    </button>
+                </div>
+
+            </form>
+
+        </mat-step>
+
+        <mat-step [stepControl]="horizontalStepperStep3">
+
+            <form [formGroup]="horizontalStepperStep3">
+
+                <ng-template matStepLabel>Fill out your address</ng-template>
+
+                <div fxFlex="1 0 auto" fxLayout="row">
+
+                    <mat-form-field fxFlex="33">
+                        <input matInput placeholder="City" formControlName="city" required>
+                        <mat-error *ngIf="horizontalStepperStep3Errors.city.required">
+                            City is required!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="34">
+                        <input matInput placeholder="State" formControlName="state" required>
+                        <mat-error *ngIf="horizontalStepperStep3Errors.state.required">
+                            State is required!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="33">
+                        <input matInput #postalCode placeholder="Postal Code" formControlName="postalCode"
+                               required>
+                        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                        <mat-error *ngIf="horizontalStepperStep3Errors.postalCode.maxlength">
+                            Postal Code needs to be max.
+                            {{horizontalStepperStep3Errors.postalCode.maxlength.requiredLength}} characters
+                        </mat-error>
+                        <mat-error *ngIf="horizontalStepperStep3Errors.postalCode.required">
+                            Postal Code is required!
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                    <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                        Previous
+                    </button>
+                    <button mat-raised-button matStepperNext type="button" color="accent">
+                        Next
+                    </button>
+                </div>
+
+            </form>
+
+        </mat-step>
+
+        <mat-step>
+
+            <ng-template matStepLabel>Done</ng-template>
+
+            <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                Thank your for filling out our form.
+            </div>
+
+            <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                    Previous
+                </button>
+                <button mat-raised-button type="button" color="accent" (click)="finishHorizontalStepper()">
+                    Finish
+                </button>
+            </div>
+
+        </mat-step>
+         -->
+
+        </mat-horizontal-stepper>
+
+    </div>
+
+</div>

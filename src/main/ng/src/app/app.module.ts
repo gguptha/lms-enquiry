@@ -17,11 +17,12 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { LoanEnquiryModule } from './main/loan-enquiry/loan-enquiry.module';
 
 const appRoutes: Routes = [
     {
         path      : '**',
-        redirectTo: 'sample'
+        redirectTo: 'loanenquiry'
     }
 ];
 
@@ -53,7 +54,10 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule
+        SampleModule,
+
+        // User modules
+        LoanEnquiryModule
     ],
     bootstrap   : [
         AppComponent
