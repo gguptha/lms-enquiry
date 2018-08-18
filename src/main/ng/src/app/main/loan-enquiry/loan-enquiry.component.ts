@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-loan-enquiry',
@@ -12,12 +13,20 @@ export class LoanEnquiryComponent implements OnInit {
     loanEnquiryFormStep2: FormGroup;
     loanEnquiryFormStep3: FormGroup;
 
+    loanClasses: Array<any>;
+    financingTypes: Array<any>;
+    projectTypes: Array<any>;
+    assistanceTypes: Array<any>;
+    states: Array<string>;
+
     /**
      * constructor()
+     * @param _route 
      * @param _formBuilder 
      */
-    constructor(private _formBuilder: FormBuilder) { 
+    constructor(private _route: ActivatedRoute, private _formBuilder: FormBuilder) { 
 
+        // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
             loanClass: [''],
             financingType: [''],
@@ -65,6 +74,13 @@ export class LoanEnquiryComponent implements OnInit {
             rating: [''],
             promoterKeyDirector: ['']
         });
+
+        // Initialize dropdowns.
+        this.loanClasses = _route.snapshot.data.routeResolvedData[0];
+        this.financingTypes = _route.snapshot.data.routeResolvedData[1];
+        this.projectTypes = _route.snapshot.data.routeResolvedData[2];
+        this.states = _route.snapshot.data.routeResolvedData[3];
+        this.assistanceTypes = _route.snapshot.data.routeResolvedData[4];
     }
 
     /**

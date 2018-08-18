@@ -26,7 +26,7 @@ export const fuseConfig: FuseConfig = {
         },
         footer   : {
             background: 'mat-fuse-dark-900-bg',
-            hidden    : false,
+            hidden    : true,
             position  : 'below-fixed'
         },
         sidepanel: {
