@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoanEnquiryComponent } from './loan-enquiry.component';
 import { RouterModule } from '../../../../node_modules/@angular/router';
 import { FuseSharedModule } from '@fuse/shared.module';
-import { MatStepperModule, MatSelectModule, MatButtonModule } from '../../../../node_modules/@angular/material';
+import { MatStepperModule, MatSelectModule, MatButtonModule, MatInputModule } from '../../../../node_modules/@angular/material';
 
 const routes = [
     {
@@ -19,7 +19,8 @@ const routes = [
         FuseSharedModule,
         MatStepperModule,
         MatSelectModule,
-        MatButtonModule
+        MatButtonModule,
+        MatInputModule
     ],
     declarations: [
         LoanEnquiryComponent
