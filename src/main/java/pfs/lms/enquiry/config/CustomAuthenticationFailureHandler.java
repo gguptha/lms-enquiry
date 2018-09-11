@@ -1,3 +1,4 @@
+/*
 package pfs.lms.enquiry.config;
 
 import org.springframework.security.core.AuthenticationException;
@@ -16,3 +17,4 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         response.sendError(401,exception.getMessage());
     }
 }
+*/
