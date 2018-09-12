@@ -1,15 +1,22 @@
 export class FinancingType {
 
-    private static financingTypes = [
-        { 'code': '01', 'value': 'Sole Lending' },
-        { 'code': '02', 'value': 'Consor. Lending' },
-        { 'code': '03', 'value': 'Lead FI' },
-        { 'code': '04', 'value': 'Underwriting' },
-        { 'code': '05', 'value': 'Lead FI & Synd.' },
-        { 'code': '06', 'value': 'Syndication' }
-    ];
+    /**
+     * code
+     */
+    code: string;
 
-    public static getFinancingTypes(): Array<any> {
-        return this.financingTypes;
+    /**
+     * value
+     */
+    value: string;
+
+    /**
+     * constructor()
+     * @param _financingType
+     */
+    constructor(_financingType: any) {
+        // Initialize the object.
+        this.code = _financingType.code || '';
+        this.value = _financingType.value || '';
     }
 }

@@ -104,9 +104,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication>{
 
     private Double expectedDebt;
 
-    private Double pFSDebtAmount;
+    private Double pfsDebtAmount;
 
-    private Double pFSSubDebtAmount;
+    private Double pfsSubDebtAmount;
 
     @Size(max = 100)
     private String loanPurpose;
@@ -170,7 +170,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication>{
 
     private LocalDate decisionDate;
 
-    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, Integer loanClass, Integer projectType, Integer financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedDebt, Double pFSDebtAmount, Double pFSSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leanFILoanAmount, Double expecttedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaofBusinessNature, String rating, String promoterKeyDirector, String keyPromoter,  Integer technicalStatus, Integer functionalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate) {
+    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, Integer loanClass, Integer projectType, Integer financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leanFILoanAmount, Double expecttedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaofBusinessNature, String rating, String promoterKeyDirector, String keyPromoter,  Integer technicalStatus, Integer functionalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate) {
         this.loanEnquiryDate = loanEnquiryDate;
         this.loanEnquiryId = loanEnquiryId;
         this.loanContractId = loanContractId;
@@ -190,8 +190,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication>{
         this.equity = equity;
         this.projectAmountCurrency = projectAmountCurrency;
         this.expectedDebt = expectedDebt;
-        this.pFSDebtAmount = pFSDebtAmount;
-        this.pFSSubDebtAmount = pFSSubDebtAmount;
+        this.pfsDebtAmount = pfsDebtAmount;
+        this.pfsSubDebtAmount = pfsSubDebtAmount;
         this.loanPurpose = loanPurpose;
         this.leadFIName = leadFIName;
         this.leanFILoanAmount = leanFILoanAmount;

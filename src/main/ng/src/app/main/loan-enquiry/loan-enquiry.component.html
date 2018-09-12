@@ -2,7 +2,7 @@
 
     <div class="horizontal-stepper-wrapper">
 
-        <mat-horizontal-stepper class="mat-elevation-z2" [linear]="true">
+        <mat-horizontal-stepper class="mat-elevation-z2" [linear]="true" #stepper>
 
             <!-- PROJECT DETAILS STEP -->
             <mat-step [stepControl]="loanEnquiryFormStep1">
@@ -22,16 +22,16 @@
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
-                            <mat-select placeholder="Financing Type" formControlName="financingType.code">
-                                <mat-option *ngFor="let financingType of financingTypes" [value]="financingType">
+                            <mat-select placeholder="Financing Type" formControlName="financingType">
+                                <mat-option *ngFor="let financingType of financingTypes" [value]="financingType.code">
                                     {{ financingType.value }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="50">
-                            <mat-select placeholder="Project Type" formControlName="projectType.code">
-                                <mat-option *ngFor="let projectType of projectTypes" [value]="projectType">
+                            <mat-select placeholder="Project Type" formControlName="projectType">
+                                <mat-option *ngFor="let projectType of projectTypes" [value]="projectType.code">
                                     {{ projectType.value }}
                                 </mat-option>
                             </mat-select>
@@ -288,7 +288,7 @@
                     <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
                         Previous
                     </button>
-                    <button mat-raised-button type="button" color="accent" (click)="finishHorizontalStepper()">
+                    <button mat-raised-button type="button" color="accent" (click)="saveLoanApplication(stepper)">
                         Finish
                     </button>
                 </div>

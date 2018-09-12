@@ -1,11 +1,22 @@
 export class AssistanceType {
 
-    private static assistanceTypes = [
-        { 'code': 'D', 'value': 'Debt' },
-        { 'code': 'E', 'value': 'Equity' },
-    ];
+    /**
+     * code
+     */
+    code: string;
 
-    public static getAssistanceTypes(): Array<any> {
-        return this.assistanceTypes;
+    /**
+     * value
+     */
+    value: string;
+
+    /**
+     * constructor()
+     * @param _assistanceType
+     */
+    constructor(_assistanceType: any) {
+        // Initialize the object.
+        this.code = _assistanceType.code || '';
+        this.value = _assistanceType.value || '';
     }
 }

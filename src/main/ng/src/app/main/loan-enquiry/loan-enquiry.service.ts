@@ -5,10 +5,14 @@ import { ProjectType } from '../model/projecttype.model';
 import { FinancingType } from '../model/financingtype.model';
 import { State } from '../model/state.model';
 import { AssistanceType } from '../model/assistancetype.model';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()   
 export class LoanEnquiryService implements Resolve<any> {
 
-    loanClasses: Array<string>;
+    constructor(private _http: HttpClient) {
+    }
 
     /**
      * resolve()
@@ -30,33 +34,32 @@ export class LoanEnquiryService implements Resolve<any> {
      * getLoanClasses()
      * returns a list of loan classes.
      */
-    public getLoanClasses(): Observable<Array<any>> {
-        return new Observable((observer) => {
-            observer.next(LoanClass.getLoanClasses());
-            observer.complete();
-        });
+    public getLoanClasses(): Observable<any> {
+        return this._http.get('api/loanClasses');
     }
 
     /**
      * getFinancingTypes()
      * returns a list of financing types.
      */
-    public getFinancingTypes(): Observable<Array<any>> {
-        return new Observable((observer) => {
-            observer.next(FinancingType.getFinancingTypes());
-            observer.complete();
-        });
+    public getFinancingTypes(): Observable<any> {
+        return this._http.get('api/financingTypes');
     }
 
     /**
      * getProjectTypes()
      * Returns a list of project types.
      */
-    public getProjectTypes(): Observable<Array<any>> {
-        return new Observable((observer) => {
-            observer.next(ProjectType.getProjectTypes());
-            observer.complete();
-        });
+    public getProjectTypes(): Observable<any> {
+        return this._http.get('api/projectTypes');
+    }
+
+    /**
+     * getAssistanceTypes()
+     * Returns a list of assistance types.
+     */
+    public getAssistanceTypes(): Observable<any> {
+        return this._http.get('api/assistanceTypes');
     }
 
     /**
@@ -71,13 +74,12 @@ export class LoanEnquiryService implements Resolve<any> {
     }
 
     /**
-     * getAssistanceTypes()
-     * Returns a list of assistance types.
+     * saveLoanApplication()
+     * Saves the loan application to the database.
+     * @param loanApplication 
+     * @param partner 
      */
-    public getAssistanceTypes(): Observable<Array<string>> {
-        return new Observable((observer) => {
-            observer.next(AssistanceType.getAssistanceTypes());
-            observer.complete();
-        });
+    public saveLoanApplication(loanApplication: any, partner: any): Observable<any> {
+        return this._http.post('/api/loanApplications', {loanApplication, partner});
     }
 }
