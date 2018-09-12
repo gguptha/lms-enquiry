@@ -80,7 +80,7 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
         {
             // User's shortcut items
             this.shortcutItems = [
-                {
+                /* {
                     'title': 'Calendar',
                     'type' : 'item',
                     'icon' : 'today',
@@ -103,7 +103,7 @@ export class FuseShortcutsComponent implements OnInit, OnDestroy
                     'type' : 'item',
                     'icon' : 'check_box',
                     'url'  : '/apps/todo'
-                }
+                } */
             ];
         }
 

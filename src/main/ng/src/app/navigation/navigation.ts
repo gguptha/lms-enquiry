@@ -8,6 +8,14 @@ export const navigation: FuseNavigation[] = [
         type     : 'group',
         children : [
             {
+                id       : 'loan-enquiry',
+                title    : 'Loan Enquiry',
+                translate: 'NAV.LOANENQUIRY',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/loanenquiry',
+            },
+            {
                 id       : 'sample',
                 title    : 'Sample',
                 translate: 'NAV.SAMPLE.TITLE',
