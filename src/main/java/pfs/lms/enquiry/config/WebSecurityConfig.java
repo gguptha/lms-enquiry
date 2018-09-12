@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -66,14 +67,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().antMatcher("/api/**").authorizeRequests().antMatchers("/api/time").permitAll()
 
 
-                .and().authorizeRequests().antMatchers("/api/dispenser/**","/api/signage/**", "/api/devices/**","/push/**","/api/time", "/api/download/**","/api/config","/api/config/**", "/announcements/**").permitAll()
-
-
                 //Configure the path for Basic Authentication
                 .and().authorizeRequests().anyRequest().authenticated()
 
                 //Disable CSRF and FrameOptions for H2
                 .and().csrf().disable().headers().frameOptions().disable()
+
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 //.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
