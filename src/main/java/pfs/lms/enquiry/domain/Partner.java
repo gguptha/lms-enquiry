@@ -94,6 +94,11 @@ public class Partner extends AggregateRoot<Partner>{
         registerEvent(PartnerCreated.of(this));
     }
 
+    public Partner(@Size(max = 20) String userName, @Size(max = 100) String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     @Value
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)

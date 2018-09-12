@@ -4,14 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import pfs.lms.enquiry.domain.AssistanceType;
-import pfs.lms.enquiry.domain.FinancingType;
-import pfs.lms.enquiry.domain.LoanClass;
-import pfs.lms.enquiry.domain.ProjectType;
-import pfs.lms.enquiry.repository.AssistanceTypeRepository;
-import pfs.lms.enquiry.repository.FinancingTypeRepository;
-import pfs.lms.enquiry.repository.LoanClassRepository;
-import pfs.lms.enquiry.repository.ProjectTypeRepository;
+import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.repository.*;
 
 import java.util.Arrays;
 
@@ -27,6 +21,8 @@ public class Initializer implements CommandLineRunner {
     private final FinancingTypeRepository financingTypeRepository;
 
     private final AssistanceTypeRepository assistanceTypeRepository;
+
+    private final PartnerRepository partnerRepository;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -83,6 +79,10 @@ public class Initializer implements CommandLineRunner {
             AssistanceType at2 = new AssistanceType("E", "Equity");
             assistanceTypeRepository.saveAll(Arrays.asList(at1, at2));
             log.info("Added assistance type sample data");
+        }
+
+        if (partnerRepository.count() == 0) {
+            partnerRepository.save(new Partner("admin","admin"));
         }
     }
 }
