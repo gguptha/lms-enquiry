@@ -82,7 +82,9 @@ public class Initializer implements CommandLineRunner {
         }
 
         if (partnerRepository.count() == 0) {
-            partnerRepository.save(new Partner("admin","admin"));
+            Partner partner = new Partner("admin","admin");
+            partner.setPartyRole("ZLM023");
+            partnerRepository.save(partner);
         }
     }
 }
