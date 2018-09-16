@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
@@ -29,13 +30,24 @@ public class LoanApplicationContoller {
 
 
     @GetMapping("/loanApplications")
-    public ResponseEntity<Page<LoanApplication>> get(HttpServletRequest request, Pageable pageable){
+    public ResponseEntity<Page<LoanApplication>> get(@RequestParam("status")Integer status, HttpServletRequest request, Pageable pageable){
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
-        if (partner.getPartyRole().equals("ZLM023"))
-            return ResponseEntity.ok(loanApplicationRepository.findByCreatedByUserName(partner.getUserName(),pageable));
-        else
-            return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicant(partner.getId(),pageable));
-    }
+        if (partner.getPartyRole().equals("ZLM023")) {
+            if (status == null)
+                return ResponseEntity.ok(loanApplicationRepository.findByCreatedByUserName(partner.getUserName(), pageable));
+            else
+                return ResponseEntity.ok(loanApplicationRepository.findByCreatedByUserNameAndFunctionalStatus(partner.getUserName(),status, pageable));
+        }
+        else{
+            if (status == null)
+                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicant(partner.getId(),pageable));
+            else
+                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicantAndFunctionalStatus(partner.getId(),status,pageable));
+        }
+
+
+}
+
 
     @PostMapping("/loanApplications")
     public ResponseEntity add(@RequestBody LoanApplicationResource resource, HttpServletRequest request){
