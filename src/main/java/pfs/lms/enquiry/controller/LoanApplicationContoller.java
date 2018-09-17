@@ -28,29 +28,27 @@ public class LoanApplicationContoller {
 
     private final PartnerRepository partnerRepository;
 
-
     @GetMapping("/loanApplications")
-    public ResponseEntity<Page<LoanApplication>> get(@RequestParam("status")Integer status, HttpServletRequest request, Pageable pageable){
+    public ResponseEntity<Page<LoanApplication>> get(@RequestParam("status") Integer status, HttpServletRequest request,
+                                                     Pageable pageable) {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
         if (partner.getPartyRole().equals("ZLM023")) {
             if (status == null)
-                return ResponseEntity.ok(loanApplicationRepository.findByCreatedByUserName(partner.getUserName(), pageable));
+                return ResponseEntity.ok(loanApplicationRepository.findAll(pageable));
             else
-                return ResponseEntity.ok(loanApplicationRepository.findByCreatedByUserNameAndFunctionalStatus(partner.getUserName(),status, pageable));
+                return ResponseEntity.ok(loanApplicationRepository.findByFunctionalStatus(status, pageable));
         }
-        else{
+        else {
             if (status == null)
-                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicant(partner.getId(),pageable));
+                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicant(partner.getId(), pageable));
             else
-                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicantAndFunctionalStatus(partner.getId(),status,pageable));
+                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicantAndFunctionalStatus(partner.getId(),
+                        status, pageable));
         }
-
-
-}
-
+    }
 
     @PostMapping("/loanApplications")
-    public ResponseEntity add(@RequestBody LoanApplicationResource resource, HttpServletRequest request){
-        return ResponseEntity.ok(loanApplicationService.save(resource,request.getUserPrincipal().getName()));
+    public ResponseEntity add(@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
+        return ResponseEntity.ok(loanApplicationService.save(resource, request.getUserPrincipal().getName()));
     }
 }

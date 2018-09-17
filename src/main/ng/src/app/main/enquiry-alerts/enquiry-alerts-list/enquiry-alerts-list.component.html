@@ -1,0 +1,79 @@
+<div class="mat-table-container">
+
+    <mat-table class="enquiries-table" #table [dataSource]="dataSource" *fuseIfOnDom [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+        <!-- createdOn Column -->
+        <ng-container cdkColumnDef="createdOn">
+            <mat-header-cell *cdkHeaderCellDef>Created On</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.createdOn }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectLocationState Column -->
+        <ng-container cdkColumnDef="projectLocationState">
+            <mat-header-cell *cdkHeaderCellDef>Project Location</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.projectLocationState }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectType Column -->
+        <ng-container cdkColumnDef="projectType">
+            <mat-header-cell *cdkHeaderCellDef>Project Type</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.projectType }}</p>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <!-- loanClass Column -->
+        <ng-container cdkColumnDef="loanClass">
+            <mat-header-cell *cdkHeaderCellDef>Loan Class</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.loanClass }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectCapacity Column -->
+        <ng-container cdkColumnDef="projectCapacity">
+            <mat-header-cell *cdkHeaderCellDef>Project Capacity</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.projectCapacity }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- assistanceType Column -->
+        <ng-container cdkColumnDef="assistanceType">
+            <mat-header-cell *cdkHeaderCellDef>Assistance Type</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.assistanceType }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectCost Column -->
+        <ng-container cdkColumnDef="projectCost">
+            <mat-header-cell *cdkHeaderCellDef>Project Cost</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.projectCost }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- financingType Column -->
+        <ng-container cdkColumnDef="financingType">
+            <mat-header-cell *cdkHeaderCellDef>Financing Type</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.financingType }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-row *cdkRowDef="let ticker; columns: displayedColumns;" class="ticker" matRipple 
+            (click)="onSelect(ticker)" [ngClass]="{'mat-light-blue-50-bg':ticker == selectedTicker}"
+            [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]">
+    </mat-paginator>
+</div>
