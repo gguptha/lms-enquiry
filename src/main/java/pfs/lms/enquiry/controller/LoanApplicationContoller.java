@@ -29,7 +29,7 @@ public class LoanApplicationContoller {
     private final PartnerRepository partnerRepository;
 
     @GetMapping("/loanApplications")
-    public ResponseEntity<Page<LoanApplication>> get(@RequestParam("status") Integer status, HttpServletRequest request,
+    public ResponseEntity<Page<LoanApplication>> get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
                                                      Pageable pageable) {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
         if (partner.getPartyRole().equals("ZLM023")) {

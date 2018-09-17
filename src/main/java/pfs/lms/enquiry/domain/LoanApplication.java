@@ -1,13 +1,13 @@
 package pfs.lms.enquiry.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,9 +22,8 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoanApplication extends AggregateRoot<LoanApplication> {
 
-    @Generated(GenerationTime.INSERT)
-    @Column(name = "enquiryNo", insertable = false)
-    private Integer enquiryNo;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private EnquiryNo enquiryNo = new EnquiryNo();
 
     private LocalDate loanEnquiryDate;
 
