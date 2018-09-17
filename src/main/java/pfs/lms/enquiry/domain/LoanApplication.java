@@ -2,7 +2,10 @@ package pfs.lms.enquiry.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -17,6 +20,10 @@ import java.util.UUID;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoanApplication extends AggregateRoot<LoanApplication>{
+
+    @Generated(GenerationTime.INSERT)
+    @Column(name = "enquiryNo", insertable = false)
+    private Integer enquiryNo;
 
     private LocalDate loanEnquiryDate;
 
