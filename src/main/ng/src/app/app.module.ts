@@ -18,6 +18,7 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { LoanEnquiryModule } from './main/loan-enquiry/loan-enquiry.module';
+import { EnquiryAlertsModule } from './main/enquiry-alerts/enquiry-alerts.module';
 
 const appRoutes: Routes = [
     {
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
         SampleModule,
 
         // User modules
-        LoanEnquiryModule
+        LoanEnquiryModule,
+        EnquiryAlertsModule
     ],
     bootstrap   : [
         AppComponent

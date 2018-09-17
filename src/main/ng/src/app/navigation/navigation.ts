@@ -16,6 +16,14 @@ export const navigation: FuseNavigation[] = [
                 url      : '/loanenquiry',
             },
             {
+                id       : 'enquiry-alerts',
+                title    : 'Enquiry Alerts',
+                translate: 'NAV.ENQUIRYALERTS',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/enquiryalerts',
+            },
+            {
                 id       : 'sample',
                 title    : 'Sample',
                 translate: 'NAV.SAMPLE.TITLE',

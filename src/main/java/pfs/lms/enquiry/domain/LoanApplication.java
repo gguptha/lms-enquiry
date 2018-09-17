@@ -1,5 +1,6 @@
 package pfs.lms.enquiry.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -16,7 +17,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LoanApplication extends AggregateRoot<LoanApplication>{
+public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private LocalDate loanEnquiryDate;
 
@@ -170,7 +171,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication>{
 
     private LocalDate decisionDate;
 
-    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, Integer loanClass, Integer projectType, Integer financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leanFILoanAmount, Double expecttedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaofBusinessNature, String rating, String promoterKeyDirector, String keyPromoter,  Integer technicalStatus, Integer functionalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate) {
+    @JsonCreator
+    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, Integer loanClass, Integer projectType, Integer financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leanFILoanAmount, Double expecttedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaofBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate) {
+
         this.loanEnquiryDate = loanEnquiryDate;
         this.loanEnquiryId = loanEnquiryId;
         this.loanContractId = loanContractId;
@@ -205,28 +208,27 @@ public class LoanApplication extends AggregateRoot<LoanApplication>{
         this.promoterKeyDirector = promoterKeyDirector;
         this.keyPromoter = keyPromoter;
         this.technicalStatus = technicalStatus;
-        this.functionalStatus = functionalStatus;
+        this.functionalStatus = 01;
         this.finalDecisionStatus = finalDecisionStatus;
         this.rejectionReason = rejectionReason;
         this.decisionDate = decisionDate;
 
-
         registerEvent(LoanApplicationCreated.of(this));
     }
 
-    public LoanApplication applicant(Partner partner){
+    public LoanApplication applicant(Partner partner) {
         this.loanApplicant = partner.getId();
         return this;
     }
 
-    public LoanApplication created(Partner partner){
+    public LoanApplication created(Partner partner) {
         this.createdAt = LocalTime.now();
         this.createdOn = LocalDate.now();
         this.createdByUserName = partner.getUserName();
         return this;
     }
 
-    public LoanApplication modified(Partner partner){
+    public LoanApplication modified(Partner partner) {
         this.changedAt = LocalTime.now();
         this.changedOn = LocalDate.now();
         this.changedByUserName = partner.getUserName();
@@ -240,6 +242,4 @@ public class LoanApplication extends AggregateRoot<LoanApplication>{
 
         final LoanApplication loanApplication;
     }
-
-
 }
