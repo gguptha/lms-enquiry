@@ -5,6 +5,7 @@ export const locale = {
             'APPLICATIONS'  : 'Applications',
             'LOANENQUIRY'   : 'Loan Enquiry',
             'ENQUIRYALERTS' : 'Enquiry Alerts',
+            'ENQUIRYLIST'   : 'Enquiry List',
             'SAMPLE'        : {
                 'TITLE': 'Sample',
                 'BADGE': '25'

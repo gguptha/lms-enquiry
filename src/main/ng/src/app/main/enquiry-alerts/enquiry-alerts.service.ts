@@ -3,13 +3,17 @@ import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoanApplication } from '../model/loanapplication.model';
+import { LoanEnquiryService } from '../loan-enquiry/loan-enquiry.service';
+import { Partner } from '../model/partner.model';
 
 @Injectable()   
 export class EnquiryAlertsService implements Resolve<any> {
 
     loanApplications: BehaviorSubject<LoanApplication[]>;
 
-    constructor(private _http: HttpClient) {
+    selectedLoanApplicationId: BehaviorSubject<string>;
+
+    constructor(private _http: HttpClient, private _loanEnquiryService: LoanEnquiryService) {
     }
 
     /**
@@ -19,9 +23,23 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param state 
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        return forkJoin([
-            this.getLoanApplications(1)
-        ]);
+        if (route.routeConfig.path === 'enquiryreview') {
+            if (this.selectedLoanApplicationId !== undefined) {
+                return forkJoin([
+                    this._loanEnquiryService.getLoanClasses(), // get loan classes.
+                    this._loanEnquiryService.getFinancingTypes(), // get financing types.
+                    this._loanEnquiryService.getProjectTypes(), // get project types.
+                    this._loanEnquiryService.getStates(), // get states.
+                    this._loanEnquiryService.getAssistanceTypes(), // get assistance types.
+                    this.getLoanApplication(this.selectedLoanApplicationId.getValue()) // get loan application.
+                ]);
+            }
+        }
+        else {
+            return forkJoin([
+                this.getLoanApplications(1)
+            ]);
+        }
     }
 
     /**
@@ -36,10 +54,17 @@ export class EnquiryAlertsService implements Resolve<any> {
                 result.content.map(loanApplication => {
                     loanApplications.push(new LoanApplication(loanApplication));
                 });
-                console.log(loanApplications);
                 observer.next(loanApplications);
                 observer.complete();
             });
         });
+    }
+
+    public getLoanApplication(enquiryId: string): Observable<LoanApplication> {
+        return this._http.get<LoanApplication>('api/loanApplications/' + enquiryId);
+    }
+
+    public getPartner(partnerId: string): Observable<Partner> {
+        return this._http.get<Partner>('api/partners/' + partnerId);
     }
 }

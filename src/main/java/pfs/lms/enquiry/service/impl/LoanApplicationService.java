@@ -18,10 +18,8 @@ public class LoanApplicationService implements ILoanApplicationService {
 
     private final LoanApplicationRepository loanApplicationRepository;
 
-
     @Override
-    public LoanApplication save(LoanApplicationResource resource,String username) {
-
+    public LoanApplication save(LoanApplicationResource resource, String username) {
 
         //Get the partner from partner service
         Partner applicant = partnerService.save(resource.getPartner());

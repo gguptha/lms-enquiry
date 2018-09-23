@@ -1,10 +1,6 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
-import { LoanClass } from '../model/loanclass.model';
-import { ProjectType } from '../model/projecttype.model';
-import { FinancingType } from '../model/financingtype.model';
 import { State } from '../model/state.model';
-import { AssistanceType } from '../model/assistancetype.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
