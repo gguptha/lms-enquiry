@@ -4,9 +4,31 @@
 
         <!-- createdOn Column -->
         <ng-container cdkColumnDef="createdOn">
-            <mat-header-cell *cdkHeaderCellDef>Created On</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef>Enquiry Date</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
-                <p class="text-truncate">{{ enquiry.createdOn }}</p>
+                <p class="text-truncate">{{ enquiry.createdOn | date: 'dd/MM/yyyy' }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- enquiryNo Column -->
+        <ng-container cdkColumnDef="enquiryNo">
+            <mat-header-cell *cdkHeaderCellDef>Enquiry No.</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.enquiryNo.id }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- bpCode Column -->
+        <ng-container cdkColumnDef="bpCode">
+            <mat-header-cell *cdkHeaderCellDef>BP Code</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+            </mat-cell>
+        </ng-container>
+
+        <!-- bpCode Column -->
+        <ng-container cdkColumnDef="projectName">
+            <mat-header-cell *cdkHeaderCellDef>Project Name</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
             </mat-cell>
         </ng-container>
 
@@ -22,7 +44,7 @@
         <ng-container cdkColumnDef="projectType">
             <mat-header-cell *cdkHeaderCellDef>Project Type</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
-                <p class="text-truncate">{{ enquiry.projectType }}</p>
+                <p class="text-truncate">{{ enquiry.projectTypeDescription }}</p>
             </mat-cell>
         </ng-container>
         <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
@@ -31,7 +53,7 @@
         <ng-container cdkColumnDef="loanClass">
             <mat-header-cell *cdkHeaderCellDef>Loan Class</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
-                <p class="text-truncate">{{ enquiry.loanClass }}</p>
+                <p class="text-truncate">{{ enquiry.loanClassDescription }}</p>
             </mat-cell>
         </ng-container>
 
@@ -47,33 +69,39 @@
         <ng-container cdkColumnDef="assistanceType">
             <mat-header-cell *cdkHeaderCellDef>Assistance Type</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
-                <p class="text-truncate">{{ enquiry.assistanceType }}</p>
+                <p class="text-truncate">{{ enquiry.assistanceTypeDescription }}</p>
             </mat-cell>
         </ng-container>
 
         <!-- projectCost Column -->
         <ng-container cdkColumnDef="projectCost">
-            <mat-header-cell *cdkHeaderCellDef>Project Cost</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef>Project Cost (Rs Cr)</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
                 <p class="text-truncate">{{ enquiry.projectCost }}</p>
             </mat-cell>
         </ng-container>
 
+        <!-- projectCost Column -->
+        <ng-container cdkColumnDef="loanAmount">
+            <mat-header-cell *cdkHeaderCellDef>Loan Amount Requested (Rs Cr)</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+            </mat-cell>
+        </ng-container>
+
         <!-- financingType Column -->
-        <ng-container cdkColumnDef="financingType">
+        <!--ng-container cdkColumnDef="financingType">
             <mat-header-cell *cdkHeaderCellDef>Financing Type</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
                 <p class="text-truncate">{{ enquiry.financingType }}</p>
             </mat-cell>
-        </ng-container>
+        </ng-container-->
 
-        <mat-row *cdkRowDef="let ticker; columns: displayedColumns;" class="ticker" matRipple 
-            (click)="onSelect(ticker)" [ngClass]="{'mat-light-blue-50-bg':ticker == selectedTicker}"
+        <mat-row *cdkRowDef="let enquiry; columns: displayedColumns;" class="enquiry" matRipple 
+            (click)="onSelect(enquiry)" [ngClass]="{'mat-light-blue-50-bg':enquiry == selectedEnquiry}"
             [@animate]="{value:'*',params:{y:'100%'}}">
         </mat-row>
 
     </mat-table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]">
-    </mat-paginator>
+    <!--mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator-->
 </div>

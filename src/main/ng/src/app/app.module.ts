@@ -19,6 +19,8 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { LoanEnquiryModule } from './main/loan-enquiry/loan-enquiry.module';
 import { EnquiryAlertsModule } from './main/enquiry-alerts/enquiry-alerts.module';
+import { EnquiryListComponent } from './main/enquiry-list/enquiry-list.component';
+import { EnquiryListModule } from './main/enquiry-list/enquiry-list.module';
 
 const appRoutes: Routes = [
     {
@@ -59,7 +61,8 @@ const appRoutes: Routes = [
 
         // User modules
         LoanEnquiryModule,
-        EnquiryAlertsModule
+        EnquiryAlertsModule,
+        EnquiryListModule
     ],
     bootstrap   : [
         AppComponent

@@ -14,10 +14,12 @@ import { BehaviorSubject } from 'rxjs';
 export class EnquiryAlertsListComponent implements OnInit {
 
     dataSource: LoanApplicationDataSource;
+    
+    selectedEnquiry: LoanApplication;
 
     displayedColumns = [
-        'createdOn', 'projectLocationState', 'projectType', 'loanClass', 'projectCapacity', 'assistanceType', 
-        'projectCost', 'financingType'
+        'createdOn', 'enquiryNo', 'projectLocationState', 'projectType', 'loanClass', 'projectCapacity', 
+        'assistanceType', 'projectCost'
     ];
 
     constructor(private _service: EnquiryAlertsService) {
@@ -25,6 +27,11 @@ export class EnquiryAlertsListComponent implements OnInit {
     }
     
     ngOnInit(): void {
+    }
+
+    onSelect(enquiry: LoanApplication): void {
+        this.selectedEnquiry = enquiry;
+        this._service.selectedLoanApplicationId = new BehaviorSubject(enquiry.id);
     }
 }
 

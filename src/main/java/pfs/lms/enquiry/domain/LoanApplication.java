@@ -1,20 +1,19 @@
 package pfs.lms.enquiry.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
-@Getter
 @Setter
 @ToString
 @EqualsAndHashCode
@@ -239,6 +238,166 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.changedOn = LocalDate.now();
         this.changedByUserName = partner.getUserName();
         return this;
+    }
+
+    public Long getEnqNo(){
+        return this.enquiryNo.getId();
+    }
+
+    public EnquiryNo getEnquiryNo() {
+        return this.enquiryNo;
+    }
+
+    public LocalDate getLoanEnquiryDate() {
+        return this.loanEnquiryDate;
+    }
+
+    public Integer getLoanEnquiryId() {
+        return this.loanEnquiryId;
+    }
+
+    public Integer getLoanContractId() {
+        return this.loanContractId;
+    }
+
+    public UUID getLoanApplicant() {
+        return this.loanApplicant;
+    }
+
+    public Integer getLoanClass() {
+        return this.loanClass;
+    }
+
+    public Integer getProjectType() {
+        return this.projectType;
+    }
+
+    public Integer getFinancingType() {
+        return this.financingType;
+    }
+
+    public String getAssistanceType() {
+        return this.assistanceType;
+    }
+
+    public Double getProjectCapacity() {
+        return this.projectCapacity;
+    }
+
+    public String getProjectCapacityUnit() {
+        return this.projectCapacityUnit;
+    }
+
+    public @Size(max = 100) String getProjectLocationState() {
+        return this.projectLocationState;
+    }
+
+    public @Size(max = 100) String getProjectDistrict() {
+        return this.projectDistrict;
+    }
+
+    public Integer getTenorYear() {
+        return this.tenorYear;
+    }
+
+    public Integer getTenorMonth() {
+        return this.tenorMonth;
+    }
+
+    public Double getProjectCost() {
+        return this.projectCost;
+    }
+
+    public Double getProjectDebtAmount() {
+        return this.projectDebtAmount;
+    }
+
+    public Double getEquity() {
+        return this.equity;
+    }
+
+    public String getProjectAmountCurrency() {
+        return this.projectAmountCurrency;
+    }
+
+    public Double getExpectedDebt() {
+        return this.expectedDebt;
+    }
+
+    public Double getPfsDebtAmount() {
+        return this.pfsDebtAmount;
+    }
+
+    public Double getPfsSubDebtAmount() {
+        return this.pfsSubDebtAmount;
+    }
+
+    public @Size(max = 100) String getLoanPurpose() {
+        return this.loanPurpose;
+    }
+
+    public @Size(max = 100) String getLeadFIName() {
+        return this.leadFIName;
+    }
+
+    public Double getLeanFILoanAmount() {
+        return this.leanFILoanAmount;
+    }
+
+    public Double getExpecttedInterestRate() {
+        return this.expecttedInterestRate;
+    }
+
+    public LocalDate getScheduledCOD() {
+        return this.scheduledCOD;
+    }
+
+    public @Size(max = 100) String getPromoterName() {
+        return this.promoterName;
+    }
+
+    public Double getPromoterNetWorthAmount() {
+        return this.promoterNetWorthAmount;
+    }
+
+    public Double getPromoterPATAmount() {
+        return this.promoterPATAmount;
+    }
+
+    public @Size(max = 100) String getPromoterAreaofBusinessNature() {
+        return this.promoterAreaofBusinessNature;
+    }
+
+    public String getRating() {
+        return this.rating;
+    }
+
+    public String getPromoterKeyDirector() {
+        return this.promoterKeyDirector;
+    }
+
+    public String getKeyPromoter() {
+        return this.keyPromoter;
+    }
+
+    public Integer getTechnicalStatus() {
+        return this.technicalStatus;
+    }
+
+    public Integer getFunctionalStatus() {
+        return this.functionalStatus;
+    }
+
+    public Integer getFinalDecisionStatus() {
+        return this.finalDecisionStatus;
+    }
+
+    public @Size(max = 100) String getRejectionReason() {
+        return this.rejectionReason;
+    }
+
+    public LocalDate getDecisionDate() {
+        return this.decisionDate;
     }
 
     @Value
