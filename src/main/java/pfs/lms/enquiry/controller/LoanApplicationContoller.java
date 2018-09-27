@@ -58,8 +58,8 @@ public class LoanApplicationContoller {
     public ResponseEntity update(@PathVariable String loanApplicationId,@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
         LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
         Partner partner = partnerRepository.getOne(resource.getPartner().getId());
-        BeanUtils.copyProperties(resource.getLoanApplication(),loanApplication);
-        BeanUtils.copyProperties(resource.getPartner(),partner);
+        BeanUtils.copyProperties(resource.getLoanApplication(),loanApplication,"id","enquiryNo");
+        BeanUtils.copyProperties(resource.getPartner(),partner,"id");
         loanApplication = loanApplicationRepository.save(loanApplication);
         partner = partnerRepository.save(partner);
         resource.setLoanApplication(loanApplication);
