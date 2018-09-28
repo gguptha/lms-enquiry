@@ -18,11 +18,11 @@ import java.util.UUID;
 @ToString
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private EnquiryNo enquiryNo = new EnquiryNo();
+    private EnquiryNo enquiryNo;
 
     private LocalDate loanEnquiryDate;
 
@@ -217,6 +217,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.finalDecisionStatus = finalDecisionStatus;
         this.rejectionReason = rejectionReason;
         this.decisionDate = decisionDate;
+        this.enquiryNo = new EnquiryNo();
 
         registerEvent(LoanApplicationCreated.of(this));
     }

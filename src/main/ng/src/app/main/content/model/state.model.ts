@@ -1,4 +1,4 @@
-export class State {
+export class StateModel {
 
     private static states = [
         'Andaman and Nicobar Islands',

@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatStepper } from '@angular/material';
-import { FuseConfirmDialogComponent } from '../../../@fuse/components/confirm-dialog/confirm-dialog.component';
-import { LoanEnquiryService } from './loan-enquiry.service';
+import { LoanEnquiryService } from './enquiryApplication.service';
 
 @Component({
-    selector: 'app-loan-enquiry',
-    templateUrl: './loan-enquiry.component.html',
-    styleUrls: ['./loan-enquiry.component.scss']
+    selector: 'fuse-enquiry-application-component',
+    templateUrl: './enquiryApplication.component.html',
+    styleUrls: ['./enquiryApplication.component.scss']
 })
-export class LoanEnquiryComponent implements OnInit {
+export class EnquiryApplicationComponent implements OnInit {
 
     loanEnquiryFormStep1: FormGroup;
     loanEnquiryFormStep2: FormGroup;
@@ -27,7 +26,7 @@ export class LoanEnquiryComponent implements OnInit {
      * @param _route 
      * @param _formBuilder 
      */
-    constructor(private _route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
+    constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
         private _loanEnquiryService: LoanEnquiryService) { 
 
         // Initialize the forms.

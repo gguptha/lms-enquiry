@@ -55,7 +55,7 @@ public class LoanApplicationContoller {
     }
 
     @PutMapping("/loanApplications/{id}")
-    public ResponseEntity update(@PathVariable String loanApplicationId,@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
+    public ResponseEntity update(@PathVariable("id") String loanApplicationId,@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
         LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
         Partner partner = partnerRepository.getOne(resource.getPartner().getId());
         BeanUtils.copyProperties(resource.getLoanApplication(),loanApplication,"id","enquiryNo");

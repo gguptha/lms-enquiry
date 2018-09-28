@@ -2,14 +2,14 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoanApplication } from '../model/loanapplication.model';
-import { LoanEnquiryService } from '../loan-enquiry/loan-enquiry.service';
-import { Partner } from '../model/partner.model';
+import { LoanApplicationModel } from '../../../model/loanApplication.model';
+import { LoanEnquiryService } from '../enquiryApplication/enquiryApplication.service';
+import { PartnerModel } from '../../../model/partner.model';
 
 @Injectable()   
 export class EnquiryAlertsService implements Resolve<any> {
 
-    loanApplications: BehaviorSubject<LoanApplication[]>;
+    loanApplications: BehaviorSubject<LoanApplicationModel[]>;
 
     selectedLoanApplicationId: BehaviorSubject<string>;
 
@@ -47,12 +47,12 @@ export class EnquiryAlertsService implements Resolve<any> {
      * Fetches a list of loan applications with a particular status.
      * @param status 
      */
-    public getLoanApplications(status: number): Observable<LoanApplication[]> {
+    public getLoanApplications(status: number): Observable<LoanApplicationModel[]> {
         return new Observable((observer) => {
             this._http.get<any>('api/loanApplications?status=' + status).subscribe(result => {
-                const loanApplications = new Array<LoanApplication>();
+                const loanApplications = new Array<LoanApplicationModel>();
                 result.content.map(loanApplication => {
-                    loanApplications.push(new LoanApplication(loanApplication));
+                    loanApplications.push(new LoanApplicationModel(loanApplication));
                 });
                 observer.next(loanApplications);
                 observer.complete();
@@ -60,11 +60,21 @@ export class EnquiryAlertsService implements Resolve<any> {
         });
     }
 
-    public getLoanApplication(enquiryId: string): Observable<LoanApplication> {
-        return this._http.get<LoanApplication>('api/loanApplications/' + enquiryId);
+    public getLoanApplication(enquiryId: string): Observable<LoanApplicationModel> {
+        return this._http.get<LoanApplicationModel>('api/loanApplications/' + enquiryId);
     }
 
-    public getPartner(partnerId: string): Observable<Partner> {
-        return this._http.get<Partner>('api/partners/' + partnerId);
+    public getPartner(partnerId: string): Observable<PartnerModel> {
+        return this._http.get<PartnerModel>('api/partners/' + partnerId);
+    }
+
+    /**
+     * updateLoanApplication()
+     * Saves/updates the loan application to the database.
+     * @param loanApplication 
+     * @param partner 
+     */
+    public updateLoanApplication(loanApplication: any, partner: any): Observable<any> {
+        return this._http.put('/api/loanApplications/' + loanApplication.id, {loanApplication, partner});
     }
 }

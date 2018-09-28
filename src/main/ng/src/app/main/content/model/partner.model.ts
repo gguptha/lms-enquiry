@@ -1,4 +1,4 @@
-export class Partner {
+export class PartnerModel {
 
     addressLine1: string;
     addressLine2: string;
@@ -8,6 +8,7 @@ export class Partner {
     country: string;
     email: string;
     groupCompany: string;
+    id: string;
     pan: string;
     partyName1: string;
     partyName2: string;
@@ -34,6 +35,7 @@ export class Partner {
         this.country = _partner.country;
         this.email = _partner.email;
         this.groupCompany = _partner.groupCompany;
+        this.id = _partner.id;
         this.pan = _partner.pan;
         this.partyName1 = _partner.partyName1;
         this.partyName2 = _partner.partyName2;

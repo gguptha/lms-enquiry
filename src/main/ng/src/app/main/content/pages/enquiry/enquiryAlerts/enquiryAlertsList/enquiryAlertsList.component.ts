@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { fuseAnimations } from '../../../../@fuse/animations';
 import { MatTableDataSource } from '@angular/material';
-import { LoanApplication } from '../../model/loanapplication.model';
-import { EnquiryAlertsService } from '../enquiry-alerts.service';
 import { BehaviorSubject } from 'rxjs';
+import { fuseAnimations } from '@fuse/animations';
+import { LoanApplicationModel } from '../../../../model/loanApplication.model';
+import { EnquiryAlertsService } from '../enquiryAlerts.service';
 
 @Component({
     selector: 'fuse-enquiry-alerts-list',
-    templateUrl: './enquiry-alerts-list.component.html',
-    styleUrls: ['./enquiry-alerts-list.component.scss'],
+    templateUrl: './enquiryAlertsList.component.html',
+    styleUrls: ['./enquiryAlertsList.component.scss'],
     animations: fuseAnimations
 })
 export class EnquiryAlertsListComponent implements OnInit {
 
     dataSource: LoanApplicationDataSource;
     
-    selectedEnquiry: LoanApplication;
+    selectedEnquiry: LoanApplicationModel;
 
     displayedColumns = [
         'createdOn', 'enquiryNo', 'projectLocationState', 'projectType', 'loanClass', 'projectCapacity', 
@@ -29,18 +29,18 @@ export class EnquiryAlertsListComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onSelect(enquiry: LoanApplication): void {
+    onSelect(enquiry: LoanApplicationModel): void {
         this.selectedEnquiry = enquiry;
         this._service.selectedLoanApplicationId = new BehaviorSubject(enquiry.id);
     }
 }
 
-export class LoanApplicationDataSource extends MatTableDataSource<LoanApplication> {
+export class LoanApplicationDataSource extends MatTableDataSource<LoanApplicationModel> {
     constructor(private _service: EnquiryAlertsService) {
         super();
     }
 
-    connect(): BehaviorSubject<LoanApplication[]> {
+    connect(): BehaviorSubject<LoanApplicationModel[]> {
         return this._service.loanApplications;
     }
 

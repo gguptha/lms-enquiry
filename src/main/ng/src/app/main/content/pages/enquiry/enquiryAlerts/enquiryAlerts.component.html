@@ -11,7 +11,9 @@
 
         <!-- TOOLBAR -->
         <div  class="toolbar" fxLayout="row" fxLayoutAlign="end">
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToEnquiryReview()">Enquiry Review</button>
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToEnquiryReview()" [disabled]="_service.selectedLoanApplicationId === undefined">
+                Enquiry Review
+            </button>
         </div>
         <!-- / TOOLBAR -->
 

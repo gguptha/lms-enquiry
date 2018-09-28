@@ -1,8 +1,8 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
-import { State } from '../model/state.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { StateModel } from '../../../model/state.model';
 
 @Injectable()   
 export class LoanEnquiryService implements Resolve<any> {
@@ -64,7 +64,7 @@ export class LoanEnquiryService implements Resolve<any> {
      */
     public getStates(): Observable<Array<string>> {
         return new Observable((observer) => {
-            observer.next(State.getStates());
+            observer.next(StateModel.getStates());
             observer.complete();
         });
     }

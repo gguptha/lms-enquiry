@@ -3,36 +3,34 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
-import { EnquiryAlertsComponent } from './enquiry-alerts.component';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatTableModule, MatPaginatorModule, MatHorizontalStepper, MatStepperModule, MatSelectModule, MatInputModule } from '@angular/material';
-import { EnquiryAlertsListComponent } from './enquiry-alerts-list/enquiry-alerts-list.component';
+import { MatButtonModule, MatTableModule, MatPaginatorModule, MatStepperModule, MatSelectModule, MatInputModule, MatIconModule, MatToolbarModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
-import { EnquiryAlertsService } from './enquiry-alerts.service';
-import { EnquiryReviewComponent } from './enquiry-review/enquiry-review.component';
+import { EnquiryAlertsService } from './enquiryAlerts.service';
+import { EnquiryAlertsComponent } from './enquiryAlerts.component';
+import { EnquiryAlertsListComponent } from './enquiryAlertsList/enquiryAlertsList.component';
 
 const routes = [
     {
-        path      : 'enquiryalerts',
+        path      : 'enquiryAlerts',
         component : EnquiryAlertsComponent,
         resolve   : {
             routeResolvedData: EnquiryAlertsService
         }
     },
-    {
+    /*{
         path      : 'enquiryreview',
         component : EnquiryReviewComponent,
         resolve   : {
             routeResolvedData: EnquiryAlertsService
         }
-    }
+    }*/
 ];
 
 @NgModule({
     declarations: [
         EnquiryAlertsComponent,
-        EnquiryAlertsListComponent,
-        EnquiryReviewComponent
+        EnquiryAlertsListComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -45,14 +43,18 @@ const routes = [
         MatStepperModule,
         MatSelectModule,
         MatInputModule,
+        MatIconModule,
+        MatToolbarModule,
         CdkTableModule
     ],
     exports     : [
         EnquiryAlertsComponent,
-        EnquiryReviewComponent
+        EnquiryAlertsListComponent
     ],
     providers   : [
         EnquiryAlertsService
+    ],
+    entryComponents: [
     ]
 })
 export class EnquiryAlertsModule

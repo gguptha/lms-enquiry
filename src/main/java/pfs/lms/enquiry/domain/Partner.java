@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Setter
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class Partner extends AggregateRoot<Partner>{
 
     private Integer partyNumber;
@@ -42,7 +42,9 @@ public class Partner extends AggregateRoot<Partner>{
     @Size(max = 100)
     private String contactPersonName;
 
-    private String address;
+    private String addressLine1;
+
+    private String addressLine2;
 
     private String street;
 
@@ -72,15 +74,17 @@ public class Partner extends AggregateRoot<Partner>{
     @Size(max = 100)
     private String password;
 
+    private String pan;
 
-    public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String address, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, @Size(max = 20) String userName, @Size(max = 100) String password) {
+    public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String addressLine1, String addressLine2, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, @Size(max = 20) String userName, @Size(max = 100) String password, String pan) {
         this.partyNumber = partyNumber;
         this.partyCategory = partyCategory;
         this.partyRole = partyRole;
         this.partyName1 = partyName1;
         this.partyName2 = partyName2;
         this.contactPersonName = contactPersonName;
-        this.address = address;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
         this.street = street;
         this.city = city;
         this.state = state;
@@ -91,6 +95,7 @@ public class Partner extends AggregateRoot<Partner>{
         this.groupCompany = groupCompany;
         this.userName = userName;
         this.password = password;
+        this.pan = pan;
         registerEvent(PartnerCreated.of(this));
     }
 

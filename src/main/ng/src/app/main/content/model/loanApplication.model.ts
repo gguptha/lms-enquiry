@@ -1,4 +1,4 @@
-export class LoanApplication {
+export class LoanApplicationModel {
 
     assistanceType: string;
     createdOn: Date;
@@ -13,6 +13,14 @@ export class LoanApplication {
     projectCost: number;
     projectLocationState: string;
     projectType: number;
+
+    promoterName: string;
+    promoterAreaOfBusinessNature: string;
+    promoterKeyDirector: string;
+    promoterNetWorthAmount: number;
+    promoterPATAmount: number;
+    rating: string;
+
     tenorYear: number;
     tenorMonth: number;
 
@@ -37,6 +45,14 @@ export class LoanApplication {
         this.projectCost = _loanApplication.projectCost;
         this.projectLocationState = _loanApplication.projectLocationState || '';
         this.projectType = _loanApplication.projectType || 0;
+
+        this.promoterName = _loanApplication.promoterName || '';
+        this.promoterAreaOfBusinessNature = _loanApplication.promoterAreaOfBusinessNature || '';
+        this.promoterKeyDirector = _loanApplication.promoterKeyDirector;
+        this.promoterNetWorthAmount = _loanApplication.promoterNetWorthAmount;
+        this.promoterPATAmount = _loanApplication.promoterPATAmount;
+        this.rating = _loanApplication.rating;
+
         this.tenorYear = _loanApplication.tenorYear || 0;
         this.tenorMonth = _loanApplication.tenorMonth || 0;
 

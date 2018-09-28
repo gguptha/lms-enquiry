@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { fuseAnimations } from '../../../@fuse/animations';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EnquiryAlertsService } from './enquiry-alerts.service';
+import { EnquiryAlertsService } from './enquiryAlerts.service';
 import { BehaviorSubject } from 'rxjs';
+import { fuseAnimations } from '@fuse/animations'
 
 @Component({
-    selector   : 'enquiry-alerts',
-    templateUrl: './enquiry-alerts.component.html',
-    styleUrls  : ['./enquiry-alerts.component.scss'],
+    selector   : 'fuse-enquiry-alerts-component',
+    templateUrl: './enquiryAlerts.component.html',
+    styleUrls  : ['./enquiryAlerts.component.scss'],
     animations : fuseAnimations
 })
 export class EnquiryAlertsComponent {
@@ -19,6 +19,8 @@ export class EnquiryAlertsComponent {
     constructor(private _route: ActivatedRoute, private _service: EnquiryAlertsService, private _router: Router) {
         // Initialize EnquiryAlertsService.loanApplication.
         this._service.loanApplications = new BehaviorSubject(_route.snapshot.data.routeResolvedData[0]);
+        // Set EnquiryAlertsService.selectedLoanApplicationId to undefined.
+        this._service.selectedLoanApplicationId = undefined;
     }
 
     redirectToEnquiryReview(): void {
