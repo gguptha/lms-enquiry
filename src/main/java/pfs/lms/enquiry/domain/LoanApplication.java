@@ -43,7 +43,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 008     Infrastructure
      * 009     Others
      */
-    private Integer loanClass;
+    private String loanClass;
 
     /**
      * 01   Thermal - Coal
@@ -63,7 +63,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 15   Renovation & Modernisation
      * 16   Others
      */
-    private Integer projectType;
+    private String projectType;
 
     /**
      * 01      Sole Lending
@@ -73,7 +73,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 05      Lead FI & Synd.
      * 06      Syndication
      */
-    private Integer financingType;
+    private String financingType;
 
     /**
      * D - Debt
@@ -108,7 +108,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String projectAmountCurrency = "INR";
 
-    private Double expectedDebt;
+    private Double expectedSubDebt;
 
     private Double pfsDebtAmount;
 
@@ -120,9 +120,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
     @Size(max = 100)
     private String leadFIName;
 
-    private Double leanFILoanAmount;
+    private Double leadFILoanAmount;
 
-    private Double expecttedInterestRate;
+    private Double expectedInterestRate;
 
     private LocalDate scheduledCOD;
 
@@ -134,7 +134,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
     private Double promoterPATAmount;
 
     @Size(max = 100)
-    private String promoterAreaofBusinessNature;
+    private String promoterAreaOfBusinessNature;
 
     private String rating;
 
@@ -177,7 +177,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
     private LocalDate decisionDate;
 
     @JsonCreator
-    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, Integer loanClass, Integer projectType, Integer financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leanFILoanAmount, Double expecttedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaofBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate) {
+    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate) {
 
         this.loanEnquiryDate = loanEnquiryDate;
         this.loanEnquiryId = loanEnquiryId;
@@ -197,18 +197,18 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.projectDebtAmount = projectDebtAmount;
         this.equity = equity;
         this.projectAmountCurrency = projectAmountCurrency;
-        this.expectedDebt = expectedDebt;
+        this.expectedSubDebt = expectedSubDebt;
         this.pfsDebtAmount = pfsDebtAmount;
         this.pfsSubDebtAmount = pfsSubDebtAmount;
         this.loanPurpose = loanPurpose;
         this.leadFIName = leadFIName;
-        this.leanFILoanAmount = leanFILoanAmount;
-        this.expecttedInterestRate = expecttedInterestRate;
+        this.leadFILoanAmount = leadFILoanAmount;
+        this.expectedInterestRate = expectedInterestRate;
         this.scheduledCOD = scheduledCOD;
         this.promoterName = promoterName;
         this.promoterNetWorthAmount = promoterNetWorthAmount;
         this.promoterPATAmount = promoterPATAmount;
-        this.promoterAreaofBusinessNature = promoterAreaofBusinessNature;
+        this.promoterAreaOfBusinessNature = promoterAreaOfBusinessNature;
         this.rating = rating;
         this.promoterKeyDirector = promoterKeyDirector;
         this.keyPromoter = keyPromoter;
@@ -265,15 +265,15 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.loanApplicant;
     }
 
-    public Integer getLoanClass() {
+    public String getLoanClass() {
         return this.loanClass;
     }
 
-    public Integer getProjectType() {
+    public String getProjectType() {
         return this.projectType;
     }
 
-    public Integer getFinancingType() {
+    public String getFinancingType() {
         return this.financingType;
     }
 
@@ -321,8 +321,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.projectAmountCurrency;
     }
 
-    public Double getExpectedDebt() {
-        return this.expectedDebt;
+    public Double getExpectedSubDebt() {
+        return this.expectedSubDebt;
     }
 
     public Double getPfsDebtAmount() {
@@ -341,12 +341,12 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.leadFIName;
     }
 
-    public Double getLeanFILoanAmount() {
-        return this.leanFILoanAmount;
+    public Double getLeadFILoanAmount() {
+        return this.leadFILoanAmount;
     }
 
-    public Double getExpecttedInterestRate() {
-        return this.expecttedInterestRate;
+    public Double getExpectedInterestRate() {
+        return this.expectedInterestRate;
     }
 
     public LocalDate getScheduledCOD() {
@@ -365,8 +365,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.promoterPATAmount;
     }
 
-    public @Size(max = 100) String getPromoterAreaofBusinessNature() {
-        return this.promoterAreaofBusinessNature;
+    public @Size(max = 100) String getPromoterAreaOfBusinessNature() {
+        return this.promoterAreaOfBusinessNature;
     }
 
     public String getRating() {

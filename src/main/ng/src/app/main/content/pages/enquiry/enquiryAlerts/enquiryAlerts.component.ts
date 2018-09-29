@@ -19,7 +19,7 @@ export class EnquiryAlertsComponent {
     constructor(private _route: ActivatedRoute, private _service: EnquiryAlertsService, private _router: Router) {
         // Initialize EnquiryAlertsService.loanApplication.
         this._service.loanApplications = new BehaviorSubject(_route.snapshot.data.routeResolvedData[0]);
-        // Set EnquiryAlertsService.selectedLoanApplicationId to undefined.
+        // Set EnquiryAlertsService.selectedLoanApplicationId to undefined to earse any previously selected enquiry.
         this._service.selectedLoanApplicationId = undefined;
     }
 

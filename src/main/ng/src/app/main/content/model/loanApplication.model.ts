@@ -3,24 +3,30 @@ export class LoanApplicationModel {
     assistanceType: string;
     createdOn: Date;
     enquiryNo: EnquiryNumber;
+    equity: number;
+    expectedInterestRate: number;
+    expectedSubDebt: number;
     financingType: string;
     id: string;
     loanApplicant: string;
     loanClass: number;
     loanPurpose: number;
+    leadFIName: string;
+    leadFILoanAmount: number;
     pfsDebtAmount: number;
+    pfsSubDebtAmount: number;
     projectCapacity: number;
     projectCost: number;
+    projectDebtAmount: number;
+    projectDistrict: string;
     projectLocationState: string;
     projectType: number;
-
     promoterName: string;
     promoterAreaOfBusinessNature: string;
     promoterKeyDirector: string;
     promoterNetWorthAmount: number;
     promoterPATAmount: number;
     rating: string;
-
     tenorYear: number;
     tenorMonth: number;
 
@@ -35,24 +41,30 @@ export class LoanApplicationModel {
         this.assistanceType = _loanApplication.assistanceType || '';
         this.createdOn = _loanApplication.createdOn || '';
         this.enquiryNo = _loanApplication.enquiryNo;
+        this.equity = _loanApplication.equity;
+        this.expectedInterestRate = _loanApplication.expectedInterestRate;
+        this.expectedSubDebt = _loanApplication.expectedSubDebt;
         this.financingType = _loanApplication.financingType || '';
         this.id = _loanApplication.id || '';
         this.loanApplicant = _loanApplication.loanApplicant;
         this.loanClass = _loanApplication.loanClass || 0;
         this.loanPurpose = _loanApplication.loanPurpose || '';
+        this.leadFIName = _loanApplication.leadFIName;
+        this.leadFILoanAmount = _loanApplication.leadFILoanAmount;
         this.pfsDebtAmount = _loanApplication.pfsDebtAmount || 0;
+        this.pfsSubDebtAmount = _loanApplication.pfsSubDebtAmount || 0;
         this.projectCapacity = _loanApplication.projectCapacity;
         this.projectCost = _loanApplication.projectCost;
+        this.projectDebtAmount = _loanApplication.projectDebtAmount;
+        this.projectDistrict = _loanApplication.projectDistrict;
         this.projectLocationState = _loanApplication.projectLocationState || '';
         this.projectType = _loanApplication.projectType || 0;
-
         this.promoterName = _loanApplication.promoterName || '';
         this.promoterAreaOfBusinessNature = _loanApplication.promoterAreaOfBusinessNature || '';
         this.promoterKeyDirector = _loanApplication.promoterKeyDirector;
         this.promoterNetWorthAmount = _loanApplication.promoterNetWorthAmount;
         this.promoterPATAmount = _loanApplication.promoterPATAmount;
         this.rating = _loanApplication.rating;
-
         this.tenorYear = _loanApplication.tenorYear || 0;
         this.tenorMonth = _loanApplication.tenorMonth || 0;
 

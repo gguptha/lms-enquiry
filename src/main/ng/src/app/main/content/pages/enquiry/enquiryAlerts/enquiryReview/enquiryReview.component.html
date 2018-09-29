@@ -1,0 +1,383 @@
+<div id="tickers" class="page-layout simple" fusePerfectScrollbar>
+    <!-- HEADER -->
+    <div class="sub-header p-6 blue-grey-200-bg" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb text-truncate h1 pl-24 pt-12 pb-12" fxLayout="row" fxLayoutAlign="start center" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
+            Enquiry Review
+        </div>
+        <!-- / BREADCRUMB -->
+
+        <!-- TOOLBAR -->
+        <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="rejectEnquiry()">
+                Reject Enquiry
+            </button>
+
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToEnquiryReview()">
+                Take Enquiry Further
+            </button>
+        </div>
+        <!-- / TOOLBAR -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div id="loan-enquiry" class="w-100-p p-16" fxLayout="column" fusePerfectScrollbar>
+
+        <div class="horizontal-stepper-wrapper">
+
+            <mat-horizontal-stepper class="mat-elevation-z2" [linear]="true" #stepper>
+
+                <!-- PROJECT DETAILS STEP -->
+                <mat-step [stepControl]="loanEnquiryFormStep1">
+
+                    <form [formGroup]="loanEnquiryFormStep1">
+
+                        <ng-template matStepLabel>Project Details</ng-template>
+
+                        <div fxLayout="row">
+
+                            <mat-form-field fxFlex="25">
+                                <mat-select placeholder="Loan Class" formControlName="loanClass">
+                                    <mat-option *ngFor="let loanClass of loanClasses" [value]="loanClass.code">
+                                        {{ loanClass.value }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <mat-select placeholder="Financing Type" formControlName="financingType">
+                                    <mat-option *ngFor="let financingType of financingTypes" [value]="financingType.code">
+                                        {{ financingType.value }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="50">
+                                <mat-select placeholder="Project Type" formControlName="projectType">
+                                    <mat-option *ngFor="let projectType of projectTypes" [value]="projectType.code">
+                                        {{ projectType.value }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Project Capacity" formControlName="projectCapacity">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <mat-select placeholder="Type of Assistance" formControlName="assistanceType">
+                                    <mat-option *ngFor="let assistanceType of assistanceTypes" [value]="assistanceType.code">
+                                        {{ assistanceType.value }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Tenor of Loan (Years)" formControlName="tenorYear" required>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="(Months)" formControlName="tenorMonth" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="25">
+                                <mat-select placeholder="Project Location - State" formControlName="projectLocationState">
+                                    <mat-option *ngFor="let state of states" [value]="state">
+                                        {{ state }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Project District" formControlName="projectDistrict">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Project Cost (in Crore)" formControlName="projectCost">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Equity" formControlName="equity">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Project Debt Amount (in Crore)" formControlName="projectDebtAmount">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="PFS Debt Amount (in Crore)" formControlName="pfsDebtAmount" required>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Expected Sub Debt (if any)" formControlName="expectedSubDebt">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="PFS Sub Debt (if any)" formControlName="pfsSubDebtAmount">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="100">
+                                <input matInput placeholder="Purpose of Loan" formControlName="loanPurpose" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Lead FI Name" formControlName="leadFIName">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Lead FI Loan Amount" formControlName="leadFILoanAmount">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Expected Rate of Interest" formControlName="expectedInterestRate">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="25">
+                                <input matInput placeholder="Scheduled COD" formControlName="scheduledCOD">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="pt-12" fxLayout="row" fxLayoutAlign="center center">
+                            <button class="mr-8" mat-raised-button type="button" color="accent" (click)="backButtonClick()">
+                                Back
+                            </button>
+                            <button class="mr-8" mat-raised-button matStepperNext type="button" color="accent">
+                                Next
+                            </button>
+                            <button mat-raised-button type="button" color="accent">
+                                Clear
+                            </button>
+                        </div>
+
+                    </form>
+
+                </mat-step>
+
+                <!-- BORROWER DETAILS STEP -->
+                <mat-step [stepControl]="loanEnquiryFormStep2">
+
+                    <form [formGroup]="loanEnquiryFormStep2">
+
+                        <ng-template matStepLabel>Borrower Details</ng-template>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Organization Name/ First Name" formControlName="partyName1" required>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="34">
+                                <input matInput placeholder="Other Name/ Last Name" formControlName="partyName2">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Contact Person" formControlName="contactPersonName" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Address 1" formControlName="addressLine1" required>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="34">
+                                <input matInput placeholder="Address 2" formControlName="addressLine2">
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Street Name" formControlName="street" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="City" formControlName="city" required>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="34">
+                                <mat-select placeholder="State" formControlName="state">
+                                    <mat-option *ngFor="let state of states" [value]="state">
+                                        {{ state }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Postal Code" formControlName="postalCode" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Email" formControlName="email" required>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="34">
+                                <input matInput placeholder="Contact Number" formControlName="contactNumber" required>
+                            </mat-form-field>
+
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="PAN Number" formControlName="pan" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Group Company (if any)" formControlName="groupCompany">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="pt-12" fxLayout="row" fxLayoutAlign="center center">
+                            <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                                Previous
+                            </button>
+                            <button class="mr-8" mat-raised-button matStepperNext type="button" color="accent">
+                                Next
+                            </button>
+                            <button mat-raised-button type="button" color="accent">
+                                Clear
+                            </button>
+                        </div>
+                    </form>
+
+                </mat-step>
+
+                <!-- PROMOTER DETAILS STEP -->
+                <mat-step [stepControl]="loanEnquiryFormStep3">
+
+                    <form [formGroup]="loanEnquiryFormStep3">
+
+                        <ng-template matStepLabel>Promoter Details</ng-template>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Name" formControlName="promoterName">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Area of Business & Nature" formControlName="promoterAreaOfBusinessNature">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Net Worth in Cr" formControlName="promoterNetWorthAmount">
+                            </mat-form-field>
+                            <mat-form-field fxFlex="34">
+                                <input matInput placeholder="PAT in Cr" formControlName="promoterPATAmount">
+                            </mat-form-field>
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Rating" formControlName="rating">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex="33">
+                                <input matInput placeholder="Key Promoter" formControlName="promoterKeyDirector">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                            <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                                Previous
+                            </button>
+                            <button mat-raised-button matStepperNext type="button" color="accent">
+                                Next
+                            </button>
+                        </div>
+
+                    </form>
+
+                </mat-step>
+
+                <!-- BP DETAILS STEP -->
+                <!--mat-step [stepControl]="loanEnquiryFormStep4">
+
+                <form [formGroup]="loanEnquiryFormStep4">
+
+                    <ng-template matStepLabel>Decision</ng-template>
+
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="33">
+                            <input matInput placeholder="BP Code" formControlName="bpCode">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="34">
+                            <input matInput placeholder="Group Company BP" formControlName="bpGroupCompany">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="33">
+                            <input matInput placeholder="Industry" formControlName="bpIndustry">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="33">
+                            <input matInput placeholder="Category" formControlName="category">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="100">
+                            <input matInput placeholder="Reason for rejection" formControlName="rejectionReason">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="33">
+                            <input matInput placeholder="Date of Rejection" formControlName="rejectionDate">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Previous
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Next
+                        </button>
+                    </div>
+
+                </form>
+
+            </mat-step-->
+
+                <!-- DONE STEP -->
+                <mat-step>
+
+                    <ng-template matStepLabel>Done</ng-template>
+
+                    <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                        Please click on Finish to submit.
+                    </div>
+
+                    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Previous
+                        </button>
+                        <button mat-raised-button type="button" color="accent" (click)="saveLoanApplication(stepper)">
+                            Finish
+                        </button>
+                    </div>
+
+                </mat-step>
+
+            </mat-horizontal-stepper>
+
+        </div>
+
+    </div>
+    <!-- CONTENT -->
+</div>

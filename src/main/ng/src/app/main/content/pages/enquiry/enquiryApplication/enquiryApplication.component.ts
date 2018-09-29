@@ -71,7 +71,7 @@ export class EnquiryApplicationComponent implements OnInit {
 
         this.loanEnquiryFormStep3 = this._formBuilder.group({
             promoterName: [''],
-            promoterAreaofBusinessNature: [''],
+            promoterAreaOfBusinessNature: [''],
             promoterNetWorthAmount: [''],
             promoterPATAmount: [''],
             rating: [''],
@@ -116,7 +116,7 @@ export class EnquiryApplicationComponent implements OnInit {
         const loanApplication = this.loanEnquiryFormStep1.value;
         const promoter = this.loanEnquiryFormStep3.value;
         loanApplication.promoterName = promoter.promoterName;
-        loanApplication.promoterAreaofBusinessNature = promoter.promoterAreaofBusinessNature;
+        loanApplication.promoterAreaOfBusinessNature = promoter.promoterAreaOfBusinessNature;
         loanApplication.promoterNetWorthAmount = promoter.promoterNetWorthAmount;
         loanApplication.promoterPATAmount = promoter.promoterPATAmount;
         loanApplication.rating = promoter.rating;
