@@ -1,11 +1,14 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StateModel } from '../../model/state.model';
+import { LoanApplicationModel } from '../../model/loanApplication.model';
 
-@Injectable()   
+@Injectable()
 export class LoanEnquiryService implements Resolve<any> {
+
+    public enquirySearchList: BehaviorSubject<any>;
 
     constructor(private _http: HttpClient) {
     }
@@ -76,6 +79,15 @@ export class LoanEnquiryService implements Resolve<any> {
      * @param partner 
      */
     public saveLoanApplication(loanApplication: any, partner: any): Observable<any> {
-        return this._http.post('/api/loanApplications', {loanApplication, partner});
+        return this._http.post('/api/loanApplications', { loanApplication, partner });
+    }
+
+    /**
+     * searchLoanEnquiries()
+     * Fetches a list of loan applications based on the request parameters.
+     * @param request 
+     */
+    public searchLoanEnquiries(request: any): Observable<any> {
+        return this._http.put<any>('/api/loanApplications/search', { request });
     }
 }

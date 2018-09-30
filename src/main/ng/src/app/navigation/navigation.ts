@@ -29,7 +29,7 @@ export const navigation: FuseNavigation[] = [
                 translate: 'NAV.ENQUIRYLIST',
                 type     : 'item',
                 icon     : 'email',
-                url      : '/enquirylist',
+                url      : '/enquiryList',
             },
             {
                 id       : 'sample',
