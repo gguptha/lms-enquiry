@@ -34,7 +34,7 @@ export class EnquiryApplicationComponent implements OnInit {
             loanClass: [''],
             financingType: [''],
             projectType: [''],
-            projectCapacity: ['', [Validators.pattern("\^\d{1,2}(\.\d{2,2})?$\gm")]],
+            projectCapacity: ['', [Validators.pattern(/^\d{1,2}(\.\d{2,2})?$/)]],
             assistanceType: [''],
             tenorYear: [5],
             tenorMonth: [6],
