@@ -18,8 +18,8 @@ export class EnquiryAlertsListComponent implements OnInit {
     selectedEnquiry: LoanApplicationModel;
 
     displayedColumns = [
-        'createdOn', 'enquiryNo', 'projectLocationState', 'projectType', 'loanClass', 'projectCapacity', 
-        'assistanceType', 'projectCost'
+        'createdOn', 'enquiryNo', 'bpCode', 'projectName', 'projectLocationState', 'projectType', 'loanClass', 'projectCapacity', 
+        'assistanceType', 'projectCost', 'loanAmount'
     ];
 
     constructor(private _service: EnquiryAlertsService) {
@@ -41,6 +41,7 @@ export class LoanApplicationDataSource extends MatTableDataSource<LoanApplicatio
     }
 
     connect(): BehaviorSubject<LoanApplicationModel[]> {
+        console.log('connect', this._service.loanApplications);
         return this._service.loanApplications;
     }
 

@@ -25,7 +25,7 @@
             </mat-cell>
         </ng-container>
 
-        <!-- bpCode Column -->
+        <!-- projectName Column -->
         <ng-container cdkColumnDef="projectName">
             <mat-header-cell *cdkHeaderCellDef>Project Name</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
@@ -85,6 +85,7 @@
         <ng-container cdkColumnDef="loanAmount">
             <mat-header-cell *cdkHeaderCellDef>Loan Amount Requested (Rs Cr)</mat-header-cell>
             <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.projectCost }}</p>
             </mat-cell>
         </ng-container>
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoanEnquiryService } from '../enquiryApplication.service';
-import { LoanApplicationModel } from '../../../model/loanApplication.model';
 
 @Component({
     selector: 'fuse-enquiry-search',
@@ -17,8 +16,8 @@ export class EnquirySearchComponent implements OnInit {
     constructor(_formBuilder: FormBuilder, private _service: LoanEnquiryService) {
 
         this.enquirySearchForm = _formBuilder.group({
-            enquiryNumberFrom: [''],
-            enquiryNumberTo: ['']
+            enquiryNoFrom: [],
+            enquiryNoTo: []
         });
     }
 
@@ -26,8 +25,7 @@ export class EnquirySearchComponent implements OnInit {
     }
 
     searchEnquiries(): void {
-        const request = this.enquirySearchForm.value;
-        this._service.searchLoanEnquiries(request).subscribe((result) => {
+        this._service.searchLoanEnquiries(this.enquirySearchForm.value).subscribe((result) => {
             this.enquiryList = result;
         });
     }

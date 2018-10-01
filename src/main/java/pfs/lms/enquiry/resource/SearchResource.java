@@ -8,10 +8,11 @@ import java.time.LocalDate;
 public class SearchResource {
     private LocalDate enquiryDateFrom;
     private LocalDate enquiryDateTo;
-    private String promoterName;
+    private String partyName;
     private Integer loanClass;
     private Integer financingType;
-    private Integer enquiryNo;
+    private Integer enquiryNoFrom;
+    private Integer enquiryNoTo;
     private String projectLocationState;
     private Integer projectType;
     private String assistanceType;

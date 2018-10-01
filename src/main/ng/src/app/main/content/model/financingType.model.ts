@@ -1,9 +1,9 @@
-export class FinancingType {
+export class FinancingTypeModel {
 
     /**
      * code
      */
-    code: string;
+    code: number;
 
     /**
      * value
@@ -16,7 +16,7 @@ export class FinancingType {
      */
     constructor(_financingType: any) {
         // Initialize the object.
-        this.code = _financingType.code || '';
+        this.code = _financingType.code || 0;
         this.value = _financingType.value || '';
     }
 }

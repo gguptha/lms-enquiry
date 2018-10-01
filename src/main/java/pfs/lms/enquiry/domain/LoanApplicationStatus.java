@@ -32,4 +32,14 @@ public class LoanApplicationStatus extends AbstractEntity{
         this.createdAt = LocalTime.now();
         this.createdByUserName = loanApplication.getCreatedByUserName();
     }
+
+    public static LoanApplicationStatus reject(LoanApplication loanApplication){
+        LoanApplicationStatus status = new LoanApplicationStatus();
+        status.setCreatedAt(LocalTime.now());
+        status.setCreatedByUserName(loanApplication.getChangedByUserName());
+        status.setCreatedOn(LocalDate.now());
+        status.setLoanApplicationId(loanApplication.getId());
+        status.setStatus(8);
+        return status;
+    }
 }

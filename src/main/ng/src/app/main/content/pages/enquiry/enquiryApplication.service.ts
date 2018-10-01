@@ -3,7 +3,6 @@ import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StateModel } from '../../model/state.model';
-import { LoanApplicationModel } from '../../model/loanApplication.model';
 
 @Injectable()
 export class LoanEnquiryService implements Resolve<any> {
@@ -85,9 +84,9 @@ export class LoanEnquiryService implements Resolve<any> {
     /**
      * searchLoanEnquiries()
      * Fetches a list of loan applications based on the request parameters.
-     * @param request 
+     * @param request
      */
     public searchLoanEnquiries(request: any): Observable<any> {
-        return this._http.put<any>('/api/loanApplications/search', { request });
+        return this._http.put<any>('/api/loanApplications/search', request);
     }
 }

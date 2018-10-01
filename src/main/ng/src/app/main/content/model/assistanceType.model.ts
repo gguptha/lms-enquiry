@@ -1,4 +1,4 @@
-export class AssistanceType {
+export class AssistanceTypeModel {
 
     /**
      * code
@@ -18,5 +18,16 @@ export class AssistanceType {
         // Initialize the object.
         this.code = _assistanceType.code || '';
         this.value = _assistanceType.value || '';
+    }
+
+    /**
+     * getAssistanceTypeDescription()
+     * @param assistanceType 
+     */
+    public static getAssistanceTypeDescription(assistanceType: string): string {
+        switch (assistanceType) {
+            case 'E': return 'Equity';
+            case 'D': return 'Debt';
+        }
     }
 }

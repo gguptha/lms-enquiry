@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.domain.LoanApplication;
@@ -16,8 +17,8 @@ import pfs.lms.enquiry.resource.SearchResource;
 import pfs.lms.enquiry.service.ILoanApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RepositoryRestController
@@ -67,39 +68,48 @@ public class LoanApplicationContoller {
         return ResponseEntity.ok(resource);
     }
 
+    @PutMapping("/loanApplications/{id}/reject")
+    public ResponseEntity update(@PathVariable("id") LoanApplication loanApplication,@RequestBody String reason, HttpServletRequest request){
+        Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
+        loanApplication.reject(reason,partner);
+        loanApplication = loanApplicationRepository.save(loanApplication);
+        return ResponseEntity.ok(loanApplication);
+    }
+
     @PutMapping("/loanApplications/search")
-    public ResponseEntity search(@RequestBody SearchResource resource,Pageable pageable){
-        Set<LoanApplication> loanApplications = new HashSet<>(loanApplicationRepository.findAll(pageable).getContent());
+    public ResponseEntity search(@RequestBody SearchResource resource, @PageableDefault(sort = {"enquiryNo ASC"}) Pageable pageable){
+        List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationRepository.findAll(pageable).getContent());
 
-        if (resource.getEnquiryDateFrom() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanEnquiryDate().isAfter(resource.getEnquiryDateFrom())).collect(Collectors.toSet());
+        if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> (loanApplication.getLoanEnquiryDate().isAfter(resource.getEnquiryDateFrom()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateFrom())) && (loanApplication.getLoanEnquiryDate().isBefore(resource.getEnquiryDateTo()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateTo()))).collect(Collectors.toList());
 
-        if (resource.getEnquiryDateTo() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanEnquiryDate().isBefore(resource.getEnquiryDateTo())).collect(Collectors.toSet());
+        if (resource.getEnquiryNoFrom() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getEnquiryNo().getId() >=
+                    resource.getEnquiryNoFrom()).collect(Collectors.toList());
 
-        if (resource.getPromoterName() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getPromoterName().equals(resource.getPromoterName())).collect(Collectors.toSet());
+        if (resource.getEnquiryNoTo() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getEnquiryNo().getId() <=
+                    resource.getEnquiryNoTo()).collect(Collectors.toList());
+
+        if (resource.getPartyName() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getPromoterName().contains(resource.getPartyName())).collect(Collectors.toList());
 
         if (resource.getLoanClass() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanClass().equals(resource.getLoanClass())).collect(Collectors.toSet());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanClass().equals(resource.getLoanClass())).collect(Collectors.toList());
 
         if (resource.getFinancingType() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getFinancingType().equals(resource.getFinancingType())).collect(Collectors.toSet());
-
-        if (resource.getEnquiryNo() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getEnquiryNo().getId().equals(resource.getEnquiryNo())).collect(Collectors.toSet());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getFinancingType().equals(resource.getFinancingType())).collect(Collectors.toList());
 
         if (resource.getProjectLocationState() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectLocationState().equals(resource.getProjectLocationState())).collect(Collectors.toSet());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectLocationState().equals(resource.getProjectLocationState())).collect(Collectors.toList());
 
         if (resource.getProjectType() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectType().equals(resource.getProjectType())).collect(Collectors.toSet());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectType().equals(resource.getProjectType())).collect(Collectors.toList());
 
         if (resource.getAssistanceType() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getAssistanceType().equals(resource.getAssistanceType())).collect(Collectors.toSet());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getAssistanceType().equals(resource.getAssistanceType())).collect(Collectors.toList());
 
-
-        Set<LoanApplicationResource> resources = new HashSet<>(0);
+        List<LoanApplicationResource> resources = new ArrayList<>(0);
         loanApplications.forEach(loanApplication -> {
             Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
             resources.add(new LoanApplicationResource(loanApplication,partner));

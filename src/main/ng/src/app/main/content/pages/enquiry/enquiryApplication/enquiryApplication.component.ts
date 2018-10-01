@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatStepper } from '@angular/material';
 import { LoanEnquiryService } from './enquiryApplication.service';
@@ -34,7 +34,7 @@ export class EnquiryApplicationComponent implements OnInit {
             loanClass: [''],
             financingType: [''],
             projectType: [''],
-            projectCapacity: [''],
+            projectCapacity: ['', [Validators.pattern("\^\d{1,2}(\.\d{2,2})?$\gm")]],
             assistanceType: [''],
             tenorYear: [5],
             tenorMonth: [6],
