@@ -56,10 +56,16 @@
 
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="Tenor of Loan (Years)" formControlName="tenorYear" required>
+                            <mat-error>
+                                Provide numeric input. (Max value is 99)
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="(Months)" formControlName="tenorMonth" required>
+                            <mat-error>
+                                Provide numeric input. (Max value is 11)
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
@@ -78,28 +84,46 @@
 
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="Project Cost (in Crore)" formControlName="projectCost">
+                            <mat-error>
+                                Provide numeric input. (Max value is 99999999.99)
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="Equity" formControlName="equity">
+                            <mat-error>
+                                Provide numeric input. (Max value is 99999999.99)
+                            </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div fxLayout="row">
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="Project Debt Amount (in Crore)" formControlName="projectDebtAmount">
+                            <mat-error>
+                                Provide numeric input. (Max value is 99999999.99)
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="PFS Debt Amount (in Crore)" formControlName="pfsDebtAmount" required>
+                            <mat-error>
+                                Provide numeric input. (Max value is 99999999.99)
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="Expected Sub Debt (if any)" formControlName="expectedSubDebt">
+                            <mat-error>
+                                Provide numeric input. (Max value is 99999999.99)
+                            </mat-error>
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
                             <input matInput placeholder="PFS Sub Debt (if any)" formControlName="pfsSubDebtAmount">
+                            <mat-error>
+                                Provide numeric input. (Max value is 99999999.99)
+                            </mat-error>
                         </mat-form-field>
                     </div>
 

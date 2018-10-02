@@ -27,7 +27,7 @@ export class EnquiryApplicationComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _loanEnquiryService: LoanEnquiryService) { 
+        private _loanEnquiryService: LoanEnquiryService) {
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
@@ -36,16 +36,16 @@ export class EnquiryApplicationComponent implements OnInit {
             projectType: [''],
             projectCapacity: ['', [Validators.pattern(/^\d{1,2}(\.\d{2,2})?$/)]],
             assistanceType: [''],
-            tenorYear: [5],
-            tenorMonth: [6],
+            tenorYear: [5, [Validators.required, Validators.min(1), Validators.max(99), Validators.pattern(/^\d{1,2}?$/)]],
+            tenorMonth: [6, [Validators.required, Validators.min(1), Validators.max(11), Validators.pattern(/^\d{1,2}?$/)]],
             projectLocationState: [''],
             projectDistrict: [''],
-            projectCost: [''],
-            equity: [''],
-            projectDebtAmount: [''],
-            pfsDebtAmount: [5],
-            expectedSubDebt: [''],
-            pfsSubDebtAmount: [''],
+            projectCost: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
+            equity: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
+            projectDebtAmount: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
+            pfsDebtAmount: [5, [Validators.required, Validators.min(1), Validators.max(99999999.99), Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
+            expectedSubDebt: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
+            pfsSubDebtAmount: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
             loanPurpose: ['Loan required for the purpose of Road Constructions'],
             leadFIName: [''],
             leadFILoanAmount: [''],
@@ -111,7 +111,7 @@ export class EnquiryApplicationComponent implements OnInit {
 
         // Re-construct the partner object.
         const partner = this.loanEnquiryFormStep2.value;
-        
+
         // Re-construct the loan application object.
         const loanApplication = this.loanEnquiryFormStep1.value;
         const promoter = this.loanEnquiryFormStep3.value;
