@@ -77,4 +77,13 @@ export class EnquiryAlertsService implements Resolve<any> {
     public updateLoanApplication(loanApplication: any, partner: any): Observable<any> {
         return this._http.put('/api/loanApplications/' + loanApplication.id, {loanApplication, partner});
     }
+
+    /**
+     * rejectEnquiry()
+     * @param loanApplication 
+     * @param rejectReason 
+     */
+    public rejectEnquiry(loanApplication: LoanApplicationModel, rejectReason: string): Observable<any> {
+        return this._http.put('api/loanApplications/' + loanApplication.id + '/reject', { rejectReason });
+    }
 }

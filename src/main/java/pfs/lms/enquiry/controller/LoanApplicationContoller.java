@@ -12,6 +12,7 @@ import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
+import pfs.lms.enquiry.resource.EnquiryRejectReason;
 import pfs.lms.enquiry.resource.LoanApplicationResource;
 import pfs.lms.enquiry.resource.SearchResource;
 import pfs.lms.enquiry.service.ILoanApplicationService;
@@ -69,9 +70,9 @@ public class LoanApplicationContoller {
     }
 
     @PutMapping("/loanApplications/{id}/reject")
-    public ResponseEntity update(@PathVariable("id") LoanApplication loanApplication,@RequestBody String reason, HttpServletRequest request){
+    public ResponseEntity update(@PathVariable("id") LoanApplication loanApplication, @RequestBody EnquiryRejectReason enquiryRejectReason, HttpServletRequest request) {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
-        loanApplication.reject(reason,partner);
+        loanApplication.reject(enquiryRejectReason.getRejectReason(), partner);
         loanApplication = loanApplicationRepository.save(loanApplication);
         return ResponseEntity.ok(loanApplication);
     }

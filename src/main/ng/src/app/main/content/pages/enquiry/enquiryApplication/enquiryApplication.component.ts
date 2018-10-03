@@ -31,10 +31,10 @@ export class EnquiryApplicationComponent implements OnInit {
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
-            loanClass: [''],
-            financingType: [''],
-            projectType: [''],
-            projectCapacity: ['', [Validators.pattern(/^\d{1,2}(\.\d{2,2})?$/)]],
+            loanClass: ['', [Validators.required]],
+            financingType: ['', [Validators.required]],
+            projectType: ['', [Validators.required]],
+            projectCapacity: ['', [Validators.pattern(/^\d{1,4}(\.\d{2,2})?$/)]],
             assistanceType: [''],
             tenorYear: [5, [Validators.required, Validators.min(1), Validators.max(99), Validators.pattern(/^\d{1,2}?$/)]],
             tenorMonth: [6, [Validators.required, Validators.min(1), Validators.max(11), Validators.pattern(/^\d{1,2}?$/)]],
@@ -48,8 +48,8 @@ export class EnquiryApplicationComponent implements OnInit {
             pfsSubDebtAmount: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
             loanPurpose: ['Loan required for the purpose of Road Constructions'],
             leadFIName: [''],
-            leadFILoanAmount: [''],
-            expectedInterestRate: [''],
+            leadFILoanAmount: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
+            expectedInterestRate: ['', [Validators.pattern(/^\d{1,2}(\.\d{1,2})?$/)]],
             scheduledCOD: ['']
         });
 
