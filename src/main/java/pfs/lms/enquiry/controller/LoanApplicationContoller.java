@@ -7,6 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
@@ -35,7 +41,10 @@ public class LoanApplicationContoller {
     @GetMapping("/loanApplications")
     public ResponseEntity<Page<LoanApplication>> get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
                                                      Pageable pageable) {
+
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
+
+
         if (partner.getPartyRole().equals("ZLM023")) {
             if (status == null)
                 return ResponseEntity.ok(loanApplicationRepository.findAll(pageable));
