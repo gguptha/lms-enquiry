@@ -19,4 +19,9 @@ public class LoanApplicationEngine {
     public void onLoanApplicationCreated(LoanApplication.LoanApplicationCreated loanApplicationCreated){
         loanApplicationStatusRepository.save(new LoanApplicationStatus(loanApplicationCreated.getLoanApplication()));
     }
+
+    @EventListener
+    private void onLoanApplicationRejected(LoanApplication.LoanApplicationRejected event){
+        loanApplicationStatusRepository.save(LoanApplicationStatus.reject(event.getLoanApplication()));
+    }
 }

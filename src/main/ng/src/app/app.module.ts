@@ -17,10 +17,9 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
-import { LoanEnquiryModule } from './main/loan-enquiry/loan-enquiry.module';
-import { EnquiryAlertsModule } from './main/enquiry-alerts/enquiry-alerts.module';
-import { EnquiryListComponent } from './main/enquiry-list/enquiry-list.component';
-import { EnquiryListModule } from './main/enquiry-list/enquiry-list.module';
+import { EnquiryApplicationModule } from './main/content/pages/enquiry/enquiryApplication/enquiryApplication.module';
+import { EnquiryAlertsModule } from './main/content/pages/enquiry/enquiryAlerts/enquiryAlerts.module';
+import { EnquiryListModule } from './main/content/pages/enquiry/enquirySearch/enquirySearch.module';
 
 const appRoutes: Routes = [
     {
@@ -60,7 +59,7 @@ const appRoutes: Routes = [
         SampleModule,
 
         // User modules
-        LoanEnquiryModule,
+        EnquiryApplicationModule,
         EnquiryAlertsModule,
         EnquiryListModule
     ],

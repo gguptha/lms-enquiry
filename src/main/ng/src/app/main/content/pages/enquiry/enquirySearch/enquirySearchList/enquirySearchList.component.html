@@ -1,0 +1,108 @@
+<div class="mat-table-container">
+
+    <mat-table class="enquiries-table" #table [dataSource]="dataSource" *fuseIfOnDom [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+        <!-- createdOn Column -->
+        <ng-container cdkColumnDef="createdOn">
+            <mat-header-cell *cdkHeaderCellDef>Enquiry Date</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.loanApplication.createdOn | date: 'dd/MM/yyyy' }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- enquiryNo Column -->
+        <ng-container cdkColumnDef="enquiryNo">
+            <mat-header-cell *cdkHeaderCellDef>Enquiry No.</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.loanApplication.enquiryNo.id }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- bpCode Column -->
+        <ng-container cdkColumnDef="bpCode">
+            <mat-header-cell *cdkHeaderCellDef>BP Code</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectName Column -->
+        <ng-container cdkColumnDef="projectName">
+            <mat-header-cell *cdkHeaderCellDef>Project Name</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.partner.partyName1 }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectLocationState Column -->
+        <ng-container cdkColumnDef="projectLocationState">
+            <mat-header-cell *cdkHeaderCellDef>Project Location</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.loanApplication.projectLocationState }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectType Column -->
+        <ng-container cdkColumnDef="projectType">
+            <mat-header-cell *cdkHeaderCellDef>Project Type</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ getProjectTypeDescription(enquiry.loanApplication.projectType) }}</p>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <!-- loanClass Column -->
+        <ng-container cdkColumnDef="loanClass">
+            <mat-header-cell *cdkHeaderCellDef>Loan Class</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ getLoanClassDescription(enquiry.loanApplication.loanClass) }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectCapacity Column -->
+        <ng-container cdkColumnDef="projectCapacity">
+            <mat-header-cell *cdkHeaderCellDef>Project Capacity</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.loanApplication.projectCapacity }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- assistanceType Column -->
+        <ng-container cdkColumnDef="assistanceType">
+            <mat-header-cell *cdkHeaderCellDef>Assistance Type</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ getAssistanceTypeDescription(enquiry.loanApplication.assistanceType) }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectCost Column -->
+        <ng-container cdkColumnDef="projectCost">
+            <mat-header-cell *cdkHeaderCellDef>Project Cost (Rs Cr)</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.loanApplication.projectCost }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectCost Column -->
+        <ng-container cdkColumnDef="loanAmount">
+            <mat-header-cell *cdkHeaderCellDef>Loan Amount Requested (Rs Cr)</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+            </mat-cell>
+        </ng-container>
+
+        <!-- financingType Column -->
+        <!--ng-container cdkColumnDef="financingType">
+            <mat-header-cell *cdkHeaderCellDef>Financing Type</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ enquiry.financingType }}</p>
+            </mat-cell>
+        </ng-container-->
+
+        <mat-row *cdkRowDef="let enquiry; columns: displayedColumns;" class="enquiry" matRipple 
+            (click)="onSelect(enquiry)" [ngClass]="{'mat-light-blue-50-bg':enquiry == selectedEnquiry}"
+            [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+
+    <!--mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator-->
+</div>
