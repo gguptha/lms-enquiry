@@ -9,9 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
