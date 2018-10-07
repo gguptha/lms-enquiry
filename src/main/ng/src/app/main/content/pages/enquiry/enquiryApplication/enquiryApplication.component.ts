@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatStepper } from '@angular/material';
 import { LoanEnquiryService } from './enquiryApplication.service';
+import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regEx';
 
 @Component({
     selector: 'fuse-enquiry-application-component',
@@ -31,17 +32,17 @@ export class EnquiryApplicationComponent implements OnInit {
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
-            loanClass: ['', [Validators.required]],
-            financingType: ['', [Validators.required]],
-            projectType: ['', [Validators.required]],
-            projectCapacity: ['', [Validators.pattern(/^\d{1,4}(\.\d{2,2})?$/)]],
+            loanClass: [''],
+            financingType: [''],
+            projectType: [''],
+            projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity)]],
             assistanceType: [''],
-            tenorYear: [5, [Validators.required, Validators.min(1), Validators.max(99), Validators.pattern(/^\d{1,2}?$/)]],
-            tenorMonth: [6, [Validators.required, Validators.min(1), Validators.max(11), Validators.pattern(/^\d{1,2}?$/)]],
+            tenorYear: [5, [Validators.min(1), Validators.max(99), Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],
+            tenorMonth: [6, [Validators.min(1), Validators.max(11), Validators.pattern(EnquiryApplicationRegEx.tenorMonth)]],
             projectLocationState: [''],
             projectDistrict: [''],
-            projectCost: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
-            equity: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
+            projectCost: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCost)]],
+            equity: ['', [Validators.pattern(EnquiryApplicationRegEx.equity)]],
             projectDebtAmount: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
             pfsDebtAmount: [5, [Validators.required, Validators.min(1), Validators.max(99999999.99), Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
             expectedSubDebt: ['', [Validators.pattern(/^\d{1,8}(\.\d{2,2})?$/)]],
