@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatStepper } from '@angular/material';
 import { Location } from '@angular/common';
@@ -8,6 +8,7 @@ import { EnquiryAlertsService } from '../enquiryAlerts.service';
 import { LoanApplicationModel } from '../../../../model/loanApplication.model';
 import { PartnerModel } from '../../../../model/partner.model';
 import { EnquiryRejectDialogComponent } from '../enquiryReject/enquiryReject.component';
+import { EnquiryApplicationRegEx } from '../../../../others/enquiryApplication.regEx';
 
 @Component({
     selector: 'fuse-enquiry-review',
@@ -75,20 +76,21 @@ export class EnquiryReviewComponent implements OnInit {
             projectType: [this.loanApplication.projectType],
             projectCapacity: [this.loanApplication.projectCapacity],
             assistanceType: [this.loanApplication.assistanceType],
-            tenorYear: [this.loanApplication.tenorYear],
-            tenorMonth: [this.loanApplication.tenorMonth],
+            tenorYear: [this.loanApplication.tenorYear, [Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],
+            tenorMonth: [this.loanApplication.tenorMonth, [Validators.max(11), Validators.pattern(EnquiryApplicationRegEx.tenorMonth)]],
             projectLocationState: [this.loanApplication.projectLocationState],
             projectDistrict: [this.loanApplication.projectDistrict],
-            projectCost: [this.loanApplication.projectCost],
-            equity: [this.loanApplication.equity],
-            projectDebtAmount: [this.loanApplication.projectDebtAmount],
-            pfsDebtAmount: [this.loanApplication.pfsDebtAmount],
-            expectedSubDebt: [this.loanApplication.expectedSubDebt],
-            pfsSubDebtAmount: [this.loanApplication.pfsSubDebtAmount],
+            projectCost: [this.loanApplication.projectCost, [Validators.pattern(EnquiryApplicationRegEx.projectCost)]],
+            equity: [this.loanApplication.equity, [Validators.pattern(EnquiryApplicationRegEx.equity)]],
+            projectDebtAmount: [this.loanApplication.projectDebtAmount, [Validators.pattern(EnquiryApplicationRegEx.projectDebtAmount)]],
+            pfsDebtAmount: [this.loanApplication.pfsDebtAmount, [Validators.pattern(EnquiryApplicationRegEx.pfsDebtAmount)]],
+            expectedSubDebt: [this.loanApplication.expectedSubDebt, [Validators.pattern(EnquiryApplicationRegEx.expectedSubDebt)]],
+            pfsSubDebtAmount: [this.loanApplication.pfsSubDebtAmount, [Validators.pattern(EnquiryApplicationRegEx.pfsSubDebtAmount)]],
             loanPurpose: [this.loanApplication.loanPurpose],
             leadFIName: [this.loanApplication.leadFIName],
-            leadFILoanAmount: [this.loanApplication.leadFILoanAmount],
-            expectedInterestRate: [this.loanApplication.expectedInterestRate],
+            leadFILoanAmount: [this.loanApplication.leadFILoanAmount, [Validators.pattern(EnquiryApplicationRegEx.leadFILoanAmount)]],
+            expectedInterestRate: [this.loanApplication.expectedInterestRate, [Validators.pattern(
+                EnquiryApplicationRegEx.expectedInterestRate)]],
             scheduledCOD: ['']
         });
 
@@ -100,15 +102,6 @@ export class EnquiryReviewComponent implements OnInit {
             rating: [this.loanApplication.rating],
             promoterKeyDirector: [this.loanApplication.promoterKeyDirector]
         });
-
-        // this.loanEnquiryFormStep4 = this._formBuilder.group({
-        //     bpCode: [''],
-        //     bpGroupCompany: [''],
-        //     bpIndustry: [''],
-        //     category: [''],
-        //     rejectionReason: [''],
-        //     rejectionDate: ['']
-        // });
     }
 
     // Initialize the form loanEnquiryFormStep1.

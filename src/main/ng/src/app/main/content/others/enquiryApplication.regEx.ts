@@ -11,9 +11,18 @@ export class EnquiryApplicationRegEx {
     public static projectCost = /^\d{1,8}(\.\d{2,2})?$/;
 
     // ** Check comments on projectCost for other variations in the regEx.
-    
+
     // Accepts upto 4 digits and 2 ** mandatory ** decimal places. 
     public static projectCapacity = /^\d{1,4}(\.\d{2,2})?$/;
+    
     // Accepts upto 8 digits and 2 ** mandatory ** decimal places. 
     public static equity = /^\d{1,8}(\.\d{2,2})?$/;
+    public static projectDebtAmount = /^\d{1,8}(\.\d{2,2})?$/;
+    public static pfsDebtAmount = /^\d{1,8}(\.\d{2,2})?$/;
+    public static expectedSubDebt = /^\d{1,8}(\.\d{2,2})?$/;
+    public static pfsSubDebtAmount = /^\d{1,8}(\.\d{2,2})?$/;
+    public static leadFILoanAmount = /^\d{1,8}(\.\d{2,2})?$/;
+
+    // Accepts upto 8 digits and upto 2 decimal places. 
+    public static expectedInterestRate = /^\d{1,2}(\.\d{1,2})?$/;
 }

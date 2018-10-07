@@ -40,33 +40,45 @@
                         <div fxLayout="row">
 
                             <mat-form-field fxFlex="25">
-                                <mat-select placeholder="Loan Class" formControlName="loanClass">
+                                <mat-select placeholder="Loan Class" formControlName="loanClass" required>
                                     <mat-option *ngFor="let loanClass of loanClasses" [value]="loanClass.code">
                                         {{ loanClass.value }}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <mat-select placeholder="Financing Type" formControlName="financingType">
+                                <mat-select placeholder="Financing Type" formControlName="financingType" required>
                                     <mat-option *ngFor="let financingType of financingTypes" [value]="financingType.code">
                                         {{ financingType.value }}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="50">
-                                <mat-select placeholder="Project Type" formControlName="projectType">
+                                <mat-select placeholder="Project Type" formControlName="projectType" required>
                                     <mat-option *ngFor="let projectType of projectTypes" [value]="projectType.code">
                                         {{ projectType.value }}
                                     </mat-option>
                                 </mat-select>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
                         <div fxLayout="row">
                             <mat-form-field fxFlex="25">
                                 <input matInput placeholder="Project Capacity" formControlName="projectCapacity">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 9999.99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
@@ -78,11 +90,17 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Tenor of Loan (Years)" formControlName="tenorYear" required>
+                                <input matInput type="number" placeholder="Tenor of Loan (Years)" formControlName="tenorYear" required>
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="(Months)" formControlName="tenorMonth" required>
+                                <input matInput type="number" placeholder="(Months)" formControlName="tenorMonth" required>
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 11
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
@@ -100,29 +118,47 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Project Cost (in Crore)" formControlName="projectCost">
+                                <input matInput type="number" placeholder="Project Cost (in Crore)" formControlName="projectCost">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Equity" formControlName="equity">
+                                <input matInput type="number" placeholder="Equity" formControlName="equity">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
                         <div fxLayout="row">
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Project Debt Amount (in Crore)" formControlName="projectDebtAmount">
+                                <input matInput type="number" placeholder="Project Debt Amount (in Crore)" formControlName="projectDebtAmount">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="PFS Debt Amount (in Crore)" formControlName="pfsDebtAmount" required>
+                                <input matInput type="number" placeholder="PFS Debt Amount (in Crore)" formControlName="pfsDebtAmount" required>
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Expected Sub Debt (if any)" formControlName="expectedSubDebt">
+                                <input matInput type="number" placeholder="Expected Sub Debt (if any)" formControlName="expectedSubDebt">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="PFS Sub Debt (if any)" formControlName="pfsSubDebtAmount">
+                                <input matInput type="number" placeholder="PFS Sub Debt (if any)" formControlName="pfsSubDebtAmount">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
@@ -138,11 +174,17 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Lead FI Loan Amount" formControlName="leadFILoanAmount">
+                                <input matInput type="number" placeholder="Lead FI Loan Amount" formControlName="leadFILoanAmount">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Expected Rate of Interest" formControlName="expectedInterestRate">
+                                <input matInput type="number" placeholder="Expected Rate of Interest (%)" formControlName="expectedInterestRate">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99.99
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
@@ -176,6 +218,9 @@
                         <div fxLayout="row">
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="Organization Name/ First Name" formControlName="partyName1" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="34">
@@ -184,12 +229,18 @@
 
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="Contact Person" formControlName="contactPersonName" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
                         <div fxLayout="row">
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="Address 1" formControlName="addressLine1" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="34">
@@ -198,12 +249,18 @@
 
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="Street Name" formControlName="street" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
                         <div fxLayout="row">
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="City" formControlName="city" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="34">
@@ -216,20 +273,32 @@
 
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="Postal Code" formControlName="postalCode" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
                         <div fxLayout="row">
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="Email" formControlName="email" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="34">
                                 <input matInput placeholder="Contact Number" formControlName="contactNumber" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
 
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="PAN Number" formControlName="pan" required>
+                                <mat-error>
+                                    Provide valid input
+                                </mat-error>
                             </mat-form-field>
                         </div>
 
