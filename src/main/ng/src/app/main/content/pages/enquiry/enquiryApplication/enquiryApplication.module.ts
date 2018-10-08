@@ -4,7 +4,9 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { LoanEnquiryService } from './enquiryApplication.service';
 import { RouterModule } from '@angular/router';
 import { EnquiryApplicationComponent } from './enquiryApplication.component';
-import { MatStepperModule, MatSelectModule, MatButtonModule, MatInputModule, MatDialogModule } from '@angular/material';
+import {
+    MatStepperModule, MatSelectModule, MatButtonModule, MatInputModule, MatDialogModule, MatDatepickerModule, MAT_DATE_LOCALE
+} from '@angular/material';
 
 const routes = [
     {
@@ -26,13 +28,15 @@ const routes = [
         MatButtonModule,
         MatInputModule,
         MatDialogModule,
+        MatDatepickerModule
     ],
     declarations: [
         EnquiryApplicationComponent
     ],
     providers: [
-        LoanEnquiryService
+        LoanEnquiryService,
+        { provide: MAT_DATE_LOCALE, useValue: 'en-in' }
     ]
 })
-export class EnquiryApplicationModule { 
+export class EnquiryApplicationModule {
 }

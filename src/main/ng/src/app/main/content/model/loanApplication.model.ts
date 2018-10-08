@@ -29,6 +29,7 @@ export class LoanApplicationModel {
     rating: string;
     tenorYear: number;
     tenorMonth: number;
+    scheduledCOD: Date;
 
     _links: Object;
     
@@ -67,7 +68,8 @@ export class LoanApplicationModel {
         this.rating = _loanApplication.rating;
         this.tenorYear = _loanApplication.tenorYear || 0;
         this.tenorMonth = _loanApplication.tenorMonth || 0;
-
+        this.scheduledCOD = _loanApplication.scheduledCOD || '';
+        
         this._links = _loanApplication._links;
     }
 

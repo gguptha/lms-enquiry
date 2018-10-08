@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { CommonModule, DatePipe } from '@angular/common';
-import { MatButtonModule, MatTableModule, MatPaginatorModule, MatStepperModule, MatSelectModule, MatInputModule, MatIconModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatTableModule, MatPaginatorModule, MatStepperModule, MatSelectModule, MatInputModule, MatIconModule, MatToolbarModule, MatDatepickerModule, MAT_DATE_LOCALE } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { EnquiryAlertsService } from './enquiryAlerts.service';
 import { EnquiryAlertsComponent } from './enquiryAlerts.component';
@@ -49,6 +49,7 @@ const routes = [
         MatInputModule,
         MatIconModule,
         MatToolbarModule,
+        MatDatepickerModule,
         CdkTableModule
     ],
     exports     : [
@@ -58,7 +59,8 @@ const routes = [
     ],
     providers   : [
         EnquiryAlertsService,
-        DatePipe
+        DatePipe,
+        { provide: MAT_DATE_LOCALE, useValue: 'en-IN' }
     ],
     entryComponents: [
         EnquiryRejectDialogComponent

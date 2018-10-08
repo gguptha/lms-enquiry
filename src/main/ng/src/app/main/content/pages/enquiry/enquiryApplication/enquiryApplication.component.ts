@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatStepper } from '@angular/material';
+import { MatDialog, MatStepper, DateAdapter, NativeDateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
 import { LoanEnquiryService } from './enquiryApplication.service';
 import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regEx';
 
@@ -28,7 +28,7 @@ export class EnquiryApplicationComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _loanEnquiryService: LoanEnquiryService) {
+        private _loanEnquiryService: LoanEnquiryService, private _dateAdapter: DateAdapter<any>) {
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
@@ -122,6 +122,10 @@ export class EnquiryApplicationComponent implements OnInit {
         loanApplication.promoterPATAmount = promoter.promoterPATAmount;
         loanApplication.rating = promoter.rating;
         loanApplication.promoterKeyDirector = promoter.promoterKeyDirector;
+        
+        // To solve the utc time zone issue
+        const scheduledCOD = new Date(loanApplication.scheduledCOD);
+        loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
 
         // Save the loan application to the database.
         this._loanEnquiryService.saveLoanApplication(loanApplication, partner).subscribe(() => {

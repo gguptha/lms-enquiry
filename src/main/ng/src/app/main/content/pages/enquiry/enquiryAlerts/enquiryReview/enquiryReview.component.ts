@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatStepper } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatStepper, MAT_DATE_LOCALE } from '@angular/material';
 import { Location } from '@angular/common';
 import { fuseAnimations } from '@fuse/animations';
 import { EnquiryAlertsService } from '../enquiryAlerts.service';
@@ -91,7 +91,7 @@ export class EnquiryReviewComponent implements OnInit {
             leadFILoanAmount: [this.loanApplication.leadFILoanAmount, [Validators.pattern(EnquiryApplicationRegEx.leadFILoanAmount)]],
             expectedInterestRate: [this.loanApplication.expectedInterestRate, [Validators.pattern(
                 EnquiryApplicationRegEx.expectedInterestRate)]],
-            scheduledCOD: ['']
+            scheduledCOD: [this.loanApplication.scheduledCOD]
         });
 
         this.loanEnquiryFormStep3 = this._formBuilder.group({
@@ -179,6 +179,10 @@ export class EnquiryReviewComponent implements OnInit {
         this.loanApplication.leadFIName = loanApplication.leadFIName;
         this.loanApplication.leadFILoanAmount = loanApplication.leadFILoanAmount;
         this.loanApplication.expectedInterestRate = loanApplication.expectedInterestRate;
+
+        // To solve the utc time zone issue
+        const scheduledCOD = new Date(loanApplication.scheduledCOD);
+        this.loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
         
         // Reconstruct loanApplication with loanEnquiryFormStep3 values.
         const promoter = this.loanEnquiryFormStep3.value;

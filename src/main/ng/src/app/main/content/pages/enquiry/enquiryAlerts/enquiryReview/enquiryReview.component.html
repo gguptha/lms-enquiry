@@ -188,7 +188,9 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput placeholder="Scheduled COD" formControlName="scheduledCOD">
+                                <input matInput [matDatepicker]="picker" placeholder="Scheduled COD" formControlName="scheduledCOD">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
                         </div>
 
@@ -372,57 +374,7 @@
                     </form>
 
                 </mat-step>
-
-                <!-- BP DETAILS STEP -->
-                <!--mat-step [stepControl]="loanEnquiryFormStep4">
-
-                <form [formGroup]="loanEnquiryFormStep4">
-
-                    <ng-template matStepLabel>Decision</ng-template>
-
-                    <div fxLayout="row">
-                        <mat-form-field fxFlex="33">
-                            <input matInput placeholder="BP Code" formControlName="bpCode">
-                        </mat-form-field>
-                        <mat-form-field fxFlex="34">
-                            <input matInput placeholder="Group Company BP" formControlName="bpGroupCompany">
-                        </mat-form-field>
-                        <mat-form-field fxFlex="33">
-                            <input matInput placeholder="Industry" formControlName="bpIndustry">
-                        </mat-form-field>
-                    </div>
-
-                    <div fxLayout="row">
-                        <mat-form-field fxFlex="33">
-                            <input matInput placeholder="Category" formControlName="category">
-                        </mat-form-field>
-                    </div>
-
-                    <div fxLayout="row">
-                        <mat-form-field fxFlex="100">
-                            <input matInput placeholder="Reason for rejection" formControlName="rejectionReason">
-                        </mat-form-field>
-                    </div>
-
-                    <div fxLayout="row">
-                        <mat-form-field fxFlex="33">
-                            <input matInput placeholder="Date of Rejection" formControlName="rejectionDate">
-                        </mat-form-field>
-                    </div>
-
-                    <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
-                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
-                            Previous
-                        </button>
-                        <button mat-raised-button matStepperNext type="button" color="accent">
-                            Next
-                        </button>
-                    </div>
-
-                </form>
-
-            </mat-step-->
-
+                
                 <!-- DONE STEP -->
                 <mat-step>
 

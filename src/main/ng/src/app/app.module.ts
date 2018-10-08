@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, DateAdapter } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 
@@ -20,10 +20,11 @@ import { SampleModule } from 'app/main/sample/sample.module';
 import { EnquiryApplicationModule } from './main/content/pages/enquiry/enquiryApplication/enquiryApplication.module';
 import { EnquiryAlertsModule } from './main/content/pages/enquiry/enquiryAlerts/enquiryAlerts.module';
 import { EnquiryListModule } from './main/content/pages/enquiry/enquirySearch/enquirySearch.module';
+import { LocalDateFormat } from './main/content/others/localDate.Format';
 
 const appRoutes: Routes = [
     {
-        path      : '**',
+        path: '**',
         redirectTo: 'loanenquiry'
     }
 ];
@@ -32,7 +33,7 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -63,10 +64,12 @@ const appRoutes: Routes = [
         EnquiryAlertsModule,
         EnquiryListModule
     ],
-    bootstrap   : [
+    bootstrap: [
         AppComponent
-    ]
+    ],
+    providers: [
+        { provide: DateAdapter, useClass: LocalDateFormat }
+    ],
 })
-export class AppModule
-{
+export class AppModule {
 }
