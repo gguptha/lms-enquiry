@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatStepper, MAT_DATE_LOCALE } from '@angular/material';
@@ -14,7 +14,8 @@ import { EnquiryApplicationRegEx } from '../../../../others/enquiryApplication.r
     selector: 'fuse-enquiry-review',
     templateUrl: './enquiryReview.component.html',
     styleUrls: ['./enquiryReview.component.scss'],
-    animations: fuseAnimations
+    animations: fuseAnimations,
+    encapsulation: ViewEncapsulation.None
 })
 export class EnquiryReviewComponent implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatStepper, DateAdapter, NativeDateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
@@ -8,7 +8,8 @@ import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regE
 @Component({
     selector: 'fuse-enquiry-application-component',
     templateUrl: './enquiryApplication.component.html',
-    styleUrls: ['./enquiryApplication.component.scss']
+    styleUrls: ['./enquiryApplication.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class EnquiryApplicationComponent implements OnInit {
 
