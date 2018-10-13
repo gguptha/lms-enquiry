@@ -21,6 +21,7 @@ import { EnquiryApplicationModule } from './main/content/pages/enquiry/enquiryAp
 import { EnquiryAlertsModule } from './main/content/pages/enquiry/enquiryAlerts/enquiryAlerts.module';
 import { EnquiryListModule } from './main/content/pages/enquiry/enquirySearch/enquirySearch.module';
 import { LocalDateFormat } from './main/content/others/localDate.Format';
+import { MessageDialogModule } from './main/content/components/messageDialog/messageDialog.module';
 
 const appRoutes: Routes = [
     {
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
         // User modules
         EnquiryApplicationModule,
         EnquiryAlertsModule,
-        EnquiryListModule
+        EnquiryListModule,
+        MessageDialogModule
     ],
     bootstrap: [
         AppComponent

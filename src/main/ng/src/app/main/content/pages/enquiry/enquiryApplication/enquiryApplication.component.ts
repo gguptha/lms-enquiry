@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatStepper, DateAdapter, NativeDateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
 import { LoanEnquiryService } from './enquiryApplication.service';
 import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regEx';
+import { MessageDialogComponent } from '../../../components/messageDialog/messageDialog.component';
 
 @Component({
     selector: 'fuse-enquiry-application-component',
@@ -29,7 +30,8 @@ export class EnquiryApplicationComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _loanEnquiryService: LoanEnquiryService, private _dateAdapter: DateAdapter<any>) {
+        private _loanEnquiryService: LoanEnquiryService, private _dateAdapter: DateAdapter<any>, 
+        private _router: Router) {
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
@@ -99,17 +101,6 @@ export class EnquiryApplicationComponent implements OnInit {
      * This method is invoked when the user clicks on Finish on the last step of the loan application form.
      */
     saveLoanApplication(stepper: MatStepper): void {
-        /* const dialogRef = this._dialogRef.open(FuseConfirmDialogComponent, {
-            width: '400px',
-            data: {
-                confirmMessage: 'Provide your confirmation to save the loan application.',
-            }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                console.log('saving loan application');
-            }
-        }); */
 
         // Re-construct the partner object.
         const partner = this.loanEnquiryFormStep2.value;
@@ -129,9 +120,17 @@ export class EnquiryApplicationComponent implements OnInit {
         loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
 
         // Save the loan application to the database.
-        this._loanEnquiryService.saveLoanApplication(loanApplication, partner).subscribe(() => {
-            // Reset the stepper and the form data.
-            stepper.reset();
+        this._loanEnquiryService.saveLoanApplication(loanApplication, partner).subscribe((response) => {
+            // Display alert message and redirect to enquiry alerts page.
+            const dialogRef = this._dialogRef.open(MessageDialogComponent, {
+                width: '400px',
+                data: {
+                    message: 'Your Loan Enquiry ' + response.enquiryNo.id + ' is submitted to PFS Loan Officer.',
+                }
+            });
+            dialogRef.afterClosed().subscribe(() => {
+                this._router.navigate(['/enquiryAlerts']);
+            });
         });
     }
 }

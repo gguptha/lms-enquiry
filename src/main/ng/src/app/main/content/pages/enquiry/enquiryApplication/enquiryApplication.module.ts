@@ -7,6 +7,7 @@ import { EnquiryApplicationComponent } from './enquiryApplication.component';
 import {
     MatStepperModule, MatSelectModule, MatButtonModule, MatInputModule, MatDialogModule, MatDatepickerModule, MAT_DATE_LOCALE
 } from '@angular/material';
+import { FuseConfirmDialogModule } from '../../../../../../@fuse/components/confirm-dialog/confirm-dialog.module';
 
 const routes = [
     {
@@ -22,6 +23,7 @@ const routes = [
     imports: [
         RouterModule.forChild(routes),
         CommonModule,
+        FuseConfirmDialogModule,
         FuseSharedModule,
         MatStepperModule,
         MatSelectModule,
