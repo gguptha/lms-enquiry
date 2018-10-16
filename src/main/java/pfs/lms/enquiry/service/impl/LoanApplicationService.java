@@ -22,13 +22,32 @@ public class LoanApplicationService implements ILoanApplicationService {
     public LoanApplication save(LoanApplicationResource resource, String username) {
 
         //Get the partner from partner service
-        Partner applicant = partnerService.save(resource.getPartner());
-        Partner user = partnerService.getOne(username);
+        Partner applicant = partnerService.getOne(username);
+        applicant.setAddressLine1(resource.getPartner().getAddressLine1());
+        applicant.setAddressLine2(resource.getPartner().getAddressLine2());
+        applicant.setCity(resource.getPartner().getCity());
+        applicant.setContactNumber(resource.getPartner().getContactNumber());
+        applicant.setContactPersonName(resource.getPartner().getContactPersonName());
+        applicant.setCountry(resource.getPartner().getCountry());
+        applicant.setGroupCompany(resource.getPartner().getGroupCompany());
+        applicant.setPan(resource.getPartner().getPan());
+        applicant.setPartyCategory(resource.getPartner().getPartyCategory());
+        applicant.setPartyName1(resource.getPartner().getPartyName1());
+        applicant.setPartyName2(resource.getPartner().getPartyName2());
+        applicant.setPartyNumber(resource.getPartner().getPartyNumber());
+        applicant.setPostalCode(resource.getPartner().getPostalCode());
+        applicant.setState(resource.getPartner().getState());
+        applicant.setStreet(resource.getPartner().getStreet());
+        applicant.setEmail(resource.getPartner().getEmail());
+        partnerService.save(applicant);
+
+        // Partner applicant = partnerService.save(resource.getPartner()); // delete
+        // Partner app = partnerService.getOne(username); // delete
 
         //Set it to the Loan Application
         LoanApplication loanApplication = resource.getLoanApplication();
         loanApplication.applicant(applicant);
-        loanApplication.created(user);
+        loanApplication.created(applicant);
 
         //Save and return the Loan Application
         loanApplication = loanApplicationRepository.save(loanApplication);

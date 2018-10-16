@@ -317,11 +317,19 @@
 
                     <div fxLayout="row">
                         <mat-form-field fxFlex="33">
-                            <input matInput placeholder="Net Worth in Cr" formControlName="promoterNetWorthAmount">
+                            <input matInput type="number" placeholder="Net Worth in Cr" formControlName="promoterNetWorthAmount">
+                            <mat-error>
+                                Provide numeric input b/w 1 and 99999999.99
+                            </mat-error>
                         </mat-form-field>
+
                         <mat-form-field fxFlex="34">
-                            <input matInput placeholder="PAT in Cr" formControlName="promoterPATAmount">
+                            <input matInput type="number" placeholder="PAT in Cr" formControlName="promoterPATAmount">
+                            <mat-error>
+                                Provide numeric input b/w 1 and 99999999.99
+                            </mat-error>
                         </mat-form-field>
+
                         <mat-form-field fxFlex="33">
                             <input matInput placeholder="Rating" formControlName="rating">
                         </mat-form-field>

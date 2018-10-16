@@ -76,8 +76,8 @@ export class EnquiryApplicationComponent implements OnInit {
         this.loanEnquiryFormStep3 = this._formBuilder.group({
             promoterName: [''],
             promoterAreaOfBusinessNature: [''],
-            promoterNetWorthAmount: [''],
-            promoterPATAmount: [''],
+            promoterNetWorthAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
+            promoterPATAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
             rating: [''],
             promoterKeyDirector: ['']
         });
@@ -125,10 +125,10 @@ export class EnquiryApplicationComponent implements OnInit {
             const dialogRef = this._dialogRef.open(MessageDialogComponent, {
                 width: '400px',
                 data: {
-                    message: 'Your Loan Enquiry ' + response.enquiryNo.id + ' is submitted to PFS Loan Officer.',
+                    message: 'Your Loan Enquiry ' + response.enquiryNo.id + ' is submitted to PFS Loan Officer.'
                 }
             });
-            dialogRef.afterClosed().subscribe(() => {
+            dialogRef.afterClosed().subscribe((dresponse) => {
                 this._router.navigate(['/enquiryAlerts']);
             });
         });

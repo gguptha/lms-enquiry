@@ -45,18 +45,19 @@ public class LoanApplicationContoller {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
 
 
-        if (partner.getPartyRole().equals("ZLM023")) {
+        if (partner.getPartyRole().equals("ZLM023") || partner.getPartyRole().equals("ZLM013") ||
+                partner.getPartyRole().equals("ZLM010")) {
             if (status == null)
                 return ResponseEntity.ok(loanApplicationRepository.findAll(pageable));
             else
                 return ResponseEntity.ok(loanApplicationRepository.findByFunctionalStatus(status, pageable));
         }
         else {
-            if (status == null)
-                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicant(partner.getId(), pageable));
-            else
-                return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicantAndFunctionalStatus(partner.getId(),
-                        status, pageable));
+            //if (status == null)
+            return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicant(partner.getId(), pageable));
+            //else
+            //    return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicantAndFunctionalStatus(partner.getId(),
+            //            status, pageable));
         }
     }
 
@@ -82,6 +83,15 @@ public class LoanApplicationContoller {
     public ResponseEntity update(@PathVariable("id") LoanApplication loanApplication, @RequestBody EnquiryRejectReason enquiryRejectReason, HttpServletRequest request) {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
         loanApplication.reject(enquiryRejectReason.getRejectReason(), partner);
+        loanApplication = loanApplicationRepository.save(loanApplication);
+        return ResponseEntity.ok(loanApplication);
+    }
+
+    @PutMapping("/loanApplications/{id}/cancel")
+    public ResponseEntity cancel(@PathVariable("id") LoanApplication loanApplication, HttpServletRequest request) {
+        Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
+        // Set functional status to 9 (cancelled).
+        loanApplication.setFunctionalStatus(9);
         loanApplication = loanApplicationRepository.save(loanApplication);
         return ResponseEntity.ok(loanApplication);
     }

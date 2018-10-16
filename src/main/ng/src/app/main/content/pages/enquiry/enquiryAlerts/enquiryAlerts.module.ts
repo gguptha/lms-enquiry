@@ -11,6 +11,7 @@ import { EnquiryAlertsComponent } from './enquiryAlerts.component';
 import { EnquiryAlertsListComponent } from './enquiryAlertsList/enquiryAlertsList.component';
 import { EnquiryReviewComponent } from './enquiryReview/enquiryReview.component';
 import { EnquiryRejectDialogComponent } from './enquiryReject/enquiryReject.component';
+import { AppService } from '../../../../../app.service';
 
 const routes = [
     {
@@ -58,6 +59,7 @@ const routes = [
         EnquiryReviewComponent
     ],
     providers   : [
+        AppService,
         EnquiryAlertsService,
         DatePipe,
         { provide: MAT_DATE_LOCALE, useValue: 'en-IN' }

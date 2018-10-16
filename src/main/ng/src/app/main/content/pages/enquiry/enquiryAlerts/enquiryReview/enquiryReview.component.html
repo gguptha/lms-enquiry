@@ -10,11 +10,16 @@
 
         <!-- TOOLBAR -->
         <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="rejectEnquiry()">
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="withdrawApplication()" 
+                    *ngIf="!isCurrentUserAdmin()" [disabled]="loanApplication.functionalStatus !== 1">
+                Withdraw Application
+            </button>
+
+            <button *ngIf="isCurrentUserAdmin()" class="mr-8 btn" mat-raised-button color="accent" (click)="rejectEnquiry()">
                 Reject Enquiry
             </button>
 
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToEnquiryReview()">
+            <button *ngIf="isCurrentUserAdmin()" class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToEnquiryReview()">
                 Take Enquiry Further
             </button>
         </div>
@@ -346,11 +351,19 @@
 
                         <div fxLayout="row">
                             <mat-form-field fxFlex="33">
-                                <input matInput placeholder="Net Worth in Cr" formControlName="promoterNetWorthAmount">
+                                <input matInput type="number" placeholder="Net Worth in Cr" formControlName="promoterNetWorthAmount">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
+
                             <mat-form-field fxFlex="34">
-                                <input matInput placeholder="PAT in Cr" formControlName="promoterPATAmount">
+                                <input matInput type="number" placeholder="PAT in Cr" formControlName="promoterPATAmount">
+                                <mat-error>
+                                    Provide numeric input b/w 1 and 99999999.99
+                                </mat-error>
                             </mat-form-field>
+                            
                             <mat-form-field fxFlex="33">
                                 <input matInput placeholder="Rating" formControlName="rating">
                             </mat-form-field>
@@ -380,15 +393,20 @@
 
                     <ng-template matStepLabel>Done</ng-template>
 
-                    <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                    <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center" *ngIf="loanApplication.functionalStatus === 1">
                         Please click on Finish to submit.
+                    </div>
+
+                    <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center" *ngIf="loanApplication.functionalStatus !== 1">
+                        Further changes cannot be done on this loan enquiry.
                     </div>
 
                     <div class="pt-24" fxLayout="row" fxLayoutAlign="center center">
                         <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
                             Previous
                         </button>
-                        <button mat-raised-button type="button" color="accent" (click)="saveLoanApplication(stepper)">
+                        <button mat-raised-button type="button" color="accent" (click)="saveLoanApplication(stepper)" 
+                                [disabled]="loanApplication.functionalStatus !== 1">
                             Finish
                         </button>
                     </div>

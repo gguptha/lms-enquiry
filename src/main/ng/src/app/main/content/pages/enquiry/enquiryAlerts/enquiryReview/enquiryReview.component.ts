@@ -9,6 +9,8 @@ import { LoanApplicationModel } from '../../../../model/loanApplication.model';
 import { PartnerModel } from '../../../../model/partner.model';
 import { EnquiryRejectDialogComponent } from '../enquiryReject/enquiryReject.component';
 import { EnquiryApplicationRegEx } from '../../../../others/enquiryApplication.regEx';
+import { MessageDialogComponent } from '../../../../components/messageDialog/messageDialog.component';
+import { AppService } from '../../../../../../app.service';
 
 @Component({
     selector: 'fuse-enquiry-review',
@@ -39,10 +41,14 @@ export class EnquiryReviewComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _enquiryAlertsService: EnquiryAlertsService, private _location: Location) {
+        private _enquiryAlertsService: EnquiryAlertsService, private _location: Location, private _appService: AppService) {
+
+        console.log('_appService.user', _appService.currentUser.partyRole);
 
         // Initialize loanApplication.
         this.loanApplication = _route.snapshot.data.routeResolvedData[5];
+        console.log('this.loanApplication', this.loanApplication);
+
         // Initialize partner.
         this.partner = new PartnerModel({});
         this._enquiryAlertsService.getPartner(this.loanApplication.loanApplicant).subscribe((result) => {
@@ -98,8 +104,8 @@ export class EnquiryReviewComponent implements OnInit {
         this.loanEnquiryFormStep3 = this._formBuilder.group({
             promoterName: [this.loanApplication.promoterName],
             promoterAreaOfBusinessNature: [this.loanApplication.promoterAreaOfBusinessNature],
-            promoterNetWorthAmount: [this.loanApplication.promoterNetWorthAmount],
-            promoterPATAmount: [this.loanApplication.promoterPATAmount],
+            promoterNetWorthAmount: [this.loanApplication.promoterNetWorthAmount, [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
+            promoterPATAmount: [this.loanApplication.promoterPATAmount, [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
             rating: [this.loanApplication.rating],
             promoterKeyDirector: [this.loanApplication.promoterKeyDirector]
         });
@@ -134,18 +140,6 @@ export class EnquiryReviewComponent implements OnInit {
      * This method is invoked when the user clicks on Finish on the last step of the loan application form.
      */
     saveLoanApplication(stepper: MatStepper): void {
-        /* const dialogRef = this._dialogRef.open(FuseConfirmDialogComponent, {
-            width: '400px',
-            data: {
-                confirmMessage: 'Provide your confirmation to save the loan application.',
-            }
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                console.log('saving loan application');
-            }
-        }); */
-
         // Re-construct the partner object.
         this.reconstructPartner();
 
@@ -154,10 +148,22 @@ export class EnquiryReviewComponent implements OnInit {
 
         // Update the loan application and redirect back to the enquiry alerts list.
         this._enquiryAlertsService.updateLoanApplication(this.loanApplication, this.partner).subscribe(() => {
-            this._location.back();
+            // Display alert message and redirect to enquiry alerts page.
+            const dialogRef = this._dialogRef.open(MessageDialogComponent, {
+                width: '400px',
+                data: {
+                    message: 'Your loan enquiry is updated.',
+                }
+            });
+            dialogRef.afterClosed().subscribe(() => {
+                this._location.back();
+            });
         });
     }
 
+    /**
+     * 
+     */
     reconstructLoanApplication(): void {
         // Reconstruct loanApplication with loanEnquiryFormStep1 values.
         const loanApplication = this.loanEnquiryFormStep1.value;
@@ -167,7 +173,7 @@ export class EnquiryReviewComponent implements OnInit {
         this.loanApplication.projectCapacity = loanApplication.projectCapacity;
         this.loanApplication.assistanceType = loanApplication.assistanceType;
         this.loanApplication.tenorYear = loanApplication.tenorYear;
-        this.loanApplication.tenorMonth = loanApplication.tenorMonth;        
+        this.loanApplication.tenorMonth = loanApplication.tenorMonth;
         this.loanApplication.projectLocationState = loanApplication.projectLocationState;
         this.loanApplication.projectDistrict = loanApplication.projectDistrict;
         this.loanApplication.projectCost = loanApplication.projectCost;
@@ -184,7 +190,7 @@ export class EnquiryReviewComponent implements OnInit {
         // To solve the utc time zone issue
         const scheduledCOD = new Date(loanApplication.scheduledCOD);
         this.loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
-        
+
         // Reconstruct loanApplication with loanEnquiryFormStep3 values.
         const promoter = this.loanEnquiryFormStep3.value;
         this.loanApplication.promoterName = promoter.promoterName;
@@ -195,6 +201,9 @@ export class EnquiryReviewComponent implements OnInit {
         this.loanApplication.promoterKeyDirector = promoter.promoterKeyDirector;
     }
 
+    /**
+     * 
+     */
     reconstructPartner(): void {
         const partner = this.loanEnquiryFormStep2.value;
 
@@ -213,6 +222,9 @@ export class EnquiryReviewComponent implements OnInit {
         this.partner.street = partner.street;
     }
 
+    /**
+     * rejectEnquiry()
+     */
     rejectEnquiry(): void {
         // Open the dialog.
         const dialogRef = this._dialogRef.open(EnquiryRejectDialogComponent, {
@@ -228,5 +240,41 @@ export class EnquiryReviewComponent implements OnInit {
                 this._location.back();
             }
         });
+    }
+
+    /**
+     * withdrawApplication()
+     * This method cancels a loan application.
+     */
+    withdrawApplication(): void {
+        // Open the confirmation dialog.
+        const dialogRef = this._dialogRef.open(MessageDialogComponent, {
+            width: '400px',
+            data: {
+                message: 'Are you sure you want to cancel the loan application?',
+            }
+        });
+        dialogRef.afterClosed().subscribe((response) => {
+            if (response === 'OK') {
+                this._enquiryAlertsService.cancelEnquiry(this.loanApplication).subscribe(() => {
+                    this._location.back();
+                });
+            }
+        });
+    }
+
+    /**
+     * isCurrentUserAdmin()
+     * Returns true is user is admin.
+     */
+    isCurrentUserAdmin(): boolean {
+        if (this._appService.currentUser.partyRole === 'ZLM013' || this._appService.currentUser.partyRole === 'ZLM010'
+            || this._appService.currentUser.partyRole === 'ZLM023') {
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

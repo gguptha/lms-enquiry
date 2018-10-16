@@ -22,11 +22,19 @@ import { EnquiryAlertsModule } from './main/content/pages/enquiry/enquiryAlerts/
 import { EnquiryListModule } from './main/content/pages/enquiry/enquirySearch/enquirySearch.module';
 import { LocalDateFormat } from './main/content/others/localDate.Format';
 import { MessageDialogModule } from './main/content/components/messageDialog/messageDialog.module';
+import { AppService } from './app.service';
 
 const appRoutes: Routes = [
     {
+        path: '',
+        component: AppComponent,
+        canActivate: [
+            AppService
+        ]
+    },
+    {
         path: '**',
-        redirectTo: 'loanenquiry'
+        redirectTo: 'enquiryApplication'
     }
 ];
 
@@ -70,7 +78,8 @@ const appRoutes: Routes = [
         AppComponent
     ],
     providers: [
-        { provide: DateAdapter, useClass: LocalDateFormat }
+        { provide: DateAdapter, useClass: LocalDateFormat },
+        AppService
     ],
 })
 export class AppModule {
