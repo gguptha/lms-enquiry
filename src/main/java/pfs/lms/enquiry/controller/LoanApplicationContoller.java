@@ -39,26 +39,31 @@ public class LoanApplicationContoller {
     private final PartnerRepository partnerRepository;
 
     @GetMapping("/loanApplications")
-    public ResponseEntity<Page<LoanApplication>> get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
+    public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
                                                      Pageable pageable) {
 
-        Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
+        List<LoanApplication> loanApplications;
 
+        Partner user = partnerRepository.findByUserName(request.getUserPrincipal().getName());
 
-        if (partner.getPartyRole().equals("ZLM023") || partner.getPartyRole().equals("ZLM013") ||
-                partner.getPartyRole().equals("ZLM010")) {
+        if (user.getPartyRole().equals("ZLM023") || user.getPartyRole().equals("ZLM013") ||
+                user.getPartyRole().equals("ZLM010")) {
             if (status == null)
-                return ResponseEntity.ok(loanApplicationRepository.findAll(pageable));
+                loanApplications = loanApplicationRepository.findAll(pageable).getContent();
             else
-                return ResponseEntity.ok(loanApplicationRepository.findByFunctionalStatus(status, pageable));
+                loanApplications = loanApplicationRepository.findByFunctionalStatus(status, pageable).getContent();
         }
         else {
-            //if (status == null)
-            return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicant(partner.getId(), pageable));
-            //else
-            //    return ResponseEntity.ok(loanApplicationRepository.findByLoanApplicantAndFunctionalStatus(partner.getId(),
-            //            status, pageable));
+            loanApplications = loanApplicationRepository.findByLoanApplicant(user.getId(), pageable).getContent();
         }
+
+        List<LoanApplicationResource> resources = new ArrayList<>(0);
+        loanApplications.forEach(loanApplication -> {
+            Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+            resources.add(new LoanApplicationResource(loanApplication,partner));
+        });
+
+        return ResponseEntity.ok(resources);
     }
 
     @PostMapping("/loanApplications")

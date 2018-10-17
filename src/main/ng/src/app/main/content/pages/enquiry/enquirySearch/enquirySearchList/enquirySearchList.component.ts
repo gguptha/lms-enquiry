@@ -4,6 +4,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { ProjectTypeModel } from '../../../../model/projectType.model';
 import { LoanClassModel } from '../../../../model/loanClass.model';
 import { AssistanceTypeModel } from '../../../../model/assistanceType.model';
+import { FunctionalStatusModel } from '../../../../model/functionalStatus.model';
 
 @Component({
     selector: 'fuse-enquiry-search-list',
@@ -22,8 +23,8 @@ export class EnquirySearchListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'createdOn', 'enquiryNo', 'bpCode', 'projectName', 'projectLocationState', 'projectType', 'loanClass', 'projectCapacity', 
-        'assistanceType', 'projectCost'
+        'functionalStatus', 'createdOn', 'enquiryNo', 'bpCode', 'projectName', 'projectLocationState', 'projectType', 
+        'loanClass', 'projectCapacity', 'assistanceType', 'projectCost', 'loanAmount'
     ];
 
     /**
@@ -60,5 +61,9 @@ export class EnquirySearchListComponent implements OnInit {
      */
     getAssistanceTypeDescription(assistanceType: string): string {
         return AssistanceTypeModel.getAssistanceTypeDescription(assistanceType);
+    }
+
+    getFunctionalStatus(functionalStatus: number): string {
+        return FunctionalStatusModel.getFunctionalStatus(functionalStatus);
     }
 }

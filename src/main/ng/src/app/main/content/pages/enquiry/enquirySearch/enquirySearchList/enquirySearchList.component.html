@@ -1,6 +1,14 @@
-<div class="mat-table-container">
+<div class="mat-table-container" style="width: 140%">
 
     <mat-table class="enquiries-table" #table [dataSource]="dataSource" *fuseIfOnDom [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+        <!-- functionalStatus Column -->
+        <ng-container cdkColumnDef="functionalStatus">
+            <mat-header-cell *cdkHeaderCellDef>Functional Status</mat-header-cell>
+            <mat-cell *cdkCellDef="let enquiry">
+                <p class="text-truncate">{{ getFunctionalStatus(enquiry.loanApplication.functionalStatus) }}</p>
+            </mat-cell>
+        </ng-container>
 
         <!-- createdOn Column -->
         <ng-container cdkColumnDef="createdOn">
@@ -48,7 +56,6 @@
                 <p class="text-truncate">{{ getProjectTypeDescription(enquiry.loanApplication.projectType) }}</p>
             </mat-cell>
         </ng-container>
-        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
 
         <!-- loanClass Column -->
         <ng-container cdkColumnDef="loanClass">
@@ -96,6 +103,8 @@
                 <p class="text-truncate">{{ enquiry.financingType }}</p>
             </mat-cell>
         </ng-container-->
+
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row *cdkRowDef="let enquiry; columns: displayedColumns;" class="enquiry" matRipple 
             (click)="onSelect(enquiry)" [ngClass]="{'mat-light-blue-50-bg':enquiry == selectedEnquiry}"

@@ -5,11 +5,12 @@ import { Injectable } from '@angular/core';
 import { LoanApplicationModel } from '../../../model/loanApplication.model';
 import { LoanEnquiryService } from '../enquiryApplication/enquiryApplication.service';
 import { PartnerModel } from '../../../model/partner.model';
+import { LoanApplicationResourceModel } from '../../../model/loanApplicationResource.model';
 
 @Injectable()   
 export class EnquiryAlertsService implements Resolve<any> {
 
-    loanApplications: BehaviorSubject<LoanApplicationModel[]>;
+    loanApplications: BehaviorSubject<LoanApplicationResourceModel[]>;
 
     selectedLoanApplicationId: BehaviorSubject<string>;
 
@@ -47,12 +48,12 @@ export class EnquiryAlertsService implements Resolve<any> {
      * Fetches a list of loan applications with a particular status.
      * @param status 
      */
-    public getLoanApplications(status: number): Observable<LoanApplicationModel[]> {
-        return new Observable((observer) => {
-            this._http.get<any>('api/loanApplications?status=' + status).subscribe(result => {
-                const loanApplications = new Array<LoanApplicationModel>();
-                result.content.map(loanApplication => {
-                    loanApplications.push(new LoanApplicationModel(loanApplication));
+    public getLoanApplications(status: number): Observable<LoanApplicationResourceModel[]> {
+        return new Observable(observer => {
+            const loanApplications = new Array<LoanApplicationResourceModel>();
+            this._http.get<LoanApplicationResourceModel[]>('api/loanApplications?status=' + status).subscribe(result => {
+                result.map(loanApplicationResourceModel => {
+                    loanApplications.push(new LoanApplicationResourceModel(loanApplicationResourceModel));
                 });
                 observer.next(loanApplications);
                 observer.complete();
@@ -60,10 +61,18 @@ export class EnquiryAlertsService implements Resolve<any> {
         });
     }
 
+    /**
+     * getLoanApplication()
+     * @param enquiryId 
+     */
     public getLoanApplication(enquiryId: string): Observable<LoanApplicationModel> {
         return this._http.get<LoanApplicationModel>('api/loanApplications/' + enquiryId);
     }
 
+    /**
+     * getPartner()
+     * @param partnerId 
+     */
     public getPartner(partnerId: string): Observable<PartnerModel> {
         return this._http.get<PartnerModel>('api/partners/' + partnerId);
     }

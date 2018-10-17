@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router/src/router_state';
 import { Observable, forkJoin } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { UserModel } from './main/content/model/user.model';
+import { PartnerModel } from './main/content/model/partner.model';
 
 @Injectable()
 export class AppService implements CanActivate {
@@ -11,7 +11,7 @@ export class AppService implements CanActivate {
     /**
      * Currently logged in user. 
      */
-    currentUser: UserModel;
+    currentUser: PartnerModel;
 
     constructor(private _http: HttpClient, private _router: Router) {
     }
@@ -20,7 +20,7 @@ export class AppService implements CanActivate {
         Promise<boolean> {
 
         return new Observable<boolean>((observer) => {
-            this._http.get<UserModel>('api/me').subscribe(response => {
+            this._http.get<PartnerModel>('api/me').subscribe(response => {
                 this.currentUser = response;
                 this._router.navigate(['/enquiryApplication']);
                 observer.next(false);

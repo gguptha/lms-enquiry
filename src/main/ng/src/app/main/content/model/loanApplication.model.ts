@@ -1,5 +1,7 @@
 export class LoanApplicationModel {
 
+    id: string;
+
     assistanceType: string;
     createdOn: Date;
     enquiryNo: EnquiryNumber;
@@ -7,7 +9,7 @@ export class LoanApplicationModel {
     expectedInterestRate: number;
     expectedSubDebt: number;
     financingType: string;
-    id: string;
+    functionalStatus: number;
     loanApplicant: string;
     loanClass: number;
     loanPurpose: number;
@@ -39,6 +41,8 @@ export class LoanApplicationModel {
      * @param _loanApplication 
      */
     constructor(_loanApplication: any) {
+        this.id = _loanApplication.id || '';
+
         this.assistanceType = _loanApplication.assistanceType || '';
         this.createdOn = _loanApplication.createdOn || '';
         this.enquiryNo = _loanApplication.enquiryNo;
@@ -46,7 +50,7 @@ export class LoanApplicationModel {
         this.expectedInterestRate = _loanApplication.expectedInterestRate;
         this.expectedSubDebt = _loanApplication.expectedSubDebt;
         this.financingType = _loanApplication.financingType || '';
-        this.id = _loanApplication.id || '';
+        this.functionalStatus = _loanApplication.functionalStatus || 0;
         this.loanApplicant = _loanApplication.loanApplicant;
         this.loanClass = _loanApplication.loanClass || 0;
         this.loanPurpose = _loanApplication.loanPurpose || '';
@@ -74,7 +78,7 @@ export class LoanApplicationModel {
     }
 
     /**
-     * loanClass()
+     * loanClassDescription()
      * Returns the string value of the loan class.
      */
     get loanClassDescription(): string {
@@ -93,7 +97,7 @@ export class LoanApplicationModel {
     }
 
     /**
-     * projectType()
+     * projectTypeDescription()
      * Returns the string value of the project type.
      */
     get projectTypeDescription(): string {
@@ -126,6 +130,25 @@ export class LoanApplicationModel {
         switch (this.assistanceType) {
             case 'E': return 'Equity';
             case 'D': return 'Debt';
+        }
+    }
+
+    /**
+     * functionalStatusDescription()
+     * Returns the string value of the functional status.
+     */
+    get functionalStatusDescription(): string {
+        switch (this.functionalStatus) {
+            case 0: return '';
+            case 1: return 'Enquiry Stage';
+            case 2: return 'ICC ApprovalStage';
+            case 3: return 'Apprisal Stage';
+            case 4: return 'Board Approval Stage';
+            case 5: return 'Loan Documenation Stage';
+            case 6: return 'Loan Disbursement Stage';
+            case 7: return 'Approved';
+            case 8: return 'Rejected';
+            case 9: return 'Cancelled';
         }
     }
 }
