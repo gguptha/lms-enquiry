@@ -104,6 +104,15 @@ public class Partner extends AggregateRoot<Partner>{
         this.password = password;
     }
 
+    public Partner(String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String password) {
+        this.partyRole = partyRole;
+        this.partyName1 = partyName1;
+        this.partyName2 = partyName2;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.password = password;
+    }
+
     @Value
     @RequiredArgsConstructor(staticName = "of")
     @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)

@@ -35,9 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
 
         http
-                .logout().logoutUrl("/logout").logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))).and()
-                .authorizeRequests()
-                .anyRequest().authenticated()
+                .logout().logoutUrl("/logout").logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
+                .and().authorizeRequests().antMatchers("/api/password/strength","/api/signup","/api/signup/verify/**").permitAll()
+                .and().authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable().headers().frameOptions().disable();
 
         // @formatter:on

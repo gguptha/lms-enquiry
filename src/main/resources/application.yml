@@ -17,6 +17,8 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+oauth:
+  baseUrl: http://localhost:9999/auth
 security:
   oauth2:
     client:
