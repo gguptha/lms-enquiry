@@ -29,7 +29,7 @@ public class Initializer implements CommandLineRunner {
 
         if(loanClassRepository.count() == 0) {
             LoanClass lc1 = new LoanClass(1, "Power");
-            LoanClass lc2 = new LoanClass(1, "Railways");
+            LoanClass lc2 = new LoanClass(2, "Railways");
             LoanClass lc3 = new LoanClass(3, "Urban Infrastructure");
             LoanClass lc4 = new LoanClass(4, "Roads");
             LoanClass lc5 = new LoanClass(5, "Ports");
@@ -83,9 +83,15 @@ public class Initializer implements CommandLineRunner {
 
         if (partnerRepository.count() == 0) {
             Partner partner1 = new Partner("admin","admin");
-            //partner1.setPartyRole("ZLM023");
-            partner1.setPartyRole("TR0100");
+            partner1.setPartyRole("ZLM023");
+            partner1.setEmail("admin@gmail.com");
+            //partner1.setPartyRole("TR0100");
             partnerRepository.save(partner1);
+
+            Partner partner2 = new Partner("customer@gmail.com", "password");
+            partner2.setPartyRole("TR0100");
+            partner2.setEmail("customer@gmail.com");
+            partnerRepository.save(partner2);
         }
     }
 }
