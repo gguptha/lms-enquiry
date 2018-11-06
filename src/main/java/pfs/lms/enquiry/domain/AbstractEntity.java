@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.Version;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
@@ -32,14 +34,12 @@ public abstract class AbstractEntity {
 
     private LocalTime createdAt;
 
-    @Size(max = 20)
     private String createdByUserName;
 
     private LocalDate changedOn;
 
     private LocalTime changedAt;
 
-    @Size(max = 20)
     private String changedByUserName;
 
     @PrePersist

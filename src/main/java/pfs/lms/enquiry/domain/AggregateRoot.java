@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Version;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
@@ -36,14 +35,12 @@ public abstract class AggregateRoot<A extends AbstractAggregateRoot<A>> extends 
 
     protected LocalTime createdAt;
 
-    @Size(max = 20)
     protected String createdByUserName;
 
     protected LocalDate changedOn;
 
     protected LocalTime changedAt;
 
-    @Size(max = 20)
     protected String changedByUserName;
 
     @PrePersist

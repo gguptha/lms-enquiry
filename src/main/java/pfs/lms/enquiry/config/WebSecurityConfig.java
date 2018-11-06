@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .logout().logoutUrl("/logout").logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
-                .and().authorizeRequests().antMatchers("/api/password/strength","/api/signup","/api/signup/verify/**").permitAll()
+                .and().authorizeRequests().antMatchers("/api/password/strength","/api/signup","/api/signup/verify/**","/signup","/assests","/assets/**","/assets/**/**","/runtime.js","/polyfills.js","/styles.js","/vendor.js","/main.js","/style.css","/favicon.ico").permitAll()
                 .and().authorizeRequests().anyRequest().authenticated()
                 .and().csrf().disable().headers().frameOptions().disable();
 

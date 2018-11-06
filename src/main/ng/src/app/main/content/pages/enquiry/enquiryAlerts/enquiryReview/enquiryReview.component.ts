@@ -43,11 +43,8 @@ export class EnquiryReviewComponent implements OnInit {
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
         private _enquiryAlertsService: EnquiryAlertsService, private _location: Location, private _appService: AppService) {
 
-        console.log('_appService.user', _appService.currentUser.partyRole);
-
         // Initialize loanApplication.
         this.loanApplication = _route.snapshot.data.routeResolvedData[5];
-        console.log('this.loanApplication', this.loanApplication);
 
         // Initialize partner.
         this.partner = new PartnerModel({});
@@ -78,7 +75,7 @@ export class EnquiryReviewComponent implements OnInit {
     initializeLoanApplicationForms(): void {
 
         this.loanEnquiryFormStep1 = this._formBuilder.group({
-            loanClass: [this.loanApplication.loanClass || ''],
+            loanClass: [this.loanApplication.loanClass],
             financingType: [this.loanApplication.financingType],
             projectType: [this.loanApplication.projectType],
             projectCapacity: [this.loanApplication.projectCapacity],
@@ -268,8 +265,8 @@ export class EnquiryReviewComponent implements OnInit {
      * Returns true is user is admin.
      */
     isCurrentUserAdmin(): boolean {
-        if (this._appService.currentUser.partyRole === 'ZLM013' || this._appService.currentUser.partyRole === 'ZLM010'
-            || this._appService.currentUser.partyRole === 'ZLM023') {
+        if (this._appService.currentUser.role === 'ZLM013' || this._appService.currentUser.role === 'ZLM010'
+            || this._appService.currentUser.role === 'ZLM023') {
 
             return true;
         }

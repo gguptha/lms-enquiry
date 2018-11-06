@@ -6,31 +6,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.client.OAuthClient;
-import pfs.lms.enquiry.domain.Partner;
+import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.exception.LmsException;
+import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.SignupResource;
-import pfs.lms.enquiry.service.IPartnerService;
 import pfs.lms.enquiry.service.ISignupService;
-
-import javax.validation.constraints.Size;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class SignupService implements ISignupService {
 
-    private final IPartnerService iPartnerService;
+    //private final IPartnerService iPartnerService;
+    private final UserRepository userRepository;
 
     private final OAuthClient oAuthClient;
 
     @Override
     public void signup(SignupResource signupResource) {
 
-        Partner partner = new Partner("TR0110",signupResource.getFirstName(),signupResource.getLastName(),signupResource.getEmail(),signupResource.getMobile(),signupResource.getPassword());
+        //Partner partner = new Partner("TR0110", signupResource.getFirstName(), signupResource.getLastName(), signupResource.getEmail(), signupResource.getMobile(), signupResource.getPassword());
+        //partner = iPartnerService.save(partner);
 
-        partner = iPartnerService.save(partner);
-
-        log.info("{} created",partner);
+        User user = new User(signupResource.getFirstName(), signupResource.getLastName(), signupResource.getEmail(),
+                "TR0110", true, signupResource.getEmail());
+        user = userRepository.save(user);
+        log.info("{} created", user);
 
         //Create User in OAuth
         ResponseEntity<Boolean> response = oAuthClient.signup(signupResource);

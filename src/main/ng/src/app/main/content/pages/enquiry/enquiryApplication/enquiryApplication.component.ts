@@ -5,6 +5,7 @@ import { MatDialog, MatStepper, DateAdapter, NativeDateAdapter, MAT_DATE_LOCALE,
 import { LoanEnquiryService } from './enquiryApplication.service';
 import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regEx';
 import { MessageDialogComponent } from '../../../components/messageDialog/messageDialog.component';
+import { AppService } from '../../../../../app.service';
 
 @Component({
     selector: 'fuse-enquiry-application-component',
@@ -30,8 +31,10 @@ export class EnquiryApplicationComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _loanEnquiryService: LoanEnquiryService, private _dateAdapter: DateAdapter<any>, 
-        private _router: Router) {
+        private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _appService: AppService) 
+    {
+        //
+        this._loanEnquiryService.me();
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
@@ -67,7 +70,7 @@ export class EnquiryApplicationComponent implements OnInit {
             city: ['Bangalore'],
             state: [''],
             postalCode: ['560085'],
-            email: ['gopinath.br@gmail.com'],
+            email: [_appService.currentUser.email],
             contactNumber: ['9886496849'],
             pan: ['ABNPG9212E'],
             groupCompany: ['']

@@ -67,7 +67,6 @@ public class Partner extends AggregateRoot<Partner>{
     @Size(max = 100)
     private String groupCompany;
 
-    @Size(max = 20)
     @Column(unique = true)
     private String userName;
 
@@ -76,7 +75,7 @@ public class Partner extends AggregateRoot<Partner>{
 
     private String pan;
 
-    public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String addressLine1, String addressLine2, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, @Size(max = 20) String userName, @Size(max = 100) String password, String pan) {
+    public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String addressLine1, String addressLine2, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, String userName, @Size(max = 100) String password, String pan) {
         this.partyNumber = partyNumber;
         this.partyCategory = partyCategory;
         this.partyRole = partyRole;

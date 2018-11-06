@@ -23,6 +23,11 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         //Get the partner from partner service
         Partner applicant = partnerService.getOne(username);
+        if(applicant == null) {
+            applicant = new Partner();
+            applicant.setUserName(username);
+            applicant.setPartyRole("TR0100");
+        }
         applicant.setAddressLine1(resource.getPartner().getAddressLine1());
         applicant.setAddressLine2(resource.getPartner().getAddressLine2());
         applicant.setCity(resource.getPartner().getCity());

@@ -3,11 +3,16 @@ import { Observable, forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StateModel } from '../../../model/state.model';
+import { AppService } from '../../../../../app.service';
 
 @Injectable()   
 export class LoanEnquiryService implements Resolve<any> {
 
-    constructor(private _http: HttpClient) {
+    /**
+     * constructor()
+     * @param _http 
+     */
+    constructor(private _http: HttpClient, private _appService: AppService) {
     }
 
     /**
@@ -77,5 +82,11 @@ export class LoanEnquiryService implements Resolve<any> {
      */
     public saveLoanApplication(loanApplication: any, partner: any): Observable<any> {
         return this._http.post('/api/loanApplications', {loanApplication, partner});
+    }
+
+    public me(): void {
+        this._http.get<any>('api/me').subscribe(response => {
+            console.log('response', response);
+        });
     }
 }
