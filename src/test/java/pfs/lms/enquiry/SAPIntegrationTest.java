@@ -65,4 +65,10 @@ public class SAPIntegrationTest {
 
 		integrationService.postLoanApplication(d);
 	}
+
+	@Test
+	public void getLoanApplication() {
+
+		integrationService.getLoanApplication("");
+	}
 }

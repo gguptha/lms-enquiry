@@ -92,6 +92,35 @@ public class SAPIntegrationService implements ISAPIntegrationService {
             e.printStackTrace();
         }
 
-        }
     }
+
+    @Override
+    public void getLoanApplication(String loanApplicationId) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Authorization", "Basic c2FqZWV2OnNhcHNhcA==");
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+        System.out.println("THE REQUEST : "+requestEntity.toString());
+
+        URI uri = null;
+        try
+        {
+            uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LMS_ENQ_PORTAL_LOAN_V2_SRV/LoanApplicationSet('0000010003115')?sap-client=300&$format=json" );
+        }
+        catch (URISyntaxException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println("THE URI : "+uri.toString());
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, String.class);
+        System.out.println("Headers: " + responseEntity.getHeaders());
+        System.out.println("Result - status ("+ responseEntity.getStatusCode() + ") has body: " + responseEntity.hasBody());
+        HttpStatus statusCode = responseEntity.getStatusCode();
+        System.out.println("THE STATUS CODE: "+statusCode);
+    }
+}
 

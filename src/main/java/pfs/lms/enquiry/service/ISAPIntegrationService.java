@@ -5,5 +5,8 @@ import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 public interface ISAPIntegrationService {
 
     String fetchCSRFToken();
+
     void postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource);
+
+    void getLoanApplication(String loanApplicationId);
 }
