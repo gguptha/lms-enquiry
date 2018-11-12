@@ -6,17 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-/**
- * Created by gguptha on 09/11/18.
- */
-
 @JsonInclude (JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties (ignoreUnknown = true)
+public class SAPLoanApplicationResource implements Serializable {
 
-public class SAPLoanApplicationResource  implements Serializable{
+    public SAPLoanApplicationResource() {
+        sapLoanApplicationDetailsResource = new SAPLoanApplicationDetailsResource();
+    }
 
     @JsonProperty(value = "d")
-    private SAPLoanApplicationDetailsResource  sapLoanApplicationDetailsResource;
+    private SAPLoanApplicationDetailsResource sapLoanApplicationDetailsResource;
 
     public SAPLoanApplicationDetailsResource getSapLoanApplicationDetailsResource() {
         return sapLoanApplicationDetailsResource;

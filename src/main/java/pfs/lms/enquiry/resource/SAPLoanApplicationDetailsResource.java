@@ -18,7 +18,7 @@ public class SAPLoanApplicationDetailsResource {
     private String loanContract;
 
     @JsonProperty(value = "LoanApplicationId")
-    private String LoanApplicationId;
+    private String loanApplicationId;
 
     @JsonProperty(value = "BusPartnerNumber")
     private String busPartnerNumber;
@@ -161,6 +161,57 @@ public class SAPLoanApplicationDetailsResource {
     @JsonProperty(value = "ProjectName")
     private String projectName;
 
+    public SAPLoanApplicationDetailsResource() {
+
+        this.loanContract = "";
+        this.loanApplicationId = "";
+        this.busPartnerNumber = "";
+        this.partnerCategory = "";
+        this.partnerType = "";
+        this.partnerGroup = "";
+        this.partnerExternalNumber = "";
+        this.partnerRole = "TR0100";
+        this.name1 = "";
+        this.name2 = "";
+        this.firstname = "";
+        this.lastname = "";
+        this.email = "";
+        this.city = "";
+        this.district = "";
+        this.regiogroup = "";
+        this.postalCode = "";
+        this.houseNo = "";
+        this.street = "";
+        this.country = "";
+        this.contactPerName = "";
+        this.panNumber = "";
+        this.loanClass = "";
+        this.financingType = "";
+        this.debtEquityIndicator = "";
+        this.projectCapaacity = 0.0;
+        this.projectCapacityUnit="";
+        this.projectState="";
+        this.projectDistrict="";
+        this.tenorYear=0;
+        this.tenorMonth=0;
+        this.projectCostInCrores=0.0;
+        this.debtAmountInCrores=0.0;
+        this.equityAmountInCrores=0.0;
+        this.currency="";
+        this.applicationCapitalInCrores=0.0;
+        this.loanPurpose="";
+        this.scheduledCommDate=LocalDate.now();
+        this.groupCompanyName="";
+        this.promoterName="";
+        this.promoterNetWorthInCrores=0.0;
+        this.promoterPATInCrores=0.0;
+        this.promoterAreaOfBusiness="";
+        this.promoterRating="";
+        this.promoterKeyDirector="";
+        this.loanStatus="";
+        this.projectName="";
+    }
+
     public String getLoanContract() {
         return loanContract;
     }
@@ -170,11 +221,11 @@ public class SAPLoanApplicationDetailsResource {
     }
 
     public String getLoanApplicationId() {
-        return LoanApplicationId;
+        return loanApplicationId;
     }
 
     public void setLoanApplicationId(String loanApplicationId) {
-        LoanApplicationId = loanApplicationId;
+        loanApplicationId = loanApplicationId;
     }
 
     public String getBusPartnerNumber() {
@@ -549,7 +600,7 @@ public class SAPLoanApplicationDetailsResource {
     public String toString() {
         return "SAPLoanApplicationDetailsResource{" +
                 "loanContract='" + loanContract + '\'' +
-                ", LoanApplicationId='" + LoanApplicationId + '\'' +
+                ", LoanApplicationId='" + loanApplicationId + '\'' +
                 ", busPartnerNumber='" + busPartnerNumber + '\'' +
                 ", partnerCategory='" + partnerCategory + '\'' +
                 ", partnerType='" + partnerType + '\'' +
