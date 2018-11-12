@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
+import javax.xml.ws.http.HTTPException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -41,7 +42,7 @@ public class SAPIntegrationService implements ISAPIntegrationService {
         URI uri = null;
         try
         {
-            uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LMS_ENQ_PORTAL_LOAN_V2_SRV/?sap-client=300$metadata" );
+            uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/?sap-client=300$metadata" );
         }
         catch (URISyntaxException e)
         {
@@ -79,20 +80,32 @@ public class SAPIntegrationService implements ISAPIntegrationService {
             };
             headers.setContentType(MediaType.APPLICATION_JSON);
             String xCsrfToken = fetchCSRFToken();
-            headers.add("X-Csrf-Token", xCsrfToken);
+
+            String testCsrf = "VuGi64DbGq2C-wZaCTMN7g==";
+            headers.add("X-Csrf-Token", testCsrf);
+
             MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
             //HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
             //System.out.println("THE REQUEST : " + request.toString());
 
+
+
             HttpEntity<SAPLoanApplicationResource> requestToPost = new HttpEntity<SAPLoanApplicationResource>(sapLoanApplicationResource, headers);
-            URI postURI = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LMS_ENQ_PORTAL_LOAN_V2_SRV/LoanApplicationSet?sap-client=300");
+            URI postURI = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300");
             System.out.println("THE URI : " + postURI.toString());
             log.info("Content: " + requestToPost.toString());
             log.info("Object: " + sapLoanApplicationResource.toString());
             log.info(requestToPost.toString());
+
+
             createdInvoice = restTemplate.exchange(postURI, HttpMethod.POST, requestToPost, String.class);
 
             HttpStatus statusCode = createdInvoice.getStatusCode();
+        }
+        catch (HTTPException httpException) {
+
+            System.out.println( "HTTP ExceptionMessage :" + httpException.getMessage().toString());
+            httpException.printStackTrace();
         }
         catch (URISyntaxException e)
         {
@@ -120,7 +133,7 @@ public class SAPIntegrationService implements ISAPIntegrationService {
         URI uri = null;
         try
         {
-            uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LMS_ENQ_PORTAL_LOAN_V2_SRV/LoanApplicationSet('0000010003115')?sap-client=300&$format=json" );
+            uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet('0000010003115')?sap-client=300&$format=json" );
         }
         catch (URISyntaxException e)
         {
