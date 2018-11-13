@@ -82,7 +82,7 @@ public class SAPLoanApplicationDetailsResource {
     private String panNumber;
 
     @JsonProperty(value = "ApplicationDate")
-    private LocalDate applicationDate;
+    private String applicationDate;
 
     @JsonProperty(value = "LoanClass")
     private String loanClass;
@@ -94,7 +94,7 @@ public class SAPLoanApplicationDetailsResource {
     private String debtEquityIndicator;
 
     @JsonProperty(value = "ProjectCapaacity")
-    private Double projectCapaacity;
+    private String projectCapaacity;
 
     @JsonProperty(value = "ProjectCapacityUnit")
     private String projectCapacityUnit;
@@ -106,33 +106,33 @@ public class SAPLoanApplicationDetailsResource {
     private String projectDistrict;
 
     @JsonProperty(value = "TenorYear")
-    private Integer tenorYear;
+    private String tenorYear;
 
     @JsonProperty(value = "TenorMonth")
-    private Integer tenorMonth;
+    private String tenorMonth;
 
 
     @JsonProperty(value = "ProjectCostInCrores")
-    private Double projectCostInCrores;
+    private String projectCostInCrores;
 
 
     @JsonProperty(value = "DebtAmountInCrores")
-    private Double debtAmountInCrores;
+    private String debtAmountInCrores;
 
     @JsonProperty(value = "EquityAmountInCrores")
-    private Double equityAmountInCrores;
+    private String equityAmountInCrores;
 
     @JsonProperty(value = "Currency")
     private String currency;
 
     @JsonProperty(value = "ApplicationCapitalInCrores")
-    private Double applicationCapitalInCrores;
+    private String applicationCapitalInCrores;
 
     @JsonProperty(value = "LoanPurpose")
     private String loanPurpose;
 
     @JsonProperty(value = "ScheduledCommDate")
-    private LocalDate scheduledCommDate;
+    private String scheduledCommDate;
 
     @JsonProperty(value = "GroupCompanyName")
     private String groupCompanyName;
@@ -141,10 +141,10 @@ public class SAPLoanApplicationDetailsResource {
     private String promoterName;
 
     @JsonProperty(value = "PromoterNetWorthInCrores")
-    private  Double promoterNetWorthInCrores;
+    private  String promoterNetWorthInCrores;
 
     @JsonProperty(value = "PromoterPATInCrores")
-    private Double promoterPATInCrores;
+    private String promoterPATInCrores;
 
     @JsonProperty(value = "PromoterAreaOfBusiness")
     private String promoterAreaOfBusiness;
@@ -160,6 +160,7 @@ public class SAPLoanApplicationDetailsResource {
 
     @JsonProperty(value = "ProjectName")
     private String projectName;
+
 
     public SAPLoanApplicationDetailsResource() {
 
@@ -188,23 +189,23 @@ public class SAPLoanApplicationDetailsResource {
         this.loanClass = "";
         this.financingType = "";
         this.debtEquityIndicator = "";
-        this.projectCapaacity = 0.0;
+        this.projectCapaacity = "" ;
         this.projectCapacityUnit="";
         this.projectState="";
         this.projectDistrict="";
-        this.tenorYear=0;
-        this.tenorMonth=0;
-        this.projectCostInCrores=0.0;
-        this.debtAmountInCrores=0.0;
-        this.equityAmountInCrores=0.0;
+        this.tenorYear="";
+        this.tenorMonth="";
+        this.projectCostInCrores="" ;
+        this.debtAmountInCrores="";
+        this.equityAmountInCrores="";
         this.currency="";
-        this.applicationCapitalInCrores=0.0;
+        this.applicationCapitalInCrores="";
         this.loanPurpose="";
-        this.scheduledCommDate=LocalDate.now();
+        this.scheduledCommDate="";
         this.groupCompanyName="";
         this.promoterName="";
-        this.promoterNetWorthInCrores=0.0;
-        this.promoterPATInCrores=0.0;
+        this.promoterNetWorthInCrores="";
+        this.promoterPATInCrores="";
         this.promoterAreaOfBusiness="";
         this.promoterRating="";
         this.promoterKeyDirector="";
@@ -225,7 +226,7 @@ public class SAPLoanApplicationDetailsResource {
     }
 
     public void setLoanApplicationId(String loanApplicationId) {
-        loanApplicationId = loanApplicationId;
+        this.loanApplicationId = loanApplicationId;
     }
 
     public String getBusPartnerNumber() {
@@ -388,11 +389,11 @@ public class SAPLoanApplicationDetailsResource {
         this.panNumber = panNumber;
     }
 
-    public LocalDate getApplicationDate() {
+    public String getApplicationDate() {
         return applicationDate;
     }
 
-    public void setApplicationDate(LocalDate applicationDate) {
+    public void setApplicationDate(String applicationDate) {
         this.applicationDate = applicationDate;
     }
 
@@ -420,11 +421,11 @@ public class SAPLoanApplicationDetailsResource {
         this.debtEquityIndicator = debtEquityIndicator;
     }
 
-    public Double getProjectCapaacity() {
+    public String getProjectCapaacity() {
         return projectCapaacity;
     }
 
-    public void setProjectCapaacity(Double projectCapaacity) {
+    public void setProjectCapaacity(String projectCapaacity) {
         this.projectCapaacity = projectCapaacity;
     }
 
@@ -452,43 +453,43 @@ public class SAPLoanApplicationDetailsResource {
         this.projectDistrict = projectDistrict;
     }
 
-    public Integer getTenorYear() {
+    public String getTenorYear() {
         return tenorYear;
     }
 
-    public void setTenorYear(Integer tenorYear) {
+    public void setTenorYear(String tenorYear) {
         this.tenorYear = tenorYear;
     }
 
-    public Integer getTenorMonth() {
+    public String getTenorMonth() {
         return tenorMonth;
     }
 
-    public void setTenorMonth(Integer tenorMonth) {
+    public void setTenorMonth(String tenorMonth) {
         this.tenorMonth = tenorMonth;
     }
 
-    public Double getProjectCostInCrores() {
+    public String getProjectCostInCrores() {
         return projectCostInCrores;
     }
 
-    public void setProjectCostInCrores(Double projectCostInCrores) {
+    public void setProjectCostInCrores(String projectCostInCrores) {
         this.projectCostInCrores = projectCostInCrores;
     }
 
-    public Double getDebtAmountInCrores() {
+    public String getDebtAmountInCrores() {
         return debtAmountInCrores;
     }
 
-    public void setDebtAmountInCrores(Double debtAmountInCrores) {
+    public void setDebtAmountInCrores(String debtAmountInCrores) {
         this.debtAmountInCrores = debtAmountInCrores;
     }
 
-    public Double getEquityAmountInCrores() {
+    public String getEquityAmountInCrores() {
         return equityAmountInCrores;
     }
 
-    public void setEquityAmountInCrores(Double equityAmountInCrores) {
+    public void setEquityAmountInCrores(String equityAmountInCrores) {
         this.equityAmountInCrores = equityAmountInCrores;
     }
 
@@ -500,11 +501,11 @@ public class SAPLoanApplicationDetailsResource {
         this.currency = currency;
     }
 
-    public Double getApplicationCapitalInCrores() {
+    public String getApplicationCapitalInCrores() {
         return applicationCapitalInCrores;
     }
 
-    public void setApplicationCapitalInCrores(Double applicationCapitalInCrores) {
+    public void setApplicationCapitalInCrores(String applicationCapitalInCrores) {
         this.applicationCapitalInCrores = applicationCapitalInCrores;
     }
 
@@ -516,15 +517,17 @@ public class SAPLoanApplicationDetailsResource {
         this.loanPurpose = loanPurpose;
     }
 
-    public LocalDate getScheduledCommDate() {
+
+    public String getScheduledCommDate() {
         return scheduledCommDate;
     }
 
-    public void setScheduledCommDate(LocalDate scheduledCommDate) {
+    public void setScheduledCommDate(String scheduledCommDate) {
         this.scheduledCommDate = scheduledCommDate;
     }
 
     public String getGroupCompanyName() {
+
         return groupCompanyName;
     }
 
@@ -540,19 +543,19 @@ public class SAPLoanApplicationDetailsResource {
         this.promoterName = promoterName;
     }
 
-    public Double getPromoterNetWorthInCrores() {
+    public String getPromoterNetWorthInCrores() {
         return promoterNetWorthInCrores;
     }
 
-    public void setPromoterNetWorthInCrores(Double promoterNetWorthInCrores) {
+    public void setPromoterNetWorthInCrores(String promoterNetWorthInCrores) {
         this.promoterNetWorthInCrores = promoterNetWorthInCrores;
     }
 
-    public Double getPromoterPATInCrores() {
+    public String getPromoterPATInCrores() {
         return promoterPATInCrores;
     }
 
-    public void setPromoterPATInCrores(Double promoterPATInCrores) {
+    public void setPromoterPATInCrores(String promoterPATInCrores) {
         this.promoterPATInCrores = promoterPATInCrores;
     }
 

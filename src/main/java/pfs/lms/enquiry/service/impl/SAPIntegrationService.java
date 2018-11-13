@@ -78,7 +78,7 @@ public class SAPIntegrationService implements ISAPIntegrationService {
                     set( "Authorization", authHeader );
                 }
             };
-            headers.add("X-Csrf-Token", "Fetch ");
+            //headers.add("X-Csrf-Token", "Fetch ");
             MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
             HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(map, headers);
             System.out.println("THE REQUEST : "+requestEntity.toString());
@@ -88,8 +88,8 @@ public class SAPIntegrationService implements ISAPIntegrationService {
             System.out.println("THE URI : "+uri.toString());
 
             restTemplate = new RestTemplate();
-            ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, String.class);
-            String csrfToken = responseEntity.getHeaders().get("x-csrf-token").get(0);
+            //ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, String.class);
+            //String csrfToken = responseEntity.getHeaders().get("x-csrf-token").get(0);
 
 
             // ----------------------------------------------------------------- //
@@ -106,35 +106,55 @@ public class SAPIntegrationService implements ISAPIntegrationService {
             //String xCsrfToken = fetchCSRFToken();
 
             //String testCsrf = "VuGi64DbGq2C-wZaCTMN7g==";
-            headers.add("X-Csrf-Token", csrfToken);
+           // headers.add("X-Csrf-Token", csrfToken);
+
+
+            headers.add("X-Requested-With", "X");
 
             map= new LinkedMultiValueMap<String, String>();
             //HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
             //System.out.println("THE REQUEST : " + request.toString());
 
+            System.out.println("POST Request Entity: " + requestEntity);
 
 
             HttpEntity<SAPLoanApplicationResource> requestToPost = new HttpEntity<SAPLoanApplicationResource>(sapLoanApplicationResource, headers);
             URI postURI = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300");
+
             System.out.println("THE URI : " + postURI.toString());
+            System.out.println("THE URI : " + requestToPost.getHeaders().toString());
+
             log.info("Content: " + requestToPost.toString());
             log.info("Object: " + sapLoanApplicationResource.toString());
             log.info(requestToPost.toString());
 
+            System.out.println("POST Request Content: " + requestToPost.getBody().toString());
+
 
             createdInvoice = restTemplate.exchange(postURI, HttpMethod.POST, requestToPost, String.class);
 
-            HttpStatus statusCode = createdInvoice.getStatusCode();
-        }
-        catch (HTTPException httpException) {
 
-            System.out.println( "HTTP ExceptionMessage :" + httpException.getMessage().toString());
-            httpException.printStackTrace();
+
+            HttpStatus statusCode = createdInvoice.getStatusCode();
+
+            System.out.println(createdInvoice.getBody());
+
         }
-        catch (URISyntaxException e)
-        {
-            e.printStackTrace();
+        catch (Exception ex) {
+            System.out.println( "  ExceptionMessage :" + ex.getMessage().toString());
+            ex.printStackTrace();
+
         }
+
+//        catch (HTTPException httpException) {
+//
+//            System.out.println( "HTTP ExceptionMessage :" + httpException.getMessage().toString());
+//            httpException.printStackTrace();
+//        }
+//        catch (URISyntaxException e)
+//        {
+//            e.printStackTrace();
+//        }
 
     }
 
