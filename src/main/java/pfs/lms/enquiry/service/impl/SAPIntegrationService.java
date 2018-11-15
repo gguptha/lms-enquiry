@@ -76,7 +76,7 @@ public class SAPIntegrationService implements ISAPIntegrationService {
                     String authHeader = "Basic " + new String( encodedAuth );
                     set( "Authorization", authHeader );
                     setContentType(MediaType.APPLICATION_JSON);
-                    add("X-Csrf-Token", fetchCSRFToken());
+                    //add("X-Csrf-Token", fetchCSRFToken());
                 }
             };
             // MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
