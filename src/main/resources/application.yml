@@ -18,7 +18,7 @@ spring:
     serialization:
       fail-on-empty-beans: false
 oauth:
-  baseUrl: http://localhost:8090/auth
+  baseUrl: http://localhost:9000/auth
 security:
   oauth2:
     client:
