@@ -29,7 +29,7 @@ public class SignupService implements ISignupService {
         //partner = iPartnerService.save(partner);
 
         User user = new User(signupResource.getFirstName(), signupResource.getLastName(), signupResource.getEmail(),
-                "TR0110", true, signupResource.getEmail());
+                "TR0100", true, signupResource.getEmail(), null);
         user = userRepository.save(user);
         log.info("{} created", user);
 

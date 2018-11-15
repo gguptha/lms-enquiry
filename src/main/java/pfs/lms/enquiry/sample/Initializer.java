@@ -24,6 +24,10 @@ public class Initializer implements CommandLineRunner {
 
     private final PartnerRepository partnerRepository;
 
+    private final UserRepository userRepository;
+
+    private final ProductRepository productRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -81,17 +85,29 @@ public class Initializer implements CommandLineRunner {
             log.info("Added assistance type sample data");
         }
 
-        if (partnerRepository.count() == 0) {
-            Partner partner1 = new Partner("admin","admin");
-            partner1.setPartyRole("ZLM023");
-            partner1.setEmail("admin@gmail.com");
-            //partner1.setPartyRole("TR0100");
-            partnerRepository.save(partner1);
+        if (userRepository.count() == 0) {
+            User user1 = new User("Admin", "Lastname", "admin@gmail.com", "ZLM023", true, "admin", "50000284");
+            userRepository.save(user1);
 
-            Partner partner2 = new Partner("customer@gmail.com", "password");
-            partner2.setPartyRole("TR0100");
-            partner2.setEmail("customer@gmail.com");
-            partnerRepository.save(partner2);
+            User user2 = new User("Loan", "Officer 1", "lo1@gmail.com", "ZLM013", true, "lo1@gmail.com", "50000284");
+            userRepository.save(user2);
+
+            User user3 = new User("Gopinath", "B R", "gopinath.br@gmail.com", "TR0100", true, "gopinath.br@gmail.com", "");
+            userRepository.save(user3);
+        }
+
+        if (productRepository.count() == 0) {
+            Product p1 = new Product("301", "Bridge Loan");
+            Product p2 = new Product("301", "Short Term Loan");
+            Product p3 = new Product("303", "Term Loan");
+            Product p4 = new Product("304", "Debentures");
+            Product p5 = new Product("305", "Non Fund Based Loan");
+            Product p6 = new Product("30F", "Facilities");
+            Product p7 = new Product("310", "Facilities Drawdown-NFB Loan");
+            Product p8 = new Product("311", "Facilities Drawdown-Term Loan");
+            Product p9 = new Product("991", "Short Term Loan for Vehicle");
+            productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9));
+            log.info("Added products sample data");
         }
     }
 }
