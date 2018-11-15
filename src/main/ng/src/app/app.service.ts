@@ -32,7 +32,6 @@ export class AppService implements CanActivate {
         return new Observable<boolean>((observer) => {
             this._http.get<UserModel>('api/me').subscribe(response => {
                 this.currentUser = response;
-                console.log('currentUser', this.currentUser);
                 this._router.navigate(['/enquiryApplication']);
                 observer.next(false);
             });

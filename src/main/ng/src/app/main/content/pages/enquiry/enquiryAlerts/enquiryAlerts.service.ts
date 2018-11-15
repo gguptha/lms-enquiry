@@ -7,7 +7,7 @@ import { LoanEnquiryService } from '../enquiryApplication/enquiryApplication.ser
 import { PartnerModel } from '../../../model/partner.model';
 import { LoanApplicationResourceModel } from '../../../model/loanApplicationResource.model';
 
-@Injectable()   
+@Injectable()
 export class EnquiryAlertsService implements Resolve<any> {
 
     loanApplications: BehaviorSubject<LoanApplicationResourceModel[]>;
@@ -84,7 +84,17 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param partner 
      */
     public updateLoanApplication(loanApplication: any, partner: any): Observable<any> {
-        return this._http.put('/api/loanApplications/' + loanApplication.id, {loanApplication, partner});
+        return this._http.put('/api/loanApplications/' + loanApplication.id, { loanApplication, partner });
+    }
+
+    /**
+     * approveLoanApplication()
+     * Updates the loan application to the database and pushes it to SAP
+     * @param loanApplication 
+     * @param partner 
+     */
+    public approveLoanApplication(loanApplication: any, partner: any): Observable<any> {
+        return this._http.put('/api/loanApplications/' + loanApplication.id + '/approve', { loanApplication, partner });
     }
 
     /**
@@ -103,5 +113,13 @@ export class EnquiryAlertsService implements Resolve<any> {
      */
     public cancelEnquiry(loanApplication: LoanApplicationModel): Observable<any> {
         return this._http.put('api/loanApplications/' + loanApplication.id + '/cancel', {});
+    }
+
+    /**
+     * getProducts()
+     * returns a list of products.
+     */
+    public getProducts(): Observable<any> {
+        return this._http.get('api/products');
     }
 }

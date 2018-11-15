@@ -12,6 +12,7 @@ import { EnquiryAlertsListComponent } from './enquiryAlertsList/enquiryAlertsLis
 import { EnquiryReviewComponent } from './enquiryReview/enquiryReview.component';
 import { EnquiryRejectDialogComponent } from './enquiryReject/enquiryReject.component';
 import { AppService } from '../../../../../app.service';
+import { EnquiryApprovalDialogComponent } from './enquiryApproval/enquiryApproval.component';
 
 const routes = [
     {
@@ -35,7 +36,8 @@ const routes = [
         EnquiryAlertsComponent,
         EnquiryAlertsListComponent,
         EnquiryReviewComponent,
-        EnquiryRejectDialogComponent
+        EnquiryRejectDialogComponent,
+        EnquiryApprovalDialogComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -65,7 +67,8 @@ const routes = [
         { provide: MAT_DATE_LOCALE, useValue: 'en-IN' }
     ],
     entryComponents: [
-        EnquiryRejectDialogComponent
+        EnquiryRejectDialogComponent,
+        EnquiryApprovalDialogComponent
     ]
 })
 export class EnquiryAlertsModule

@@ -85,8 +85,7 @@ export class LoanEnquiryService implements Resolve<any> {
     }
 
     public me(): void {
-        this._http.get<any>('api/me').subscribe(response => {
-            console.log('response', response);
-        });
+        this._http.get<any>('api/me').subscribe(response => {}
+        );
     }
 }

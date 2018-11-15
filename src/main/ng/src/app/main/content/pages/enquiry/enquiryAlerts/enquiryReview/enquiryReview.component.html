@@ -15,11 +15,13 @@
                 Withdraw Application
             </button>
 
-            <button *ngIf="isCurrentUserAdmin()" class="mr-8 btn" mat-raised-button color="accent" (click)="rejectEnquiry()">
+            <button *ngIf="isCurrentUserAdmin()" class="mr-8 btn" mat-raised-button color="accent" (click)="rejectEnquiry()"
+                    [disabled]="loanApplication.functionalStatus !== 1">
                 Reject Enquiry
             </button>
 
-            <button *ngIf="isCurrentUserAdmin()" class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToEnquiryReview()">
+            <button *ngIf="isCurrentUserAdmin()" class="mr-8 btn" mat-raised-button color="accent" (click)="approveEnquiry()"
+                    [disabled]="loanApplication.functionalStatus !== 1">
                 Take Enquiry Further
             </button>
         </div>

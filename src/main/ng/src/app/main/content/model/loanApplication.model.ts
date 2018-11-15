@@ -32,7 +32,8 @@ export class LoanApplicationModel {
     tenorYear: number;
     tenorMonth: number;
     scheduledCOD: Date;
-
+    userBPNumber: string;
+    
     _links: Object;
     
     /**

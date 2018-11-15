@@ -42,7 +42,6 @@ export class LoanApplicationDataSource extends MatTableDataSource<LoanApplicatio
     }
 
     connect(): BehaviorSubject<LoanApplicationResourceModel[]> {
-        console.log('loanApplications', this._service.loanApplications);
         return this._service.loanApplications;
     }
 

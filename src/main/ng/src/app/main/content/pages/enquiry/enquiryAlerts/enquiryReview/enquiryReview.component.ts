@@ -11,6 +11,7 @@ import { EnquiryRejectDialogComponent } from '../enquiryReject/enquiryReject.com
 import { EnquiryApplicationRegEx } from '../../../../others/enquiryApplication.regEx';
 import { MessageDialogComponent } from '../../../../components/messageDialog/messageDialog.component';
 import { AppService } from '../../../../../../app.service';
+import { EnquiryApprovalDialogComponent } from '../enquiryApproval/enquiryApproval.component';
 
 @Component({
     selector: 'fuse-enquiry-review',
@@ -233,7 +234,28 @@ export class EnquiryReviewComponent implements OnInit {
         });
         // Subscribe to the dialog close event to intercept the action taken.
         dialogRef.afterClosed().subscribe((result) => {
-            if (result.action !== 'Cancel') {
+            if (result !== undefined && result.action !== 'Cancel') {
+                this._location.back();
+            }
+        });
+    }
+
+    /**
+     * approveEnquiry()
+     */
+    approveEnquiry(): void {
+        // Open the dialog.
+        const dialogRef = this._dialogRef.open(EnquiryApprovalDialogComponent, {
+            panelClass: 'fuse-enquiry-approval-dialog',
+            width: '600px',
+            data: {
+                loanApplication: this.loanApplication,
+                partner: this.partner
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result !== undefined && result.action !== 'Cancel') {
                 this._location.back();
             }
         });

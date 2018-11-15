@@ -24,6 +24,7 @@ import { LocalDateFormat } from './main/content/others/localDate.Format';
 import { MessageDialogModule } from './main/content/components/messageDialog/messageDialog.module';
 import { AppService } from './app.service';
 import { Register2Module } from './main/content/pages/registration/register.module';
+import { UserModule } from './main/content/pages/administration/user/user.module';
 
 const appRoutes: Routes = [
     {
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
         EnquiryAlertsModule,
         EnquiryListModule,
         MessageDialogModule,
-        Register2Module
+        UserModule,
+        Register2Module,
     ],
     bootstrap: [
         AppComponent

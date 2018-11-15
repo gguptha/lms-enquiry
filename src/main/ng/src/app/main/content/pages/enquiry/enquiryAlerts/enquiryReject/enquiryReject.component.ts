@@ -29,7 +29,6 @@ export class EnquiryRejectDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) _data: any, _datePipe: DatePipe, private _service: EnquiryAlertsService) {
 
         this.loanApplication = _data.loanApplication;
-        console.log(this.loanApplication);
         this.rejectDate = _datePipe.transform(new Date(), 'dd/MM/yyyy');
     }
 

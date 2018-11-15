@@ -5,7 +5,7 @@ export class UserModel
     email: string;
     mobile: string;
     password: string;
-    sapBusinessPartnerId: string;
+    sapBPNumber: string;
     role: string;
     status: boolean;
 
@@ -26,7 +26,7 @@ export class UserModel
         this.email = user.email;
         this.mobile = user.mobile;
         this.password = user.password;
-        this.sapBusinessPartnerId = user.sapBusinessPartnerId;
+        this.sapBPNumber = user.sapBPNumber;
         this.role = user.role;
         this.status = user.status;
     }
