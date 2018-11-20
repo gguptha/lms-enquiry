@@ -1,0 +1,69 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button mat-button class="mat-icon-button" (click)="_dialogRef.close()" aria-label="Close Dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content fusePerfectScrollbar>
+        <form [formGroup]="userUpdateForm">
+            <div fxLayout="row" class="mt-16">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Firstname" formControlName="firstname" required>
+                    <mat-error>
+                        Provide valid input for Firstname
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Lastname" formControlName="lastname" required>
+                    <mat-error>
+                        Provide valid input for Lastname
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="SAP BP Code" formControlName="sapBPNumber" required>
+                    <mat-error>
+                        Provide valid input for SAP BP Code
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Role" formControlName="role">
+                        <mat-option [value]="'TR0110'">Prospect</mat-option>
+                        <mat-option [value]="'ZLM013'">Appraisal Officer</mat-option>
+                        <mat-option [value]="'ZLM010'">Co-Appraisal Officer</mat-option>
+                        <mat-option [value]="'ZLM023'">PFS IT Team</mat-option>
+                        <mat-option [value]="'ZLM001'">Promoter</mat-option>
+                        <mat-option [value]="'TR0100'">Main Loan Promoter</mat-option>
+                        <mat-option [value]="'TR010'">Co-Borrower</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Email" formControlName="email" required>
+                    <mat-error>
+                        Provide valid input for Email
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput type="password" placeholder="Password" formControlName="password" required>
+                    <mat-error>
+                        Provide valid input for Password
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div mat-dialog-actions fxLayout="row">
+                <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
+                    Submit
+                </button>
+                <button class="mr-8" mat-raised-button type="button" color="accent" (click)="cancel()">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

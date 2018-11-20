@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { fuseAnimations } from '@fuse/animations';
+import { UserModel } from '../../../../model/user.model';
+import { UserService } from '../user.service';
 
 @Component({
     selector: 'fuse-user-list',
@@ -12,35 +14,42 @@ import { fuseAnimations } from '@fuse/animations';
 })
 export class UserListComponent implements OnInit {
 
-    // dataSource: LoanApplicationDataSource;
+    dataSource: UserDataSource;
     
-    // selectedEnquiry: LoanApplicationResourceModel;
+    selectedUser: UserModel;
 
     displayedColumns = [
-        'functionalStatus', 'createdOn', 'enquiryNo', 'bpCode', 'projectName', 'projectLocationState', 'projectType', 
-        'loanClass', 'projectCapacity', 'assistanceType', 'projectCost', 'loanAmount'
+        'firstName', 'lastName', 'email', 'role', 'sapBPNumber'
     ];
 
-    // constructor(private _service: EnquiryAlertsService) {
-    //     this.dataSource = new LoanApplicationDataSource(_service);
-    // }
+    constructor(private _service: UserService) 
+    {
+        this.dataSource = new UserDataSource(_service);
+    }
     
-    ngOnInit(): void {
+    ngOnInit(): void 
+    { 
+        this._service.getUsers();
     }
 
+    onSelect(user: UserModel): void 
+    {
+        this.selectedUser = user;
+        this._service.selectedUser.next(user);
+    }
 }
 
-/* export class LoanApplicationDataSource extends MatTableDataSource<LoanApplicationResourceModel> {
-    constructor(private _service: EnquiryAlertsService) {
+export class UserDataSource extends MatTableDataSource<UserModel> 
+{
+    constructor(private _service: UserService) 
+    {
         super();
     }
 
-    connect(): BehaviorSubject<LoanApplicationResourceModel[]> {
-        console.log('loanApplications', this._service.loanApplications);
-        return this._service.loanApplications;
+    connect(): BehaviorSubject<UserModel[]> 
+    {
+        return this._service.users;
     }
 
-    disconnect(): void {
-    }
-}*/
-
+    disconnect(): void { }
+}

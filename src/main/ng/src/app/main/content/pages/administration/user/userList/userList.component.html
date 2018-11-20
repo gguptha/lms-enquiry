@@ -1,32 +1,55 @@
-<div id="tickers" class="page-layout simple" fusePerfectScrollbar>
-    <!-- HEADER -->
-    <div class="sub-header p-6 blue-grey-200-bg" fxLayout="row" fxLayoutAlign="space-between center">
+<div class="mat-table-container" style="width: 100%">
 
-        <!-- BREADCRUMB -->
-        <div class="breadcrumb text-truncate h1 pl-24 pt-12 pb-12" fxLayout="row" fxLayoutAlign="start center" *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
-            User Administration
-        </div>
-        <!-- / BREADCRUMB -->
+    <mat-table class="users-table" #table [dataSource]="dataSource" *fuseIfOnDom [@animateStagger]="{value:'50'}"
+        fusePerfectScrollbar>
 
-        <!-- TOOLBAR -->
-        <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="withdrawApplication()">
-                Add User
-            </button>
+        <!-- firstName Column -->
+        <ng-container cdkColumnDef="firstName">
+            <mat-header-cell *cdkHeaderCellDef>Firstname</mat-header-cell>
+            <mat-cell *cdkCellDef="let user">
+                <p class="text-truncate">{{ user.firstName }}</p>
+            </mat-cell>
+        </ng-container>
 
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="withdrawApplication()">
-                Edit User
-            </button>
-        </div>
-        <!-- / TOOLBAR -->
+        <!-- lastName Column -->
+        <ng-container cdkColumnDef="lastName">
+            <mat-header-cell *cdkHeaderCellDef>Lastname</mat-header-cell>
+            <mat-cell *cdkCellDef="let user">
+                <p class="text-truncate">{{ user.lastName }}</p>
+            </mat-cell>
+        </ng-container>
 
-    </div>
-    <!-- / HEADER -->
+        <!-- email Column -->
+        <ng-container cdkColumnDef="email">
+            <mat-header-cell *cdkHeaderCellDef>Email</mat-header-cell>
+            <mat-cell *cdkCellDef="let user">
+                <p class="text-truncate">{{ user.email }}</p>
+            </mat-cell>
+        </ng-container>
 
-    <!-- CONTENT -->
-    <div id="loan-enquiry" class="w-100-p p-16" fxLayout="column" fusePerfectScrollbar>
+        <!-- role Column -->
+        <ng-container cdkColumnDef="role">
+            <mat-header-cell *cdkHeaderCellDef>Role</mat-header-cell>
+            <mat-cell *cdkCellDef="let user">
+                <p class="text-truncate">{{ user.role }}</p>
+            </mat-cell>
+        </ng-container>
 
+        <!-- sapBPNumber Column -->
+        <ng-container cdkColumnDef="sapBPNumber">
+            <mat-header-cell *cdkHeaderCellDef>SAP BP Code</mat-header-cell>
+            <mat-cell *cdkCellDef="let user">
+                <p class="text-truncate">{{ user.sapBPNumber }}</p>
+            </mat-cell>
+        </ng-container>
 
-    </div>
-    <!-- CONTENT -->
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <mat-row *cdkRowDef="let user; columns: displayedColumns;" class="user" matRipple (click)="onSelect(user)"
+            [ngClass]="{'mat-light-blue-50-bg':user == selectedUser}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+
+    <!--mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator-->
 </div>
