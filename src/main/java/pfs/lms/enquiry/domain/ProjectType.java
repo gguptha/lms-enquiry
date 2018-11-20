@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class ProjectType extends AggregateRoot<ProjectType> {
 
-    private Integer code;
+    private String code;
 
     private String value;
 }

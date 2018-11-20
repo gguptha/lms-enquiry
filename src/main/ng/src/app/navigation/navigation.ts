@@ -32,18 +32,21 @@ export const navigation: FuseNavigation[] = [
                 url      : '/enquiryList',
             },
             {
-                id       : 'sample',
-                title    : 'Sample',
-                translate: 'NAV.SAMPLE.TITLE',
-                type     : 'item',
+                id       : 'administration',
+                title    : 'Administration',
+                translate: 'NAV.ADMINISTRATION',
+                type     : 'group',
                 icon     : 'email',
-                url      : '/sample',
-                badge    : {
-                    title    : '25',
-                    translate: 'NAV.SAMPLE.BADGE',
-                    bg       : '#F44336',
-                    fg       : '#FFFFFF'
-                }
+                children : [
+                    {
+                        id       : 'user-management',
+                        title    : 'User Management',
+                        translate: 'NAV.USERMANAGEMENT',
+                        type     : 'item',
+                        icon     : 'email',
+                        url      : '/userManagement',
+                    },
+                ]
             }
         ]
     }

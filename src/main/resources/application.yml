@@ -18,15 +18,15 @@ spring:
     serialization:
       fail-on-empty-beans: false
 oauth:
-  baseUrl: http://localhost:9000/auth
+  baseUrl: http://localhost:9999/auth
 security:
   oauth2:
     client:
       client-id: pfs-client
       client-secret: pfs-secret
-      access-token-uri: http://localhost:8090/auth/oauth/token
-      user-authorization-uri: http://localhost:8090/auth/oauth/authorize
+      access-token-uri: http://localhost:9999/auth/oauth/token
+      user-authorization-uri: http://localhost:9999/auth/oauth/authorize
     resource:
-      user-info-uri: http://localhost:8090/time
+      user-info-uri: http://localhost:9999/time
       jwt:
         keyValue: PfS$$$98567

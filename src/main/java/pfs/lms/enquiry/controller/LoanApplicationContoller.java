@@ -88,6 +88,7 @@ public class LoanApplicationContoller {
 
     @PutMapping("/loanApplications/{id}/approve")
     public ResponseEntity approve(@PathVariable("id") String loanApplicationId, @RequestBody LoanApplicationResource resource)
+            throws Exception
     {
         try
         {
@@ -95,42 +96,53 @@ public class LoanApplicationContoller {
             Partner partner = partnerRepository.getOne(resource.getPartner().getId());
 
             SAPLoanApplicationDetailsResource detailsResource = new SAPLoanApplicationDetailsResource();
+
             detailsResource.setLoanApplicationId(Long.toString(resource.getLoanApplication().getEnquiryNo().getId()));
+
             detailsResource.setPartnerExternalNumber("1");
             detailsResource.setPartnerRole("TR0100");
             detailsResource.setFirstname(resource.getPartner().getPartyName1());
-            detailsResource.setLastname(resource.getPartner().getPartyName2());
+            detailsResource.setLastname(resource.getPartner().getPartyName2() == null? "":
+                    resource.getPartner().getPartyName2());
             detailsResource.setEmail(resource.getPartner().getEmail());
-            detailsResource.setCity("Bangalore");
-            detailsResource.setPostalCode("322332");
-            detailsResource.setHouseNo("21221");
-            detailsResource.setStreet("12222");
+            detailsResource.setCity(resource.getPartner().getCity());
+            detailsResource.setPostalCode(resource.getPartner().getPostalCode());
+            detailsResource.setHouseNo(resource.getPartner().getAddressLine1());
+            detailsResource.setStreet(resource.getPartner().getStreet());
             detailsResource.setCountry("IN");
-            detailsResource.setContactPerName("John Smith");
-            //detailsResource.setApplicationDate(LocalDate.now().toString());
-            detailsResource.setApplicationDate("\\/Date(1228089600000)\\/");
+            detailsResource.setContactPerName(resource.getPartner().getContactPersonName());
 
-            detailsResource.setLoanClass("001");
-            detailsResource.setFinancingType("01");
+            detailsResource.setApplicationDate("\\/Date(1228089600000)\\/");
+            detailsResource.setLoanClass(resource.getLoanApplication().getLoanClass());
+            detailsResource.setFinancingType(resource.getLoanApplication().getFinancingType());
             detailsResource.setDebtEquityIndicator("X");
-            detailsResource.setProjectCapaacity("10");
+            detailsResource.setProjectCapaacity(resource.getLoanApplication().getProjectCapacity() == null? "0.00":
+                    String.format("%.2f", resource.getLoanApplication().getProjectCapacity()));
             detailsResource.setProjectCapacityUnit("MW");
             detailsResource.setScheduledCommDate("\\/Date(1228089600000)\\/");
-            detailsResource.setProjectCostInCrores(String.format("%.3f", resource.getLoanApplication().getProjectCost()));
-            detailsResource.setDebtAmountInCrores("2.000");
-            detailsResource.setEquityAmountInCrores("3.000");
+            detailsResource.setProjectCostInCrores(resource.getLoanApplication().getProjectCost() == null? "0.000":
+                    String.format("%.3f", resource.getLoanApplication().getProjectCost()));
+            detailsResource.setDebtAmountInCrores(resource.getLoanApplication().getProjectDebtAmount() == null? "0.000":
+                    String.format("%.3f", resource.getLoanApplication().getProjectDebtAmount()));
+            detailsResource.setEquityAmountInCrores(resource.getLoanApplication().getEquity() == null? "0.000":
+                    String.format("%.3f", resource.getLoanApplication().getEquity()));
             detailsResource.setCurrency("INR");
-            detailsResource.setApplicationCapitalInCrores("2200.00");
-            detailsResource.setLoanPurpose("01");
-            detailsResource.setGroupCompanyName("Rockey Group");
-            detailsResource.setPromoterName("Rockey");
-            detailsResource.setPromoterPATInCrores("1000.000");
-            detailsResource.setPromoterAreaOfBusiness("Test");
-            detailsResource.setPromoterRating("AAA");
-            detailsResource.setPromoterNetWorthInCrores("10.000");
-            detailsResource.setPromoterKeyDirector("Rockey Schindler");
-            detailsResource.setLoanStatus("01");
-            detailsResource.setProjectName("Rockey Solar Power Project");
+            detailsResource.setApplicationCapitalInCrores(resource.getLoanApplication().getPfsDebtAmount() == null? "0.000":
+                    String.format("%.3f", resource.getLoanApplication().getPfsDebtAmount()));
+            detailsResource.setLoanPurpose(resource.getLoanApplication().getLoanPurpose());
+            detailsResource.setGroupCompanyName(resource.getLoanApplication().getGroupCompany());
+            detailsResource.setPromoterName(resource.getLoanApplication().getPromoterName());
+            detailsResource.setPromoterPATInCrores(resource.getLoanApplication().getPromoterPATAmount() == null? "0.000":
+                    String.format("%.3f", resource.getLoanApplication().getPromoterPATAmount()));
+            detailsResource.setPromoterAreaOfBusiness(resource.getLoanApplication().getPromoterAreaOfBusinessNature());
+            detailsResource.setPromoterRating(resource.getLoanApplication().getRating());
+            detailsResource.setPromoterNetWorthInCrores(resource.getLoanApplication().getPromoterNetWorthAmount() == null? "0.000":
+                    String.format("%.3f", resource.getLoanApplication().getPromoterNetWorthAmount()));
+            detailsResource.setPromoterKeyDirector(resource.getLoanApplication().getPromoterKeyDirector());
+            detailsResource.setLoanStatus(Integer.toString(resource.getLoanApplication().getFunctionalStatus()));
+            detailsResource.setProjectName(resource.getPartner().getPartyName1());
+            detailsResource.setLoanOfficer(resource.getLoanApplication().getUserBPNumber());
+            detailsResource.setLoanProduct(resource.getLoanApplication().getProductCode());
             SAPLoanApplicationResource d = new SAPLoanApplicationResource();
             d.setSapLoanApplicationDetailsResource(detailsResource);
             integrationService.postLoanApplication(d);
@@ -146,7 +158,9 @@ public class LoanApplicationContoller {
         catch (Exception ex)
         {
             ex.printStackTrace();
+            throw ex;
         }
+
         return ResponseEntity.ok(resource);
     }
 

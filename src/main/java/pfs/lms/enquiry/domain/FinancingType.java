@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class FinancingType extends AggregateRoot<FinancingType> {
 
-    private Integer code;
+    private String code;
 
     private String value;
 }

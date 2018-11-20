@@ -44,7 +44,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 008     Infrastructure
      * 009     Others
      */
-    private Integer loanClass;
+    private String loanClass;
 
     /**
      * 01   Thermal - Coal
@@ -64,7 +64,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 15   Renovation & Modernisation
      * 16   Others
      */
-    private Integer projectType;
+    private String projectType;
 
     /**
      * 01      Sole Lending
@@ -74,7 +74,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 05      Lead FI & Synd.
      * 06      Syndication
      */
-    private Integer financingType;
+    private String financingType;
 
     /**
      * D - Debt
@@ -181,8 +181,12 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String userBPNumber;
 
+    private String groupCompany;
+
+    private String productCode;
+
     @JsonCreator
-    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, Integer loanClass, Integer projectType, Integer financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber) {
+    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode) {
 
         this.loanEnquiryDate = loanEnquiryDate;
         this.loanEnquiryId = loanEnquiryId;
@@ -223,6 +227,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.rejectionReason = rejectionReason;
         this.decisionDate = decisionDate;
         this.userBPNumber = userBPNumber;
+        this.groupCompany = groupCompany;
+        this.productCode = productCode;
         this.enquiryNo = new EnquiryNo();
         registerEvent(LoanApplicationCreated.of(this));
     }
@@ -281,15 +287,15 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.loanApplicant;
     }
 
-    public Integer getLoanClass() {
+    public String getLoanClass() {
         return this.loanClass;
     }
 
-    public Integer getProjectType() {
+    public String getProjectType() {
         return this.projectType;
     }
 
-    public Integer getFinancingType() {
+    public String getFinancingType() {
         return this.financingType;
     }
 
@@ -407,6 +413,22 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public Integer getFinalDecisionStatus() {
         return this.finalDecisionStatus;
+    }
+
+    public LocalDateTime getRejectionDate() {
+        return rejectionDate;
+    }
+
+    public String getUserBPNumber() {
+        return userBPNumber;
+    }
+
+    public String getGroupCompany() {
+        return this.groupCompany;
+    }
+
+    public String getProductCode() {
+        return this.productCode;
     }
 
     public @Size(max = 100) String getRejectionReason() {

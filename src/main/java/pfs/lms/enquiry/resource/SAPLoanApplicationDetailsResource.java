@@ -159,6 +159,11 @@ public class SAPLoanApplicationDetailsResource {
     @JsonProperty(value = "ProjectName")
     private String projectName;
 
+    @JsonProperty(value = "LoanOfficer")
+    private String loanOfficer;
+
+    @JsonProperty(value = "LoanProduct")
+    private String loanProduct;
 
     public SAPLoanApplicationDetailsResource() {
 
@@ -209,6 +214,8 @@ public class SAPLoanApplicationDetailsResource {
         this.promoterKeyDirector="";
         this.loanStatus="";
         this.projectName="";
+        this.loanOfficer = "";
+        this.loanProduct = "";
     }
 
     public String getLoanContract() {
@@ -595,6 +602,22 @@ public class SAPLoanApplicationDetailsResource {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public String getLoanOfficer() {
+        return loanOfficer;
+    }
+
+    public void setLoanOfficer(String loanOfficer) {
+        this.loanOfficer = loanOfficer;
+    }
+
+    public String getLoanProduct() {
+        return loanProduct;
+    }
+
+    public void setLoanProduct(String loanProduct) {
+        this.loanProduct = loanProduct;
     }
 
     @Override

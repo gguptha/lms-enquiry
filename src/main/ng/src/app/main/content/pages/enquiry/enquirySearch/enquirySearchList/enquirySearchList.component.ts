@@ -43,7 +43,7 @@ export class EnquirySearchListComponent implements OnInit {
      * getProjectTypeDescription()
      * @param projectType 
      */
-    getProjectTypeDescription(projectType: number): string {
+    getProjectTypeDescription(projectType: string): string {
         return ProjectTypeModel.getProjectTypeDescription(projectType);
     }
 
@@ -51,7 +51,7 @@ export class EnquirySearchListComponent implements OnInit {
      * getLoanClassDescription()
      * @param loanClass 
      */
-    getLoanClassDescription(loanClass: number): string {
+    getLoanClassDescription(loanClass: string): string {
         return LoanClassModel.getLoanClassDescription(loanClass);
     }
 

@@ -60,6 +60,7 @@ export class EnquiryApprovalDialogComponent implements OnInit {
             console.log('saving data');
             console.log('this._appService.currentUser', this._appService.currentUser);
             this.loanApplication.userBPNumber = this._appService.currentUser.sapBPNumber;
+            this.loanApplication.productCode = this.productCode;
             this._service.approveLoanApplication(this.loanApplication, this.partner).subscribe(() => {
                 this._dialogRef.close({ action: 'Approved' });
             });

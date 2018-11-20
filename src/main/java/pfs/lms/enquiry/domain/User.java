@@ -2,6 +2,7 @@ package pfs.lms.enquiry.domain;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
@@ -14,7 +15,10 @@ public class User extends AggregateRoot<User> {
 
     private String firstName;
     private String lastName;
+
+    @Column(unique = true)
     private String email;
+
     private String role;
     private boolean status;
     private String userName;

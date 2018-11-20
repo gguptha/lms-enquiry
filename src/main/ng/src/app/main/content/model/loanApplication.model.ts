@@ -11,7 +11,7 @@ export class LoanApplicationModel {
     financingType: string;
     functionalStatus: number;
     loanApplicant: string;
-    loanClass: number;
+    loanClass: string;
     loanPurpose: number;
     leadFIName: string;
     leadFILoanAmount: number;
@@ -22,7 +22,7 @@ export class LoanApplicationModel {
     projectDebtAmount: number;
     projectDistrict: string;
     projectLocationState: string;
-    projectType: number;
+    projectType: string;
     promoterName: string;
     promoterAreaOfBusinessNature: string;
     promoterKeyDirector: string;
@@ -33,7 +33,9 @@ export class LoanApplicationModel {
     tenorMonth: number;
     scheduledCOD: Date;
     userBPNumber: string;
-    
+    productCode: string;
+    groupCompany: string;
+
     _links: Object;
     
     /**
@@ -74,6 +76,9 @@ export class LoanApplicationModel {
         this.tenorYear = _loanApplication.tenorYear || 0;
         this.tenorMonth = _loanApplication.tenorMonth || 0;
         this.scheduledCOD = _loanApplication.scheduledCOD || '';
+        this.userBPNumber = _loanApplication.userBPNumber || '';
+        this.productCode = _loanApplication.productCode || '';
+        this.groupCompany = _loanApplication.groupCompany || '';
         
         this._links = _loanApplication._links;
     }
@@ -84,16 +89,16 @@ export class LoanApplicationModel {
      */
     get loanClassDescription(): string {
         switch (this.loanClass) {
-            case 0: return '';
-            case 1: return 'Power';
-            case 2: return 'Railways';
-            case 3: return 'Urban Infrastructure';
-            case 4: return 'Roads';
-            case 5: return 'Ports';
-            case 6: return 'Oil & Gas';
-            case 7: return 'Corporates';
-            case 8: return 'Infrastructure';
-            case 9: return 'Others';
+            case '0' : return '';
+            case '001': return 'Power';
+            case '002': return 'Railways';
+            case '003': return 'Urban Infrastructure';
+            case '004': return 'Roads';
+            case '005': return 'Ports';
+            case '006': return 'Oil & Gas';
+            case '007': return 'Corporates';
+            case '008': return 'Infrastructure';
+            case '009': return 'Others';
         }
     }
 
@@ -103,23 +108,23 @@ export class LoanApplicationModel {
      */
     get projectTypeDescription(): string {
         switch (this.projectType) {
-            case  0: return '';
-            case  1: return 'Thermal - Coal';
-            case  2: return 'Thermal - Ignite';
-            case  3: return 'Thermal - Gas';
-            case  4: return 'Hydro';
-            case  5: return 'Renewable - Solar';
-            case  6: return 'Renewable - Wind';
-            case  7: return 'Renewable - Biomass';
-            case  8: return 'Renewable - Small Hydro';
-            case  9: return 'EPC Contractors';
-            case 10: return 'Coal Mining';
-            case 11: return 'Power Transmission';
-            case 12: return 'Railway Siding';
-            case 13: return 'Ports';
-            case 14: return 'Corporate';
-            case 15: return 'Renovation & Modernisation';
-            case 16: return 'Others';
+            case  '0': return '';
+            case '01': return 'Thermal - Coal';
+            case '02': return 'Thermal - Ignite';
+            case '03': return 'Thermal - Gas';
+            case '04': return 'Hydro';
+            case '05': return 'Renewable - Solar';
+            case '06': return 'Renewable - Wind';
+            case '07': return 'Renewable - Biomass';
+            case '08': return 'Renewable - Small Hydro';
+            case '09': return 'EPC Contractors';
+            case '10': return 'Coal Mining';
+            case '11': return 'Power Transmission';
+            case '12': return 'Railway Siding';
+            case '13': return 'Ports';
+            case '14': return 'Corporate';
+            case '15': return 'Renovation & Modernisation';
+            case '16': return 'Others';
         }
     }
 

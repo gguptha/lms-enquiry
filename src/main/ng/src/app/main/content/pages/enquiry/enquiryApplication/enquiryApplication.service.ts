@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { StateModel } from '../../../model/state.model';
 import { AppService } from '../../../../../app.service';
 
-@Injectable()   
+@Injectable()
 export class LoanEnquiryService implements Resolve<any> {
 
     /**
@@ -81,11 +81,11 @@ export class LoanEnquiryService implements Resolve<any> {
      * @param partner 
      */
     public saveLoanApplication(loanApplication: any, partner: any): Observable<any> {
-        return this._http.post('/api/loanApplications', {loanApplication, partner});
+        return this._http.post('api/loanApplications', { loanApplication, partner });
     }
 
     public me(): void {
-        this._http.get<any>('api/me').subscribe(response => {}
+        this._http.get<any>('api/me').subscribe(response => { }
         );
     }
 }

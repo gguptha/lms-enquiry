@@ -8,9 +8,12 @@ import pfs.lms.enquiry.resource.SignupResource;
 @FeignClient(name = "oAuthClient", url = "${oauth.baseUrl}")
 public interface OAuthClient {
 
-    @RequestMapping(value = "/api/signup",method = RequestMethod.POST)
+    @RequestMapping(value = "/api/signup", method = RequestMethod.POST)
     ResponseEntity<Boolean> signup(@RequestBody SignupResource signupResource);
 
-    @RequestMapping(value = "/signup/verify/{activation}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/admin/signup", method = RequestMethod.POST)
+    ResponseEntity<Boolean> adminSignUp(@RequestBody SignupResource signupResource);
+
+    @RequestMapping(value = "/signup/verify/{activation}", method = RequestMethod.PUT)
     ResponseEntity verify(@PathVariable("activation") String activation);
 }

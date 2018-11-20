@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class LoanClass extends AggregateRoot<LoanClass> {
 
-    private Integer code;
+    private String code;
 
     private String value;
 }

@@ -63,9 +63,6 @@ public class SAPIntegrationService implements ISAPIntegrationService {
 
     @Override
     public void postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource) {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> createdInvoice = null;
-
         try {
 
             HttpHeaders headers = new HttpHeaders() {
@@ -79,25 +76,18 @@ public class SAPIntegrationService implements ISAPIntegrationService {
                     add("X-Requested-With", "X");
                 }
             };
-            // MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-            // HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-            // System.out.println("THE REQUEST : " + request.toString());
 
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> createdEnquiry = null;
             HttpEntity<SAPLoanApplicationResource> requestToPost = new HttpEntity<SAPLoanApplicationResource>(sapLoanApplicationResource, headers);
             URI postURI = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300");
-            System.out.println("THE URI : " + postURI.toString());
-            log.info("Content: " + requestToPost.toString());
-            log.info("Object: " + sapLoanApplicationResource.getSapLoanApplicationDetailsResource().toString());
-            log.info("Request: " + requestToPost.getBody().toString());
-            createdInvoice = restTemplate.exchange(postURI, HttpMethod.POST, requestToPost, String.class);
-
-            HttpStatus statusCode = createdInvoice.getStatusCode();
+            createdEnquiry = restTemplate.exchange(postURI, HttpMethod.POST, requestToPost, String.class);
+            HttpStatus statusCode = createdEnquiry.getStatusCode();
         }
         catch (URISyntaxException e)
         {
             e.printStackTrace();
         }
-
     }
 
     @Override
