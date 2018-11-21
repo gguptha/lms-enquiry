@@ -38,11 +38,11 @@ public class LoanApplicationContoller {
 
     @GetMapping("/loanApplications")
     public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
-                                                     Pageable pageable) {
+                                                     Pageable pageable)
+    {
+        List<LoanApplication> loanApplications = null;
 
-        List<LoanApplication> loanApplications;
-
-        User user = null;
+        User user;
         if(request.getUserPrincipal().getName().equals("admin"))
             user = userRepository.findByEmail("admin@gmail.com");
         else
@@ -56,14 +56,18 @@ public class LoanApplicationContoller {
                 loanApplications = loanApplicationRepository.findByFunctionalStatus(status, pageable).getContent();
         }
         else {
-            loanApplications = loanApplicationRepository.findByLoanApplicant(user.getId(), pageable).getContent();
+            Partner partner = partnerRepository.findByEmail(user.getEmail());
+            if (partner != null)
+                loanApplications = loanApplicationRepository.findByLoanApplicant(partner.getId(), pageable).getContent();
         }
 
         List<LoanApplicationResource> resources = new ArrayList<>(0);
-        loanApplications.forEach(loanApplication -> {
-            Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
-            resources.add(new LoanApplicationResource(loanApplication,partner));
-        });
+        if (loanApplications != null) {
+            loanApplications.forEach(loanApplication -> {
+                Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+                resources.add(new LoanApplicationResource(loanApplication, partner));
+            });
+        }
 
         return ResponseEntity.ok(resources);
     }
