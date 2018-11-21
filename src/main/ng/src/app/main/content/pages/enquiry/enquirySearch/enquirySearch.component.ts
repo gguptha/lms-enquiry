@@ -13,6 +13,8 @@ export class EnquirySearchComponent implements OnInit {
 
     enquiryList: any;
 
+    expandPanel = true;
+
     constructor(_formBuilder: FormBuilder, private _service: LoanEnquiryService) {
 
         this.enquirySearchForm = _formBuilder.group({
@@ -27,6 +29,7 @@ export class EnquirySearchComponent implements OnInit {
     searchEnquiries(): void {
         this._service.searchLoanEnquiries(this.enquirySearchForm.value).subscribe((result) => {
             this.enquiryList = result;
+            this.expandPanel = false;
         });
     }
 }
