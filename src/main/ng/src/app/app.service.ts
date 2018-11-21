@@ -38,10 +38,7 @@ export class AppService implements CanActivate {
         });
     }
 
-    /**
-     * logout()
-     */
-    logout(): void
-    {
+    me(): Observable<UserModel> {
+        return this._http.get<UserModel>('api/me');
     }
 }

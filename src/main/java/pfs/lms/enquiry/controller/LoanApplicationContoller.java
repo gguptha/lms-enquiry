@@ -38,11 +38,11 @@ public class LoanApplicationContoller {
 
     @GetMapping("/loanApplications")
     public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
-                                                     Pageable pageable) {
+                                                     Pageable pageable)
+    {
+        List<LoanApplication> loanApplications = null;
 
-        List<LoanApplication> loanApplications;
-
-        User user = null;
+        User user;
         if(request.getUserPrincipal().getName().equals("admin"))
             user = userRepository.findByEmail("admin@gmail.com");
         else
@@ -56,14 +56,18 @@ public class LoanApplicationContoller {
                 loanApplications = loanApplicationRepository.findByFunctionalStatus(status, pageable).getContent();
         }
         else {
-            loanApplications = loanApplicationRepository.findByLoanApplicant(user.getId(), pageable).getContent();
+            Partner partner = partnerRepository.findByEmail(user.getEmail());
+            if (partner != null)
+                loanApplications = loanApplicationRepository.findByLoanApplicant(partner.getId(), pageable).getContent();
         }
 
         List<LoanApplicationResource> resources = new ArrayList<>(0);
-        loanApplications.forEach(loanApplication -> {
-            Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
-            resources.add(new LoanApplicationResource(loanApplication,partner));
-        });
+        if (loanApplications != null) {
+            loanApplications.forEach(loanApplication -> {
+                Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+                resources.add(new LoanApplicationResource(loanApplication, partner));
+            });
+        }
 
         return ResponseEntity.ok(resources);
     }
@@ -182,7 +186,9 @@ public class LoanApplicationContoller {
     }
 
     @PutMapping("/loanApplications/search")
-    public ResponseEntity search(@RequestBody SearchResource resource, @PageableDefault(sort = {"enquiryNo ASC"}) Pageable pageable){
+    public ResponseEntity search(@RequestBody SearchResource resource, HttpServletRequest request,
+                                 @PageableDefault(sort = {"enquiryNo ASC"}) Pageable pageable)
+    {
         List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationRepository.findAll(pageable).getContent());
 
         if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null)
@@ -213,6 +219,22 @@ public class LoanApplicationContoller {
 
         if (resource.getAssistanceType() != null)
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getAssistanceType().equals(resource.getAssistanceType())).collect(Collectors.toList());
+
+        User user;
+        if(request.getUserPrincipal().getName().equals("admin")) {
+            user = userRepository.findByEmail("admin@gmail.com");
+        }
+        else {
+            user = userRepository.findByEmail(request.getUserPrincipal().getName());
+        }
+
+        if (user.getRole().equals("TR0100")) {
+            Partner partner = partnerRepository.findByEmail(user.getEmail());
+            if (partner != null) {
+                loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanApplicant()
+                        .equals(partner.getId())).collect(Collectors.toList());
+            }
+        }
 
         List<LoanApplicationResource> resources = new ArrayList<>(0);
         loanApplications.forEach(loanApplication -> {

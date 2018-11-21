@@ -1,5 +1,5 @@
 <div id="loan-enquiry" class="w-100-p p-16" fxLayout="column" fusePerfectScrollbar>
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel [expanded]="expandPanel" hideToggle="false">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 Enquiry List
@@ -52,5 +52,6 @@
             </div>
         </form>
     </mat-expansion-panel>
+    <br>
     <fuse-enquiry-search-list [enquiryList]="enquiryList"></fuse-enquiry-search-list>
 </div>
