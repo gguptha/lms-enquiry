@@ -1,9 +1,9 @@
-import { Resolve, CanActivate, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router/src/router_state';
-import { Observable, forkJoin } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { UserModel } from './main/content/model/user.model';
+import {CanActivate, Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router/src/router_state';
+import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {UserModel} from './main/content/model/user.model';
 
 @Injectable()
 export class AppService implements CanActivate {

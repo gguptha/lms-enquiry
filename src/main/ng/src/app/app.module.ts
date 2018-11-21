@@ -1,30 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatButtonModule, MatIconModule, DateAdapter } from '@angular/material';
-import { TranslateModule } from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {DateAdapter, MatButtonModule, MatIconModule} from '@angular/material';
+import {TranslateModule} from '@ngx-translate/core';
 import 'hammerjs';
 
-import { FuseModule } from '@fuse/fuse.module';
-import { FuseSharedModule } from '@fuse/shared.module';
-import { FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule } from '@fuse/components';
+import {FuseModule} from '@fuse/fuse.module';
+import {FuseSharedModule} from '@fuse/shared.module';
+import {FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule} from '@fuse/components';
 
-import { fuseConfig } from 'app/fuse-config';
+import {fuseConfig} from 'app/fuse-config';
 
-import { AppComponent } from 'app/app.component';
-import { LayoutModule } from 'app/layout/layout.module';
-import { SampleModule } from 'app/main/sample/sample.module';
-import { EnquiryApplicationModule } from './main/content/pages/enquiry/enquiryApplication/enquiryApplication.module';
-import { EnquiryAlertsModule } from './main/content/pages/enquiry/enquiryAlerts/enquiryAlerts.module';
-import { EnquiryListModule } from './main/content/pages/enquiry/enquirySearch/enquirySearch.module';
-import { LocalDateFormat } from './main/content/others/localDate.Format';
-import { MessageDialogModule } from './main/content/components/messageDialog/messageDialog.module';
-import { AppService } from './app.service';
-import { Register2Module } from './main/content/pages/registration/register.module';
-import { UserModule } from './main/content/pages/administration/user/user.module';
+import {AppComponent} from 'app/app.component';
+import {LayoutModule} from 'app/layout/layout.module';
+import {SampleModule} from 'app/main/sample/sample.module';
+import {EnquiryApplicationModule} from './main/content/pages/enquiry/enquiryApplication/enquiryApplication.module';
+import {EnquiryAlertsModule} from './main/content/pages/enquiry/enquiryAlerts/enquiryAlerts.module';
+import {EnquiryListModule} from './main/content/pages/enquiry/enquirySearch/enquirySearch.module';
+import {LocalDateFormat} from './main/content/others/localDate.Format';
+import {MessageDialogModule} from './main/content/components/messageDialog/messageDialog.module';
+import {AppService} from './app.service';
+import {Register2Module} from './main/content/pages/registration/register.module';
+import {UserModule} from './main/content/pages/administration/user/user.module';
 
 const appRoutes: Routes = [
     {
