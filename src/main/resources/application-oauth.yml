@@ -1,0 +1,38 @@
+spring:
+  profiles: oauth
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: pfsenquiry
+    password: dn47gh3y
+    maximum-pool-size: 40
+    url: jdbc:mysql://localhost:3306/pfsenquiry?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true
+    validation-query: select 1
+    connection-test-query: select 1
+    test-while-idle: true
+    test-on-borrow: true
+    time-between-eviction-runs-millis: 60000
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 20
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    generate-ddl: true
+  data:
+    rest:
+      basePath: /api
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+oauth:
+  baseUrl: http://localhost:9999/auth
+security:
+  oauth2:
+    client:
+      client-id: pfs-client
+      client-secret: pfs-secret
+      access-token-uri: http://localhost:9999/auth/oauth/token
+      user-authorization-uri: http://localhost:9999/auth/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:9999/time
+      jwt:
+        keyValue: PfS$$$98567

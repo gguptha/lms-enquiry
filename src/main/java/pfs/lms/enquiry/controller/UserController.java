@@ -40,9 +40,9 @@ public class UserController
     }
 
     @PutMapping("/password/modify")
-    public ResponseEntity modifyPassword(@RequestBody SignupResource signupResource,Principal principal){
+    public ResponseEntity modifyPassword(@RequestBody SignupResource signupResource, Principal principal) {
         String token = getAuthorizationBearer(principal);
-        oAuthClient.modifyPassword(token,signupResource);
+        oAuthClient.modifyPassword(token, signupResource);
         return ResponseEntity.ok().build();
     }
 
