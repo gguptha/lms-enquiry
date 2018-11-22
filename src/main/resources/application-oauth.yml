@@ -17,6 +17,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
     generate-ddl: true
+    show-sql: true
   data:
     rest:
       basePath: /api

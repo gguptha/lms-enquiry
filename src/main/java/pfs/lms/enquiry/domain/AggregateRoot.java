@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.Id;
@@ -25,6 +26,7 @@ import java.util.UUID;
 public abstract class AggregateRoot<A extends AbstractAggregateRoot<A>> extends AbstractAggregateRoot<A> {
 
     @Id
+    @Type(type = "uuid-char")
     protected UUID id;
 
     @Version

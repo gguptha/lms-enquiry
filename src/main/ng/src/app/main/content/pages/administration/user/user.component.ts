@@ -16,14 +16,26 @@ export class UserComponent implements OnInit {
 
     selectedUser: UserModel;
 
-    constructor(private _userService: UserService, private _dialogRef: MatDialog) 
-    { 
+    constructor(private _userService: UserService, private _dialogRef: MatDialog) {
         this._userService.selectedUser.subscribe((data) => {
             this.selectedUser = data;
         });
     }
-    
+
     ngOnInit(): void {
+    }
+
+    displayAddUserDialog(): void {
+        // Open the dialog.
+        const dialogRef = this._dialogRef.open(UserUpdateDialogComponent, {
+            panelClass: 'fuse-user-update-dialog',
+            width: '650px',
+            data: {
+                operation: 'addUser'
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { });
     }
 
     displayUpdateUserDialog(): void {
@@ -32,15 +44,11 @@ export class UserComponent implements OnInit {
             panelClass: 'fuse-user-update-dialog',
             width: '650px',
             data: {
-                // loanApplication: this.loanApplication,
-                // partner: this.partner
+                operation: 'updateUser',
+                selectedUser: this.selectedUser
             }
         });
         // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => {
-            // if (result !== undefined && result.action !== 'Cancel') {
-            //    this._location.back();
-            // }
-        });
+        dialogRef.afterClosed().subscribe((result) => { });
     }
 }

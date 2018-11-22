@@ -27,6 +27,16 @@ export class UserService
     }
 
     /**
+     * updateUser()
+     * Creates a new user.
+     * @param user 
+     */
+    public updateUser(user: UserModel): Observable<any> 
+    {
+        return this._http.put('/api/user', user);
+    }
+
+    /**
      * getUsers()
      * Fetches a list of users.
      */
@@ -37,7 +47,12 @@ export class UserService
             response._embedded.users.map((user) => {
                 users.push(new UserModel(user));
             });
-            this.users = new BehaviorSubject(users);
+            if (this.users === undefined) {
+                this.users = new BehaviorSubject(users);
+            }
+            else {
+                this.users.next(users);
+            }
         });
     }
 }

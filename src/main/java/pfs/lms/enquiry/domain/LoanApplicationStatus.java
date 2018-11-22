@@ -1,6 +1,7 @@
 package pfs.lms.enquiry.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoanApplicationStatus extends AbstractEntity{
 
+    @Type(type = "uuid-char")
     private UUID loanApplicationId;
 
     private Integer status;

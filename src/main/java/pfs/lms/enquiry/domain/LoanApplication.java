@@ -3,6 +3,7 @@ package pfs.lms.enquiry.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,6 +32,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private Integer loanContractId;
 
+    @Type(type = "uuid-char")
     private UUID loanApplicant;
 
     /**

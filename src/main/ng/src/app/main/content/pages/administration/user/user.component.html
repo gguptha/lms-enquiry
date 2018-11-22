@@ -10,11 +10,11 @@
 
         <!-- TOOLBAR -->
         <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="displayUpdateUserDialog()">
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="displayAddUserDialog()">
                 Add User
             </button>
 
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="withdrawApplication()"
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="displayUpdateUserDialog()"
                     [disabled]="!selectedUser.firstName">
                 Edit User
             </button>

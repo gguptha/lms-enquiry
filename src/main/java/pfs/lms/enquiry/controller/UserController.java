@@ -32,10 +32,8 @@ public class UserController
 
     @PostMapping("/user")
     public ResponseEntity signup(@RequestBody UserResource userResource) {
-
         // Create the user.
         iSignupService.signup(userResource);
-
         return ResponseEntity.ok().build();
     }
 
