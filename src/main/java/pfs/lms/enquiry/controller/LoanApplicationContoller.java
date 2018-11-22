@@ -133,7 +133,9 @@ public class LoanApplicationContoller {
             detailsResource.setCurrency("INR");
             detailsResource.setApplicationCapitalInCrores(resource.getLoanApplication().getPfsDebtAmount() == null? "0.000":
                     String.format("%.3f", resource.getLoanApplication().getPfsDebtAmount()));
-            detailsResource.setLoanPurpose(resource.getLoanApplication().getLoanPurpose());
+            // detailsResource.setLoanPurpose(resource.getLoanApplication().getLoanPurpose());
+            // Send empty string for loan purpose. Will be handled at SAP.
+            detailsResource.setLoanPurpose("");
             detailsResource.setGroupCompanyName(resource.getLoanApplication().getGroupCompany());
             detailsResource.setPromoterName(resource.getLoanApplication().getPromoterName());
             detailsResource.setPromoterPATInCrores(resource.getLoanApplication().getPromoterPATAmount() == null? "0.000":
