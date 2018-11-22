@@ -33,7 +33,7 @@ export class LoanEnquiryService implements Resolve<any> {
      * returns a list of loan classes.
      */
     public getLoanClasses(): Observable<any> {
-        return this._http.get('api/loanClasses');
+        return this._http.get('api/loanClasses?sort=code');
     }
 
     /**
@@ -41,7 +41,7 @@ export class LoanEnquiryService implements Resolve<any> {
      * returns a list of financing types.
      */
     public getFinancingTypes(): Observable<any> {
-        return this._http.get('api/financingTypes');
+        return this._http.get('api/financingTypes?sort=code');
     }
 
     /**
@@ -49,7 +49,7 @@ export class LoanEnquiryService implements Resolve<any> {
      * Returns a list of project types.
      */
     public getProjectTypes(): Observable<any> {
-        return this._http.get('api/projectTypes');
+        return this._http.get('api/projectTypes?sort=code');
     }
 
     /**
