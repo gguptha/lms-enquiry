@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.Type;
+import pfs.lms.enquiry.resource.SAPArroved;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -265,7 +266,15 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public LoanApplication approve()
     {
+        registerEvent(LoanApplicationApproved.of(this));
+        return this;
+    }
+
+    public LoanApplication approvedFromSAP(SAPArroved arroved){
         this.functionalStatus = 2;
+
+
+
         return this;
     }
 
@@ -439,6 +448,15 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public LocalDate getDecisionDate() {
         return this.decisionDate;
+    }
+
+
+    @Value
+    @RequiredArgsConstructor(staticName = "of")
+    @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+    public static class LoanApplicationApproved {
+
+        final LoanApplication loanApplication;
     }
 
     @Value
