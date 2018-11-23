@@ -100,61 +100,6 @@ public class LoanApplicationContoller {
         {
             LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
             Partner partner = partnerRepository.getOne(resource.getPartner().getId());
-
-            SAPLoanApplicationDetailsResource detailsResource = new SAPLoanApplicationDetailsResource();
-
-            detailsResource.setLoanApplicationId(Long.toString(resource.getLoanApplication().getEnquiryNo().getId()));
-
-            detailsResource.setPartnerExternalNumber("1");
-            detailsResource.setPartnerRole("TR0100");
-            detailsResource.setFirstname(resource.getPartner().getPartyName1());
-            detailsResource.setLastname(resource.getPartner().getPartyName2() == null? "":
-                    resource.getPartner().getPartyName2());
-            detailsResource.setEmail(resource.getPartner().getEmail());
-            detailsResource.setCity(resource.getPartner().getCity());
-            detailsResource.setPostalCode(resource.getPartner().getPostalCode());
-            detailsResource.setHouseNo(resource.getPartner().getAddressLine1());
-            detailsResource.setStreet(resource.getPartner().getStreet());
-            detailsResource.setCountry("IN");
-            detailsResource.setContactPerName(resource.getPartner().getContactPersonName());
-
-            detailsResource.setApplicationDate("\\/Date(1228089600000)\\/");
-            detailsResource.setLoanClass(resource.getLoanApplication().getLoanClass());
-            detailsResource.setFinancingType(resource.getLoanApplication().getFinancingType());
-            detailsResource.setDebtEquityIndicator("X");
-            detailsResource.setProjectCapaacity(resource.getLoanApplication().getProjectCapacity() == null? "0.00":
-                    String.format("%.2f", resource.getLoanApplication().getProjectCapacity()));
-            detailsResource.setProjectCapacityUnit("MW");
-            detailsResource.setScheduledCommDate("\\/Date(1228089600000)\\/");
-            detailsResource.setProjectCostInCrores(resource.getLoanApplication().getProjectCost() == null? "0.000":
-                    String.format("%.3f", resource.getLoanApplication().getProjectCost()));
-            detailsResource.setDebtAmountInCrores(resource.getLoanApplication().getProjectDebtAmount() == null? "0.000":
-                    String.format("%.3f", resource.getLoanApplication().getProjectDebtAmount()));
-            detailsResource.setEquityAmountInCrores(resource.getLoanApplication().getEquity() == null? "0.000":
-                    String.format("%.3f", resource.getLoanApplication().getEquity()));
-            detailsResource.setCurrency("INR");
-            detailsResource.setApplicationCapitalInCrores(resource.getLoanApplication().getPfsDebtAmount() == null? "0.000":
-                    String.format("%.3f", resource.getLoanApplication().getPfsDebtAmount()));
-            // detailsResource.setLoanPurpose(resource.getLoanApplication().getLoanPurpose());
-            // Send empty string for loan purpose. Will be handled at SAP.
-            detailsResource.setLoanPurpose("");
-            detailsResource.setGroupCompanyName(resource.getLoanApplication().getGroupCompany());
-            detailsResource.setPromoterName(resource.getLoanApplication().getPromoterName());
-            detailsResource.setPromoterPATInCrores(resource.getLoanApplication().getPromoterPATAmount() == null? "0.000":
-                    String.format("%.3f", resource.getLoanApplication().getPromoterPATAmount()));
-            detailsResource.setPromoterAreaOfBusiness(resource.getLoanApplication().getPromoterAreaOfBusinessNature());
-            detailsResource.setPromoterRating(resource.getLoanApplication().getRating());
-            detailsResource.setPromoterNetWorthInCrores(resource.getLoanApplication().getPromoterNetWorthAmount() == null? "0.000":
-                    String.format("%.3f", resource.getLoanApplication().getPromoterNetWorthAmount()));
-            detailsResource.setPromoterKeyDirector(resource.getLoanApplication().getPromoterKeyDirector());
-            detailsResource.setLoanStatus(Integer.toString(resource.getLoanApplication().getFunctionalStatus()));
-            detailsResource.setProjectName(resource.getPartner().getPartyName1());
-            detailsResource.setLoanOfficer(resource.getLoanApplication().getUserBPNumber());
-            detailsResource.setLoanProduct(resource.getLoanApplication().getProductCode());
-            SAPLoanApplicationResource d = new SAPLoanApplicationResource();
-            d.setSapLoanApplicationDetailsResource(detailsResource);
-            integrationService.postLoanApplication(d);
-
             BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
             BeanUtils.copyProperties(resource.getPartner(), partner,"id");
             loanApplication.approve();
