@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.process.LoanApplicationEngine;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.repository.UserRepository;
@@ -37,6 +38,8 @@ public class LoanApplicationContoller {
     private final PartnerRepository partnerRepository;
 
     private final UserRepository userRepository;
+
+    private final LoanApplicationEngine engine;
 
     @GetMapping("/loanApplications")
     public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
@@ -96,23 +99,17 @@ public class LoanApplicationContoller {
     public ResponseEntity approve(@PathVariable("id") String loanApplicationId, @RequestBody LoanApplicationResource resource)
             throws Exception
     {
-        try
-        {
-            LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
-            Partner partner = partnerRepository.getOne(resource.getPartner().getId());
-            BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
-            BeanUtils.copyProperties(resource.getPartner(), partner,"id");
-            loanApplication.approve();
-            loanApplication = loanApplicationRepository.save(loanApplication);
-            partner = partnerRepository.save(partner);
-            resource.setLoanApplication(loanApplication);
-            resource.setPartner(partner);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            throw ex;
-        }
+
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
+        Partner partner = partnerRepository.getOne(resource.getPartner().getId());
+        BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
+        BeanUtils.copyProperties(resource.getPartner(), partner,"id");
+        engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
+        loanApplication.approve();
+        loanApplication = loanApplicationRepository.save(loanApplication);
+        partner = partnerRepository.save(partner);
+        resource.setLoanApplication(loanApplication);
+        resource.setPartner(partner);
 
         return ResponseEntity.ok(resource);
     }

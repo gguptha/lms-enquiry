@@ -20,6 +20,8 @@ export class Register2Component implements OnInit, OnDestroy
 
     displayForm = true;
 
+    userEmail: string;
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -63,7 +65,7 @@ export class Register2Component implements OnInit, OnDestroy
         this.registerForm = this._formBuilder.group({
             firstname       : ['', Validators.required],
             lastname        : ['', Validators.required],
-            email           : ['', [Validators.required, Validators.email]],
+            email           : ['', [Validators.required, Validators.pattern(/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/)]],
             password        : ['', Validators.required],
             passwordConfirm : ['', [Validators.required, confirmPasswordValidator]]
         });
@@ -92,10 +94,9 @@ export class Register2Component implements OnInit, OnDestroy
      */
     register(): void 
     {
-        console.log(this.registerForm.value);
         const user: UserModel = new UserModel(this.registerForm.value);
-        console.log(user);
-        this._registerService.register(user).subscribe(() => {
+        this._registerService.register(user).subscribe((response) => {
+            this.userEmail = this.registerForm.value.email;
             this.registerForm.reset();
             this.displayForm = false;
         });

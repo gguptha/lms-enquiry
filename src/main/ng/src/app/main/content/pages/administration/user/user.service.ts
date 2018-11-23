@@ -42,7 +42,7 @@ export class UserService
      */
     public getUsers(): void
     {
-        this._http.get<any>('api/users').subscribe((response) => {
+        this._http.get<any>('api/users?sort=role&sort=firstName').subscribe((response) => {
             const users = new Array<UserModel>();
             response._embedded.users.map((user) => {
                 users.push(new UserModel(user));

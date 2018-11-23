@@ -3,6 +3,7 @@ package pfs.lms.enquiry.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -20,6 +21,10 @@ import java.nio.charset.Charset;
 @Service
 @RequiredArgsConstructor
 public class SAPIntegrationService implements ISAPIntegrationService {
+
+    @Value("${sap.postUrl}")
+    private String postURL;
+
 
     @Override
     public String fetchCSRFToken() {
@@ -62,8 +67,11 @@ public class SAPIntegrationService implements ISAPIntegrationService {
     }
 
     @Override
+    /*@Retryable(
+            value = { Exception.class },
+            maxAttempts = 2,
+            backoff = @Backoff(delay = 2000))*/
     public void postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource) {
-        try {
 
             HttpHeaders headers = new HttpHeaders() {
                 {
@@ -80,14 +88,11 @@ public class SAPIntegrationService implements ISAPIntegrationService {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<String> createdEnquiry = null;
             HttpEntity<SAPLoanApplicationResource> requestToPost = new HttpEntity<SAPLoanApplicationResource>(sapLoanApplicationResource, headers);
-            URI postURI = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300");
-            createdEnquiry = restTemplate.exchange(postURI, HttpMethod.POST, requestToPost, String.class);
-            HttpStatus statusCode = createdEnquiry.getStatusCode();
-        }
-        catch (URISyntaxException e)
-        {
-            e.printStackTrace();
-        }
+        createdEnquiry = restTemplate.exchange(postURL, HttpMethod.POST, requestToPost, String.class);
+        HttpStatus statusCode = createdEnquiry.getStatusCode();
+        String body = createdEnquiry.getBody();
+        log.info(" Response {}",createdEnquiry);
+
     }
 
     @Override

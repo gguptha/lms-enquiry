@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
+import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
 import pfs.lms.enquiry.service.ISignupService;
@@ -29,11 +31,28 @@ public class UserController
 
     private final ResourceServerTokenServices defaultTokenServices;
 
+    private final UserRepository userRepository;
 
     @PostMapping("/user")
     public ResponseEntity signup(@RequestBody UserResource userResource) {
         // Create the user.
         iSignupService.signup(userResource);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/user")
+    public ResponseEntity update(@RequestBody UserResource userResource, Principal principal) {
+        // Update the user.
+        User user = userRepository.findByEmail(userResource.getEmail());
+        user.setFirstName(userResource.getFirstName());
+        user.setLastName(userResource.getLastName());
+        user.setSapBPNumber(userResource.getSapBPNumber());
+        user.setRole(userResource.getRole());
+        userRepository.save(user);
+
+        SignupResource signupResource = new SignupResource(userResource.getFirstName(), userResource.getLastName(),
+                userResource.getEmail(), "", userResource.getPassword());
+        modifyPassword(signupResource, principal);
         return ResponseEntity.ok().build();
     }
 

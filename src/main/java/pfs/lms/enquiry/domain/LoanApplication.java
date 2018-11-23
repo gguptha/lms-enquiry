@@ -266,7 +266,6 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public LoanApplication approve()
     {
-        registerEvent(LoanApplicationApproved.of(this));
         return this;
     }
 

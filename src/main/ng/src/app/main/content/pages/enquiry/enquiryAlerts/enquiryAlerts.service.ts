@@ -1,11 +1,13 @@
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoanApplicationModel } from '../../../model/loanApplication.model';
 import { LoanEnquiryService } from '../enquiryApplication/enquiryApplication.service';
 import { PartnerModel } from '../../../model/partner.model';
 import { LoanApplicationResourceModel } from '../../../model/loanApplicationResource.model';
+import { catchError } from 'rxjs/operators';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export class EnquiryAlertsService implements Resolve<any> {
@@ -94,7 +96,8 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param partner 
      */
     public approveLoanApplication(loanApplication: any, partner: any): Observable<any> {
-        return this._http.put('/api/loanApplications/' + loanApplication.id + '/approve', { loanApplication, partner });
+        return this._http.put('/api/loanApplications/' + loanApplication.id + '/approve', { loanApplication, partner })
+            .pipe(catchError(this.errorHandler));
     }
 
     /**
@@ -121,5 +124,14 @@ export class EnquiryAlertsService implements Resolve<any> {
      */
     public getProducts(): Observable<any> {
         return this._http.get('api/products');
+    }
+
+    errorHandler(errorResponse: HttpErrorResponse): Observable<any> {
+        if (errorResponse.error instanceof ErrorEvent) {
+            console.log('Client Side Error', errorResponse.error.message);
+        } else {
+            console.log('Server Side Error', errorResponse);
+        }
+        return Observable.throw(errorResponse);
     }
 }

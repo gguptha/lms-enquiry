@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.LoanApplicationStatus;
 import pfs.lms.enquiry.domain.Partner;
+import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanApplicationStatusRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.resource.SAPLoanApplicationDetailsResource;
@@ -24,19 +25,20 @@ public class LoanApplicationEngine {
     
     private final PartnerRepository partnerRepository;
 
+    private final LoanApplicationRepository loanApplicationRepository;
+
     @EventListener
     public void onLoanApplicationCreated(LoanApplication.LoanApplicationCreated loanApplicationCreated){
         loanApplicationStatusRepository.save(new LoanApplicationStatus(loanApplicationCreated.getLoanApplication()));
     }
 
     @EventListener
-    private void onLoanApplicationRejected(LoanApplication.LoanApplicationRejected loanApplicationRejected){
+    public void onLoanApplicationRejected(LoanApplication.LoanApplicationRejected loanApplicationRejected){
         loanApplicationStatusRepository.save(LoanApplicationStatus.reject(loanApplicationRejected.getLoanApplication()));
     }
 
     @EventListener
-    private void onLoanApplicationApproved(LoanApplication.LoanApplicationApproved loanApplicationApproved){
-        
+    public void onLoanApplicationApproved(LoanApplication.LoanApplicationApproved loanApplicationApproved){
         LoanApplication loanApplication = loanApplicationApproved.getLoanApplication();
         Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
         SAPLoanApplicationDetailsResource detailsResource = new SAPLoanApplicationDetailsResource();
@@ -90,5 +92,7 @@ public class LoanApplicationEngine {
         SAPLoanApplicationResource d = new SAPLoanApplicationResource();
         d.setSapLoanApplicationDetailsResource(detailsResource);
         integrationService.postLoanApplication(d);
+        /*loanApplication.approvedFromSAP(null);
+        loanApplication = loanApplicationRepository.save(loanApplication);*/
     }
 }

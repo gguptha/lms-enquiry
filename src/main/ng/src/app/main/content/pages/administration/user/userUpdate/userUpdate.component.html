@@ -44,7 +44,8 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Email" formControlName="email" required>
+                    <input matInput placeholder="Email" formControlName="email" required 
+                        [readonly]="this._dialogData.operation != 'addUser'">
                     <mat-error>
                         Provide valid input for Email
                     </mat-error>
