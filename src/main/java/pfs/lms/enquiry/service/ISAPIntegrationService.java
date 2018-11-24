@@ -6,7 +6,7 @@ public interface ISAPIntegrationService {
 
     String fetchCSRFToken();
 
-    void postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource);
+    SAPLoanApplicationResource postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource);
 
     void getLoanApplication(String loanApplicationId);
 }

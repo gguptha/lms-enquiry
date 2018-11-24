@@ -104,9 +104,7 @@ public class LoanApplicationContoller {
         Partner partner = partnerRepository.getOne(resource.getPartner().getId());
         BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
         BeanUtils.copyProperties(resource.getPartner(), partner,"id");
-        engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
-        loanApplication.approve();
-        loanApplication = loanApplicationRepository.save(loanApplication);
+        loanApplication = engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
         partner = partnerRepository.save(partner);
         resource.setLoanApplication(loanApplication);
         resource.setPartner(partner);

@@ -38,7 +38,7 @@ public class LoanApplicationEngine {
     }
 
     @EventListener
-    public void onLoanApplicationApproved(LoanApplication.LoanApplicationApproved loanApplicationApproved){
+    public LoanApplication onLoanApplicationApproved(LoanApplication.LoanApplicationApproved loanApplicationApproved){
         LoanApplication loanApplication = loanApplicationApproved.getLoanApplication();
         Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
         SAPLoanApplicationDetailsResource detailsResource = new SAPLoanApplicationDetailsResource();
@@ -91,8 +91,9 @@ public class LoanApplicationEngine {
         detailsResource.setLoanProduct(loanApplication.getProductCode());
         SAPLoanApplicationResource d = new SAPLoanApplicationResource();
         d.setSapLoanApplicationDetailsResource(detailsResource);
-        integrationService.postLoanApplication(d);
-        /*loanApplication.approvedFromSAP(null);
-        loanApplication = loanApplicationRepository.save(loanApplication);*/
+        SAPLoanApplicationResource sapLoanApplicationResourceResponse = integrationService.postLoanApplication(d);
+        loanApplication.responseFromSAP(sapLoanApplicationResourceResponse);
+        loanApplication = loanApplicationRepository.save(loanApplication);
+        return loanApplication;
     }
 }

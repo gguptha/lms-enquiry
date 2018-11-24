@@ -71,30 +71,27 @@ public class SAPIntegrationService implements ISAPIntegrationService {
             value = { Exception.class },
             maxAttempts = 2,
             backoff = @Backoff(delay = 2000))*/
-    public void postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource) {
+    public SAPLoanApplicationResource postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource) {
 
-            HttpHeaders headers = new HttpHeaders() {
-                {
-                    String auth = "sajeev" + ":" + "sapsap";
-                    byte[] encodedAuth = Base64.encodeBase64(
-                            auth.getBytes(Charset.forName("US-ASCII")) );
-                    String authHeader = "Basic " + new String( encodedAuth );
-                    set( "Authorization", authHeader );
-                    setContentType(MediaType.APPLICATION_JSON);
-                    add("X-Requested-With", "X");
-                }
-            };
+        HttpHeaders headers = new HttpHeaders() {
+            {
+                String auth = "sajeev" + ":" + "sapsap";
+                byte[] encodedAuth = Base64.encodeBase64(
+                        auth.getBytes(Charset.forName("US-ASCII")) );
+                String authHeader = "Basic " + new String( encodedAuth );
+                set( "Authorization", authHeader );
+                setContentType(MediaType.APPLICATION_JSON);
+                add("X-Requested-With", "X");
+            }
+        };
 
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<SAPLoanApplicationResource> createdEnquiry = null;
-            HttpEntity<SAPLoanApplicationResource> requestToPost = new HttpEntity<SAPLoanApplicationResource>(sapLoanApplicationResource, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<SAPLoanApplicationResource> createdEnquiry = null;
+        HttpEntity<SAPLoanApplicationResource> requestToPost = new HttpEntity<SAPLoanApplicationResource>(sapLoanApplicationResource, headers);
         createdEnquiry = restTemplate.exchange(postURL, HttpMethod.POST, requestToPost, SAPLoanApplicationResource.class);
         HttpStatus statusCode = createdEnquiry.getStatusCode();
         SAPLoanApplicationResource sapLoanApplicationResourceResponse = createdEnquiry.getBody();
-        log.info(" Response from SAP: ", sapLoanApplicationResourceResponse);
-        //String body = createdEnquiry.getBody();
-        log.info(" Response {}",createdEnquiry);
-
+        return sapLoanApplicationResourceResponse;
     }
 
     @Override

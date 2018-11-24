@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.Type;
-import pfs.lms.enquiry.resource.SAPArroved;
+import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private Integer loanEnquiryId;
 
-    private Integer loanContractId;
+    private String loanContractId;
 
     @Type(type = "uuid-char")
     private UUID loanApplicant;
@@ -188,8 +188,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String productCode;
 
+    private String busPartnerNumber;
+
     @JsonCreator
-    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, Integer loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode) {
+    public LoanApplication(LocalDate loanEnquiryDate, Integer loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode, String busPartnerNumber) {
 
         this.loanEnquiryDate = loanEnquiryDate;
         this.loanEnquiryId = loanEnquiryId;
@@ -232,6 +234,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.userBPNumber = userBPNumber;
         this.groupCompany = groupCompany;
         this.productCode = productCode;
+        this.busPartnerNumber = busPartnerNumber;
         this.enquiryNo = new EnquiryNo();
         registerEvent(LoanApplicationCreated.of(this));
     }
@@ -264,16 +267,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this;
     }
 
-    public LoanApplication approve()
-    {
-        return this;
-    }
-
-    public LoanApplication approvedFromSAP(SAPArroved arroved){
+    public LoanApplication responseFromSAP(SAPLoanApplicationResource sapLoanApplicationResource){
         this.functionalStatus = 2;
-
-
-
+        this.loanContractId = sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getLoanContract();
+        this.busPartnerNumber = sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getBusPartnerNumber();
         return this;
     }
 
@@ -289,7 +286,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.loanEnquiryId;
     }
 
-    public Integer getLoanContractId() {
+    public String getLoanContractId() {
         return this.loanContractId;
     }
 
