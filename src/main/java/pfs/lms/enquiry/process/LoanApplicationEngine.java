@@ -64,8 +64,9 @@ public class LoanApplicationEngine {
                 String.format("%.2f", loanApplication.getProjectCapacity()));
         detailsResource.setProjectCapacityUnit("MW");
 
-        if(loanApplication.getScheduledCOD() != null)
-            detailsResource.setScheduledCommDate("\\/Date(" + loanApplication.getScheduledCOD() + ")\\/");
+        if(loanApplication.getScheduledCOD() != null) {
+            detailsResource.setScheduledCommDate("\\/Date(" + loanApplication.getScheduledCOD().toEpochDay() + ")\\/");
+        }
         detailsResource.setProjectCostInCrores(loanApplication.getProjectCost() == null? "0.000":
                 String.format("%.3f", loanApplication.getProjectCost()));
         detailsResource.setDebtAmountInCrores(loanApplication.getProjectDebtAmount() == null? "0.000":
