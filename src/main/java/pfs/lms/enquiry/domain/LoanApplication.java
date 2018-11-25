@@ -438,6 +438,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.productCode;
     }
 
+    public String getbusPartnerNumber() {
+        return this.busPartnerNumber;
+    }
+
     public @Size(max = 100) String getRejectionReason() {
         return this.rejectionReason;
     }

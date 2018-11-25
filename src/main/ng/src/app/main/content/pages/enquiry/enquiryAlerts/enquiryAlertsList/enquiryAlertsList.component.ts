@@ -19,7 +19,7 @@ export class EnquiryAlertsListComponent implements OnInit {
     selectedEnquiry: LoanApplicationResourceModel;
 
     displayedColumns = [
-        'functionalStatus', 'createdOn', 'enquiryNo', 'bpCode', 'projectName', 'projectLocationState', 'projectType', 
+        'functionalStatus', 'createdOn', 'enquiryNo', 'projectName', 'projectLocationState', 'projectType', 
         'loanClass', 'projectCapacity', 'assistanceType', 'projectCost', 'loanAmount'
     ];
 
