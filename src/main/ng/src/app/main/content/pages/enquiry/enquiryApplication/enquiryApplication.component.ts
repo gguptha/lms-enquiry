@@ -6,6 +6,7 @@ import { LoanEnquiryService } from './enquiryApplication.service';
 import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regEx';
 import { MessageDialogComponent } from '../../../components/messageDialog/messageDialog.component';
 import { AppService } from '../../../../../app.service';
+import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 
 @Component({
     selector: 'fuse-enquiry-application-component',
@@ -31,10 +32,7 @@ export class EnquiryApplicationComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _appService: AppService) 
-    {
-        //
-        this._loanEnquiryService.me();
+        private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _navigationService: FuseNavigationService) {
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
@@ -43,17 +41,17 @@ export class EnquiryApplicationComponent implements OnInit {
             projectType: [''],
             projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity)]],
             assistanceType: [''],
-            tenorYear: [5, [Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],
-            tenorMonth: [6, [Validators.max(11), Validators.pattern(EnquiryApplicationRegEx.tenorMonth)]],
+            tenorYear: ['', [Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],
+            tenorMonth: ['', [Validators.max(11), Validators.pattern(EnquiryApplicationRegEx.tenorMonth)]],
             projectLocationState: [''],
             projectDistrict: [''],
             projectCost: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCost)]],
             equity: ['', [Validators.pattern(EnquiryApplicationRegEx.equity)]],
             projectDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.projectDebtAmount)]],
-            pfsDebtAmount: [5, [Validators.pattern(EnquiryApplicationRegEx.pfsDebtAmount)]],
+            pfsDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.pfsDebtAmount)]],
             expectedSubDebt: ['', [Validators.pattern(EnquiryApplicationRegEx.expectedSubDebt)]],
             pfsSubDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.pfsSubDebtAmount)]],
-            loanPurpose: ['Loan required for the purpose of Road Constructions'],
+            loanPurpose: [''],
             leadFIName: [''],
             leadFILoanAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.leadFILoanAmount)]],
             expectedInterestRate: ['', [Validators.pattern(EnquiryApplicationRegEx.expectedInterestRate)]],
@@ -61,18 +59,18 @@ export class EnquiryApplicationComponent implements OnInit {
         });
 
         this.loanEnquiryFormStep2 = this._formBuilder.group({
-            partyName1: ['Dotline Solutions'],
+            partyName1: [''],
             partyName2: [''],
-            contactPersonName: ['B R Gopinath'],
-            addressLine1: ['Address1'],
+            contactPersonName: [''],
+            addressLine1: [''],
             addressLine2: [''],
-            street: ['Koldingweg'],
-            city: ['Bangalore'],
+            street: [''],
+            city: [''],
             state: [''],
-            postalCode: ['560085'],
-            email: [_appService.currentUser.email],
-            contactNumber: ['9886496849'],
-            pan: ['ABNPG9212E'],
+            postalCode: [''],
+            email: [_navigationService.currentUser.email],
+            contactNumber: [''],
+            pan: [''],
             groupCompany: ['']
         });
 
@@ -117,7 +115,7 @@ export class EnquiryApplicationComponent implements OnInit {
         loanApplication.promoterPATAmount = promoter.promoterPATAmount;
         loanApplication.rating = promoter.rating;
         loanApplication.promoterKeyDirector = promoter.promoterKeyDirector;
-        
+
         // To solve the utc time zone issue
         const scheduledCOD = new Date(loanApplication.scheduledCOD);
         loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));

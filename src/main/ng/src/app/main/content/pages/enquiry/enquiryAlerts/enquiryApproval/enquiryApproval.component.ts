@@ -17,9 +17,12 @@ import { MessageDialogComponent } from '../../../../components/messageDialog/mes
 })
 export class EnquiryApprovalDialogComponent implements OnInit {
 
+    disableApproveButton = false;
+    
     dialogTitle = 'Take Enquiry Further';
 
     loanApplication: LoanApplicationModel;
+
     partner: PartnerModel;
 
     productCode: string;
@@ -67,6 +70,8 @@ export class EnquiryApprovalDialogComponent implements OnInit {
                 }
             });
             messageDialog.afterClosed().subscribe((dresponse) => {
+                console.log('message box closed');
+                this.disableApproveButton = true;
                 this.loanApplication.userBPNumber = this._appService.currentUser.sapBPNumber;
                 this.loanApplication.productCode = this.productCode;
                 this._service.approveLoanApplication(this.loanApplication, this.partner).subscribe(
@@ -74,6 +79,7 @@ export class EnquiryApprovalDialogComponent implements OnInit {
                         this._dialogRef.close({ action: 'Approved' });
                     },
                     (errorResponse) => {
+                        this.disableApproveButton = false;
                         this.matSnackBar.open('There is a problem while submitting to SAP. We are notified & working on it. ' +
                             'Please try again later.', 'OK', { duration: 7000 });
                     }

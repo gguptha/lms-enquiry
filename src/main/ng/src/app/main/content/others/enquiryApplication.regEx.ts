@@ -8,7 +8,7 @@ export class EnquiryApplicationRegEx {
     // Accepts upto 3 digits and 2 ** mandatory ** decimal places. 
     // *** Change {2,2} to {1,2} to accept upto 2 decimal places (99.1 & 99.99 are valid)
     // *** Change {2,2} to {1,3} to accept upto 3 decimal places (99.999)
-    public static projectCost = /^\d{1,8}(\.\d{1,2})?$/;
+    public static projectCost = /^\d{1,3}(\.\d{1,2})?$/;
     // ** Check comments on projectCost for other variations in the regEx.
     public static equity = /^\d{1,3}(\.\d{1,2})?$/;
     public static projectDebtAmount = /^\d{1,3}(\.\d{1,2})?$/;

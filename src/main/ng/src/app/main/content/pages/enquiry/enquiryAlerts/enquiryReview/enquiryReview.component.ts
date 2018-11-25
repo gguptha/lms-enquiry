@@ -10,8 +10,8 @@ import { PartnerModel } from '../../../../model/partner.model';
 import { EnquiryRejectDialogComponent } from '../enquiryReject/enquiryReject.component';
 import { EnquiryApplicationRegEx } from '../../../../others/enquiryApplication.regEx';
 import { MessageDialogComponent } from '../../../../components/messageDialog/messageDialog.component';
-import { AppService } from '../../../../../../app.service';
 import { EnquiryApprovalDialogComponent } from '../enquiryApproval/enquiryApproval.component';
+import { FuseNavigationService } from '../../../../../../../@fuse/components/navigation/navigation.service';
 
 @Component({
     selector: 'fuse-enquiry-review',
@@ -42,7 +42,8 @@ export class EnquiryReviewComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _enquiryAlertsService: EnquiryAlertsService, private _location: Location, private _appService: AppService) {
+        private _enquiryAlertsService: EnquiryAlertsService, private _location: Location, 
+        private _navigationService: FuseNavigationService) {
 
         // Initialize loanApplication.
         this.loanApplication = _route.snapshot.data.routeResolvedData[5];
@@ -287,8 +288,8 @@ export class EnquiryReviewComponent implements OnInit {
      * Returns true is user is admin.
      */
     isCurrentUserAdmin(): boolean {
-        if (this._appService.currentUser.role === 'ZLM013' || this._appService.currentUser.role === 'ZLM010'
-            || this._appService.currentUser.role === 'ZLM023') {
+        if (this._navigationService.currentUser.role === 'ZLM013' || this._navigationService.currentUser.role === 'ZLM010'
+            || this._navigationService.currentUser.role === 'ZLM023') {
 
             return true;
         }

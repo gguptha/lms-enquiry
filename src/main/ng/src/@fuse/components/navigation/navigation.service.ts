@@ -2,12 +2,19 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { FuseNavigationItem } from '@fuse/types';
+import { UserModel } from 'app/main/content/model/user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FuseNavigationService
 {
+    /**
+     * Currently logged in user. 
+     */
+    currentUser: UserModel;
+
     onItemCollapsed: Subject<any>;
     onItemCollapseToggled: Subject<any>;
 
@@ -22,7 +29,7 @@ export class FuseNavigationService
     /**
      * Constructor
      */
-    constructor()
+    constructor(private _http: HttpClient)
     {
         // Set the defaults
         this.onItemCollapsed = new Subject();
@@ -346,5 +353,9 @@ export class FuseNavigationService
 
         // Remove the item
         parent.splice(parent.indexOf(item), 1);
+    }
+
+    me(): Observable<UserModel> {
+        return this._http.get<UserModel>('api/me');
     }
 }

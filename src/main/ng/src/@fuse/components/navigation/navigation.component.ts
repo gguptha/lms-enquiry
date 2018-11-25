@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
+import { AppService } from '../../../app/app.service';
 
 @Component({
     selector     : 'fuse-navigation',
@@ -25,7 +26,7 @@ export class FuseNavigationComponent implements OnInit
      * Constructor
      */
     constructor(
-        private _fuseNavigationService: FuseNavigationService
+        private _fuseNavigationService: FuseNavigationService, private _appService: AppService
     )
     {
         // Set the private defaults
@@ -41,6 +42,11 @@ export class FuseNavigationComponent implements OnInit
      */
     ngOnInit(): void
     {
+        // Fetch the currently logged in user details.
+        this._fuseNavigationService.me().subscribe((response) => {
+            this._fuseNavigationService.currentUser = response;
+        });
+
         // Load the navigation either from the input or from the service
         this.navigation = this.navigation || this._fuseNavigationService.getCurrentNavigation();
 

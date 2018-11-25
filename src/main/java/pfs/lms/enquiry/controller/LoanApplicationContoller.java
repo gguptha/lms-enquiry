@@ -183,7 +183,7 @@ public class LoanApplicationContoller {
         List<LoanApplicationResource> resources = new ArrayList<>(0);
         loanApplications.forEach(loanApplication -> {
             Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
-            resources.add(new LoanApplicationResource(loanApplication,partner));
+            resources.add(new LoanApplicationResource(loanApplication, partner));
         });
 
         return ResponseEntity.ok(resources);

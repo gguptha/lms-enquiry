@@ -56,14 +56,16 @@ public class LoanApplicationEngine {
         detailsResource.setCountry("IN");
         detailsResource.setContactPerName(partner.getContactPersonName());
 
-        detailsResource.setApplicationDate("\\/Date(1228089600000)\\/");
+        detailsResource.setApplicationDate("\\/Date(" + System.currentTimeMillis() + ")\\/");
         detailsResource.setLoanClass(loanApplication.getLoanClass());
         detailsResource.setFinancingType(loanApplication.getFinancingType());
         detailsResource.setDebtEquityIndicator("X");
         detailsResource.setProjectCapaacity(loanApplication.getProjectCapacity() == null? "0.00":
                 String.format("%.2f", loanApplication.getProjectCapacity()));
         detailsResource.setProjectCapacityUnit("MW");
-        detailsResource.setScheduledCommDate("\\/Date(1228089600000)\\/");
+
+        if(loanApplication.getScheduledCOD() != null)
+            detailsResource.setScheduledCommDate("\\/Date(" + loanApplication.getScheduledCOD() + ")\\/");
         detailsResource.setProjectCostInCrores(loanApplication.getProjectCost() == null? "0.000":
                 String.format("%.3f", loanApplication.getProjectCost()));
         detailsResource.setDebtAmountInCrores(loanApplication.getProjectDebtAmount() == null? "0.000":
