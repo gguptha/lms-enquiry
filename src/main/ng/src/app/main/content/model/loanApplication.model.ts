@@ -35,6 +35,8 @@ export class LoanApplicationModel {
     userBPNumber: string;
     productCode: string;
     groupCompany: string;
+    loanContract: string;
+    busPartnerNumber: string;
 
     _links: Object;
     
@@ -79,7 +81,8 @@ export class LoanApplicationModel {
         this.userBPNumber = _loanApplication.userBPNumber || '';
         this.productCode = _loanApplication.productCode || '';
         this.groupCompany = _loanApplication.groupCompany || '';
-        
+        this.loanContract = _loanApplication.loanContract || '';
+        this.busPartnerNumber = _loanApplication.busPartnerNumber || '';
         this._links = _loanApplication._links;
     }
 
