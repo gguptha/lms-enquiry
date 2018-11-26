@@ -30,6 +30,33 @@ export const navigation: FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'email',
                 url      : '/enquiryList',
+            }
+        ]
+    }
+];
+
+export const adminNavigation: FuseNavigation[] = [
+    {
+        id       : 'applications',
+        title    : 'Applications',
+        translate: 'NAV.APPLICATIONS',
+        type     : 'group',
+        children : [
+            {
+                id       : 'enquiry-alerts',
+                title    : 'Enquiry Alerts',
+                translate: 'NAV.ENQUIRYALERTS',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/enquiryAlerts',
+            },
+            {
+                id       : 'enquiry-list',
+                title    : 'Enquiry List',
+                translate: 'NAV.ENQUIRYLIST',
+                type     : 'item',
+                icon     : 'email',
+                url      : '/enquiryList',
             },
             {
                 id       : 'administration',
