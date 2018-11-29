@@ -26,6 +26,8 @@ export class EnquiryApplicationComponent implements OnInit {
     assistanceTypes: Array<any>;
     states: Array<string>;
 
+    minDate = new Date();
+
     /**
      * constructor()
      * @param _route 
@@ -34,19 +36,22 @@ export class EnquiryApplicationComponent implements OnInit {
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
         private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _navigationService: FuseNavigationService) {
 
+        // Set min value of scheduled cod to tomorrow's date.
+        this.minDate.setDate(this.minDate.getDate() + 1);
+
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
             loanClass: [''],
             financingType: [''],
             projectType: [''],
-            projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity)]],
+            projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity), Validators.min(1), Validators.max(9999.99)]],
             assistanceType: [''],
             tenorYear: ['', [Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],
             tenorMonth: ['', [Validators.max(11), Validators.pattern(EnquiryApplicationRegEx.tenorMonth)]],
             projectLocationState: [''],
             projectDistrict: [''],
             projectCost: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCost)]],
-            equity: ['', [Validators.pattern(EnquiryApplicationRegEx.equity)]],
+            equity: ['', [Validators.pattern(EnquiryApplicationRegEx.equity), Validators.max(99)]],
             projectDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.projectDebtAmount)]],
             pfsDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.pfsDebtAmount)]],
             expectedSubDebt: ['', [Validators.pattern(EnquiryApplicationRegEx.expectedSubDebt)]],
@@ -79,7 +84,7 @@ export class EnquiryApplicationComponent implements OnInit {
             promoterAreaOfBusinessNature: [''],
             promoterNetWorthAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
             promoterPATAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
-            rating: [''],
+            rating: ['', [Validators.max(100)]],
             promoterKeyDirector: ['']
         });
 

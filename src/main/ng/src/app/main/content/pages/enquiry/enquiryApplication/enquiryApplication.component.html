@@ -49,7 +49,7 @@
 
                     <div fxLayout="row">
                         <mat-form-field fxFlex="25">
-                            <input matInput type="number" placeholder="Project Capacity (Mega Watts)" formControlName="projectCapacity">
+                            <input matInput placeholder="Project Capacity (Mega Watts)" formControlName="projectCapacity">
                             <mat-error>
                                 Provide numeric input b/w 1 and 9999.99
                             </mat-error>
@@ -92,7 +92,7 @@
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
-                            <input matInput type="number" placeholder="Project Cost (in Crores)" formControlName="projectCost">
+                            <input matInput placeholder="Project Cost (in Crores)" formControlName="projectCost">
                             <mat-error>
                                 Provide numeric input b/w 1 and 999.99
                             </mat-error>
@@ -101,7 +101,7 @@
                         <mat-form-field fxFlex="25">
                             <input matInput type="number" placeholder="Equity" formControlName="equity">
                             <mat-error>
-                                Provide numeric input b/w 1 and 999.99
+                                Provide numeric input b/w 1 and 99
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -162,7 +162,7 @@
                         </mat-form-field>
 
                         <mat-form-field fxFlex="25">
-                            <input matInput [matDatepicker]="picker" placeholder="Scheduled COD" formControlName="scheduledCOD">
+                            <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Scheduled COD" formControlName="scheduledCOD">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -325,7 +325,10 @@
                         </mat-form-field>
 
                         <mat-form-field fxFlex="33">
-                            <input matInput placeholder="Rating" formControlName="rating">
+                            <input matInput placeholder="Rating" formControlName="rating" type="number" maxlength="3">
+                            <mat-error>
+                                Provide a maximum value of 100
+                            </mat-error>
                         </mat-form-field>
                     </div>
 

@@ -10,7 +10,7 @@ export class EnquiryApplicationRegEx {
     // *** Change {2,2} to {1,3} to accept upto 3 decimal places (99.999)
     public static projectCost = /^\d{1,3}(\.\d{1,2})?$/;
     // ** Check comments on projectCost for other variations in the regEx.
-    public static equity = /^\d{1,3}(\.\d{1,2})?$/;
+    public static equity = /^\d{1,2}(\.\d{1,2})?$/;
     public static projectDebtAmount = /^\d{1,3}(\.\d{1,2})?$/;
     public static pfsDebtAmount = /^\d{1,3}(\.\d{1,2})?$/;
     public static expectedSubDebt = /^\d{1,3}(\.\d{1,2})?$/;

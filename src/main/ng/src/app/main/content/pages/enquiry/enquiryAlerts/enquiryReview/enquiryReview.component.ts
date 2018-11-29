@@ -36,6 +36,8 @@ export class EnquiryReviewComponent implements OnInit {
     loanApplication: LoanApplicationModel;
     partner: PartnerModel;
 
+    minDate = new Date();
+
     /**
      * constructor()
      * @param _route 
@@ -44,6 +46,9 @@ export class EnquiryReviewComponent implements OnInit {
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
         private _enquiryAlertsService: EnquiryAlertsService, private _location: Location, 
         private _navigationService: FuseNavigationService) {
+
+        // Set min value of scheduled cod to tomorrow's date.
+        this.minDate.setDate(this.minDate.getDate() + 1);
 
         // Initialize loanApplication.
         this.loanApplication = _route.snapshot.data.routeResolvedData[5];
@@ -87,7 +92,7 @@ export class EnquiryReviewComponent implements OnInit {
             projectLocationState: [this.loanApplication.projectLocationState],
             projectDistrict: [this.loanApplication.projectDistrict],
             projectCost: [this.loanApplication.projectCost, [Validators.pattern(EnquiryApplicationRegEx.projectCost)]],
-            equity: [this.loanApplication.equity, [Validators.pattern(EnquiryApplicationRegEx.equity)]],
+            equity: [this.loanApplication.equity, [Validators.pattern(EnquiryApplicationRegEx.equity), Validators.max(99)]],
             projectDebtAmount: [this.loanApplication.projectDebtAmount, [Validators.pattern(EnquiryApplicationRegEx.projectDebtAmount)]],
             pfsDebtAmount: [this.loanApplication.pfsDebtAmount, [Validators.pattern(EnquiryApplicationRegEx.pfsDebtAmount)]],
             expectedSubDebt: [this.loanApplication.expectedSubDebt, [Validators.pattern(EnquiryApplicationRegEx.expectedSubDebt)]],
@@ -105,7 +110,7 @@ export class EnquiryReviewComponent implements OnInit {
             promoterAreaOfBusinessNature: [this.loanApplication.promoterAreaOfBusinessNature],
             promoterNetWorthAmount: [this.loanApplication.promoterNetWorthAmount, [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
             promoterPATAmount: [this.loanApplication.promoterPATAmount, [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
-            rating: [this.loanApplication.rating],
+            rating: [this.loanApplication.rating, [Validators.max(100)]],
             promoterKeyDirector: [this.loanApplication.promoterKeyDirector]
         });
     }
