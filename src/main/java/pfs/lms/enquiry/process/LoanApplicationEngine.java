@@ -67,6 +67,10 @@ public class LoanApplicationEngine {
         if(loanApplication.getScheduledCOD() != null) {
             detailsResource.setScheduledCommDate("\\/Date(" + loanApplication.getScheduledCOD().toEpochDay() + ")\\/");
         }
+        else {
+            detailsResource.setScheduledCommDate(null);
+        }
+
         detailsResource.setProjectCostInCrores(loanApplication.getProjectCost() == null? "0.000":
                 String.format("%.3f", loanApplication.getProjectCost()));
         detailsResource.setDebtAmountInCrores(loanApplication.getProjectDebtAmount() == null? "0.000":
