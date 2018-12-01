@@ -25,7 +25,7 @@ export class EnquiryRejectDialogComponent implements OnInit {
      * @param _data 
      * @param _datePipe 
      */
-    constructor(private _dialogRef: MatDialogRef<EnquiryRejectDialogComponent>,
+    constructor(public _dialogRef: MatDialogRef<EnquiryRejectDialogComponent>,
         @Inject(MAT_DIALOG_DATA) _data: any, _datePipe: DatePipe, private _service: EnquiryAlertsService) {
 
         this.loanApplication = _data.loanApplication;

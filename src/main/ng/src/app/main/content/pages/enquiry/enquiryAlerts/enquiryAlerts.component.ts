@@ -16,7 +16,7 @@ export class EnquiryAlertsComponent {
      * constructor()
      * @param _route
      */
-    constructor(private _route: ActivatedRoute, private _service: EnquiryAlertsService, private _router: Router) 
+    constructor(private _route: ActivatedRoute, public _service: EnquiryAlertsService, private _router: Router) 
     {
         // Initialize EnquiryAlertsService.loanApplication.
         this._service.loanApplications = new BehaviorSubject(_route.snapshot.data.routeResolvedData[0]);

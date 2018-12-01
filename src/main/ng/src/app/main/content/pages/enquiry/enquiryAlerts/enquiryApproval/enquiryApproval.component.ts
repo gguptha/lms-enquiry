@@ -34,7 +34,7 @@ export class EnquiryApprovalDialogComponent implements OnInit {
      * @param _dialogRef 
      * @param _datePipe 
      */
-    constructor(private _dialogRef: MatDialogRef<EnquiryApprovalDialogComponent>, @Inject(MAT_DIALOG_DATA) _data: any,
+    constructor(public _dialogRef: MatDialogRef<EnquiryApprovalDialogComponent>, @Inject(MAT_DIALOG_DATA) _data: any,
         private _service: EnquiryAlertsService, private _appService: AppService, private matSnackBar: MatSnackBar,
         private _messageDialog: MatDialog) {
 

@@ -21,7 +21,7 @@ export class UserUpdateDialogComponent implements OnInit {
     userUpdateForm: FormGroup;
 
     constructor(_formBuilder: FormBuilder, private _userService: UserService,
-        private _dialogRef: MatDialogRef<UserUpdateDialogComponent>, @Inject(MAT_DIALOG_DATA) private _dialogData: any,
+        public _dialogRef: MatDialogRef<UserUpdateDialogComponent>, @Inject(MAT_DIALOG_DATA) public _dialogData: any,
         private _matSnackBar: MatSnackBar) {
 
         // Fetch selected user details from the dialog's data attribute.
