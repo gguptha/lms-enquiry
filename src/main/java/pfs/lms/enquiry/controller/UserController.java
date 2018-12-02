@@ -2,6 +2,7 @@ package pfs.lms.enquiry.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -23,6 +24,7 @@ import java.security.Principal;
 @Slf4j
 @ApiController
 @RequiredArgsConstructor
+@Profile({"oauth", "pfsdev"})
 public class UserController
 {
     private final ISignupService iSignupService;

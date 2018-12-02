@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatStepper, MAT_DATE_LOCALE } from '@angular/material';
+import { MatDialog, MatStepper, MAT_DATE_LOCALE, MatSnackBar } from '@angular/material';
 import { Location } from '@angular/common';
 import { fuseAnimations } from '@fuse/animations';
 import { EnquiryAlertsService } from '../enquiryAlerts.service';
@@ -44,8 +44,8 @@ export class EnquiryReviewComponent implements OnInit {
      * @param _formBuilder 
      */
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _enquiryAlertsService: EnquiryAlertsService, private _location: Location, 
-        private _navigationService: FuseNavigationService) {
+        private _enquiryAlertsService: EnquiryAlertsService, private _location: Location,
+        private _navigationService: FuseNavigationService, private matSnackBar: MatSnackBar) {
 
         // Set min value of scheduled cod to tomorrow's date.
         this.minDate.setDate(this.minDate.getDate() + 1);
@@ -250,21 +250,37 @@ export class EnquiryReviewComponent implements OnInit {
      * approveEnquiry()
      */
     approveEnquiry(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(EnquiryApprovalDialogComponent, {
-            panelClass: 'fuse-enquiry-approval-dialog',
-            width: '600px',
-            data: {
-                loanApplication: this.loanApplication,
-                partner: this.partner
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => {
-            if (result !== undefined && result.action !== 'Cancel') {
-                this._location.back();
-            }
-        });
+        if (this.loanEnquiryFormStep1.valid && this.loanEnquiryFormStep2.valid && this.loanEnquiryFormStep3.valid) {
+
+            // Re-construct the partner object.
+            this.reconstructPartner();
+
+            // Re-construct the loan application object.
+            this.reconstructLoanApplication();
+
+            // Update the loan application and launch the loan approval dialog.
+            this._enquiryAlertsService.updateLoanApplication(this.loanApplication, this.partner).subscribe(() => {
+                // Open the loan approval dialog.
+                const dialogRef = this._dialogRef.open(EnquiryApprovalDialogComponent, {
+                    panelClass: 'fuse-enquiry-approval-dialog',
+                    width: '600px',
+                    data: {
+                        loanApplication: this.loanApplication,
+                        partner: this.partner
+                    }
+                });
+                // Subscribe to the dialog close event to intercept the action taken.
+                dialogRef.afterClosed().subscribe((result) => {
+                    if (result !== undefined && result.action !== 'Cancel') {
+                        this._location.back();
+                    }
+                });
+            });
+        }
+        else {
+            this.matSnackBar.open('There were some errors in the data you have entered. Please provide valid input and try again', 'OK',
+                { duration: 7000 });
+        }
     }
 
     /**

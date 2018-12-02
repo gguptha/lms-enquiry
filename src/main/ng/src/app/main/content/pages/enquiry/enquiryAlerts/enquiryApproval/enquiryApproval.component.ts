@@ -7,6 +7,7 @@ import { ProductModel } from '../../../../model/product.model';
 import { PartnerModel } from '../../../../model/partner.model';
 import { AppService } from '../../../../../../app.service';
 import { MessageDialogComponent } from '../../../../components/messageDialog/messageDialog.component';
+import { LoanApplicationResourceModel } from '../../../../model/loanApplicationResource.model';
 
 @Component({
     selector: 'fuse-enquiry-approval-dialog',
@@ -18,7 +19,7 @@ import { MessageDialogComponent } from '../../../../components/messageDialog/mes
 export class EnquiryApprovalDialogComponent implements OnInit {
 
     disableApproveButton = false;
-    
+
     dialogTitle = 'Take Enquiry Further';
 
     loanApplication: LoanApplicationModel;
@@ -65,17 +66,19 @@ export class EnquiryApprovalDialogComponent implements OnInit {
             const messageDialog = this._messageDialog.open(MessageDialogComponent, {
                 width: '400px',
                 data: {
-                    message: 'Laon application will be submitted to the SAP loans management system and no further ' +
+                    message: 'Loan application will be submitted to the SAP loans management system and no further ' +
                         'updates are possible via the enquiry portal. However you can see the latest status of the loan.'
                 }
             });
             messageDialog.afterClosed().subscribe((dresponse) => {
-                console.log('message box closed');
                 this.disableApproveButton = true;
                 this.loanApplication.userBPNumber = this._appService.currentUser.sapBPNumber;
                 this.loanApplication.productCode = this.productCode;
                 this._service.approveLoanApplication(this.loanApplication, this.partner).subscribe(
-                    (response) => {
+                    (response: LoanApplicationResourceModel) => {
+                        this.matSnackBar.open('The Loan application was submitted to the SAP loans management system. The Loan Contract Id is '
+                            + response.loanApplication.loanContractId + ' and the Business Partner Id is ' 
+                            + response.loanApplication.userBPNumber, 'OK', { duration: 10000 });
                         this._dialogRef.close({ action: 'Approved' });
                     },
                     (errorResponse) => {
