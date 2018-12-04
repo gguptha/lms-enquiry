@@ -25,8 +25,16 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.requestMatcher(new OAuthRequestedMatcher())
-                .authorizeRequests().anyRequest().fullyAuthenticated();
+        http
+
+
+
+                .requestMatcher(new OAuthRequestedMatcher())
+                .authorizeRequests().anyRequest().fullyAuthenticated()
+
+
+                .and().authorizeRequests().antMatchers("/api/password/strength","/api/signup","/api/signup/verify/**","/signup","/assests","/assets/**","/assets/**/**","/runtime.js","/polyfills.js","/styles.js","/vendor.js","/main.js","/style.css","/favicon.ico").permitAll()
+                .anyRequest().authenticated();
 
     }
 
