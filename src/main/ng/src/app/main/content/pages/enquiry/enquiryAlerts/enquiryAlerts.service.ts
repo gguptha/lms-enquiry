@@ -3,11 +3,10 @@ import { Observable, forkJoin, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoanApplicationModel } from '../../../model/loanApplication.model';
-import { LoanEnquiryService } from '../enquiryApplication/enquiryApplication.service';
 import { PartnerModel } from '../../../model/partner.model';
 import { LoanApplicationResourceModel } from '../../../model/loanApplicationResource.model';
 import { catchError } from 'rxjs/operators';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { LoanEnquiryService } from '../enquiryApplication.service';
 
 @Injectable()
 export class EnquiryAlertsService implements Resolve<any> {

@@ -2,11 +2,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatStepper, DateAdapter, NativeDateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
-import { LoanEnquiryService } from './enquiryApplication.service';
 import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regEx';
 import { MessageDialogComponent } from '../../../components/messageDialog/messageDialog.component';
-import { AppService } from '../../../../../app.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
+import { LoanEnquiryService } from '../enquiryApplication.service';
 
 @Component({
     selector: 'fuse-enquiry-application-component',

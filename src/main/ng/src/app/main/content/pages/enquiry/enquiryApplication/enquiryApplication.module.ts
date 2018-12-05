@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FuseSharedModule } from '@fuse/shared.module';
-import { LoanEnquiryService } from './enquiryApplication.service';
 import { RouterModule } from '@angular/router';
 import { EnquiryApplicationComponent } from './enquiryApplication.component';
 import {
     MatStepperModule, MatSelectModule, MatButtonModule, MatInputModule, MatDialogModule, MatDatepickerModule, MAT_DATE_LOCALE
 } from '@angular/material';
 import { FuseConfirmDialogModule } from '../../../../../../@fuse/components/confirm-dialog/confirm-dialog.module';
+import { EnquiryApplicationRouteGuard } from '../../../../../enquiryApplication.guard';
+import { LoanEnquiryService } from '../enquiryApplication.service';
 
 const routes = [
     {
         path: 'enquiryApplication',
         component: EnquiryApplicationComponent,
+        canActivate: [
+            EnquiryApplicationRouteGuard
+        ],
         resolve: {
             routeResolvedData: LoanEnquiryService
         }
@@ -36,8 +40,11 @@ const routes = [
         EnquiryApplicationComponent
     ],
     providers: [
-        LoanEnquiryService,
-        { provide: MAT_DATE_LOCALE, useValue: 'en-in' }
+        LoanEnquiryService, EnquiryApplicationRouteGuard,
+        { 
+            provide: MAT_DATE_LOCALE, 
+            useValue: 'en-in' 
+        }
     ]
 })
 export class EnquiryApplicationModule {
