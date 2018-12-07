@@ -192,7 +192,7 @@ public class LoanApplicationContoller {
         return ResponseEntity.ok(resources);
     }
 
-    @PutMapping("/loanApplications/{id}/status/")
+    @PutMapping("/loanApplications/{id}/updateStatus")
     public ResponseEntity approve(@PathVariable("id") String loanApplicationId, @RequestParam("status")Integer status,
                                   @RequestParam("amount")Double amount) throws Exception
     {
