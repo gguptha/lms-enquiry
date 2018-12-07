@@ -15,13 +15,16 @@ import pfs.lms.enquiry.process.LoanApplicationEngine;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.repository.UserRepository;
-import pfs.lms.enquiry.resource.*;
+import pfs.lms.enquiry.resource.EnquiryRejectReason;
+import pfs.lms.enquiry.resource.LoanApplicationResource;
+import pfs.lms.enquiry.resource.SearchResource;
 import pfs.lms.enquiry.service.ILoanApplicationService;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -187,5 +190,15 @@ public class LoanApplicationContoller {
         });
 
         return ResponseEntity.ok(resources);
+    }
+
+    @PutMapping("/loanApplications/{id}/status/")
+    public ResponseEntity approve(@PathVariable("id") String loanApplicationId, @RequestParam("status")Integer status,
+                                  @RequestParam("amount")Double amount) throws Exception
+    {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        loanApplication.updateStatusFromSAP(status, amount);
+        loanApplication = loanApplicationRepository.save(loanApplication);
+        return ResponseEntity.ok(loanApplication);
     }
 }

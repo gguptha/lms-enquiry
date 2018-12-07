@@ -46,8 +46,7 @@ public class LoanApplicationEngine {
         detailsResource.setPartnerExternalNumber("1");
         detailsResource.setPartnerRole("TR0100");
         detailsResource.setName1(partner.getPartyName1());
-        detailsResource.setName2(partner.getPartyName2() == null? "":
-                partner.getPartyName2());
+        detailsResource.setName2(partner.getPartyName2() == null? "": partner.getPartyName2());
         detailsResource.setEmail(partner.getEmail());
         detailsResource.setCity(partner.getCity());
         detailsResource.setPostalCode(partner.getPostalCode());

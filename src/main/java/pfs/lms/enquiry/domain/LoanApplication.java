@@ -274,6 +274,16 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this;
     }
 
+    public LoanApplication updateStatusFromSAP(Integer status, Double amount){
+
+        this.pfsDebtAmount = amount;
+        this.functionalStatus = status;
+        this.changedAt = LocalTime.now();
+        this.changedOn = LocalDate.now();
+        this.changedByUserName = "SAP";
+        return this;
+    }
+
     public EnquiryNo getEnquiryNo() {
         return this.enquiryNo;
     }
