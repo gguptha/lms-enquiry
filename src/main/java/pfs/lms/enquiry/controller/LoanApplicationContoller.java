@@ -8,6 +8,7 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pfs.lms.enquiry.domain.EnquiryNo;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.domain.User;
@@ -24,7 +25,6 @@ import pfs.lms.enquiry.service.ISAPIntegrationService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -193,10 +193,12 @@ public class LoanApplicationContoller {
     }
 
     @PutMapping("/loanApplications/{id}/updateStatus")
-    public ResponseEntity approve(@PathVariable("id") String loanApplicationId, @RequestParam("status")Integer status,
+    public ResponseEntity approve(@PathVariable("id") Long enquiryNo, @RequestParam("status")Integer status,
                                   @RequestParam("amount")Double amount) throws Exception
     {
-        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        EnquiryNo enqNo = new EnquiryNo();
+        enqNo.setId(enquiryNo);
+        LoanApplication loanApplication = loanApplicationRepository.findByEnquiryNo(enqNo);
         loanApplication.updateStatusFromSAP(status, amount);
         loanApplication = loanApplicationRepository.save(loanApplication);
         return ResponseEntity.ok(loanApplication);

@@ -3,6 +3,7 @@ package pfs.lms.enquiry.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import pfs.lms.enquiry.domain.EnquiryNo;
 import pfs.lms.enquiry.domain.LoanApplication;
 
 import java.util.UUID;
@@ -15,4 +16,7 @@ public interface LoanApplicationRepository extends JpaRepository<LoanApplication
 
     Page<LoanApplication> findByLoanApplicantAndFunctionalStatus(UUID id, Integer status, Pageable pageable);
 
+    LoanApplication findByLoanEnquiryId(Long enquiryNo);
+
+    LoanApplication findByEnquiryNo(EnquiryNo enquiryNo);
 }
