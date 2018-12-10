@@ -6,6 +6,7 @@ import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regE
 import { MessageDialogComponent } from '../../../components/messageDialog/messageDialog.component';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { LoanEnquiryService } from '../enquiryApplication.service';
+import { PartnerModel } from 'app/main/content/model/partner.model';
 
 @Component({
     selector: 'fuse-enquiry-application-component',
@@ -35,6 +36,8 @@ export class EnquiryApplicationComponent implements OnInit {
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
         private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _navigationService: FuseNavigationService) {
 
+        const partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
+
         // Set min value of scheduled cod to tomorrow's date.
         this.minDate.setDate(this.minDate.getDate() + 1);
 
@@ -63,19 +66,19 @@ export class EnquiryApplicationComponent implements OnInit {
         });
 
         this.loanEnquiryFormStep2 = this._formBuilder.group({
-            partyName1: [''],
-            partyName2: [''],
-            contactPersonName: [''],
-            addressLine1: [''],
-            addressLine2: [''],
-            street: [''],
-            city: [''],
-            state: [''],
-            postalCode: [''],
+            partyName1: [partner.partyName1],
+            partyName2: [partner.partyName2],
+            contactPersonName: [partner.contactPersonName],
+            addressLine1: [partner.addressLine1],
+            addressLine2: [partner.addressLine2],
+            street: [partner.street],
+            city: [partner.city],
+            state: [partner.state],
+            postalCode: [partner.postalCode],
             email: [_navigationService.currentUser.email],
-            contactNumber: [''],
-            pan: [''],
-            groupCompany: ['']
+            contactNumber: [partner.contactNumber],
+            pan: [partner.pan],
+            groupCompany: [partner.groupCompany]
         });
 
         this.loanEnquiryFormStep3 = this._formBuilder.group({

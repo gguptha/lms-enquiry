@@ -24,10 +24,14 @@ export class LoanEnquiryService implements Resolve<any> {
             this.getFinancingTypes(), // get financing types.
             this.getProjectTypes(), // get project types.
             this.getStates(), // get states.
-            this.getAssistanceTypes() // get assistance types.
+            this.getAssistanceTypes(), // get assistance types.
+            this.getPartnerByPrincipal() // get logged in partner details.
         ]);
     }
 
+    public getPartnerByPrincipal(): Observable<any> {
+        return this._http.get('api/partners/byPrincipal');
+    }
     /**
      * getLoanClasses()
      * returns a list of loan classes.
