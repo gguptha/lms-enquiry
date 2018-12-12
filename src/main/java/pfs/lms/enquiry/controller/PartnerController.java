@@ -28,7 +28,7 @@ public class PartnerController {
     @GetMapping("/partners/byPrincipal")
     public ResponseEntity getPartnerByEmail(HttpServletRequest request) {
         if(request.getUserPrincipal().getName().equals("admin"))
-            return ResponseEntity.ok(partnerRepository.findByEmail("powerc2@gmail.com"));
+            return ResponseEntity.ok(partnerRepository.findByEmail("admin@gmail.com"));
         else
             return ResponseEntity.ok(partnerRepository.findByEmail(request.getUserPrincipal().getName()));
     }

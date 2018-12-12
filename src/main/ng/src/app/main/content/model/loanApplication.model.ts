@@ -17,6 +17,7 @@ export class LoanApplicationModel {
     leadFILoanAmount: number;
     pfsDebtAmount: number;
     pfsSubDebtAmount: number;
+    projectName: string;
     projectCapacity: number;
     projectCost: number;
     projectDebtAmount: number;
@@ -63,6 +64,7 @@ export class LoanApplicationModel {
         this.leadFILoanAmount = _loanApplication.leadFILoanAmount;
         this.pfsDebtAmount = _loanApplication.pfsDebtAmount || 0;
         this.pfsSubDebtAmount = _loanApplication.pfsSubDebtAmount || 0;
+        this.projectName = _loanApplication.projectName || '';
         this.projectCapacity = _loanApplication.projectCapacity;
         this.projectCost = _loanApplication.projectCost;
         this.projectDebtAmount = _loanApplication.projectDebtAmount;

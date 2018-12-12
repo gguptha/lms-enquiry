@@ -27,25 +27,25 @@ export class PartnerModel {
      * @param _partner 
      */
     constructor(_partner: any) {
-        this.addressLine1 = _partner.addressLine1;
-        this.addressLine2 = _partner.addressLine2;
-        this.city = _partner.city;
-        this.contactNumber = _partner.contactNumber;
-        this.contactPersonName = _partner.contactPersonName;
-        this.country = _partner.country;
-        this.email = _partner.email;
-        this.groupCompany = _partner.groupCompany;
-        this.id = _partner.id;
-        this.pan = _partner.pan;
-        this.partyName1 = _partner.partyName1;
-        this.partyName2 = _partner.partyName2;
-        this.partyRole = _partner.partyRole;
-        this.password = _partner.password;
-        this.postalCode = _partner.postalCode;
-        this.state = _partner.state;
-        this.street = _partner.street;
-        this.userName = _partner.userName;
+        this.addressLine1 = _partner && _partner.addressLine1 || '';
+        this.addressLine2 = _partner && _partner.addressLine2 || '';
+        this.city = _partner && _partner.city || '';
+        this.contactNumber = _partner && _partner.contactNumber || '';
+        this.contactPersonName = _partner && _partner.contactPersonName || '';
+        this.country = _partner && _partner.country || '';
+        this.email = _partner && _partner.email || '';
+        this.groupCompany = _partner && _partner.groupCompany || '';
+        this.id = _partner && _partner.id || '';
+        this.pan = _partner && _partner.pan || '';
+        this.partyName1 = _partner && _partner.partyName1 || '';
+        this.partyName2 = _partner && _partner.partyName2 || '';
+        this.partyRole = _partner && _partner.partyRole || '';
+        this.password = _partner && _partner.password || '';
+        this.postalCode = _partner && _partner.postalCode || '';
+        this.state = _partner && _partner.state || '';
+        this.street = _partner && _partner.street || '';
+        this.userName = _partner && _partner.userName || '';
 
-        this._links = _partner._links;
+        this._links = _partner && _partner._links || '';
     }
 }

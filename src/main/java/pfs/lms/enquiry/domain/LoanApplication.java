@@ -190,8 +190,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String busPartnerNumber;
 
+    private String projectName;
+
     @JsonCreator
-    public LoanApplication(LocalDate loanEnquiryDate, Long loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode, String busPartnerNumber) {
+    public LoanApplication(LocalDate loanEnquiryDate, Long loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode, String busPartnerNumber, String projectName) {
 
         this.loanEnquiryDate = loanEnquiryDate;
         this.loanContractId = loanContractId;
@@ -234,6 +236,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.groupCompany = groupCompany;
         this.productCode = productCode;
         this.busPartnerNumber = busPartnerNumber;
+        this.projectName = projectName;
         this.enquiryNo = new EnquiryNo();
         this.loanEnquiryId = this.enquiryNo.getId();
 
@@ -461,6 +464,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.decisionDate;
     }
 
+    public String getProjectName() {
+        return projectName;
+    }
 
     @Value
     @RequiredArgsConstructor(staticName = "of")

@@ -82,6 +82,7 @@ export class EnquiryReviewComponent implements OnInit {
     initializeLoanApplicationForms(): void {
 
         this.loanEnquiryFormStep1 = this._formBuilder.group({
+            projectName: [this.loanApplication.projectName],
             loanClass: [this.loanApplication.loanClass],
             financingType: [this.loanApplication.financingType],
             projectType: [this.loanApplication.projectType],
@@ -171,6 +172,7 @@ export class EnquiryReviewComponent implements OnInit {
     reconstructLoanApplication(): void {
         // Reconstruct loanApplication with loanEnquiryFormStep1 values.
         const loanApplication = this.loanEnquiryFormStep1.value;
+        this.loanApplication.projectName = loanApplication.projectName;
         this.loanApplication.loanClass = loanApplication.loanClass;
         this.loanApplication.financingType = loanApplication.financingType;
         this.loanApplication.projectType = loanApplication.projectType;
@@ -192,8 +194,10 @@ export class EnquiryReviewComponent implements OnInit {
         this.loanApplication.expectedInterestRate = loanApplication.expectedInterestRate;
 
         // To solve the utc time zone issue
-        const scheduledCOD = new Date(loanApplication.scheduledCOD);
-        this.loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
+        if (loanApplication.scheduledCOD !== null) {
+            const scheduledCOD = new Date(loanApplication.scheduledCOD);
+            this.loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
+        }
 
         // Reconstruct loanApplication with loanEnquiryFormStep3 values.
         const promoter = this.loanEnquiryFormStep3.value;

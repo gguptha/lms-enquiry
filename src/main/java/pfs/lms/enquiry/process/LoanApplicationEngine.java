@@ -92,7 +92,7 @@ public class LoanApplicationEngine {
                 String.format("%.3f", loanApplication.getPromoterNetWorthAmount()));
         detailsResource.setPromoterKeyDirector(loanApplication.getPromoterKeyDirector());
         detailsResource.setLoanStatus(Integer.toString(loanApplication.getFunctionalStatus()));
-        detailsResource.setProjectName(partner.getPartyName1());
+        detailsResource.setProjectName(loanApplication.getProjectName());
         detailsResource.setLoanOfficer(loanApplication.getUserBPNumber());
         detailsResource.setLoanProduct(loanApplication.getProductCode());
         SAPLoanApplicationResource d = new SAPLoanApplicationResource();

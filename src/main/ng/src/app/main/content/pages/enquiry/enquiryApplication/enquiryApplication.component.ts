@@ -36,13 +36,14 @@ export class EnquiryApplicationComponent implements OnInit {
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
         private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _navigationService: FuseNavigationService) {
 
-        const partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
+        const  partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
 
         // Set min value of scheduled cod to tomorrow's date.
         this.minDate.setDate(this.minDate.getDate() + 1);
 
         // Initialize the forms.
         this.loanEnquiryFormStep1 = this._formBuilder.group({
+            projectName: [''],
             loanClass: [''],
             financingType: [''],
             projectType: [''],
@@ -69,7 +70,7 @@ export class EnquiryApplicationComponent implements OnInit {
             partyName1: [partner.partyName1],
             partyName2: [partner.partyName2],
             contactPersonName: [partner.contactPersonName],
-            addressLine1: [partner.addressLine1],
+            addressLine1: [partner.addressLine1 || ''],
             addressLine2: [partner.addressLine2],
             street: [partner.street],
             city: [partner.city],
