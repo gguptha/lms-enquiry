@@ -25,7 +25,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param state 
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        if (route.routeConfig.path === 'enquiryreview') {
+        if (route.routeConfig.path === 'enquiryReview') {
             if (this.selectedLoanApplicationId !== undefined) {
                 return forkJoin([
                     this._loanEnquiryService.getLoanClasses(), // get loan classes.

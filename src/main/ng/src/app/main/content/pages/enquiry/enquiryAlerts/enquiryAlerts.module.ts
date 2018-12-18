@@ -23,7 +23,7 @@ const routes = [
         }
     },
     {
-        path      : 'enquiryreview',
+        path      : 'enquiryReview',
         component : EnquiryReviewComponent,
         resolve   : {
             routeResolvedData: EnquiryAlertsService

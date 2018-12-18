@@ -26,6 +26,6 @@ export class EnquiryAlertsComponent {
 
     redirectToEnquiryReview(): void 
     {
-        this._router.navigate(['/enquiryreview']);
+        this._router.navigate(['/enquiryReview']);
     }
 }

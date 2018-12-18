@@ -14,9 +14,6 @@ const routes = [
     {
         path: 'enquiryApplication',
         component: EnquiryApplicationComponent,
-        canActivate: [
-            EnquiryApplicationRouteGuard
-        ],
         resolve: {
             routeResolvedData: LoanEnquiryService
         }

@@ -9,6 +9,12 @@ export class LoanEnquiryService implements Resolve<any> {
 
     public enquirySearchList: BehaviorSubject<any>;
 
+    selectedLoanApplicationId: BehaviorSubject<string>;
+
+    /**
+     * 
+     * @param _http 
+     */
     constructor(private _http: HttpClient) {
     }
 

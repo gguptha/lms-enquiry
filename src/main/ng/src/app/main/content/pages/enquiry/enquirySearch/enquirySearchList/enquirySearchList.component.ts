@@ -5,6 +5,9 @@ import { ProjectTypeModel } from '../../../../model/projectType.model';
 import { LoanClassModel } from '../../../../model/loanClass.model';
 import { AssistanceTypeModel } from '../../../../model/assistanceType.model';
 import { FunctionalStatusModel } from '../../../../model/functionalStatus.model';
+import { LoanApplicationResourceModel } from 'app/main/content/model/loanApplicationResource.model';
+import { LoanEnquiryService } from '../../enquiryApplication.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'fuse-enquiry-search-list',
@@ -18,7 +21,6 @@ export class EnquirySearchListComponent implements OnInit {
     
     @Input()
     set enquiryList(enquiryList: any) {
-        console.log(enquiryList);
         this.dataSource = new MatTableDataSource(enquiryList);
     }
 
@@ -27,10 +29,12 @@ export class EnquirySearchListComponent implements OnInit {
         'loanClass', 'projectCapacity', 'assistanceType', 'projectCost', 'loanAmount'
     ];
 
+    selectedEnquiry: LoanApplicationResourceModel;
+
     /**
      * constructor()
      */
-    constructor() {
+    constructor(private _service: LoanEnquiryService) {
     }
     
     /**
@@ -63,7 +67,20 @@ export class EnquirySearchListComponent implements OnInit {
         return AssistanceTypeModel.getAssistanceTypeDescription(assistanceType);
     }
 
+    /**
+     * 
+     * @param functionalStatus 
+     */
     getFunctionalStatus(functionalStatus: number): string {
         return FunctionalStatusModel.getFunctionalStatus(functionalStatus);
+    }
+
+    /**
+     * 
+     * @param enquiry 
+     */
+    onSelect(enquiry: LoanApplicationResourceModel): void {
+        this.selectedEnquiry = enquiry;
+        this._service.selectedLoanApplicationId = new BehaviorSubject(enquiry.loanApplication.id);
     }
 }
