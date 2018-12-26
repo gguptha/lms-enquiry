@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { ProjectTypeModel } from '../../../../model/projectType.model';
 import { LoanClassModel } from '../../../../model/loanClass.model';
@@ -18,10 +18,12 @@ import { BehaviorSubject } from 'rxjs';
 export class EnquirySearchListComponent implements OnInit {
 
     dataSource: MatTableDataSource<any>;
-    
+    @ViewChild(MatSort) sort: MatSort;
+
     @Input()
     set enquiryList(enquiryList: any) {
         this.dataSource = new MatTableDataSource(enquiryList);
+        this.dataSource.sort = this.sort;
     }
 
     displayedColumns = [
@@ -41,6 +43,11 @@ export class EnquirySearchListComponent implements OnInit {
      * ngOnInit()
      */
     ngOnInit(): void {
+        /**
+         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
+         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
+         */
+        this.dataSource.sort = this.sort;
     }
 
     /**

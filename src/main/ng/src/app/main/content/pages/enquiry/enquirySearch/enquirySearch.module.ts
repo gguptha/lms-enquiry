@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FuseSharedModule } from '@fuse/shared.module';
-import { MatExpansionModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatTableModule } from '@angular/material';
+import { MatExpansionModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatTableModule, MatSortModule } from '@angular/material';
 import { LoanEnquiryService } from '../enquiryApplication.service';
 import { EnquirySearchListComponent } from './enquirySearchList/enquirySearchList.component';
 import { EnquirySearchComponent } from './enquirySearch.component';
-import { CdkTableModule } from '@angular/cdk/table';
 
 const routes = [
     {
@@ -25,7 +24,7 @@ const routes = [
         MatButtonModule,
         MatFormFieldModule,
         MatTableModule,
-        CdkTableModule
+        MatSortModule
     ],
     declarations: [
         EnquirySearchComponent,

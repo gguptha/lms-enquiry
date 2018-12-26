@@ -7,11 +7,13 @@ import { PartnerModel } from '../../../model/partner.model';
 import { LoanApplicationResourceModel } from '../../../model/loanApplicationResource.model';
 import { catchError } from 'rxjs/operators';
 import { LoanEnquiryService } from '../enquiryApplication.service';
+import { EnquiryApplicationModel } from 'app/main/content/model/enquiryApplication.model';
 
 @Injectable()
 export class EnquiryAlertsService implements Resolve<any> {
 
-    loanApplications: BehaviorSubject<LoanApplicationResourceModel[]>;
+    // loanApplications: BehaviorSubject<LoanApplicationResourceModel[]>;
+    loanApplications: BehaviorSubject<EnquiryApplicationModel[]>;
 
     selectedLoanApplicationId: BehaviorSubject<string>;
 
@@ -39,7 +41,7 @@ export class EnquiryAlertsService implements Resolve<any> {
         }
         else {
             return forkJoin([
-                this.getLoanApplications(1)
+                this.getEnquiryApplications(1)
             ]);
         }
     }
@@ -57,6 +59,24 @@ export class EnquiryAlertsService implements Resolve<any> {
                     loanApplications.push(new LoanApplicationResourceModel(loanApplicationResourceModel));
                 });
                 observer.next(loanApplications);
+                observer.complete();
+            });
+        });
+    }
+
+    /**
+     * getEnquiryApplications()
+     * Fetches a list of loan applications with a particular status.
+     * @param status 
+     */
+    public getEnquiryApplications(status: number): Observable<EnquiryApplicationModel[]> {
+        return new Observable(observer => {
+            const enquiryApplications = new Array<EnquiryApplicationModel>();
+            this._http.get<LoanApplicationResourceModel[]>('api/loanApplications?status=' + status).subscribe(result => {
+                result.map(loanApplicationResourceModel => {
+                    enquiryApplications.push(new EnquiryApplicationModel(loanApplicationResourceModel));
+                });
+                observer.next(enquiryApplications);
                 observer.complete();
             });
         });

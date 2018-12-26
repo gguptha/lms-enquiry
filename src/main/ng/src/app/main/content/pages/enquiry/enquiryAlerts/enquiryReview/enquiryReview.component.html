@@ -212,7 +212,7 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="25">
-                                <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Scheduled COD"
+                                <input matInput readonly [matDatepicker]="picker" [min]="minDate" placeholder="Scheduled COD"
                                     formControlName="scheduledCOD">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
@@ -325,9 +325,9 @@
                             </mat-form-field>
 
                             <mat-form-field fxFlex="33">
-                                <input matInput placeholder="PAN Number" formControlName="pan" required>
+                                <input matInput placeholder="PAN Number" formControlName="pan" maxlength="10" required>
                                 <mat-error>
-                                    Provide valid input
+                                    Provide valid input (Uppercase text and numeric only)
                                 </mat-error>
                             </mat-form-field>
                         </div>

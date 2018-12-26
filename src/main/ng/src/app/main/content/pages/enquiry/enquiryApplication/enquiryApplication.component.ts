@@ -36,7 +36,7 @@ export class EnquiryApplicationComponent implements OnInit {
     constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
         private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _navigationService: FuseNavigationService) {
 
-        const  partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
+        const partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
 
         // Set min value of scheduled cod to tomorrow's date.
         this.minDate.setDate(this.minDate.getDate() + 1);
@@ -78,7 +78,7 @@ export class EnquiryApplicationComponent implements OnInit {
             postalCode: [partner.postalCode],
             email: [_navigationService.currentUser.email],
             contactNumber: [partner.contactNumber],
-            pan: [partner.pan],
+            pan: [partner.pan, [Validators.pattern(EnquiryApplicationRegEx.pan)]],
             groupCompany: [partner.groupCompany]
         });
 

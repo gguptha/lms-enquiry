@@ -131,7 +131,7 @@ export class EnquiryReviewComponent implements OnInit {
             postalCode: [this.partner.postalCode],
             email: [this.partner.email],
             contactNumber: [this.partner.contactNumber],
-            pan: [this.partner.pan],
+            pan: [this.partner.pan, [Validators.pattern(EnquiryApplicationRegEx.pan)]],
             groupCompany: [this.partner.groupCompany]
         });
     }
