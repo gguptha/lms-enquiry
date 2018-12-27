@@ -8,6 +8,7 @@ import { FunctionalStatusModel } from '../../../../model/functionalStatus.model'
 import { LoanApplicationResourceModel } from 'app/main/content/model/loanApplicationResource.model';
 import { LoanEnquiryService } from '../../enquiryApplication.service';
 import { BehaviorSubject } from 'rxjs';
+import { EnquiryApplicationModel } from 'app/main/content/model/enquiryApplication.model';
 
 @Component({
     selector: 'fuse-enquiry-search-list',
@@ -21,14 +22,15 @@ export class EnquirySearchListComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     @Input()
-    set enquiryList(enquiryList: any) {
+    set enquiryList(enquiryList: EnquiryApplicationModel[]) {
         this.dataSource = new MatTableDataSource(enquiryList);
         this.dataSource.sort = this.sort;
     }
 
     displayedColumns = [
-        'functionalStatus', 'createdOn', 'enquiryNo', 'loanContractId', 'busPartnerNumber', 'projectName', 'projectLocationState', 'projectType', 
-        'loanClass', 'projectCapacity', 'assistanceType', 'projectCost', 'loanAmount'
+        'functionalStatusDescription', 'createdOn', 'enquiryNumber', 'loanContractId', 'busPartnerNumber', 'projectName', 
+        'projectLocationState', 'projectTypeDescription', 'loanClassDescription', 'projectCapacity', 'assistanceTypeDescription', 
+        'projectCost', 'loanAmount'
     ];
 
     selectedEnquiry: LoanApplicationResourceModel;

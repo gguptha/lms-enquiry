@@ -3,11 +3,13 @@ export class EnquiryApplicationModel {
     id: string;
     
     assistanceType: string;
+    busPartnerNumber: string;
     createdOn: Date;
     enquiryNumber: string;
     functionalStatus: number;
     loanAmount: number;
     loanClass: string;
+    loanContractId: string;
     projectCapacity: number;
     projectCost: number;
     projectLocationState: string;
@@ -23,11 +25,13 @@ export class EnquiryApplicationModel {
         this.id = _enquiryApplication.loanApplication.id || '';
 
         this.assistanceType = _enquiryApplication.loanApplication.assistanceType;
+        this.busPartnerNumber = _enquiryApplication.loanApplication.busPartnerNumber;
         this.createdOn = _enquiryApplication.loanApplication.createdOn;
         this.enquiryNumber = _enquiryApplication.loanApplication.enquiryNo.id;
         this.functionalStatus = _enquiryApplication.loanApplication.functionalStatus;
         this.loanAmount = _enquiryApplication.loanApplication.pfsDebtAmount;
         this.loanClass = _enquiryApplication.loanApplication.loanClass;
+        this.loanContractId = _enquiryApplication.loanApplication.loanContractId;
         this.projectCapacity = _enquiryApplication.loanApplication.projectCapacity;
         this.projectCost = _enquiryApplication.loanApplication.projectCost;
         this.projectLocationState = _enquiryApplication.loanApplication.projectLocationState;
