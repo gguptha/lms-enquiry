@@ -47,24 +47,6 @@ export class EnquiryAlertsService implements Resolve<any> {
     }
 
     /**
-     * getLoanApplications()
-     * Fetches a list of loan applications with a particular status.
-     * @param status 
-     */
-    public getLoanApplications(status: number): Observable<LoanApplicationResourceModel[]> {
-        return new Observable(observer => {
-            const loanApplications = new Array<LoanApplicationResourceModel>();
-            this._http.get<LoanApplicationResourceModel[]>('api/loanApplications?status=' + status).subscribe(result => {
-                result.map(loanApplicationResourceModel => {
-                    loanApplications.push(new LoanApplicationResourceModel(loanApplicationResourceModel));
-                });
-                observer.next(loanApplications);
-                observer.complete();
-            });
-        });
-    }
-
-    /**
      * getEnquiryApplications()
      * Fetches a list of loan applications with a particular status.
      * @param status 

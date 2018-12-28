@@ -1,11 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
-import { ProjectTypeModel } from '../../../../model/projectType.model';
-import { LoanClassModel } from '../../../../model/loanClass.model';
-import { AssistanceTypeModel } from '../../../../model/assistanceType.model';
-import { FunctionalStatusModel } from '../../../../model/functionalStatus.model';
-import { LoanApplicationResourceModel } from 'app/main/content/model/loanApplicationResource.model';
 import { LoanEnquiryService } from '../../enquiryApplication.service';
 import { BehaviorSubject } from 'rxjs';
 import { EnquiryApplicationModel } from 'app/main/content/model/enquiryApplication.model';
@@ -33,7 +28,7 @@ export class EnquirySearchListComponent implements OnInit {
         'projectCost', 'loanAmount'
     ];
 
-    selectedEnquiry: LoanApplicationResourceModel;
+    selectedEnquiry: EnquiryApplicationModel;
 
     /**
      * constructor()
@@ -53,43 +48,11 @@ export class EnquirySearchListComponent implements OnInit {
     }
 
     /**
-     * getProjectTypeDescription()
-     * @param projectType 
-     */
-    getProjectTypeDescription(projectType: string): string {
-        return ProjectTypeModel.getProjectTypeDescription(projectType);
-    }
-
-    /**
-     * getLoanClassDescription()
-     * @param loanClass 
-     */
-    getLoanClassDescription(loanClass: string): string {
-        return LoanClassModel.getLoanClassDescription(loanClass);
-    }
-
-    /**
-     * getAssistanceTypeDescription()
-     * @param assistanceType 
-     */
-    getAssistanceTypeDescription(assistanceType: string): string {
-        return AssistanceTypeModel.getAssistanceTypeDescription(assistanceType);
-    }
-
-    /**
-     * 
-     * @param functionalStatus 
-     */
-    getFunctionalStatus(functionalStatus: number): string {
-        return FunctionalStatusModel.getFunctionalStatus(functionalStatus);
-    }
-
-    /**
      * 
      * @param enquiry 
      */
-    onSelect(enquiry: LoanApplicationResourceModel): void {
+    onSelect(enquiry: EnquiryApplicationModel): void {
         this.selectedEnquiry = enquiry;
-        this._service.selectedLoanApplicationId = new BehaviorSubject(enquiry.loanApplication.id);
+        this._service.selectedLoanApplicationId = new BehaviorSubject(enquiry.id);
     }
 }
