@@ -16,6 +16,7 @@ import { locale as navigationEnglish } from 'app/navigation/i18n/en';
 import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
 import { AppService } from './app.service';
 import { adminNavigation } from './navigation/navigation';
+import { officerNavigation } from './navigation/navigation';
 
 @Component({
     selector: 'app',
@@ -65,13 +66,22 @@ export class AppComponent implements OnInit, OnDestroy {
                     // Set the main navigation as our current navigation
                     this._fuseNavigationService.setCurrentNavigation('main');
                 }
-                else {
-                    // Get default navigation
+                else if (_appService.currentUser.role === 'ZLM023') {
+                    // Get admin navigation
                     this.navigation = adminNavigation;
                     // Register the navigation to the service
                     this._fuseNavigationService.register('admin', this.navigation);
                     // Set the main navigation as our current navigation
                     this._fuseNavigationService.setCurrentNavigation('admin');
+                }
+                else // if (_appService.currentUser.role === 'ZLM013')
+                {
+                    // Get officer navigation
+                    this.navigation = officerNavigation;
+                    // Register the navigation to the service
+                    this._fuseNavigationService.register('officer', this.navigation);
+                    // Set the main navigation as our current navigation
+                    this._fuseNavigationService.setCurrentNavigation('officer');
                 }
             });
         }
