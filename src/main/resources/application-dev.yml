@@ -1,11 +1,19 @@
 spring:
   profiles: dev
   datasource:
-      url: jdbc:h2:mem:pfs;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-      driver-class-name: org.h2.Driver
-      hikari:
-        connection-timeout: 60000
-        maximum-pool-size: 5
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: dn47gh3y
+    maximum-pool-size: 40
+    url: jdbc:mysql://localhost:3306/pfsenquiry?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true
+    validation-query: select 1
+    connection-test-query: select 1
+    test-while-idle: true
+    test-on-borrow: true
+    time-between-eviction-runs-millis: 60000
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 20
   h2:
     console:
       enabled: true
@@ -20,3 +28,5 @@ oauth:
   baseUrl: http://localhost:9999/auth
 sap:
   postUrl: http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300
+server:
+  port: 8080

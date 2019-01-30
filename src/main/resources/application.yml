@@ -2,4 +2,4 @@ spring:
   profiles:
     active: oauth
   application:
-      name: pfs-enquiry
+      name: lms-enquiry
