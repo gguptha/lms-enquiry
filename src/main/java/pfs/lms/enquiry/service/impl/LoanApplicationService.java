@@ -56,6 +56,8 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         //Save and return the Loan Application
         loanApplication = loanApplicationRepository.save(loanApplication);
+
+        System.out.println("Loan Application :" + loanApplication);
         return loanApplication;
     }
 }
