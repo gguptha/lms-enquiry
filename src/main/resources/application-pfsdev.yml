@@ -23,6 +23,18 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mymail@gmail.com
+    password: mypassword
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        ssl.trust: smtp.gmail.com
+
 oauth:
   baseUrl: http://192.168.1.246:9999/auth
 sap:
