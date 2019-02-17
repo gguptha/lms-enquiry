@@ -77,7 +77,7 @@ public class UserController
         return "Bearer " + token.toString();
     }
 
-    @GetMapping("/password/reset")
+    @PutMapping("/password/reset")
     public ResponseEntity resetPassword(String emailId, Principal principal) {
 
         User user = userRepository.findByEmail(emailId);
