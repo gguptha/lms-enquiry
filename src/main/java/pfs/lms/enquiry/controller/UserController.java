@@ -8,14 +8,13 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.User;
-import pfs.lms.enquiry.mail.service.PasswordReset;
+import pfs.lms.enquiry.mail.service.PasswordResetService;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
@@ -37,7 +36,7 @@ public class UserController
 
     private final UserRepository userRepository;
 
-    private final PasswordReset passwordReset;
+    private final PasswordResetService passwordResetService;
 
     @PostMapping("/user")
     public ResponseEntity signup(@RequestBody UserResource userResource) {
@@ -66,6 +65,8 @@ public class UserController
     public ResponseEntity modifyPassword(@RequestBody SignupResource signupResource, Principal principal) {
         String token = getAuthorizationBearer(principal);
         oAuthClient.modifyPassword(token, signupResource);
+
+        passwordResetService.sendPasswordChangeNotificationMail(signupResource.getEmail(),signupResource.getFirstName(),signupResource.getLastName());
         return ResponseEntity.ok().build();
     }
 
@@ -78,14 +79,14 @@ public class UserController
     }
 
     @PutMapping("/password/reset")
-    public ResponseEntity resetPassword(String emailId, Principal principal) {
+    public ResponseEntity resetPassword(@RequestBody String emailId, Principal principal) {
 
         User user = userRepository.findByEmail(emailId);
 
         if (user != null) {
             //String token = getAuthorizationBearer(principal);
-            String newPassword = passwordReset.sendMailWithNewPassword(user.getEmail(),
-                    user.getLastName(),
+            String newPassword = passwordResetService.sendMailWithNewPassword(user.getEmail(),
+                    user.getFirstName(),
                     user.getLastName());
 
             SignupResource signupResource = new SignupResource(user.getFirstName(), user.getLastName(),

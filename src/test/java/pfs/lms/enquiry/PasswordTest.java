@@ -6,11 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import pfs.lms.enquiry.domain.EnquiryNo;
-import pfs.lms.enquiry.domain.LoanApplication;
-import pfs.lms.enquiry.mail.service.PasswordReset;
-import pfs.lms.enquiry.repository.LoanApplicationRepository;
-import pfs.lms.enquiry.repository.PartnerRepository;
+import pfs.lms.enquiry.mail.service.PasswordResetService;
 
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
@@ -24,14 +20,14 @@ public class PasswordTest {
 	}
 
 	@Autowired
-	PasswordReset passwordReset;
+    PasswordResetService passwordResetService;
 
 	@Test
 	public void whenPasswordGeneratedUsingPassay_thenSuccessful() {
 
-		//passwordReset passGen = new RandomPasswordGenerator();
+		//passwordResetService passGen = new RandomPasswordGenerator();
 
-		String password = passwordReset.generatePassayPassword();
+		String password = passwordResetService.generatePassayPassword();
 		System.out.println("Password --------------- :" + password);
 		int specialCharCount = 0;
 		for (char c : password.toCharArray()) {

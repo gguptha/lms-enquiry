@@ -12,6 +12,7 @@ import pfs.lms.enquiry.domain.EnquiryNo;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.mail.service.LoanNotificationService;
 import pfs.lms.enquiry.process.LoanApplicationEngine;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
@@ -43,6 +44,8 @@ public class LoanApplicationContoller {
     private final UserRepository userRepository;
 
     private final LoanApplicationEngine engine;
+
+    private final LoanNotificationService loanNotificationService;
 
     @GetMapping("/loanApplications")
     public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
@@ -92,7 +95,13 @@ public class LoanApplicationContoller {
         System.out.println("-----------------------------------------------------");
         System.out.println("PARTNER : " + resource.getPartner());
 
-        return ResponseEntity.ok(loanApplicationService.save(resource, request.getUserPrincipal().getName()));
+        LoanApplication loanApplication = loanApplicationService.save(resource, request.getUserPrincipal().getName());
+
+        loanNotificationService.sendSubmissionNotification(
+                userRepository.findByEmail(request.getUserPrincipal().getName()),
+                loanApplication, resource.getPartner());
+
+        return ResponseEntity.ok(loanApplication);
     }
 
     @PutMapping("/loanApplications/{id}")
@@ -105,11 +114,18 @@ public class LoanApplicationContoller {
         partner = partnerRepository.save(partner);
         resource.setLoanApplication(loanApplication);
         resource.setPartner(partner);
+
+        loanNotificationService.sendUpdateNotification(
+                userRepository.findByEmail(request.getUserPrincipal().getName()),
+                loanApplication, partner);
+
         return ResponseEntity.ok(resource);
     }
 
     @PutMapping("/loanApplications/{id}/approve")
-    public ResponseEntity approve(@PathVariable("id") String loanApplicationId, @RequestBody LoanApplicationResource resource)
+    public ResponseEntity approve(@PathVariable("id") String loanApplicationId,
+                                  @RequestBody LoanApplicationResource resource,
+                                  HttpServletRequest httpServletRequest)
             throws Exception
     {
 
@@ -122,14 +138,25 @@ public class LoanApplicationContoller {
         resource.setLoanApplication(loanApplication);
         resource.setPartner(partner);
 
+        loanNotificationService.sendApprovalNotification(
+                userRepository.findByEmail(httpServletRequest.getUserPrincipal().getName()),
+                loanApplication, partner);
+
         return ResponseEntity.ok(resource);
     }
 
     @PutMapping("/loanApplications/{id}/reject")
-    public ResponseEntity update(@PathVariable("id") LoanApplication loanApplication, @RequestBody EnquiryRejectReason enquiryRejectReason, HttpServletRequest request) {
+    public ResponseEntity update(@PathVariable("id") LoanApplication loanApplication,
+                                 @RequestBody EnquiryRejectReason enquiryRejectReason,
+                                 HttpServletRequest request) {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
         loanApplication.reject(enquiryRejectReason.getRejectReason(), partner);
         loanApplication = loanApplicationRepository.save(loanApplication);
+
+        loanNotificationService.sendRejectNotification(
+                userRepository.findByEmail(request.getUserPrincipal().getName()),
+                loanApplication, partner);
+
         return ResponseEntity.ok(loanApplication);
     }
 
@@ -139,6 +166,11 @@ public class LoanApplicationContoller {
         // Set functional status to 9 (cancelled).
         loanApplication.setFunctionalStatus(9);
         loanApplication = loanApplicationRepository.save(loanApplication);
+
+        loanNotificationService.sendCancelNotification(
+                userRepository.findByEmail(request.getUserPrincipal().getName()),
+                loanApplication, partner);
+
         return ResponseEntity.ok(loanApplication);
     }
 
