@@ -8,12 +8,14 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.mail.service.PasswordReset;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
@@ -34,6 +36,8 @@ public class UserController
     private final ResourceServerTokenServices defaultTokenServices;
 
     private final UserRepository userRepository;
+
+    private final PasswordReset passwordReset;
 
     @PostMapping("/user")
     public ResponseEntity signup(@RequestBody UserResource userResource) {
@@ -72,4 +76,25 @@ public class UserController
         log.info("Access token  = {}", token.toString());
         return "Bearer " + token.toString();
     }
+
+    @GetMapping("/password/reset")
+    public ResponseEntity resetPassword(String emailId, Principal principal) {
+
+        User user = userRepository.findByEmail(emailId);
+
+        if (user != null) {
+            //String token = getAuthorizationBearer(principal);
+            String newPassword = passwordReset.sendMailWithNewPassword(user.getEmail(),
+                    user.getLastName(),
+                    user.getLastName());
+
+            SignupResource signupResource = new SignupResource(user.getFirstName(), user.getLastName(),
+                    user.getEmail(), "", newPassword);
+            modifyPassword(signupResource, principal);
+            return ResponseEntity.ok().build();
+        } else
+            return ResponseEntity.notFound().build();
+
+    }
+
 }

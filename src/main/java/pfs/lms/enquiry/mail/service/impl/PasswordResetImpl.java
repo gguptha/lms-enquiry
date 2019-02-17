@@ -8,7 +8,11 @@ import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 import org.passay.PasswordGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.mail.domain.MailObject;
+import pfs.lms.enquiry.mail.service.EmailService;
 import pfs.lms.enquiry.mail.service.PasswordReset;
 
 import static org.passay.CharacterCharacteristicsRule.ERROR_CODE;
@@ -18,7 +22,8 @@ public class PasswordResetImpl implements PasswordReset {
 
 
 
-
+    @Autowired
+    EmailService emailService;
 
 
     public String generatePassayPassword() {
@@ -54,8 +59,31 @@ public class PasswordResetImpl implements PasswordReset {
     }
 
     @Override
-    public String sendMailWithNewPassword() {
-        return null;
+    public String sendMailWithNewPassword(String emailId, String fName, String lName) {
+
+        String newPassword = generatePassayPassword();
+
+
+        String line1 = "Dear" + " " + fName + " " + lName + System.lineSeparator();
+        String line2 = "Your password for PTC Financial Services is reset." + System.lineSeparator();
+        String line3 = "The new password is as follows:" + System.lineSeparator();
+        String line4 = newPassword + System.lineSeparator();
+        String line5 = "Regards, PTC Financial Services";
+        String content = line1 + line2 + line3 + line4 + line5;
+
+        MailObject mailObject = new MailObject();
+        mailObject.setSendingApp("PFS Portal");
+        mailObject.setAppObjectId(" ");
+        mailObject.setToAddress(emailId);
+        mailObject.setSubject("Your password for PTC Financial Services is reset");
+        mailObject.setMailContent(content);
+
+        emailService.sendEmailMessage(mailObject);
+
+        return newPassword;
     }
+
+
+
 
 }

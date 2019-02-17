@@ -6,5 +6,5 @@ package pfs.lms.enquiry.mail.service;
 public interface PasswordReset {
 
     public String generatePassayPassword();
-    public String sendMailWithNewPassword();
-}
+    public String sendMailWithNewPassword(String emailId, String fName, String lName);
+    }

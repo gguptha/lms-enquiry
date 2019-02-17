@@ -47,7 +47,7 @@ public class EmailTest extends AbstractTest {
 
     }
 
-        @Test
+    @Test
     public void sendEmailTest() throws Exception {
 
         String uri = "/api/mail";

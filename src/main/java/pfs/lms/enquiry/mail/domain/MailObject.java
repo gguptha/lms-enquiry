@@ -29,8 +29,10 @@ public class MailObject { //extends AggregateRoot<MailObject> {
 
     private String toAddress;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String subject;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String mailContent;
 
     private String sendingApp;
