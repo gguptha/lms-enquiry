@@ -8,6 +8,7 @@ export class UserModel
     sapBPNumber: string;
     role: string;
     status: boolean;
+    riskDepartment: string;
 
     constructor(user: any)
     {
@@ -29,5 +30,6 @@ export class UserModel
         this.sapBPNumber = user.sapBPNumber;
         this.role = user.role;
         this.status = user.status;
+        this.riskDepartment = user.riskDepartment;
     }
 }

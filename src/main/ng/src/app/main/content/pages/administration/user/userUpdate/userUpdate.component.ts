@@ -38,7 +38,8 @@ export class UserUpdateDialogComponent implements OnInit {
             email: [this.selectedUser.email || ''],
             password: [''],
             sapBPNumber: [this.selectedUser.sapBPNumber || ''],
-            role: [this.selectedUser.role || 'ZLM013']
+            role: [this.selectedUser.role || 'ZLM013'],
+            riskDepartment: [this.selectedUser.riskDepartment]
         });
     }
 

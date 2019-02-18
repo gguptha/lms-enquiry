@@ -52,6 +52,7 @@ public class UserController
         user.setFirstName(userResource.getFirstName());
         user.setLastName(userResource.getLastName());
         user.setSapBPNumber(userResource.getSapBPNumber());
+        user.setRiskDepartment(userResource.getRiskDepartment());
         user.setRole(userResource.getRole());
         userRepository.save(user);
 

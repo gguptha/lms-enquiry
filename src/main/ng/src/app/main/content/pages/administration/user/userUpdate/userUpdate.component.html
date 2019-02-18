@@ -44,8 +44,7 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Email" formControlName="email" required 
-                        [readonly]="this._dialogData.operation != 'addUser'">
+                    <input matInput placeholder="Email" formControlName="email" required [readonly]="this._dialogData.operation != 'addUser'">
                     <mat-error>
                         Provide valid input for Email
                     </mat-error>
@@ -57,6 +56,16 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Risk Department" formControlName="riskDepartment">
+                        <mat-option [value]="'01'">Project Assessment</mat-option>
+                        <mat-option [value]="'02'">Risk Assessment</mat-option>
+                        <mat-option [value]="'03'">Monitoring</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
             <div mat-dialog-actions fxLayout="row">
                 <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
                     Submit
