@@ -11,23 +11,25 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.mail.service.PasswordResetService;
 import pfs.lms.enquiry.repository.UserRepository;
+import pfs.lms.enquiry.resource.EmailId;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
 import pfs.lms.enquiry.service.ISignupService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @Slf4j
 @ApiController
 @RequiredArgsConstructor
 @Profile({"oauth", "pfsdev"})
-public class UserController
-{
+public class UserController {
     private final ISignupService iSignupService;
 
     private final OAuthClient oAuthClient;
@@ -44,6 +46,7 @@ public class UserController
         iSignupService.signup(userResource);
         return ResponseEntity.ok().build();
     }
+
 
     @PutMapping("/user")
     public ResponseEntity update(@RequestBody UserResource userResource, Principal principal) {
@@ -67,7 +70,7 @@ public class UserController
         String token = getAuthorizationBearer(principal);
         oAuthClient.modifyPassword(token, signupResource);
 
-        passwordResetService.sendPasswordChangeNotificationMail(signupResource.getEmail(),signupResource.getFirstName(),signupResource.getLastName());
+        passwordResetService.sendPasswordChangeNotificationMail(signupResource.getEmail(), signupResource.getFirstName(), signupResource.getLastName());
         return ResponseEntity.ok().build();
     }
 
@@ -99,4 +102,16 @@ public class UserController
 
     }
 
+    @PutMapping("/user/email")
+    public ResponseEntity getUserByEmail(@RequestBody EmailId emailId, HttpServletRequest request) {
+
+        User user = userRepository.findByEmail(emailId.getEmailId());
+
+        if (user != null) {
+            return  ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 }

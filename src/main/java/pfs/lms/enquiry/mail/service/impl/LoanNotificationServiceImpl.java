@@ -23,16 +23,16 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
 
         String line1 = "Dear" + " " + user.getFirstName() + " " + user.getLastName() + System.lineSeparator();
         String line2 = "    Your loan application with the following details is submitted for further processing by PTC Financial Services." + System.lineSeparator();
-        String line3 = "    Loan Application Id  : " +loanApplication.getId() + System.lineSeparator() ;
+        String line3 = "    Loan Application Id  : " +loanApplication.getEnquiryNo() + System.lineSeparator() ;
         String line4 = "    Project Name         : " +loanApplication.getProjectName() + System.lineSeparator();
         String line5 = "Regards," + System.lineSeparator() + "PTC Financial Services";
         String content = line1 + line2 + line3 + line4 + line5;
 
         MailObject mailObject = new MailObject();
         mailObject.setSendingApp("PFS Loan Enquiry Portal");
-        mailObject.setAppObjectId(loanApplication.getId().toString());
+        mailObject.setAppObjectId(loanApplication.getEnquiryNo().toString());
         mailObject.setToAddress(user.getEmail());
-        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + "is submitted to PTC Financial Services");
+        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is submitted to PTC Financial Services");
         mailObject.setMailContent(content);
 
         mailObject = emailService.sendEmailMessage(mailObject);
@@ -51,9 +51,9 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
 
         MailObject mailObject = new MailObject();
         mailObject.setSendingApp("PFS Loan Enquiry Portal");
-        mailObject.setAppObjectId(loanApplication.getId().toString());
+        mailObject.setAppObjectId(loanApplication.getEnquiryNo().toString());
         mailObject.setToAddress(partner.getEmail());
-        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + "is being processed by PTC Financial Services");
+        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is being processed by PTC Financial Services");
         mailObject.setMailContent(content);
 
         mailObject = emailService.sendEmailMessage(mailObject);
@@ -65,7 +65,7 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
 
         String line1 = "Dear" + " " + user.getFirstName() + " " + user.getLastName() + System.lineSeparator();
         String line2 = "    Your loan application with the following details is rejected by PTC Financial Services." + System.lineSeparator();
-        String line3 = "    Loan Application Id  : " +loanApplication.getId() + System.lineSeparator() ;
+        String line3 = "    Loan Application Id  : " +loanApplication.getEnquiryNo() + System.lineSeparator() ;
         String line4 = "    Project Name         : " +loanApplication.getProjectName() + System.lineSeparator();
         String line5 = "Regards," + System.lineSeparator() + "PTC Financial Services";
         String content = line1 + line2 + line3 + line4 + line5;
@@ -74,7 +74,7 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSendingApp("PFS Loan Enquiry Portal");
         mailObject.setAppObjectId(loanApplication.getId().toString());
         mailObject.setToAddress(user.getEmail());
-        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + "is rejected to PTC Financial Services");
+        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is rejected to PTC Financial Services");
         mailObject.setMailContent(content);
 
         mailObject = emailService.sendEmailMessage(mailObject);
@@ -88,7 +88,7 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
 
         String line1 = "Dear" + " " + user.getFirstName() + " " + user.getLastName() + System.lineSeparator();
         String line2 = "    Your loan application with the following details is cancelled" + System.lineSeparator();
-        String line3 = "    Loan Application Id  : " +loanApplication.getId() + System.lineSeparator() ;
+        String line3 = "    Loan Application Id  : " +loanApplication.getEnquiryNo() + System.lineSeparator() ;
         String line4 = "    Project Name         : " +loanApplication.getProjectName() + System.lineSeparator();
         String line5 = "Regards," + System.lineSeparator() + "PTC Financial Services";
         String content = line1 + line2 + line3 + line4 + line5;
@@ -97,7 +97,7 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSendingApp("PFS Loan Enquiry Portal");
         mailObject.setAppObjectId(loanApplication.getId().toString());
         mailObject.setToAddress(user.getEmail());
-        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + "is cancelled");
+        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is cancelled");
         mailObject.setMailContent(content);
 
         mailObject = emailService.sendEmailMessage(mailObject);
@@ -109,7 +109,7 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
 
         String line1 = "Dear" + " " + user.getFirstName() + " " + user.getLastName() + System.lineSeparator();
         String line2 = "    Your loan application with the following details is updated" + System.lineSeparator();
-        String line3 = "    Loan Application Id  : " +loanApplication.getId() + System.lineSeparator() ;
+        String line3 = "    Loan Application Id  : " +loanApplication.getEnquiryNo() + System.lineSeparator() ;
         String line4 = "    Project Name         : " +loanApplication.getProjectName() + System.lineSeparator();
         String line5 = "Regards," + System.lineSeparator() + "PTC Financial Services";
         String content = line1 + line2 + line3 + line4 + line5;
@@ -118,7 +118,7 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSendingApp("PFS Loan Enquiry Portal");
         mailObject.setAppObjectId(loanApplication.getId().toString());
         mailObject.setToAddress(user.getEmail());
-        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + "is updated");
+        mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is updated");
         mailObject.setMailContent(content);
 
         mailObject = emailService.sendEmailMessage(mailObject);

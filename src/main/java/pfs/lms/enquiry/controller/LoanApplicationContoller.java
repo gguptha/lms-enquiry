@@ -86,12 +86,8 @@ public class LoanApplicationContoller {
     @PostMapping("/loanApplications")
     public ResponseEntity add(@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
 
-        System.out.println("-----------------------------------------------------");
         System.out.println(resource);
-
-        System.out.println("-----------------------------------------------------");
         System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
-
         System.out.println("-----------------------------------------------------");
         System.out.println("PARTNER : " + resource.getPartner());
 
