@@ -26,8 +26,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: mymail@gmail.com
-    password: mypassword
+    username: pfsriskmodel@gmail.com
+    password: Sapsap@123
     protocol: smtp
     tls: true
     properties.mail.smtp:
@@ -49,3 +49,5 @@ security:
       user-info-uri: http://localhost:9999/time
       jwt:
         keyValue: PfS$$$98567
+server:
+  port: 8080
