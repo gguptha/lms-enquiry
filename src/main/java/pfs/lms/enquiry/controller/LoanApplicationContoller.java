@@ -187,8 +187,16 @@ public class LoanApplicationContoller {
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getEnquiryNo().getId() <=
                     resource.getEnquiryNoTo()).collect(Collectors.toList());
 
+        if (resource.getLoanNumberFrom() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null && !loanApplication.getLoanContractId().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getLoanContractId()) >=
+                    resource.getLoanNumberFrom()).collect(Collectors.toList());
+
+        if (resource.getLoanNumberTo() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null && !loanApplication.getLoanContractId().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getLoanContractId()) <=
+                    resource.getLoanNumberTo()).collect(Collectors.toList());
+
         if (resource.getPartyName() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getPromoterName().contains(resource.getPartyName())).collect(Collectors.toList());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getPromoterName().toLowerCase().contains(resource.getPartyName().toLowerCase())).collect(Collectors.toList());
 
         if (resource.getLoanClass() != null)
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanClass().equals(resource.getLoanClass())).collect(Collectors.toList());
