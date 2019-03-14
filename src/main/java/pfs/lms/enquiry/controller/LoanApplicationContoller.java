@@ -249,4 +249,6 @@ public class LoanApplicationContoller {
         loanApplication = loanApplicationRepository.save(loanApplication);
         return ResponseEntity.ok(loanApplication);
     }
+
+
 }

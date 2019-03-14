@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatIconModule, MatToolbarModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatToolbarModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule, MatCheckboxModule } from '@angular/material';
 import { AppService } from '../../../../../app.service';
 import { UserComponent } from './user.component';
 import { UserService } from './user.service';
@@ -31,6 +31,8 @@ const routes = [
         FuseSharedModule,
         CommonModule,
         MatButtonModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
         MatIconModule,
         MatToolbarModule,
         MatDialogModule,

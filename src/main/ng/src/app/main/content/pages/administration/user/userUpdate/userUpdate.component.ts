@@ -32,6 +32,8 @@ export class UserUpdateDialogComponent implements OnInit {
             this.selectedUser = new UserModel({});
         }
 
+        console.log('selectedUser', this.selectedUser);
+        
         this.userUpdateForm = _formBuilder.group({
             firstname: [this.selectedUser.firstName || ''],
             lastname: [this.selectedUser.lastName || ''],
@@ -39,7 +41,8 @@ export class UserUpdateDialogComponent implements OnInit {
             password: [''],
             sapBPNumber: [this.selectedUser.sapBPNumber || ''],
             role: [this.selectedUser.role || 'ZLM013'],
-            riskDepartment: [this.selectedUser.riskDepartment]
+            riskDepartment: [this.selectedUser.riskDepartment],
+            departmentHead: [this.selectedUser.departmentHead]
         });
     }
 

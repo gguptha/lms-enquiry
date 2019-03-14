@@ -192,8 +192,12 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String projectName;
 
+    private String projectDepartmentInitiator;
+
+    private String monitoringDepartmentInitiator;
+
     @JsonCreator
-    public LoanApplication(LocalDate loanEnquiryDate, Long loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode, String busPartnerNumber, String projectName) {
+    public LoanApplication(LocalDate loanEnquiryDate, Long loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode, String busPartnerNumber, String projectName, String projectDepartmentInitiator, String monitoringDepartmentInitiator) {
 
         this.loanEnquiryDate = loanEnquiryDate;
         this.loanContractId = loanContractId;
@@ -237,6 +241,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.productCode = productCode;
         this.busPartnerNumber = busPartnerNumber;
         this.projectName = projectName;
+        this.projectDepartmentInitiator = projectDepartmentInitiator;
+        this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
         this.enquiryNo = new EnquiryNo();
         this.loanEnquiryId = this.enquiryNo.getId();
 
@@ -278,13 +284,19 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this;
     }
 
-    public LoanApplication updateStatusFromSAP(Integer status, Double amount){
+    public LoanApplication updateStatusFromSAP(Integer status, Double amount) {
 
         this.pfsDebtAmount = amount;
         this.functionalStatus = status;
         this.changedAt = LocalTime.now();
         this.changedOn = LocalDate.now();
         this.changedByUserName = "SAP";
+        return this;
+    }
+
+    public LoanApplication updateProcessors(String projectDepartmentInitiator, String monitoringDepartmentInitiator) {
+        this.projectDepartmentInitiator = projectDepartmentInitiator;
+        this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
         return this;
     }
 

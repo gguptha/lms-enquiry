@@ -32,7 +32,7 @@ public class SignupService implements ISignupService {
         //partner = iPartnerService.save(partner);
 
         User user = new User(signupResource.getFirstName(), signupResource.getLastName(), signupResource.getEmail(),
-                "TR0100", true, signupResource.getEmail(), null, null);
+                "TR0100", true, signupResource.getEmail(), null, null, false);
         user = userRepository.save(user);
         log.info("{} created", user);
 
@@ -49,7 +49,7 @@ public class SignupService implements ISignupService {
     {
         // Create user in the LMS application
         User user = new User(userResource.getFirstName(), userResource.getLastName(), userResource.getEmail(),
-                userResource.getRole(), true, userResource.getEmail(), userResource.getSapBPNumber(), userResource.getRiskDepartment());
+                userResource.getRole(), true, userResource.getEmail(), userResource.getSapBPNumber(), userResource.getRiskDepartment(), userResource.getDepartmentHead());
         user = userRepository.save(user);
         log.info("{} created.", user);
 

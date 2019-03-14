@@ -9,7 +9,8 @@ export class UserModel
     role: string;
     status: boolean;
     riskDepartment: string;
-
+    departmentHead: boolean;
+    
     constructor(user: any)
     {
         if (user.firstName === undefined) {
@@ -31,5 +32,6 @@ export class UserModel
         this.role = user.role;
         this.status = user.status;
         this.riskDepartment = user.riskDepartment;
+        this.departmentHead = user.departmentHead;
     }
 }

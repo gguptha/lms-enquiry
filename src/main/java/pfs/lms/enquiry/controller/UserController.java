@@ -11,7 +11,6 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.User;
@@ -57,6 +56,7 @@ public class UserController {
         user.setSapBPNumber(userResource.getSapBPNumber());
         user.setRiskDepartment(userResource.getRiskDepartment());
         user.setRole(userResource.getRole());
+        user.setDepartmentHead(userResource.getDepartmentHead());
         userRepository.save(user);
 
         SignupResource signupResource = new SignupResource(userResource.getFirstName(), userResource.getLastName(),
