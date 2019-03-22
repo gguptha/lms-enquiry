@@ -243,9 +243,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.projectName = projectName;
         this.enquiryNo = new EnquiryNo();
         this.loanEnquiryId = this.enquiryNo.getId();
-        this.projectDepartmentInitiator = projectDepartmentInitiator;
+        this.projectDepartmentInitiator = projectDepartmentInitiator ;
         this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
-        registerEvent(LoanApplicationCreated.of(this));
+
     }
 
     public LoanApplication applicant(Partner partner) {
