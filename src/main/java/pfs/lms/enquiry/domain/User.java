@@ -1,6 +1,7 @@
 package pfs.lms.enquiry.domain;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ public class User extends AggregateRoot<User> {
     private String userName;
     private String sapBPNumber;
     private String riskDepartment;
+    @Nullable
     private boolean departmentHead;
 
     public User(String firstName, String lastName, String email, String role, boolean status, String userName, String sapBPNumber, String riskDepartment, boolean departmentHead) {

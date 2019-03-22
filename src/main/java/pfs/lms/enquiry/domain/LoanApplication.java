@@ -241,11 +241,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.productCode = productCode;
         this.busPartnerNumber = busPartnerNumber;
         this.projectName = projectName;
-        this.projectDepartmentInitiator = projectDepartmentInitiator;
-        this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
         this.enquiryNo = new EnquiryNo();
         this.loanEnquiryId = this.enquiryNo.getId();
-
+        this.projectDepartmentInitiator = projectDepartmentInitiator;
+        this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
         registerEvent(LoanApplicationCreated.of(this));
     }
 
@@ -478,6 +477,14 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public String getProjectName() {
         return projectName;
+    }
+
+    public String getProjectDepartmentInitiator() {
+        return projectDepartmentInitiator;
+    }
+
+    public String getMonitoringDepartmentInitiator() {
+        return monitoringDepartmentInitiator;
     }
 
     @Value
