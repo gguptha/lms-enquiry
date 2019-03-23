@@ -2,6 +2,7 @@ package pfs.lms.enquiry.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.Type;
 import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
@@ -196,10 +197,77 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String monitoringDepartmentInitiator;
 
-    @JsonCreator
-    public LoanApplication(LocalDate loanEnquiryDate, Long loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode, String busPartnerNumber, String projectName, String projectDepartmentInitiator, String monitoringDepartmentInitiator) {
 
+    @JsonCreator
+    public LoanApplication(@JsonProperty("id") UUID id,
+                           @JsonProperty("version") Long version,
+                           @JsonProperty("createdOn") LocalDate createdOn,
+                           @JsonProperty("createdAt") LocalTime createdAt,
+                           @JsonProperty("createdByUserName") String createdByUserName,
+                           @JsonProperty("changedOn") LocalDate changedOn,
+                           @JsonProperty("changedAt") LocalTime changedAt,
+                           @JsonProperty("changedByUserName") String changedByUserName,
+                           @JsonProperty("enquiryNo") EnquiryNo enquiryNo,
+                           @JsonProperty("loanEnquiryDate") LocalDate loanEnquiryDate,
+                           @JsonProperty("loanEnquiryId") Long loanEnquiryId,
+                           @JsonProperty("loanContractId") String loanContractId,
+                           @JsonProperty("loanApplicant") UUID loanApplicant,
+                           @JsonProperty("loanClass") String loanClass,
+                           @JsonProperty("projectType") String projectType,
+                           @JsonProperty("financingType") String financingType,
+                           @JsonProperty("assistanceType") String assistanceType,
+                           @JsonProperty("projectCapacity") Double projectCapacity,
+                           @JsonProperty("projectCapacityUnit") String projectCapacityUnit,
+                           @JsonProperty("projectLocationState") String projectLocationState,
+                           @JsonProperty("projectDistrict") String projectDistrict,
+                           @JsonProperty("tenorYear") Integer tenorYear,
+                           @JsonProperty("tenorMonth") Integer tenorMonth,
+                           @JsonProperty("projectCost") Double projectCost,
+                           @JsonProperty("projectDebtAmount") Double projectDebtAmount,
+                           @JsonProperty("equity") Double equity,
+                           @JsonProperty("projectAmountCurrency") String projectAmountCurrency,
+                           @JsonProperty("expectedSubDebt") Double expectedSubDebt,
+                           @JsonProperty("pfsDebtAmount") Double pfsDebtAmount,
+                           @JsonProperty("pfsSubDebtAmount") Double pfsSubDebtAmount,
+                           @JsonProperty("loanPurpose") String loanPurpose,
+                           @JsonProperty("leadFIName") String leadFIName,
+                           @JsonProperty("leadFILoanAmount") Double leadFILoanAmount,
+                           @JsonProperty("expectedInterestRate") Double expectedInterestRate,
+                           @JsonProperty("scheduledCOD") LocalDate scheduledCOD,
+                           @JsonProperty("promoterName") String promoterName,
+                           @JsonProperty("promoterNetWorthAmount") Double promoterNetWorthAmount,
+                           @JsonProperty("promoterPATAmount") Double promoterPATAmount,
+                           @JsonProperty("promoterAreaOfBusinessNature") String promoterAreaOfBusinessNature,
+                           @JsonProperty("rating") String rating,
+                           @JsonProperty("promoterKeyDirector") String promoterKeyDirector,
+                           @JsonProperty("keyPromoter") String keyPromoter,
+                           @JsonProperty("technicalStatus") Integer technicalStatus,
+                           @JsonProperty("functionalStatus") Integer functionalStatus,
+                           @JsonProperty("finalDecisionStatus") Integer finalDecisionStatus,
+                           @JsonProperty("rejectionReason") String rejectionReason,
+                           @JsonProperty("rejectionDate") LocalDateTime rejectionDate,
+                           @JsonProperty("decisionDate") LocalDate decisionDate,
+                           @JsonProperty("userBPNumber") String userBPNumber,
+                           @JsonProperty("groupCompany") String groupCompany,
+                           @JsonProperty("productCode") String productCode,
+                           //         @JsonProperty("busPartnerNumber") String busPartnerNumber,
+                           @JsonProperty("projectName") String projectName,
+                           @JsonProperty("projectDepartmentInitiator") String projectDepartmentInitiator ,
+                           @JsonProperty("monitoringDepartmentInitiator") String monitoringDepartmentInitiator ) {
+        this.id = id;
+        this.version = version;
+        this.createdOn = createdOn;
+        this.createdAt = createdAt;
+        this.createdByUserName = createdByUserName;
+        this.changedOn = changedOn;
+        this.changedAt = changedAt;
+        this.changedByUserName = changedByUserName;
+        this.enquiryNo = enquiryNo;
         this.loanEnquiryDate = loanEnquiryDate;
+
+        this.enquiryNo = new EnquiryNo();
+        this.loanEnquiryId = this.enquiryNo.getId();
+
         this.loanContractId = loanContractId;
         this.loanApplicant = loanApplicant;
         this.loanClass = loanClass;
@@ -232,21 +300,75 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.promoterKeyDirector = promoterKeyDirector;
         this.keyPromoter = keyPromoter;
         this.technicalStatus = technicalStatus;
-        this.functionalStatus = 01;
+        if (functionalStatus == null)
+            this.functionalStatus = 01;
+
         this.finalDecisionStatus = finalDecisionStatus;
         this.rejectionReason = rejectionReason;
+        this.rejectionDate = rejectionDate;
         this.decisionDate = decisionDate;
         this.userBPNumber = userBPNumber;
         this.groupCompany = groupCompany;
         this.productCode = productCode;
-        this.busPartnerNumber = busPartnerNumber;
+        // this.busPartnerNumber = busPartnerNumber;
         this.projectName = projectName;
-        this.enquiryNo = new EnquiryNo();
-        this.loanEnquiryId = this.enquiryNo.getId();
-        this.projectDepartmentInitiator = projectDepartmentInitiator ;
+        this.projectDepartmentInitiator  = projectDepartmentInitiator;
         this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
-
     }
+
+    //String busPartnerNumber,
+
+//    @JsonCreator
+//    public LoanApplication(LocalDate loanEnquiryDate, Long loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode,  String projectName, String projectDepartmentInitiator, String monitoringDepartmentInitiator) {
+//
+//        this.loanEnquiryDate = loanEnquiryDate;
+//        this.loanContractId = loanContractId;
+//        this.loanApplicant = loanApplicant;
+//        this.loanClass = loanClass;
+//        this.projectType = projectType;
+//        this.financingType = financingType;
+//        this.assistanceType = assistanceType;
+//        this.projectCapacity = projectCapacity;
+//        this.projectCapacityUnit = projectCapacityUnit;
+//        this.projectLocationState = projectLocationState;
+//        this.projectDistrict = projectDistrict;
+//        this.tenorYear = tenorYear;
+//        this.tenorMonth = tenorMonth;
+//        this.projectCost = projectCost;
+//        this.projectDebtAmount = projectDebtAmount;
+//        this.equity = equity;
+//        this.projectAmountCurrency = projectAmountCurrency;
+//        this.expectedSubDebt = expectedSubDebt;
+//        this.pfsDebtAmount = pfsDebtAmount;
+//        this.pfsSubDebtAmount = pfsSubDebtAmount;
+//        this.loanPurpose = loanPurpose;
+//        this.leadFIName = leadFIName;
+//        this.leadFILoanAmount = leadFILoanAmount;
+//        this.expectedInterestRate = expectedInterestRate;
+//        this.scheduledCOD = scheduledCOD;
+//        this.promoterName = promoterName;
+//        this.promoterNetWorthAmount = promoterNetWorthAmount;
+//        this.promoterPATAmount = promoterPATAmount;
+//        this.promoterAreaOfBusinessNature = promoterAreaOfBusinessNature;
+//        this.rating = rating;
+//        this.promoterKeyDirector = promoterKeyDirector;
+//        this.keyPromoter = keyPromoter;
+//        this.technicalStatus = technicalStatus;
+//        this.functionalStatus = 01;
+//        this.finalDecisionStatus = finalDecisionStatus;
+//        this.rejectionReason = rejectionReason;
+//        this.decisionDate = decisionDate;
+//        this.userBPNumber = userBPNumber;
+//        this.groupCompany = groupCompany;
+//        this.productCode = productCode;
+////        this.busPartnerNumber = busPartnerNumber;
+//        this.projectName = projectName;
+//        this.enquiryNo = new EnquiryNo();
+//        this.loanEnquiryId = this.enquiryNo.getId();
+//        this.projectDepartmentInitiator = projectDepartmentInitiator ;
+//        this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
+//
+//    }
 
     public LoanApplication applicant(Partner partner) {
         this.loanApplicant = partner.getId();
