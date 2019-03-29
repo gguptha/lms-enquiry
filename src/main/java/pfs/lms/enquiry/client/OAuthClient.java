@@ -19,4 +19,7 @@ public interface OAuthClient {
 
     @RequestMapping(value = "/api/password/modify", method = RequestMethod.PUT)
     ResponseEntity modifyPassword(@RequestHeader("Authorization")String token, @RequestBody SignupResource signupResource);
+
+    @RequestMapping(value = "/api/password/reset", method = RequestMethod.PUT)
+    ResponseEntity resetPassword(@RequestBody SignupResource signupResource);
 }

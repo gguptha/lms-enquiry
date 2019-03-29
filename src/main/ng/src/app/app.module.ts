@@ -25,6 +25,7 @@ import {MessageDialogModule} from './main/content/components/messageDialog/messa
 import {AppService} from './app.service';
 import {Register2Module} from './main/content/pages/registration/register.module';
 import {UserModule} from './main/content/pages/administration/user/user.module';
+import { ForgotPassword2Module } from './main/content/pages/forgotPassword/forgotPassword.module';
 
 const appRoutes: Routes = [
     {
@@ -77,6 +78,7 @@ const appRoutes: Routes = [
         MessageDialogModule,
         UserModule,
         Register2Module,
+        ForgotPassword2Module
     ],
     bootstrap: [
         AppComponent

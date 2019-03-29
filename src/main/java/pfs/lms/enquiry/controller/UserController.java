@@ -95,7 +95,8 @@ public class UserController {
 
             SignupResource signupResource = new SignupResource(user.getFirstName(), user.getLastName(),
                     user.getEmail(), "", newPassword);
-            modifyPassword(signupResource, principal);
+            // modifyPassword(signupResource, principal);
+            oAuthClient.resetPassword(signupResource);
             return ResponseEntity.ok().build();
         } else
             return ResponseEntity.notFound().build();
