@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -172,7 +173,7 @@ public class LoanApplicationContoller {
 
     @PutMapping("/loanApplications/search")
     public ResponseEntity search(@RequestBody SearchResource resource, HttpServletRequest request,
-                                 @PageableDefault(sort = {"enquiryNo ASC"}) Pageable pageable)
+                                 @PageableDefault(sort = "loanContractId", size = 9999, direction = Sort.Direction.DESC) Pageable pageable)
     {
         List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationRepository.findAll(pageable).getContent());
 
