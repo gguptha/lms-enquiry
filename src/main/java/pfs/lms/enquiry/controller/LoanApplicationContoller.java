@@ -188,13 +188,22 @@ public class LoanApplicationContoller {
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getEnquiryNo().getId() <=
                     resource.getEnquiryNoTo()).collect(Collectors.toList());
 
-        if (resource.getLoanNumberFrom() != null)
+        if (resource.getLoanNumberFrom() != null && resource.getLoanNumberTo() == null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null
+                    && !loanApplication.getLoanContractId().isEmpty())
+                    .filter(loanApplication -> loanApplication.getLoanContractId().contains(resource.getLoanNumberFrom() + "")).collect(Collectors.toList());
+        }
+        else if (resource.getLoanNumberFrom() == null && resource.getLoanNumberTo() != null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null
+                    && !loanApplication.getLoanContractId().isEmpty())
+                    .filter(loanApplication -> loanApplication.getLoanContractId().contains(resource.getLoanNumberTo() + "")).collect(Collectors.toList());
+        }
+        else if (resource.getLoanNumberFrom() != null && resource.getLoanNumberTo() != null) {
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null && !loanApplication.getLoanContractId().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getLoanContractId()) >=
                     resource.getLoanNumberFrom()).collect(Collectors.toList());
-
-        if (resource.getLoanNumberTo() != null)
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null && !loanApplication.getLoanContractId().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getLoanContractId()) <=
                     resource.getLoanNumberTo()).collect(Collectors.toList());
+        }
 
         if (resource.getPartyName() != null)
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectName().toLowerCase().contains(resource.getPartyName().toLowerCase())).collect(Collectors.toList());
