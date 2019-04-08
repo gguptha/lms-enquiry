@@ -302,8 +302,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.keyPromoter = keyPromoter;
         this.technicalStatus = technicalStatus;
         if (functionalStatus == null)
-            this.functionalStatus = 01;
-
+            this.functionalStatus = 1;
+        else
+            this.functionalStatus = functionalStatus;
+        
         this.finalDecisionStatus = finalDecisionStatus;
         this.rejectionReason = rejectionReason;
         this.rejectionDate = rejectionDate;
