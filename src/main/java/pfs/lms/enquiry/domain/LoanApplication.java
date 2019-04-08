@@ -245,7 +245,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
                            @JsonProperty("keyPromoter") String keyPromoter,
                            @JsonProperty("technicalStatus") Integer technicalStatus,
                            @JsonProperty("functionalStatus") Integer functionalStatus,
-                           @JsonProperty("functionalStatusAsString") Integer functionalStatusAsString,
+                           @JsonProperty("functionalStatusAsString") String functionalStatusAsString,
                            @JsonProperty("finalDecisionStatus") Integer finalDecisionStatus,
                            @JsonProperty("rejectionReason") String rejectionReason,
                            @JsonProperty("rejectionDate") LocalDateTime rejectionDate,
@@ -308,6 +308,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
         if (functionalStatusAsString == null)
             this.functionalStatusAsString = "01";
+        else
+            this.functionalStatusAsString = functionalStatusAsString;
 
         this.finalDecisionStatus = finalDecisionStatus;
         this.rejectionReason = rejectionReason;

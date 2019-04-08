@@ -98,6 +98,10 @@ public class LoanApplicationContoller {
         System.out.println("TECHNICAL STATUS : " + resource.getLoanApplication().getTechnicalStatus());
         System.out.println("-----------------------------------------------------");
 
+        if (resource.getLoanApplication().getFunctionalStatus() == null) {
+            resource.getLoanApplication().setFunctionalStatus(new Integer(resource.getLoanApplication().getFunctionalStatusAsString()));
+        } else
+        resource.getLoanApplication().setFunctionalStatusAsString(resource.getLoanApplication().getFunctionalStatusAsString().toString());
 
         LoanApplication loanApplication = loanApplicationService.save(resource, request.getUserPrincipal().getName());
 
