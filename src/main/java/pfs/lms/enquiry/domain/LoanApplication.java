@@ -170,6 +170,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      */
     private Integer functionalStatus;
 
+    private String functionalStatusAsString;
+
     /**
      * 01-Approved
      * 02-Rejected
@@ -243,6 +245,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
                            @JsonProperty("keyPromoter") String keyPromoter,
                            @JsonProperty("technicalStatus") Integer technicalStatus,
                            @JsonProperty("functionalStatus") Integer functionalStatus,
+                           @JsonProperty("functionalStatusAsString") Integer functionalStatusAsString,
                            @JsonProperty("finalDecisionStatus") Integer finalDecisionStatus,
                            @JsonProperty("rejectionReason") String rejectionReason,
                            @JsonProperty("rejectionDate") LocalDateTime rejectionDate,
@@ -302,6 +305,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.technicalStatus = technicalStatus;
         if (functionalStatus == null)
             this.functionalStatus = 01;
+
+        if (functionalStatusAsString == null)
+            this.functionalStatusAsString = "01";
 
         this.finalDecisionStatus = finalDecisionStatus;
         this.rejectionReason = rejectionReason;
@@ -391,6 +397,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public LoanApplication reject(String reason,Partner modified){
         this.functionalStatus = 8;
+        this.functionalStatusAsString = "8";
         this.finalDecisionStatus = 2;
         this.rejectionReason = reason;
         this.rejectionDate = LocalDateTime.now();
@@ -400,6 +407,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public LoanApplication responseFromSAP(SAPLoanApplicationResource sapLoanApplicationResource){
         this.functionalStatus = 2;
+        this.functionalStatusAsString = "2";
         this.loanContractId = sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getLoanContract();
         this.busPartnerNumber = sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getBusPartnerNumber();
         return this;
@@ -607,6 +615,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public String getMonitoringDepartmentInitiator() {
         return monitoringDepartmentInitiator;
+    }
+
+    public String getFunctionalStatusAsString() {
+        return functionalStatusAsString;
     }
 
     @Value

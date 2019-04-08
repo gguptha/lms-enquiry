@@ -94,6 +94,7 @@ public class LoanApplicationContoller {
 
         System.out.println("-----------------------------------------------------");
         System.out.println("FUNCTIONAL STATUS : " + resource.getLoanApplication().getFunctionalStatus());
+        System.out.println("FUNCTIONAL STATUS AS STRING: " + resource.getLoanApplication().getFunctionalStatusAsString());
         System.out.println("TECHNICAL STATUS : " + resource.getLoanApplication().getTechnicalStatus());
         System.out.println("-----------------------------------------------------");
 
