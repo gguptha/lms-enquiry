@@ -93,7 +93,9 @@ public class LoanApplicationContoller {
         System.out.println("PARTNER : " + resource.getPartner());
 
         System.out.println("-----------------------------------------------------");
-        System.out.println("STATUS : " + resource.getLoanApplication().getFunctionalStatus());
+        System.out.println("FUNCTIONAL STATUS : " + resource.getLoanApplication().getFunctionalStatus());
+        System.out.println("TECHNICAL STATUS : " + resource.getLoanApplication().getTechnicalStatus());
+        System.out.println("-----------------------------------------------------");
 
 
         LoanApplication loanApplication = loanApplicationService.save(resource, request.getUserPrincipal().getName());
