@@ -32,8 +32,6 @@ export class UserUpdateDialogComponent implements OnInit {
             this.selectedUser = new UserModel({});
         }
 
-        console.log('selectedUser', this.selectedUser);
-        
         this.userUpdateForm = _formBuilder.group({
             firstname: [this.selectedUser.firstName || ''],
             lastname: [this.selectedUser.lastName || ''],
@@ -60,6 +58,9 @@ export class UserUpdateDialogComponent implements OnInit {
                     this._matSnackBar.open('New user is added successfully.', 'OK', { duration: 7000 });
                     // Close the add/ update dialog.
                     this._dialogRef.close();
+                }, 
+                (error) => {
+                    this._matSnackBar.open('User already exists or other errors occured.', 'OK', { duration: 7000 });
                 });
             }
             else {
