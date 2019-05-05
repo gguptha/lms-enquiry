@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 */
 
 @Slf4j
-@Order(100)
+@Order(110)
 //Development
 //@Profile({"oauth", "pfsdev"})
 //Production
