@@ -305,7 +305,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
             this.functionalStatus = 1;
         else
             this.functionalStatus = functionalStatus;
-        
+
         this.finalDecisionStatus = finalDecisionStatus;
         this.rejectionReason = rejectionReason;
         this.rejectionDate = rejectionDate;

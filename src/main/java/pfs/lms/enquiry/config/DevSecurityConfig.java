@@ -20,7 +20,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 //@Profile("dev")
 //Production
 @Profile("pfsprd")
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

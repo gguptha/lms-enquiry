@@ -34,7 +34,6 @@ spring:
         auth: true
         starttls.enable: true
         ssl.trust: smtp.gmail.com
-
 oauth:
   baseUrl: http://192.168.1.247:9999/auth
 sap:

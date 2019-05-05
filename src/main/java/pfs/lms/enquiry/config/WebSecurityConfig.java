@@ -18,10 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Order(100)
 //Development
 //@Profile({"oauth", "pfsdev"})
-
 //Production
 @Profile({"oauth", "pfsprd"})
-
 @Configuration
 @EnableOAuth2Sso
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
