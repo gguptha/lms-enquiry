@@ -27,7 +27,12 @@ import java.security.Principal;
 @Slf4j
 @ApiController
 @RequiredArgsConstructor
-@Profile({"oauth", "pfsdev"})
+// Development
+//@Profile({"oauth", "pfsdev"})
+
+//Production
+@Profile({"oauth", "pfsprd"})
+
 public class UserController {
     private final ISignupService iSignupService;
 
