@@ -19,8 +19,12 @@ public class PartnerController {
 
     @GetMapping("/me")
     public ResponseEntity getLoggedinPartner(HttpServletRequest request) {
-        if(request.getUserPrincipal().getName().equals("admin"))
+
+        System.out.println("----------- Get Logged in Partner ----------");
+        if(request.getUserPrincipal().getName().equals("admin")) {
+            System.out.println("----------- Partner Name ---------- : " + request.getUserPrincipal().getName());
             return ResponseEntity.ok(userRepository.findByEmail("admin@gmail.com"));
+        }
         else
             return ResponseEntity.ok(userRepository.findByEmail(request.getUserPrincipal().getName()));
     }
