@@ -16,7 +16,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Slf4j
-@Profile("dev")
+// Development
+//@Profile("dev")
+//Production
+@Profile("pfsprd")
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
