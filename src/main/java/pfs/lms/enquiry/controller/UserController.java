@@ -28,10 +28,10 @@ import java.security.Principal;
 @ApiController
 @RequiredArgsConstructor
 // Development
-//@Profile({"oauth", "pfsdev"})
+@Profile({"oauth", "pfsdev"})
 
 //Production
-@Profile({"oauth", "pfsprd"})
+//@Profile({"oauth", "pfsprd"})
 
 public class UserController {
     private final ISignupService iSignupService;
