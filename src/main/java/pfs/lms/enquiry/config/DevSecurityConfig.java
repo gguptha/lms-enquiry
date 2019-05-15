@@ -18,9 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Slf4j
 
 // Development
-@Profile("pfsdev")
-//Production
-//@Profile("pfsprd")
+@Profile("dev")
 
 @Configuration
 @EnableWebSecurity
