@@ -36,7 +36,7 @@ spring:
         ssl.trust: smtp.gmail.com
 
 oauth:
-  baseUrl: https://enquiry.pfs-ess.com/auth/login
+  baseUrl: https://enquiry.pfs-ess.com:9999/auth
 sap:
   postUrl: http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300
 security:
