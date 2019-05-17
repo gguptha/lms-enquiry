@@ -12,6 +12,6 @@ export class RegisterService
 
     public register(user: UserModel): Observable<any>
     {
-        return this._http.post('api/signup', user);
+        return this._http.post('enquiry/api/signup', user);
     }
 }

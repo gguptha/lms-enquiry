@@ -36,14 +36,14 @@ export class LoanEnquiryService implements Resolve<any> {
     }
 
     public getPartnerByPrincipal(): Observable<any> {
-        return this._http.get('api/partners/byPrincipal');
+        return this._http.get('enquiry/api/partners/byPrincipal');
     }
     /**
      * getLoanClasses()
      * returns a list of loan classes.
      */
     public getLoanClasses(): Observable<any> {
-        return this._http.get('api/loanClasses?sort=code');
+        return this._http.get('enquiry/api/loanClasses?sort=code');
     }
 
     /**
@@ -51,7 +51,7 @@ export class LoanEnquiryService implements Resolve<any> {
      * returns a list of financing types.
      */
     public getFinancingTypes(): Observable<any> {
-        return this._http.get('api/financingTypes?sort=code');
+        return this._http.get('enquiry/api/financingTypes?sort=code');
     }
 
     /**
@@ -59,7 +59,7 @@ export class LoanEnquiryService implements Resolve<any> {
      * Returns a list of project types.
      */
     public getProjectTypes(): Observable<any> {
-        return this._http.get('api/projectTypes?sort=code');
+        return this._http.get('enquiry/api/projectTypes?sort=code');
     }
 
     /**
@@ -67,7 +67,7 @@ export class LoanEnquiryService implements Resolve<any> {
      * Returns a list of assistance types.
      */
     public getAssistanceTypes(): Observable<any> {
-        return this._http.get('api/assistanceTypes');
+        return this._http.get('enquiry/api/assistanceTypes');
     }
 
     /**
@@ -88,7 +88,7 @@ export class LoanEnquiryService implements Resolve<any> {
      * @param partner 
      */
     public saveLoanApplication(loanApplication: any, partner: any): Observable<any> {
-        return this._http.post('/api/loanApplications', { loanApplication, partner });
+        return this._http.post('enquiry/api/loanApplications', { loanApplication, partner });
     }
 
     /**
@@ -97,6 +97,6 @@ export class LoanEnquiryService implements Resolve<any> {
      * @param request
      */
     public searchLoanEnquiries(request: any): Observable<any> {
-        return this._http.put<any>('/api/loanApplications/search', request);
+        return this._http.put<any>('enquiry/api/loanApplications/search', request);
     }
 }

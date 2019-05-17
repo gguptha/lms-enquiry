@@ -54,7 +54,7 @@ export class EnquiryAlertsService implements Resolve<any> {
     public getEnquiryApplications(status: number): Observable<EnquiryApplicationModel[]> {
         return new Observable(observer => {
             const enquiryApplications = new Array<EnquiryApplicationModel>();
-            this._http.get<LoanApplicationResourceModel[]>('api/loanApplications?status=' + status).subscribe(result => {
+            this._http.get<LoanApplicationResourceModel[]>('enquiry/api/loanApplications?status=' + status).subscribe(result => {
                 result.map(loanApplicationResourceModel => {
                     enquiryApplications.push(new EnquiryApplicationModel(loanApplicationResourceModel));
                 });
@@ -69,7 +69,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param enquiryId 
      */
     public getLoanApplication(enquiryId: string): Observable<LoanApplicationModel> {
-        return this._http.get<LoanApplicationModel>('api/loanApplications/' + enquiryId);
+        return this._http.get<LoanApplicationModel>('enquiry/api/loanApplications/' + enquiryId);
     }
 
     /**
@@ -77,7 +77,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param partnerId 
      */
     public getPartner(partnerId: string): Observable<PartnerModel> {
-        return this._http.get<PartnerModel>('api/partners/' + partnerId);
+        return this._http.get<PartnerModel>('enquiry/api/partners/' + partnerId);
     }
 
     /**
@@ -87,7 +87,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param partner 
      */
     public updateLoanApplication(loanApplication: any, partner: any): Observable<any> {
-        return this._http.put('/api/loanApplications/' + loanApplication.id, { loanApplication, partner });
+        return this._http.put('enquiry/api/loanApplications/' + loanApplication.id, { loanApplication, partner });
     }
 
     /**
@@ -97,7 +97,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param partner 
      */
     public approveLoanApplication(loanApplication: any, partner: any): Observable<any> {
-        return this._http.put('/api/loanApplications/' + loanApplication.id + '/approve', { loanApplication, partner })
+        return this._http.put('enquiry/api/loanApplications/' + loanApplication.id + '/approve', { loanApplication, partner })
             .pipe(catchError(this.errorHandler));
     }
 
@@ -107,7 +107,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param rejectReason 
      */
     public rejectEnquiry(loanApplication: LoanApplicationModel, rejectReason: string): Observable<any> {
-        return this._http.put('api/loanApplications/' + loanApplication.id + '/reject', { rejectReason });
+        return this._http.put('enquiry/api/loanApplications/' + loanApplication.id + '/reject', { rejectReason });
     }
 
     /**
@@ -116,7 +116,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param loanApplication 
      */
     public cancelEnquiry(loanApplication: LoanApplicationModel): Observable<any> {
-        return this._http.put('api/loanApplications/' + loanApplication.id + '/cancel', {});
+        return this._http.put('enquiry/api/loanApplications/' + loanApplication.id + '/cancel', {});
     }
 
     /**
@@ -124,7 +124,7 @@ export class EnquiryAlertsService implements Resolve<any> {
      * returns a list of products.
      */
     public getProducts(): Observable<any> {
-        return this._http.get('api/products');
+        return this._http.get('enquiry/api/products');
     }
 
     errorHandler(errorResponse: HttpErrorResponse): Observable<any> {

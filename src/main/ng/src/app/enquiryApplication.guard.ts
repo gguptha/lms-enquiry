@@ -15,7 +15,7 @@ export class EnquiryApplicationRouteGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
         return new Observable<boolean>(observer => {
-            this._httpClient.get<UserModel>('api/me').subscribe((response) => {
+            this._httpClient.get<UserModel>('enquiry/api/me').subscribe((response) => {
                 console.log(response);
                 this.currentUser = response;
                 if (this.currentUser.role === 'TR0100') {

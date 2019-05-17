@@ -23,7 +23,7 @@ export class UserService
      */
     public createUser(user: UserModel): Observable<any> 
     {
-        return this._http.post('/api/user', user);
+        return this._http.post('enquiry/api/user', user);
     }
 
     /**
@@ -33,7 +33,7 @@ export class UserService
      */
     public updateUser(user: UserModel): Observable<any> 
     {
-        return this._http.put('/api/user', user);
+        return this._http.put('enquiry/api/user', user);
     }
 
     /**
@@ -42,7 +42,7 @@ export class UserService
      */
     public getUsers(): void
     {
-        this._http.get<any>('api/users?sort=role&sort=firstName').subscribe((response) => {
+        this._http.get<any>('enquiry/api/users?sort=role&sort=firstName').subscribe((response) => {
             const users = new Array<UserModel>();
             response._embedded.users.map((user) => {
                 users.push(new UserModel(user));

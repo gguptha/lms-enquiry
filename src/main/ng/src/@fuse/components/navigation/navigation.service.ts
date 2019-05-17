@@ -356,6 +356,6 @@ export class FuseNavigationService
     }
 
     me(): Observable<UserModel> {
-        return this._http.get<UserModel>('api/me');
+        return this._http.get<UserModel>('enquiry/api/me');
     }
 }

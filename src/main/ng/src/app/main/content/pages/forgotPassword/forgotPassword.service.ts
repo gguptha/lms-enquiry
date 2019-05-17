@@ -12,6 +12,6 @@ export class ForgotPasswordService
 
     public resetPassword(emailId: string): Observable<any>
     {
-        return this._http.put<any>('api/password/reset', emailId);
+        return this._http.put<any>('enquiry/api/password/reset', emailId);
     }
 }

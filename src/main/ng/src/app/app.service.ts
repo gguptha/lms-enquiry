@@ -30,7 +30,7 @@ export class AppService implements CanActivate {
         Promise<boolean> {
 
         return new Observable<boolean>((observer) => {
-            this._http.get<UserModel>('api/me').subscribe(response => {
+            this._http.get<UserModel>('enquiry/api/me').subscribe(response => {
                 console.log(response);
                 this.currentUser = response;
                 if (this.currentUser.role === 'TR0100') {
@@ -50,6 +50,6 @@ export class AppService implements CanActivate {
     }
 
     me(): Observable<UserModel> {
-        return this._http.get<UserModel>('api/me');
+        return this._http.get<UserModel>('enquiry/api/me');
     }
 }
