@@ -3,3 +3,6 @@ spring:
     active: oauth
   application:
       name: lms-enquiry
+server:
+  servlet:
+    context-path: /enquiry
