@@ -35,7 +35,7 @@ spring:
         starttls.enable: true
         ssl.trust: smtp.gmail.com
 oauth:
-  baseUrl: http://localhost:9999/auth
+  baseUrl:    http://localhost:9999/auth
 sap:
   postUrl: http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300
 security:
