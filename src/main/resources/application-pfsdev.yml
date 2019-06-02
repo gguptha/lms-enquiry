@@ -34,7 +34,6 @@ spring:
         auth: true
         starttls.enable: true
         ssl.trust: smtp.gmail.com
-
 oauth:
   baseUrl: https://enquiry.pfs-ess.com/auth
 sap:
