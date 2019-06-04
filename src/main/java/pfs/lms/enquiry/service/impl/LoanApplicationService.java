@@ -44,7 +44,7 @@ public class LoanApplicationService implements ILoanApplicationService {
         applicant.setState(resource.getPartner().getState());
         applicant.setStreet(resource.getPartner().getStreet());
         applicant.setEmail(resource.getPartner().getEmail());
-        partnerService.save(applicant);
+        applicant = partnerService.save(applicant);
 
         // Partner applicant = partnerService.save(resource.getPartner()); // delete
         // Partner app = partnerService.getOne(username); // delete
