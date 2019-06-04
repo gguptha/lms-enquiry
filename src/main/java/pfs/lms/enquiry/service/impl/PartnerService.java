@@ -30,9 +30,10 @@ public class PartnerService implements IPartnerService {
             return existing;
 
         //If not create a new partner and return
-        else
+        else {
+            System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail());
             return partnerRepository.save(partner);
-
+        }
     }
 
     @Override
