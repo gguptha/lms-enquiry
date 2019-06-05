@@ -23,12 +23,13 @@ public class PartnerService implements IPartnerService {
     public Partner save(Partner partner) {
 
         //Check if rhe partner already exist
-        Partner existing = partnerRepository.findByEmail(partner.getEmail());
+        Partner existing = partnerRepository.findByPartyNumber(partner.getPartyNumber());
 
         //If exists return the existing partner
         if (existing != null) {
 
             System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("---------------------- Business Partner ID : " + partner.getPartyNumber());
             System.out.println("---------------------- Partner Already exists : EMAIL : " + partner.getEmail());
             System.out.println("---------------------- Partner ID: " + partner.getId());
             System.out.println("--------------------------------------------------------------------------------");
@@ -44,6 +45,8 @@ public class PartnerService implements IPartnerService {
                 System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail() + "---");
                 System.out.println("---------------------- Partner ID: " + partner.getId());
+                System.out.println("---------------------- Partner User Name : " + partner.getUserName());
+                System.out.println("---------------------- Business Partner ID : " + partner.getPartyNumber());
                 System.out.println("---------------------------------------------------------------------------------------");
             }
             catch (Exception ex) {
