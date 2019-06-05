@@ -60,4 +60,40 @@ public class LoanApplicationService implements ILoanApplicationService {
         System.out.println("Loan Application :" + loanApplication);
         return loanApplication;
     }
+
+    @Override
+    public LoanApplication migrate(LoanApplicationResource resource, String username) {
+
+        Partner partner = resource.getPartner();
+
+        partner.setUserName("MigrationUser");
+        partner.setPartyRole("TR0100");
+        partner.setAddressLine1(resource.getPartner().getAddressLine1());
+        partner.setAddressLine2(resource.getPartner().getAddressLine2());
+        partner.setCity(resource.getPartner().getCity());
+        partner.setContactNumber(resource.getPartner().getContactNumber());
+        partner.setContactPersonName(resource.getPartner().getContactPersonName());
+        partner.setCountry(resource.getPartner().getCountry());
+        partner.setGroupCompany(resource.getPartner().getGroupCompany());
+        partner.setPan(resource.getPartner().getPan());
+        partner.setPartyCategory(resource.getPartner().getPartyCategory());
+        partner.setPartyName1(resource.getPartner().getPartyName1());
+        partner.setPartyName2(resource.getPartner().getPartyName2());
+        partner.setPartyNumber(resource.getPartner().getPartyNumber());
+        partner.setPostalCode(resource.getPartner().getPostalCode());
+        partner.setState(resource.getPartner().getState());
+        partner.setStreet(resource.getPartner().getStreet());
+        partner.setEmail(resource.getPartner().getEmail());
+        partner = partnerService.save(partner);
+
+        //Set it to the Loan Application
+        LoanApplication loanApplication = resource.getLoanApplication();
+        loanApplication.applicant(partner);
+        loanApplication.created(partner);
+
+        //Save and return the Loan Application
+        loanApplication = loanApplicationRepository.save(loanApplication);
+
+        return loanApplication;
+    }
 }

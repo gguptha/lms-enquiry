@@ -92,11 +92,7 @@ public class LoanApplicationContoller {
         System.out.println("-----------------------------------------------------");
         System.out.println("PARTNER : " + resource.getPartner());
 
-        System.out.println("-----------------------------------------------------");
-        System.out.println("FUNCTIONAL STATUS : " + resource.getLoanApplication().getFunctionalStatus());
 
-        System.out.println("TECHNICAL STATUS : " + resource.getLoanApplication().getTechnicalStatus());
-        System.out.println("-----------------------------------------------------");
 
 //        if (resource.getLoanApplication().getFunctionalStatus() == null) {
 //            resource.getLoanApplication().setFunctionalStatus(new Integer(resource.getLoanApplication().getFunctionalStatusAsString()));
@@ -111,6 +107,27 @@ public class LoanApplicationContoller {
 
         return ResponseEntity.ok(loanApplication);
     }
+
+
+    @PostMapping("/loanApplications/migrate")
+    public ResponseEntity migrate(@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
+
+        System.out.println(resource);
+        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
+        System.out.println("-----------------------------------------------------");
+        System.out.println("PARTNER : " + resource.getPartner());
+        System.out.println("-----------------------------------------------------");
+
+
+        LoanApplication loanApplication = loanApplicationService.save(resource, request.getUserPrincipal().getName());
+
+//        loanNotificationService.sendSubmissionNotification(
+//                userRepository.findByEmail(request.getUserPrincipal().getName()),
+//                loanApplication, resource.getPartner());
+
+        return ResponseEntity.ok(loanApplication);
+    }
+
 
     @PutMapping("/loanApplications/{id}")
     public ResponseEntity update(@PathVariable("id") String loanApplicationId,@RequestBody LoanApplicationResource resource, HttpServletRequest request) {

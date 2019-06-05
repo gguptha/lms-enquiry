@@ -5,4 +5,6 @@ import pfs.lms.enquiry.resource.LoanApplicationResource;
 
 public interface ILoanApplicationService {
     LoanApplication save(LoanApplicationResource resource, String username);
+
+    LoanApplication migrate(LoanApplicationResource resource, String username);
 }

@@ -26,12 +26,18 @@ public class PartnerService implements IPartnerService {
         Partner existing = partnerRepository.findByEmail(partner.getEmail());
 
         //If exists return the existing partner
-        if (existing != null)
-            return existing;
+        if (existing != null) {
 
+            System.out.println("--------------------------------------------------------------------------------");
+            System.out.println("---------------------- Partner Already exists : EMAIL : " + partner.getEmail());
+            System.out.println("--------------------------------------------------------------------------------");
+            return existing;
+        }
         //If not create a new partner and return
         else {
+            System.out.println("--------------------------------------------------------------------------------");
             System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail());
+            System.out.println("--------------------------------------------------------------------------------");
             return partnerRepository.save(partner);
         }
     }
