@@ -38,13 +38,18 @@ public class PartnerService implements IPartnerService {
         else {
             System.out.println("---------------------NEW PARTNER CREATION----------------------------------------");
             System.out.println("---------------------- Partner ID: " + partner.getId());
-            partner = partnerRepository.saveAndFlush(partner);
+            try {
+                partner = partnerRepository.saveAndFlush(partner);
 
-            System.out.println("---------------------------------------------------------------------------------------");
-            System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail() +  "---");
-            System.out.println("---------------------- Partner ID: " + partner.getId());
-            System.out.println("---------------------------------------------------------------------------------------");
-
+                System.out.println("---------------------------------------------------------------------------------------");
+                System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail() + "---");
+                System.out.println("---------------------- Partner ID: " + partner.getId());
+                System.out.println("---------------------------------------------------------------------------------------");
+            }
+            catch (Exception ex) {
+                System.out.println("$$$$$$$$$$$$$$$$$$$$--Exception Saving Partner ---$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                System.out.println(ex.getMessage());
+            }
             return partner;
 
         }
