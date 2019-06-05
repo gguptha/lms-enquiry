@@ -70,7 +70,12 @@ public class LoanApplicationService implements ILoanApplicationService {
         Partner partner = new Partner();
         //resource.getPartner();
 
-        partner.setUserName(resource.getPartner().getEmail());
+        // Temporary solution to get data migration done for BusinessPartners with empty email id
+        if (resource.getPartner().getEmail() == null || resource.getPartner().getEmail().equals("")){
+            partner.setUserName(partner.getPartyName1()+partner.getPartyName2());
+        }else {
+            partner.setUserName(resource.getPartner().getEmail());
+        }
         partner.setPartyRole("TR0100");
         partner.setAddressLine1(resource.getPartner().getAddressLine1());
         partner.setAddressLine2(resource.getPartner().getAddressLine2());
