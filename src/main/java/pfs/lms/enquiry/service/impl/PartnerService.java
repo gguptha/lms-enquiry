@@ -30,16 +30,23 @@ public class PartnerService implements IPartnerService {
 
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("---------------------- Partner Already exists : EMAIL : " + partner.getEmail());
+            System.out.println("---------------------- Partner ID: " + partner.getId());
             System.out.println("--------------------------------------------------------------------------------");
             return existing;
         }
         //If not create a new partner and return
         else {
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail());
-            System.out.println("--------------------------------------------------------------------------------");
-            partner.setId(null);
-            return partnerRepository.saveAndFlush(partner);
+            System.out.println("---------------------NEW PARTNER CREATION----------------------------------------");
+            System.out.println("---------------------- Partner ID: " + partner.getId());
+            partner = partnerRepository.saveAndFlush(partner);
+
+            System.out.println("---------------------------------------------------------------------------------------");
+            System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail() +  "---");
+            System.out.println("---------------------- Partner ID: " + partner.getId());
+            System.out.println("---------------------------------------------------------------------------------------");
+
+            return partner;
+
         }
     }
 
