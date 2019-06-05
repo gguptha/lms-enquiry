@@ -52,7 +52,7 @@ public class PartnerService implements IPartnerService {
 
             }
             catch (Exception ex) {
-                System.out.println("$$$$$$$$$$$$$$$$$$$$--Exception Saving Partner ---$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                System.out.println("------------------Exception Saving Partner -----------------------------------");
                 System.out.println(ex.getMessage());
             }
             return partner;
