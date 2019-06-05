@@ -64,7 +64,11 @@ public class LoanApplicationService implements ILoanApplicationService {
     @Override
     public LoanApplication migrate(LoanApplicationResource resource, String username) {
 
-        Partner partner = resource.getPartner();
+
+       System.out.println("-------------- Migrating Loan number: " + resource.getLoanApplication().getLoanContractId() + "-----------------------------------------------------------");
+       
+        Partner partner = new Partner();
+        //resource.getPartner();
 
         partner.setUserName("MigrationUser");
         partner.setPartyRole("TR0100");

@@ -119,7 +119,7 @@ public class LoanApplicationContoller {
         System.out.println("-----------------------------------------------------");
 
 
-        LoanApplication loanApplication = loanApplicationService.save(resource, request.getUserPrincipal().getName());
+        LoanApplication loanApplication = loanApplicationService.migrate(resource, request.getUserPrincipal().getName());
 
 //        loanNotificationService.sendSubmissionNotification(
 //                userRepository.findByEmail(request.getUserPrincipal().getName()),
