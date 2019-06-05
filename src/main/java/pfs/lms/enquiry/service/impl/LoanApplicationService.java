@@ -70,7 +70,7 @@ public class LoanApplicationService implements ILoanApplicationService {
         Partner partner = new Partner();
         //resource.getPartner();
 
-        partner.setUserName("MigrationUser");
+        partner.setUserName(resource.getPartner().getEmail());
         partner.setPartyRole("TR0100");
         partner.setAddressLine1(resource.getPartner().getAddressLine1());
         partner.setAddressLine2(resource.getPartner().getAddressLine2());
