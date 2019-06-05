@@ -94,7 +94,6 @@ public class LoanApplicationService implements ILoanApplicationService {
         partner.setPostalCode(resource.getPartner().getPostalCode());
         partner.setState(resource.getPartner().getState());
         partner.setStreet(resource.getPartner().getStreet());
-        partner.setEmail(resource.getPartner().getEmail());
         partner = partnerService.save(partner);
 
         //Set it to the Loan Application
