@@ -77,6 +77,7 @@ public class LoanApplicationService implements ILoanApplicationService {
             partner.setEmail(resource.getLoanApplication().getLoanContractId()+resource.getPartner().getPartyName1());
         }else {
             partner.setUserName(resource.getPartner().getEmail());
+            partner.setEmail(resource.getPartner().getEmail());
         }
         partner.setPartyRole("TR0100");
         partner.setAddressLine1(resource.getPartner().getAddressLine1());
@@ -103,6 +104,8 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         //Save and return the Loan Application
         loanApplication = loanApplicationRepository.save(loanApplication);
+
+        System.out.println("-------------Finished Migrating Loan number : " + resource.getLoanApplication().getLoanContractId() + "-----------------------------------------------------------");
 
         return loanApplication;
     }
