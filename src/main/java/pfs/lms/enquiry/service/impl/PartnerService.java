@@ -40,7 +40,6 @@ public class PartnerService implements IPartnerService {
             System.out.println("---------------------NEW PARTNER CREATION----------------------------------------");
             System.out.println("---------------------- Partner ID: " + partner.getId());
             try {
-                partner = partnerRepository.saveAndFlush(partner);
 
                 System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail() + "---");
@@ -48,6 +47,9 @@ public class PartnerService implements IPartnerService {
                 System.out.println("---------------------- Partner User Name : " + partner.getUserName());
                 System.out.println("---------------------- Business Partner ID : " + partner.getPartyNumber());
                 System.out.println("---------------------------------------------------------------------------------------");
+
+                partner = partnerRepository.saveAndFlush(partner);
+
             }
             catch (Exception ex) {
                 System.out.println("$$$$$$$$$$$$$$$$$$$$--Exception Saving Partner ---$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");

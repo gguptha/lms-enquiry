@@ -65,14 +65,15 @@ public class LoanApplicationService implements ILoanApplicationService {
     public LoanApplication migrate(LoanApplicationResource resource, String username) {
 
 
-       System.out.println("-------------- Migrating Loan number: " + resource.getLoanApplication().getLoanContractId() + "-----------------------------------------------------------");
+       System.out.println("-------------- Migrating Loan number : " + resource.getLoanApplication().getLoanContractId() + "-----------------------------------------------------------");
+       System.out.println("-------------- BusinessPartner ID    : " + resource.getPartner().getPartyNumber() + "-----------------------------------------------------------");
 
         Partner partner = new Partner();
         //resource.getPartner();
 
         // Temporary solution to get data migration done for BusinessPartners with empty email id
         if (resource.getPartner().getEmail() == null || resource.getPartner().getEmail().equals("")){
-            partner.setUserName(partner.getPartyName1()+partner.getPartyName2());
+            partner.setUserName(resource.getLoanApplication().getLoanContractId()+partner.getPartyName1()+partner.getPartyName2());
         }else {
             partner.setUserName(resource.getPartner().getEmail());
         }

@@ -112,18 +112,14 @@ public class LoanApplicationContoller {
     @PostMapping("/loanApplications/migrate")
     public ResponseEntity migrate(@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
 
-        System.out.println(resource);
-        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
-        System.out.println("-----------------------------------------------------");
-        System.out.println("PARTNER : " + resource.getPartner());
-        System.out.println("-----------------------------------------------------");
+//        System.out.println(resource);
+//        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
+//        System.out.println("-----------------------------------------------------");
+//        System.out.println("PARTNER : " + resource.getPartner());
+//        System.out.println("-----------------------------------------------------");
 
 
         LoanApplication loanApplication = loanApplicationService.migrate(resource, request.getUserPrincipal().getName());
-
-//        loanNotificationService.sendSubmissionNotification(
-//                userRepository.findByEmail(request.getUserPrincipal().getName()),
-//                loanApplication, resource.getPartner());
 
         return ResponseEntity.ok(loanApplication);
     }
