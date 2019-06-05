@@ -38,7 +38,7 @@ public class PartnerService implements IPartnerService {
             System.out.println("--------------------------------------------------------------------------------");
             System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail());
             System.out.println("--------------------------------------------------------------------------------");
-
+            partner.setId(null);
             return partnerRepository.saveAndFlush(partner);
         }
     }

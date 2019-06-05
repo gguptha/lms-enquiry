@@ -66,7 +66,7 @@ public class LoanApplicationService implements ILoanApplicationService {
 
 
        System.out.println("-------------- Migrating Loan number: " + resource.getLoanApplication().getLoanContractId() + "-----------------------------------------------------------");
-       
+
         Partner partner = new Partner();
         //resource.getPartner();
 
