@@ -58,7 +58,7 @@ public class Partner extends AggregateRoot<Partner>{
     @Size(max = 2)
     private String country = "IN";
 
-    @Column(unique = true)
+    @Column(unique = false)
     private String email;
 
     @Size(max = 15)
