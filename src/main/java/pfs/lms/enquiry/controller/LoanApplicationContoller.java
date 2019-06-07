@@ -272,6 +272,7 @@ public class LoanApplicationContoller {
         return ResponseEntity.ok(resources);
     }
 
+
     @PutMapping("/loanApplications/{id}/updateStatus")
     public ResponseEntity approve(@PathVariable("id") Long enquiryNo, @RequestParam("status")Integer status,
                                   @RequestParam("amount")Double amount) throws Exception
