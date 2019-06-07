@@ -9,6 +9,8 @@ import pfs.lms.enquiry.mail.domain.MailObject;
 import pfs.lms.enquiry.mail.service.EmailService;
 import pfs.lms.enquiry.mail.service.LoanNotificationService;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Created by sajeev on 17-Feb-19.
  */
@@ -35,8 +37,16 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is submitted to PTC Financial Services");
         mailObject.setMailContent(content);
 
-        mailObject = emailService.sendEmailMessage(mailObject);
-        return mailObject.getId().toString();
+        //mailObject = emailService.sendEmailMessage(mailObject);
+
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+              emailService.sendEmailMessage(mailObject);
+
+        });
+
+        return null; //mailObject.getId().toString();
     }
 
     @Override
@@ -56,8 +66,16 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is being processed by PTC Financial Services");
         mailObject.setMailContent(content);
 
-        mailObject = emailService.sendEmailMessage(mailObject);
-        return mailObject.getId().toString();
+        //mailObject = emailService.sendEmailMessage(mailObject);
+
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+            emailService.sendEmailMessage(mailObject);
+
+        });
+
+        return null; //mailObject.getId().toString();
     }
 
     @Override
@@ -77,8 +95,16 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is rejected to PTC Financial Services");
         mailObject.setMailContent(content);
 
-        mailObject = emailService.sendEmailMessage(mailObject);
-        return mailObject.getId().toString();
+        //mailObject = emailService.sendEmailMessage(mailObject);
+
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+            emailService.sendEmailMessage(mailObject);
+
+        });
+
+        return null; //mailObject.getId().toString();
 
 
     }
@@ -100,8 +126,16 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is cancelled");
         mailObject.setMailContent(content);
 
-        mailObject = emailService.sendEmailMessage(mailObject);
-        return mailObject.getId().toString();
+        //mailObject = emailService.sendEmailMessage(mailObject);
+
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+            emailService.sendEmailMessage(mailObject);
+
+        });
+
+        return null; //mailObject.getId().toString();
     }
 
     @Override
@@ -121,8 +155,16 @@ public class LoanNotificationServiceImpl implements LoanNotificationService {
         mailObject.setSubject("Your loan application for the project " +loanApplication.getProjectName() + " is updated");
         mailObject.setMailContent(content);
 
-        mailObject = emailService.sendEmailMessage(mailObject);
-        return mailObject.getId().toString();
+         //mailObject = emailService.sendEmailMessage(mailObject);
+
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+            emailService.sendEmailMessage(mailObject);
+
+        });
+
+        return null; //mailObject.getId().toString();
 
     }
 }

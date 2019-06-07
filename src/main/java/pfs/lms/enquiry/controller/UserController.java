@@ -71,6 +71,11 @@ public class UserController {
         String token = getAuthorizationBearer(principal);
         oAuthClient.modifyPassword(token, signupResource);
 
+
+//        Thread t = new Thread(passwordResetService.sendPasswordChangeNotificationMail(
+//                                signupResource.getEmail(), signupResource.getFirstName(), signupResource.getLastName()));
+//        t.start();
+
         passwordResetService.sendPasswordChangeNotificationMail(signupResource.getEmail(), signupResource.getFirstName(), signupResource.getLastName());
         return ResponseEntity.ok().build();
     }

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import pfs.lms.enquiry.mail.domain.MailObject;
 import pfs.lms.enquiry.mail.service.EmailService;
 import pfs.lms.enquiry.mail.service.PasswordResetService;
+import pfs.lms.enquiry.mail.service.SendEmail;
+
+import java.util.concurrent.CompletableFuture;
 
 import static org.passay.CharacterCharacteristicsRule.ERROR_CODE;
 
@@ -23,6 +26,8 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
     @Autowired
     EmailService emailService;
+
+
 
 
     public String generatePassayPassword() {
@@ -79,7 +84,19 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         mailObject.setSubject("Your password for PTC Financial Services is reset");
         mailObject.setMailContent(content);
 
-        emailService.sendEmailMessage(mailObject);
+        //emailService.sendEmailMessage(mailObject);
+
+//        new Thread(() -> {
+//            // code goes here.
+//            emailService.sendEmailMessage(mailObject);
+//        }).start();
+//
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+            emailService.sendEmailMessage(mailObject);
+
+        });
 
         return newPassword;
     }
@@ -102,8 +119,21 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         mailObject.setSubject("Your password for PTC Financial Services has been changed");
         mailObject.setMailContent(content);
 
-        mailObject = emailService.sendEmailMessage(mailObject);
 
-        return mailObject.getId().toString();
+
+        //mailObject = emailService.sendEmailMessage(mailObject);
+
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+            emailService.sendEmailMessage(mailObject);
+
+        });
+
+        return null; //mailObject.getId().toString();
     }
+
+
+
+
 }
