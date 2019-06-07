@@ -46,6 +46,7 @@ public class LoanApplicationContoller {
 
     private final LoanApplicationEngine engine;
 
+    
     private final LoanNotificationService loanNotificationService;
 
     @GetMapping("/loanApplications")
