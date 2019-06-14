@@ -264,8 +264,8 @@ public class LoanApplicationContoller {
         System.out.println("-------------- Loans Applications Count :" + loanApplications.size());
 
         loanApplications.forEach(loanApplication -> {
-            System.out.println("Loan Contract Id            : " + loanApplication.getLoanContractId());
-            System.out.println("Applicant Details           : " + loanApplication.getLoanApplicant());
+            System.out.println("Loan Contract Id     : " + loanApplication.getLoanContractId());
+            System.out.println("Applicant Details    : " + loanApplication.getLoanApplicant());
 
             Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
             if (partner == null) {
