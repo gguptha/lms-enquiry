@@ -27,32 +27,32 @@ public class PartnerService implements IPartnerService {
 
         //If exists return the existing partner
         if (existing != null) {
-
-            System.out.println("--------------------------------------------------------------------------------");
-            System.out.println("---------------------- Business Partner ID : " + partner.getPartyNumber());
-            System.out.println("---------------------- Partner Already exists : EMAIL : " + partner.getEmail());
-            System.out.println("---------------------- Partner ID: " + partner.getId());
-            System.out.println("--------------------------------------------------------------------------------");
-            return existing;
+//
+//            System.out.println("--------------------------------------------------------------------------------");
+//            System.out.println("---------------------- Business Partner ID : " + partner.getPartyNumber());
+//            System.out.println("---------------------- Partner Already exists : EMAIL : " + partner.getEmail());
+//            System.out.println("---------------------- Partner ID: " + partner.getId());
+//            System.out.println("--------------------------------------------------------------------------------");
+             return existing;
         }
         //If not create a new partner and return
         else {
-            System.out.println("---------------------NEW PARTNER CREATION----------------------------------------");
-            System.out.println("---------------------- Partner ID: " + partner.getId());
+//            System.out.println("---------------------NEW PARTNER CREATION----------------------------------------");
+//            System.out.println("---------------------- Partner ID: " + partner.getId());
             try {
 
-                System.out.println("---------------------------------------------------------------------------------------");
-                System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail() + "---");
-                System.out.println("---------------------- Partner ID: " + partner.getId());
-                System.out.println("---------------------- Partner User Name : " + partner.getUserName());
-                System.out.println("---------------------- Business Partner ID : " + partner.getPartyNumber());
-                System.out.println("---------------------------------------------------------------------------------------");
+//                System.out.println("---------------------------------------------------------------------------------------");
+//                System.out.println("---------------------- Created New Partner : EMAIL : " + partner.getEmail() + "---");
+//                System.out.println("---------------------- Partner ID: " + partner.getId());
+//                System.out.println("---------------------- Partner User Name : " + partner.getUserName());
+//                System.out.println("---------------------- Business Partner ID : " + partner.getPartyNumber());
+//                System.out.println("---------------------------------------------------------------------------------------");
 
                 partner = partnerRepository.saveAndFlush(partner);
 
             }
             catch (Exception ex) {
-                System.out.println("------------------Exception Saving Partner -----------------------------------");
+                System.out.println("------------------Exception Saving Partner -----------------------------------:" + partner.getPartyNumber());
                 System.out.println(ex.getMessage());
             }
             return partner;
