@@ -117,7 +117,7 @@ public class LoanApplicationService implements ILoanApplicationService {
             if (loanApplication.getUserBPNumber() != null)
                 loanApplicationExisting.setUserBPNumber(loanApplicationExisting.getUserBPNumber());
 
-             
+
 
             loanApplication.applicant(applicant);
             loanApplication.created(applicant);
@@ -156,6 +156,7 @@ public class LoanApplicationService implements ILoanApplicationService {
             partner.setUserName(resource.getPartner().getEmail());
             partner.setEmail(resource.getPartner().getEmail());
         }
+
         partner.setPartyRole("TR0100");
         partner.setAddressLine1(resource.getPartner().getAddressLine1());
         partner.setAddressLine2(resource.getPartner().getAddressLine2());
