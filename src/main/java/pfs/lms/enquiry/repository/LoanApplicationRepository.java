@@ -19,4 +19,6 @@ public interface LoanApplicationRepository extends JpaRepository<LoanApplication
     LoanApplication findByLoanEnquiryId(Long enquiryNo);
 
     LoanApplication findByEnquiryNo(EnquiryNo enquiryNo);
+
+    LoanApplication findByLoanContractId(String loanContractId);
 }

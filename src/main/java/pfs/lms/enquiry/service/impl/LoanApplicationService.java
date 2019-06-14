@@ -51,11 +51,88 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         //Set it to the Loan Application
         LoanApplication loanApplication = resource.getLoanApplication();
-        loanApplication.applicant(applicant);
-        loanApplication.created(applicant);
 
-        //Save and return the Loan Application
-        loanApplication = loanApplicationRepository.save(loanApplication);
+        // Check if loan application is existing
+        LoanApplication loanApplicationExisting = loanApplicationRepository.findByLoanContractId(loanApplication.getLoanContractId());
+        if (loanApplicationExisting != null) {
+
+            loanApplicationExisting.setFunctionalStatus(loanApplication.getFunctionalStatus());
+
+            if (loanApplication.getTechnicalStatus() != null)
+                loanApplicationExisting.setTechnicalStatus(loanApplication.getTechnicalStatus());
+
+            loanApplicationExisting.setAssistanceType(loanApplication.getAssistanceType());
+            loanApplicationExisting.setBusPartnerNumber(loanApplication.getbusPartnerNumber());
+            loanApplicationExisting.setDecisionDate(loanApplication.getDecisionDate());
+
+            loanApplicationExisting.setId(loanApplication.getId());
+            loanApplicationExisting.setEnquiryNo(loanApplication.getEnquiryNo());
+            loanApplicationExisting.setEquity(loanApplication.getEquity());
+
+            loanApplicationExisting.setExpectedInterestRate(loanApplication.getExpectedInterestRate());
+            loanApplicationExisting.setExpectedSubDebt(loanApplication.getExpectedSubDebt());
+            loanApplicationExisting.setFinalDecisionStatus(loanApplication.getFinalDecisionStatus());
+            loanApplicationExisting.setFinancingType(loanApplication.getFinancingType());
+            loanApplicationExisting.setAssistanceType(loanApplication.getAssistanceType());
+
+            loanApplicationExisting.setGroupCompany(loanApplication.getGroupCompany());
+            loanApplicationExisting.setKeyPromoter(loanApplication.getKeyPromoter());
+            loanApplicationExisting.setLeadFILoanAmount(loanApplication.getLeadFILoanAmount());
+            loanApplicationExisting.setLeadFIName(loanApplication.getLeadFIName());
+
+            loanApplicationExisting.setLoanEnquiryDate(loanApplication.getLoanEnquiryDate());
+            loanApplicationExisting.setLoanClass(loanApplication.getLoanClass());
+            loanApplicationExisting.setLoanPurpose(loanApplication.getLoanPurpose());
+            loanApplicationExisting.setPfsDebtAmount(loanApplication.getPfsDebtAmount());
+            loanApplicationExisting.setPfsSubDebtAmount(loanApplication.getPfsSubDebtAmount());
+
+            // Keep initiators as is
+            // loanApplicationExisting.setMonitoringDepartmentInitiator(loanApplication.)
+
+            loanApplicationExisting.setProductCode(loanApplication.getProductCode());
+            loanApplicationExisting.setProjectAmountCurrency(loanApplication.getProjectAmountCurrency());
+            loanApplicationExisting.setProjectCapacity(loanApplication.getProjectCapacity());
+            loanApplicationExisting.setProjectCapacityUnit(loanApplication.getProjectCapacityUnit());
+            loanApplicationExisting.setProjectCost(loanApplication.getProjectCost());
+            loanApplicationExisting.setProjectDebtAmount(loanApplication.getProjectDebtAmount());
+            loanApplicationExisting.setProjectDistrict(loanApplication.getProjectDistrict());
+            loanApplicationExisting.setProjectName(loanApplication.getProjectName());
+            loanApplicationExisting.setProjectLocationState(loanApplication.getProjectLocationState());
+            loanApplicationExisting.setProjectType(loanApplication.getProjectType());
+
+            loanApplicationExisting.setPromoterAreaOfBusinessNature(loanApplication.getPromoterAreaOfBusinessNature());
+            loanApplicationExisting.setPromoterKeyDirector(loanApplication.getPromoterKeyDirector());
+            loanApplicationExisting.setPromoterName(loanApplication.getPromoterName());
+            loanApplicationExisting.setPromoterNetWorthAmount(loanApplication.getPromoterNetWorthAmount());
+            loanApplicationExisting.setPromoterPATAmount(loanApplication.getPromoterPATAmount());
+
+            loanApplicationExisting.setRating(loanApplication.getRating());
+            if (loanApplication.getRejectionDate() != null)
+                loanApplicationExisting.setRejectionDate(loanApplication.getRejectionDate());
+            if (loanApplication.getRejectionReason() != null)
+                loanApplicationExisting.setRejectionReason(loanApplication.getRejectionReason());
+            if (loanApplication.getScheduledCOD() != null)
+                loanApplicationExisting.setScheduledCOD(loanApplication.getScheduledCOD());
+
+            if (loanApplication.getUserBPNumber() != null)
+                loanApplicationExisting.setUserBPNumber(loanApplicationExisting.getUserBPNumber());
+
+             
+
+            loanApplication.applicant(applicant);
+            loanApplication.created(applicant);
+
+            //Save and return the Loan Application
+            loanApplication = loanApplicationRepository.save(loanApplicationExisting);
+
+         } else {
+
+            loanApplication.applicant(applicant);
+            loanApplication.created(applicant);
+
+            //Save and return the Loan Application
+            loanApplication = loanApplicationRepository.save(loanApplication);
+        }
 
         System.out.println("Loan Application :" + loanApplication);
         return loanApplication;
@@ -98,7 +175,10 @@ public class LoanApplicationService implements ILoanApplicationService {
         partner = partnerService.save(partner);
 
         //Set it to the Loan Application
+
         LoanApplication loanApplication = resource.getLoanApplication();
+
+
         loanApplication.applicant(partner);
         loanApplication.created(partner);
 
