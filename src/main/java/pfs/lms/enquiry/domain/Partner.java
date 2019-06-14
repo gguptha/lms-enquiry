@@ -67,7 +67,7 @@ public class Partner extends AggregateRoot<Partner>{
     @Size(max = 100)
     private String groupCompany;
 
-    @Column(unique = true)
+    @Column(unique = false)
     private String userName;
 
     @Size(max = 100)
