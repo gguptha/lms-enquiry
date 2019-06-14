@@ -46,7 +46,7 @@ public class LoanApplicationContoller {
 
     private final LoanApplicationEngine engine;
 
-    
+
     private final LoanNotificationService loanNotificationService;
 
     @GetMapping("/loanApplications")
@@ -88,17 +88,11 @@ public class LoanApplicationContoller {
     @PostMapping("/loanApplications")
     public ResponseEntity add(@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
 
-        System.out.println(resource);
-        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
-        System.out.println("-----------------------------------------------------");
-        System.out.println("PARTNER : " + resource.getPartner());
+//        System.out.println(resource);
+//        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
+//        System.out.println("-----------------------------------------------------");
+//        System.out.println("PARTNER : " + resource.getPartner());
 
-
-
-//        if (resource.getLoanApplication().getFunctionalStatus() == null) {
-//            resource.getLoanApplication().setFunctionalStatus(new Integer(resource.getLoanApplication().getFunctionalStatusAsString()));
-//        } else
-//        resource.getLoanApplication().setFunctionalStatusAsString(resource.getLoanApplication().getFunctionalStatusAsString().toString());
 
         LoanApplication loanApplication = loanApplicationService.save(resource, request.getUserPrincipal().getName());
 
