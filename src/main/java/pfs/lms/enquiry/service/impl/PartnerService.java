@@ -23,6 +23,29 @@ public class PartnerService implements IPartnerService {
     public Partner save(Partner partner) {
 
         //Check if rhe partner already exist
+        Partner existing = partnerRepository.findByEmail(partner.getEmail());
+
+        //If exists return the existing partner
+        if (existing != null) {
+             return existing;
+        }
+        //If not create a new partner and return
+        else {
+            try {
+                partner = partnerRepository.saveAndFlush(partner);
+            }
+            catch (Exception ex) {
+                System.out.println("------------------Exception Saving Partner -----------------------------------:" + partner.getPartyNumber());
+                System.out.println(ex.getMessage());
+            }
+            return partner;
+
+        }
+    }
+
+    @Override
+    public Partner migrate(Partner partner) {
+        //Check if rhe partner already exist
         Partner existing = partnerRepository.findByPartyNumber(partner.getPartyNumber());
 
         //If exists return the existing partner
@@ -33,7 +56,7 @@ public class PartnerService implements IPartnerService {
 //            System.out.println("---------------------- Partner Already exists : EMAIL : " + partner.getEmail());
 //            System.out.println("---------------------- Partner ID: " + partner.getId());
 //            System.out.println("--------------------------------------------------------------------------------");
-             return existing;
+            return existing;
         }
         //If not create a new partner and return
         else {

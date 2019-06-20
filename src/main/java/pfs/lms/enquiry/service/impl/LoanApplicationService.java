@@ -52,8 +52,13 @@ public class LoanApplicationService implements ILoanApplicationService {
         //Set it to the Loan Application
         LoanApplication loanApplication = resource.getLoanApplication();
 
+        LoanApplication loanApplicationExisting = new LoanApplication();
+
         // Check if loan application is existing
-        LoanApplication loanApplicationExisting = loanApplicationRepository.findByLoanContractId(loanApplication.getLoanContractId());
+        if (loanApplication.getId() != null) {
+            loanApplicationExisting = loanApplicationRepository.getOne(loanApplication.getId());
+        }
+
         if (loanApplicationExisting != null) {
 
             loanApplicationExisting.setFunctionalStatus(loanApplication.getFunctionalStatus());
@@ -173,7 +178,7 @@ public class LoanApplicationService implements ILoanApplicationService {
         partner.setPostalCode(resource.getPartner().getPostalCode());
         partner.setState(resource.getPartner().getState());
         partner.setStreet(resource.getPartner().getStreet());
-        partner = partnerService.save(partner);
+        partner = partnerService.migrate(partner);
 
         //Set it to the Loan Application
 
