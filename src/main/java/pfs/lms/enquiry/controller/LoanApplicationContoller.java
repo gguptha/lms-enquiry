@@ -20,6 +20,7 @@ import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.EnquiryRejectReason;
 import pfs.lms.enquiry.resource.LoanApplicationResource;
+import pfs.lms.enquiry.resource.LoanNumberResource;
 import pfs.lms.enquiry.resource.SearchResource;
 import pfs.lms.enquiry.service.ILoanApplicationService;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
@@ -188,6 +189,69 @@ public class LoanApplicationContoller {
                 loanApplication, partner);
 
         return ResponseEntity.ok(loanApplication);
+    }
+
+
+
+
+    // Get Loan Application by EnquiryId - Cross Application Call
+    @PutMapping("/loanApplicationEnquiryId")
+    public ResponseEntity getEnquiryById(@RequestBody String id, HttpServletRequest request) {
+
+        LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
+
+        EnquiryNo enquiryNo = new EnquiryNo();
+        enquiryNo.setId(Long.parseLong(id));
+
+        LoanApplication loanApplication = loanApplicationRepository.findByEnquiryNo(enquiryNo);
+
+        if (loanApplication != null) {
+            loanApplicationResource.setLoanApplication(loanApplication);
+            loanApplicationResource.setPartner(null);
+            return ResponseEntity.ok(loanApplicationResource);
+        } else {
+            return (ResponseEntity) ResponseEntity.notFound();
+        }
+
+    }
+
+    // Get Loan Application by Loan Number - Cross Application Call
+    @PutMapping("/loanApplicationLoanNumber")
+    public ResponseEntity getEnquiryByLoanNumber(@RequestBody LoanNumberResource loanNumber, HttpServletRequest request) {
+
+        LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
+
+
+        LoanApplication loanApplication = loanApplicationRepository.findByLoanContractId(loanNumber.getLoanNumber());
+
+        if (loanApplication != null) {
+            loanApplicationResource.setLoanApplication(loanApplication);
+            loanApplicationResource.setPartner(null);
+            return ResponseEntity.ok(loanApplicationResource);
+        } else {
+            return (ResponseEntity) ResponseEntity.notFound();
+        }
+
+    }
+
+    // Fetch Loan Application by Loan Number - Cross Application Call
+    @RequestMapping(value = "/loanApplicationByLoanNumber", method = RequestMethod.GET,
+                                     produces = "application/json; charset=utf-8")
+    public ResponseEntity fetchEnquiryByLoanNumber(@RequestParam("loanNumber") String loanNumber, HttpServletRequest request) {
+
+        LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
+
+
+        LoanApplication loanApplication = loanApplicationRepository.findByLoanContractId(loanNumber);
+
+        if (loanApplication != null) {
+            loanApplicationResource.setLoanApplication(loanApplication);
+            loanApplicationResource.setPartner(null);
+            return ResponseEntity.ok(loanApplicationResource);
+        } else {
+            return (ResponseEntity) ResponseEntity.notFound();
+        }
+
     }
 
     @PutMapping("/loanApplications/search")

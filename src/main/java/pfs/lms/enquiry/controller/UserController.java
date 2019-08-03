@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
+import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.mail.service.PasswordResetService;
+import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.EmailId;
+import pfs.lms.enquiry.resource.LoanNumberResource;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
 import pfs.lms.enquiry.service.ISignupService;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
@@ -39,6 +43,9 @@ public class UserController {
     private final UserRepository userRepository;
 
     private final PasswordResetService passwordResetService;
+
+    private final LoanApplicationRepository loanApplicationRepository;
+
 
     @PostMapping("/user")
     public ResponseEntity signup(@RequestBody UserResource userResource) {
@@ -121,4 +128,26 @@ public class UserController {
         }
 
     }
+
+    @PutMapping("/loanApp")
+     public ResponseEntity getLoanApp(@RequestBody LoanNumberResource loanNumberResource, HttpServletRequest request) {
+
+        LoanApplication loanApplication = loanApplicationRepository.findByLoanContractId(loanNumberResource.getLoanNumber());
+        if (loanApplication != null)
+            return ResponseEntity.ok(loanApplication);
+        else
+            return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/loanApp/id")
+    //public ResponseEntity getLoanApp(@RequestBody EmailId emailId, HttpServletRequest request) {
+    public ResponseEntity getLoanAppById(@RequestBody Long id, HttpServletRequest request) {
+
+        LoanApplication loanApplication = loanApplicationRepository.findByLoanEnquiryId(id);
+        if (loanApplication != null)
+            return ResponseEntity.ok(loanApplication);
+        else
+            return ResponseEntity.notFound().build();
+    }
+
 }

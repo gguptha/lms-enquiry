@@ -198,6 +198,8 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String monitoringDepartmentInitiator;
 
+    private String riskDepartmentInitiator;
+
 
     @JsonCreator
     public LoanApplication(@JsonProperty("id") UUID id,
@@ -254,7 +256,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
                            //         @JsonProperty("busPartnerNumber") String busPartnerNumber,
                            @JsonProperty("projectName") String projectName,
                            @JsonProperty("projectDepartmentInitiator") String projectDepartmentInitiator ,
-                           @JsonProperty("monitoringDepartmentInitiator") String monitoringDepartmentInitiator ) {
+                           @JsonProperty("monitoringDepartmentInitiator") String monitoringDepartmentInitiator ,
+                           @JsonProperty("riskDepartmentInitiator") String riskDepartmentInitiator
+                           ) {
         this.id = id;
         this.version = version;
         this.createdOn = createdOn;
@@ -317,6 +321,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.projectName = projectName;
         this.projectDepartmentInitiator  = projectDepartmentInitiator;
         this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
+        this.riskDepartmentInitiator = riskDepartmentInitiator;
     }
 
     //String busPartnerNumber,
@@ -418,9 +423,12 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this;
     }
 
-    public LoanApplication updateProcessors(String projectDepartmentInitiator, String monitoringDepartmentInitiator) {
+    public LoanApplication updateProcessors(String projectDepartmentInitiator,
+                                            String monitoringDepartmentInitiator,
+                                            String riskDepartmentInitiator) {
         this.projectDepartmentInitiator = projectDepartmentInitiator;
         this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
+        this.riskDepartmentInitiator = riskDepartmentInitiator;
         return this;
     }
 
@@ -612,6 +620,9 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return monitoringDepartmentInitiator;
     }
 
+    public String getRiskDepartmentInitiator() {
+        return riskDepartmentInitiator;
+    }
 
     @Value
     @RequiredArgsConstructor(staticName = "of")

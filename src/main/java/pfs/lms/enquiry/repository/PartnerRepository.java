@@ -9,4 +9,4 @@ public interface PartnerRepository extends JpaRepository<Partner, UUID> {
     Partner findByEmail(String email);
     Partner findByUserName(String username);
     Partner findByPartyNumber(Integer partyNumber);
-}
+ }
