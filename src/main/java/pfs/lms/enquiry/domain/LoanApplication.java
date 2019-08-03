@@ -507,9 +507,6 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return loanDisbursedAmount;
     }
 
-    public String getBusPartnerNumber() {
-        return busPartnerNumber;
-    }
 
     public Double getPfsSubDebtAmount() {
         return this.pfsSubDebtAmount;

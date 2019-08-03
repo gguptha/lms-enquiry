@@ -94,7 +94,7 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setLoanCurrentContractAmount(loanApplication.getLoanCurrentContractAmount());
             loanApplicationExisting.setLoanDisbursedAmount(loanApplication.getLoanDisbursedAmount());
             loanApplicationExisting.setLoanRevisedSanctionAmount(loanApplication.getLoanRevisedSanctionAmount());
-            
+
             loanApplicationExisting.setPfsSubDebtAmount(loanApplication.getPfsSubDebtAmount());
 
             // Keep initiators as is
@@ -161,6 +161,11 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         System.out.println("-------------- Migrating Loan number : " + resource.getLoanApplication().getLoanContractId() + "-----------------------------------------------------------");
         System.out.println("-------------- BusinessPartner ID    : " + resource.getPartner().getPartyNumber() + "-----------------------------------------------------------");
+
+        System.out.println("LOAN Application --------------");
+        System.out.println(resource.getLoanApplication());
+        System.out.println("LOAN Application --------------");
+
 
         Partner partner = new Partner();
         //resource.getPartner();
