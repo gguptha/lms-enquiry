@@ -89,6 +89,12 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setLoanClass(loanApplication.getLoanClass());
             loanApplicationExisting.setLoanPurpose(loanApplication.getLoanPurpose());
             loanApplicationExisting.setPfsDebtAmount(loanApplication.getPfsDebtAmount());
+
+            loanApplicationExisting.setLoanContractAmount(loanApplication.getLoanContractAmount());
+            loanApplicationExisting.setLoanCurrentContractAmount(loanApplication.getLoanCurrentContractAmount());
+            loanApplicationExisting.setLoanDisbursedAmount(loanApplication.getLoanDisbursedAmount());
+            loanApplicationExisting.setLoanRevisedSanctionAmount(loanApplication.getLoanRevisedSanctionAmount());
+            
             loanApplicationExisting.setPfsSubDebtAmount(loanApplication.getPfsSubDebtAmount());
 
             // Keep initiators as is
@@ -244,6 +250,12 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setLoanClass(loanApplication.getLoanClass());
             loanApplicationExisting.setLoanPurpose(loanApplication.getLoanPurpose());
             loanApplicationExisting.setPfsDebtAmount(loanApplication.getPfsDebtAmount());
+
+            loanApplicationExisting.setLoanContractAmount(loanApplication.getLoanContractAmount());
+            loanApplicationExisting.setLoanCurrentContractAmount(loanApplication.getLoanCurrentContractAmount());
+            loanApplicationExisting.setLoanDisbursedAmount(loanApplication.getLoanDisbursedAmount());
+            loanApplicationExisting.setLoanRevisedSanctionAmount(loanApplication.getLoanRevisedSanctionAmount());
+
             loanApplicationExisting.setPfsSubDebtAmount(loanApplication.getPfsSubDebtAmount());
 
             // Keep initiators as is

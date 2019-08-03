@@ -109,12 +109,28 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private Double projectDebtAmount;
 
+    // Loan Contract Amount
+    private Double loanContractAmount;
+
+    // Loan Revised Sanction Amount
+    private Double loanRevisedSanctionAmount;
+
+    //Loan Current Contract Capital Amt.
+    private Double loanCurrentContractAmount;
+
+    // Loan Disbursed Amount
+    private Double loanDisbursedAmount;
+
+
+
+
     private Double equity;
 
     private String projectAmountCurrency = "INR";
 
     private Double expectedSubDebt;
 
+    // Application Capital
     private Double pfsDebtAmount;
 
     private Double pfsSubDebtAmount;
@@ -227,6 +243,12 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
                            @JsonProperty("tenorMonth") Integer tenorMonth,
                            @JsonProperty("projectCost") Double projectCost,
                            @JsonProperty("projectDebtAmount") Double projectDebtAmount,
+
+                           @JsonProperty("loanRevisedSanctionAmount") Double loanRevisedSanctionAmount,
+                           @JsonProperty("loanContractAmount") Double loanContractAmount,
+                           @JsonProperty("loanCurrentContractAmount") Double loanCurrentContractAmount,
+                           @JsonProperty("loanDisbursedAmount") Double loanDisbursedAmount,
+
                            @JsonProperty("equity") Double equity,
                            @JsonProperty("projectAmountCurrency") String projectAmountCurrency,
                            @JsonProperty("expectedSubDebt") Double expectedSubDebt,
@@ -287,6 +309,11 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.tenorMonth = tenorMonth;
         this.projectCost = projectCost;
         this.projectDebtAmount = projectDebtAmount;
+        this.loanRevisedSanctionAmount = loanRevisedSanctionAmount;
+        this.loanContractAmount = loanContractAmount;
+        this.loanCurrentContractAmount = loanCurrentContractAmount;
+        this.loanDisbursedAmount = loanDisbursedAmount;
+
         this.equity = equity;
         this.projectAmountCurrency = projectAmountCurrency;
         this.expectedSubDebt = expectedSubDebt;
@@ -324,59 +351,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.riskDepartmentInitiator = riskDepartmentInitiator;
     }
 
-    //String busPartnerNumber,
 
-//    @JsonCreator
-//    public LoanApplication(LocalDate loanEnquiryDate, Long loanEnquiryId, String loanContractId, UUID loanApplicant, String loanClass, String projectType, String financingType, String assistanceType, Double projectCapacity, String projectCapacityUnit, @Size(max = 100) String projectLocationState, @Size(max = 100) String projectDistrict, Integer tenorYear, Integer tenorMonth, Double projectCost, Double projectDebtAmount, Double equity, String projectAmountCurrency, Double expectedSubDebt, Double pfsDebtAmount, Double pfsSubDebtAmount, @Size(max = 100) String loanPurpose, @Size(max = 100) String leadFIName, Double leadFILoanAmount, Double expectedInterestRate, LocalDate scheduledCOD, @Size(max = 100) String promoterName, Double promoterNetWorthAmount, Double promoterPATAmount, @Size(max = 100) String promoterAreaOfBusinessNature, String rating, String promoterKeyDirector, String keyPromoter, Integer technicalStatus, Integer finalDecisionStatus, @Size(max = 100) String rejectionReason, LocalDate decisionDate, String userBPNumber, String groupCompany, String productCode,  String projectName, String projectDepartmentInitiator, String monitoringDepartmentInitiator) {
-//
-//        this.loanEnquiryDate = loanEnquiryDate;
-//        this.loanContractId = loanContractId;
-//        this.loanApplicant = loanApplicant;
-//        this.loanClass = loanClass;
-//        this.projectType = projectType;
-//        this.financingType = financingType;
-//        this.assistanceType = assistanceType;
-//        this.projectCapacity = projectCapacity;
-//        this.projectCapacityUnit = projectCapacityUnit;
-//        this.projectLocationState = projectLocationState;
-//        this.projectDistrict = projectDistrict;
-//        this.tenorYear = tenorYear;
-//        this.tenorMonth = tenorMonth;
-//        this.projectCost = projectCost;
-//        this.projectDebtAmount = projectDebtAmount;
-//        this.equity = equity;
-//        this.projectAmountCurrency = projectAmountCurrency;
-//        this.expectedSubDebt = expectedSubDebt;
-//        this.pfsDebtAmount = pfsDebtAmount;
-//        this.pfsSubDebtAmount = pfsSubDebtAmount;
-//        this.loanPurpose = loanPurpose;
-//        this.leadFIName = leadFIName;
-//        this.leadFILoanAmount = leadFILoanAmount;
-//        this.expectedInterestRate = expectedInterestRate;
-//        this.scheduledCOD = scheduledCOD;
-//        this.promoterName = promoterName;
-//        this.promoterNetWorthAmount = promoterNetWorthAmount;
-//        this.promoterPATAmount = promoterPATAmount;
-//        this.promoterAreaOfBusinessNature = promoterAreaOfBusinessNature;
-//        this.rating = rating;
-//        this.promoterKeyDirector = promoterKeyDirector;
-//        this.keyPromoter = keyPromoter;
-//        this.technicalStatus = technicalStatus;
-//        this.functionalStatus = 01;
-//        this.finalDecisionStatus = finalDecisionStatus;
-//        this.rejectionReason = rejectionReason;
-//        this.decisionDate = decisionDate;
-//        this.userBPNumber = userBPNumber;
-//        this.groupCompany = groupCompany;
-//        this.productCode = productCode;
-////        this.busPartnerNumber = busPartnerNumber;
-//        this.projectName = projectName;
-//        this.enquiryNo = new EnquiryNo();
-//        this.loanEnquiryId = this.enquiryNo.getId();
-//        this.projectDepartmentInitiator = projectDepartmentInitiator ;
-//        this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
-//
-//    }
 
     public LoanApplication applicant(Partner partner) {
         this.loanApplicant = partner.getId();
@@ -514,6 +489,26 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public Double getPfsDebtAmount() {
         return this.pfsDebtAmount;
+    }
+
+    public Double getLoanRevisedSanctionAmount() {
+        return loanRevisedSanctionAmount;
+    }
+
+    public Double getLoanContractAmount() {
+        return loanContractAmount;
+    }
+
+    public Double getLoanCurrentContractAmount() {
+        return loanCurrentContractAmount;
+    }
+
+    public Double getLoanDisbursedAmount() {
+        return loanDisbursedAmount;
+    }
+
+    public String getBusPartnerNumber() {
+        return busPartnerNumber;
     }
 
     public Double getPfsSubDebtAmount() {
