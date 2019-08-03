@@ -166,6 +166,14 @@ public class LoanApplicationService implements ILoanApplicationService {
         System.out.println(resource.getLoanApplication());
         System.out.println("LOAN Application --------------");
 
+        
+        System.out.println("PFS debt Amount --------------:" + resource.getLoanApplication().getPfsDebtAmount());
+        System.out.println("Sanction Amount --------------:" + resource.getLoanApplication().getLoanRevisedSanctionAmount());
+        System.out.println("Loan Contract Amount ---------:" + resource.getLoanApplication().getLoanContractAmount());
+        System.out.println("Loan Current Contract Amt.----:" + resource.getLoanApplication().getLoanCurrentContractAmount());
+        System.out.println("Loan Disbursed Amt.-----------:" + resource.getLoanApplication().getLoanDisbursedAmount());
+
+
 
         Partner partner = new Partner();
         //resource.getPartner();
