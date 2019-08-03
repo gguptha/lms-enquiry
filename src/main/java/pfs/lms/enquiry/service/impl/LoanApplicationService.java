@@ -236,7 +236,7 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setBusPartnerNumber(loanApplication.getbusPartnerNumber());
             loanApplicationExisting.setDecisionDate(loanApplication.getDecisionDate());
 
-            loanApplicationExisting.setId(loanApplication.getId());
+//            loanApplicationExisting.setId(loanApplication.getId());
             loanApplicationExisting.setEnquiryNo(loanApplication.getEnquiryNo());
             loanApplicationExisting.setEquity(loanApplication.getEquity());
 
