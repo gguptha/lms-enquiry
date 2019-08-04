@@ -166,13 +166,12 @@ public class LoanApplicationService implements ILoanApplicationService {
         System.out.println(resource.getLoanApplication());
         System.out.println("LOAN Application --------------");
 
-        
+
         System.out.println("PFS debt Amount --------------:" + resource.getLoanApplication().getPfsDebtAmount());
         System.out.println("Sanction Amount --------------:" + resource.getLoanApplication().getLoanRevisedSanctionAmount());
         System.out.println("Loan Contract Amount ---------:" + resource.getLoanApplication().getLoanContractAmount());
         System.out.println("Loan Current Contract Amt.----:" + resource.getLoanApplication().getLoanCurrentContractAmount());
         System.out.println("Loan Disbursed Amt.-----------:" + resource.getLoanApplication().getLoanDisbursedAmount());
-
 
 
         Partner partner = new Partner();
@@ -214,7 +213,7 @@ public class LoanApplicationService implements ILoanApplicationService {
         loanApplication.created(partner);
 
         //Save and return the Loan Application
-        loanApplication = this.migrateUpdate(loanApplication,partner,username);
+        loanApplication = this.migrateUpdate(loanApplication, partner, username);
 
         System.out.println("-------------Finished Migrating Loan number : " + resource.getLoanApplication().getLoanContractId() + "-----------------------------------------------------------");
 
@@ -239,59 +238,118 @@ public class LoanApplicationService implements ILoanApplicationService {
 
             if (loanApplication.getTechnicalStatus() != null)
                 loanApplicationExisting.setTechnicalStatus(loanApplication.getTechnicalStatus());
+            if (loanApplication.getAssistanceType() != null)
+                loanApplicationExisting.setAssistanceType(loanApplication.getAssistanceType());
 
-            loanApplicationExisting.setAssistanceType(loanApplication.getAssistanceType());
             loanApplicationExisting.setBusPartnerNumber(loanApplication.getbusPartnerNumber());
-            loanApplicationExisting.setDecisionDate(loanApplication.getDecisionDate());
+
+            if (loanApplication.getDecisionDate() != null)
+                loanApplicationExisting.setDecisionDate(loanApplication.getDecisionDate());
 
 //            loanApplicationExisting.setId(loanApplication.getId());
             loanApplicationExisting.setEnquiryNo(loanApplication.getEnquiryNo());
-            loanApplicationExisting.setEquity(loanApplication.getEquity());
 
-            loanApplicationExisting.setExpectedInterestRate(loanApplication.getExpectedInterestRate());
-            loanApplicationExisting.setExpectedSubDebt(loanApplication.getExpectedSubDebt());
-            loanApplicationExisting.setFinalDecisionStatus(loanApplication.getFinalDecisionStatus());
-            loanApplicationExisting.setFinancingType(loanApplication.getFinancingType());
-            loanApplicationExisting.setAssistanceType(loanApplication.getAssistanceType());
+            if (loanApplication.getEquity() != null)
+                loanApplicationExisting.setEquity(loanApplication.getEquity());
 
-            loanApplicationExisting.setGroupCompany(loanApplication.getGroupCompany());
-            loanApplicationExisting.setKeyPromoter(loanApplication.getKeyPromoter());
-            loanApplicationExisting.setLeadFILoanAmount(loanApplication.getLeadFILoanAmount());
-            loanApplicationExisting.setLeadFIName(loanApplication.getLeadFIName());
+            if (loanApplication.getExpectedInterestRate() != null)
+                loanApplicationExisting.setExpectedInterestRate(loanApplication.getExpectedInterestRate());
+            if (loanApplication.getExpectedSubDebt() != null)
+                loanApplicationExisting.setExpectedSubDebt(loanApplication.getExpectedSubDebt());
 
-            loanApplicationExisting.setLoanEnquiryDate(loanApplication.getLoanEnquiryDate());
-            loanApplicationExisting.setLoanClass(loanApplication.getLoanClass());
-            loanApplicationExisting.setLoanPurpose(loanApplication.getLoanPurpose());
-            loanApplicationExisting.setPfsDebtAmount(loanApplication.getPfsDebtAmount());
+            if (loanApplication.getFinalDecisionStatus() != null)
+                loanApplicationExisting.setFinalDecisionStatus(loanApplication.getFinalDecisionStatus());
 
-            loanApplicationExisting.setLoanContractAmount(loanApplication.getLoanContractAmount());
-            loanApplicationExisting.setLoanCurrentContractAmount(loanApplication.getLoanCurrentContractAmount());
-            loanApplicationExisting.setLoanDisbursedAmount(loanApplication.getLoanDisbursedAmount());
-            loanApplicationExisting.setLoanRevisedSanctionAmount(loanApplication.getLoanRevisedSanctionAmount());
+            if (loanApplication.getFinancingType() != null)
+                loanApplicationExisting.setFinancingType(loanApplication.getFinancingType());
 
-            loanApplicationExisting.setPfsSubDebtAmount(loanApplication.getPfsSubDebtAmount());
+            if (loanApplication.getAssistanceType() != null)
+                loanApplicationExisting.setAssistanceType(loanApplication.getAssistanceType());
+
+            if (loanApplication.getGroupCompany() != null)
+                loanApplicationExisting.setGroupCompany(loanApplication.getGroupCompany());
+
+            if (loanApplication.getKeyPromoter() != null)
+                loanApplicationExisting.setKeyPromoter(loanApplication.getKeyPromoter());
+
+            if (loanApplication.getLeadFILoanAmount() != null)
+                loanApplicationExisting.setLeadFILoanAmount(loanApplication.getLeadFILoanAmount());
+
+            if (loanApplication.getLeadFIName() != null)
+                loanApplicationExisting.setLeadFIName(loanApplication.getLeadFIName());
+
+            if (loanApplication.getLoanEnquiryDate() != null)
+                loanApplicationExisting.setLoanEnquiryDate(loanApplication.getLoanEnquiryDate());
+
+            if (loanApplication.getLoanClass() != null)
+                loanApplicationExisting.setLoanClass(loanApplication.getLoanClass());
+
+            if (loanApplication.getLoanPurpose() != null)
+                loanApplicationExisting.setLoanPurpose(loanApplication.getLoanPurpose());
+            if (loanApplication.getPfsDebtAmount() != null)
+                loanApplicationExisting.setPfsDebtAmount(loanApplication.getPfsDebtAmount());
+
+            if (loanApplication.getLoanContractAmount() != null)
+                loanApplicationExisting.setLoanContractAmount(loanApplication.getLoanContractAmount());
+            if (loanApplication.getLoanCurrentContractAmount() != null)
+                loanApplicationExisting.setLoanCurrentContractAmount(loanApplication.getLoanCurrentContractAmount());
+            if (loanApplication.getLoanDisbursedAmount() != null)
+                loanApplicationExisting.setLoanDisbursedAmount(loanApplication.getLoanDisbursedAmount());
+            if (loanApplication.getLoanRevisedSanctionAmount() != null)
+                loanApplicationExisting.setLoanRevisedSanctionAmount(loanApplication.getLoanRevisedSanctionAmount());
+
+            if (loanApplication.getPfsSubDebtAmount() != null)
+                loanApplicationExisting.setPfsSubDebtAmount(loanApplication.getPfsSubDebtAmount());
 
             // Keep initiators as is
             // loanApplicationExisting.setMonitoringDepartmentInitiator(loanApplication.)
+            if (loanApplication.getProductCode() != null)
+                loanApplicationExisting.setProductCode(loanApplication.getProductCode());
+            if (loanApplication.getProjectAmountCurrency() != null)
+                loanApplicationExisting.setProjectAmountCurrency(loanApplication.getProjectAmountCurrency());
 
-            loanApplicationExisting.setProductCode(loanApplication.getProductCode());
-            loanApplicationExisting.setProjectAmountCurrency(loanApplication.getProjectAmountCurrency());
-            loanApplicationExisting.setProjectCapacity(loanApplication.getProjectCapacity());
-            loanApplicationExisting.setProjectCapacityUnit(loanApplication.getProjectCapacityUnit());
-            loanApplicationExisting.setProjectCost(loanApplication.getProjectCost());
-            loanApplicationExisting.setProjectDebtAmount(loanApplication.getProjectDebtAmount());
-            loanApplicationExisting.setProjectDistrict(loanApplication.getProjectDistrict());
-            loanApplicationExisting.setProjectName(loanApplication.getProjectName());
-            loanApplicationExisting.setProjectLocationState(loanApplication.getProjectLocationState());
-            loanApplicationExisting.setProjectType(loanApplication.getProjectType());
+            if (loanApplication.getProjectCapacity() != null)
+                loanApplicationExisting.setProjectCapacity(loanApplication.getProjectCapacity());
 
-            loanApplicationExisting.setPromoterAreaOfBusinessNature(loanApplication.getPromoterAreaOfBusinessNature());
-            loanApplicationExisting.setPromoterKeyDirector(loanApplication.getPromoterKeyDirector());
-            loanApplicationExisting.setPromoterName(loanApplication.getPromoterName());
-            loanApplicationExisting.setPromoterNetWorthAmount(loanApplication.getPromoterNetWorthAmount());
-            loanApplicationExisting.setPromoterPATAmount(loanApplication.getPromoterPATAmount());
+            if (loanApplication.getProjectCapacityUnit() != null)
+                loanApplicationExisting.setProjectCapacityUnit(loanApplication.getProjectCapacityUnit());
 
-            loanApplicationExisting.setRating(loanApplication.getRating());
+            if (loanApplication.getProjectCost() != null)
+                loanApplicationExisting.setProjectCost(loanApplication.getProjectCost());
+
+            if (loanApplication.getProjectDebtAmount() != null)
+                loanApplicationExisting.setProjectDebtAmount(loanApplication.getProjectDebtAmount());
+
+            if (loanApplication.getProjectDistrict() != null)
+                loanApplicationExisting.setProjectDistrict(loanApplication.getProjectDistrict());
+
+            if (loanApplication.getProjectName() != null)
+                loanApplicationExisting.setProjectName(loanApplication.getProjectName());
+
+            if (loanApplication.getProjectLocationState() != null)
+                loanApplicationExisting.setProjectLocationState(loanApplication.getProjectLocationState());
+
+            if (loanApplication.getProjectType() != null)
+                loanApplicationExisting.setProjectType(loanApplication.getProjectType());
+
+            if (loanApplication.getPromoterAreaOfBusinessNature() != null)
+                loanApplicationExisting.setPromoterAreaOfBusinessNature(loanApplication.getPromoterAreaOfBusinessNature());
+
+            if (loanApplicationExisting.getPromoterKeyDirector() != null)
+                loanApplicationExisting.setPromoterKeyDirector(loanApplication.getPromoterKeyDirector());
+
+            if (loanApplication.getPromoterName() != null)
+                loanApplicationExisting.setPromoterName(loanApplication.getPromoterName());
+
+            if (loanApplication.getPromoterNetWorthAmount() != null)
+                loanApplicationExisting.setPromoterNetWorthAmount(loanApplication.getPromoterNetWorthAmount());
+            if (loanApplication.getPromoterPATAmount() != null)
+                loanApplicationExisting.setPromoterPATAmount(loanApplication.getPromoterPATAmount());
+
+            if (loanApplication.getRating() != null)
+                loanApplicationExisting.setRating(loanApplication.getRating());
+
+
             if (loanApplication.getRejectionDate() != null)
                 loanApplicationExisting.setRejectionDate(loanApplication.getRejectionDate());
             if (loanApplication.getRejectionReason() != null)
