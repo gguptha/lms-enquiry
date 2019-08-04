@@ -58,7 +58,7 @@ public class Controller {
         }
 
         // Has the Monitoring officer changed?
-        if (processorResource.getRiskDepartmentInitiator() != "") {
+        if (processorResource.getMonitoringDepartmentInitiator() != "") {
             if (processorResource.getMonitoringDepartmentInitiator().equals(loanApplication.getMonitoringDepartmentInitiator()) == false) {
                 sendNotificationToMonitoringOfficer = true;
             }
@@ -92,7 +92,7 @@ public class Controller {
             riskNotificationService.sendOfficerAssignmentNotification(monitoringOfficer,loanApplication,"Monitoring Officer");
         }
         // Send Notification to Risk Department Head if Risk Officer is not assigned yet
-        if (loanApplication.getRiskDepartmentInitiator() == null) {
+        if (loanApplication.getRiskDepartmentInitiator() == null ||loanApplication.getRiskDepartmentInitiator().equals("")) {
             riskNotificationService.sendRiskOfficerAssignmentNotification(riskDeptHeadUser, loanApplication);
         }
 
