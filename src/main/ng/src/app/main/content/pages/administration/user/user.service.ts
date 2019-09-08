@@ -4,11 +4,15 @@ import { Injectable } from '@angular/core';
 import { UserModel } from '../../../model/user.model';
 
 @Injectable()
-export class UserService 
+export class UserService
 {
     users: BehaviorSubject<UserModel[]>;
 
+    userId: string;
+
     selectedUser: BehaviorSubject<UserModel> = new BehaviorSubject(new UserModel({}));
+
+    user : BehaviorSubject<UserModel>;
 
     /**
      * constructor()
@@ -19,9 +23,9 @@ export class UserService
     /**
      * createUser()
      * Creates a new user.
-     * @param user 
+     * @param user
      */
-    public createUser(user: UserModel): Observable<any> 
+    public createUser(user: UserModel): Observable<any>
     {
         return this._http.post('enquiry/api/user', user);
     }
@@ -29,9 +33,9 @@ export class UserService
     /**
      * updateUser()
      * Creates a new user.
-     * @param user 
+     * @param user
      */
-    public updateUser(user: UserModel): Observable<any> 
+    public updateUser(user: UserModel): Observable<any>
     {
         return this._http.put('enquiry/api/user', user);
     }
@@ -55,4 +59,20 @@ export class UserService
             }
         });
     }
+
+    /*
+      Get user by Email Id
+     */
+
+  /**
+   * getUserByEmail()
+   * @param email
+   */
+  public getUserByEmail(email: string): Observable<UserModel> {
+    return this._http.get<UserModel>('enquiry/api/user?userId=' + email);
+  }
+
+
+
+
 }

@@ -1,145 +1,421 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatStepper, DateAdapter, NativeDateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
-import { EnquiryApplicationRegEx } from '../../../others/enquiryApplication.regEx';
-import { MessageDialogComponent } from '../../../components/messageDialog/messageDialog.component';
-import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
-import { LoanEnquiryService } from '../enquiryApplication.service';
-import { PartnerModel } from 'app/main/content/model/partner.model';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder, FormControl, FormControlDirective, FormControlName, FormGroup, FormGroupDirective, NgForm, ValidatorFn,
+  Validators
+} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {
+  MatDialog,
+  MatStepper,
+  DateAdapter,
+  NativeDateAdapter,
+  MAT_DATE_LOCALE,
+  MAT_DATE_FORMATS
+} from '@angular/material';
+import {EnquiryApplicationRegEx} from '../../../others/enquiryApplication.regEx';
+import {MessageDialogComponent} from '../../../components/messageDialog/messageDialog.component';
+import {FuseNavigationService} from '@fuse/components/navigation/navigation.service';
+import {LoanEnquiryService} from '../enquiryApplication.service';
+import {PartnerModel} from 'app/main/content/model/partner.model';
+import {UserService} from '../../administration/user/user.service';
+import {PartnerService} from "../../administration/partner/partner.service";
+import {UserModel} from "../../../model/user.model";
+import {HttpClient} from "selenium-webdriver/http";
+import {Location} from '@angular/common';
+ import {Observable} from "rxjs/Rx";
+ import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {forEach} from "@angular/router/src/utils/collection";
+import {map, startWith} from 'rxjs/operators';
+import {MatInputModule} from '@angular/material';
+
+
+export interface ApplicantEmail {
+  email: string;
+  nameAndAddress: string;
+}
 
 @Component({
-    selector: 'fuse-enquiry-application-component',
-    templateUrl: './enquiryApplication.component.html',
-    styleUrls: ['./enquiryApplication.component.scss'],
-    encapsulation: ViewEncapsulation.None
+  selector: 'fuse-enquiry-application-component',
+  templateUrl: './enquiryApplication.component.html',
+  styleUrls: ['./enquiryApplication.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
+
+
+
+
 export class EnquiryApplicationComponent implements OnInit {
 
-    loanEnquiryFormStep1: FormGroup;
-    loanEnquiryFormStep2: FormGroup;
-    loanEnquiryFormStep3: FormGroup;
+  // Applicants Email and NameAddress
+  applicantEmailFilteredOptions: Observable<ApplicantEmail[]>;
 
-    loanClasses: Array<any>;
-    financingTypes: Array<any>;
-    projectTypes: Array<any>;
-    assistanceTypes: Array<any>;
-    states: Array<string>;
+  applicantEmails : Array<ApplicantEmail>;
+  applicantEmailFormControl = new FormControl();
 
-    minDate = new Date();
+  loanEnquiryFormStep1: FormGroup;
+  loanEnquiryFormStep2: FormGroup;
+  loanEnquiryFormStep3: FormGroup;
+  applicantEmailFormGroup: FormGroup;
 
-    /**
-     * constructor()
-     * @param _route 
-     * @param _formBuilder 
-     */
-    constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
-        private _loanEnquiryService: LoanEnquiryService, private _router: Router, private _navigationService: FuseNavigationService) {
 
-        const partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
+  loanClasses: Array<any>;
+  financingTypes: Array<any>;
+  projectTypes: Array<any>;
+  assistanceTypes: Array<any>;
+  states: Array<string>;
 
-        // Set min value of scheduled cod to tomorrow's date.
-        this.minDate.setDate(this.minDate.getDate() + 1);
+  industrySectors: Array<any>;
+  unitOfMeasures: Array<any>;
 
-        // Initialize the forms.
-        this.loanEnquiryFormStep1 = this._formBuilder.group({
-            projectName: [''],
-            loanClass: [''],
-            financingType: [''],
-            projectType: [''],
-            projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity), Validators.min(1), Validators.max(9999.99)]],
-            assistanceType: [''],
-            tenorYear: ['', [Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],
-            tenorMonth: ['', [Validators.max(11), Validators.pattern(EnquiryApplicationRegEx.tenorMonth)]],
-            projectLocationState: [''],
-            projectDistrict: [''],
-            projectCost: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCost)]],
-            equity: ['', [Validators.pattern(EnquiryApplicationRegEx.equity), Validators.max(99)]],
-            projectDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.projectDebtAmount)]],
-            pfsDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.pfsDebtAmount)]],
-            expectedSubDebt: ['', [Validators.pattern(EnquiryApplicationRegEx.expectedSubDebt)]],
-            pfsSubDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.pfsSubDebtAmount)]],
-            loanPurpose: [''],
-            leadFIName: [''],
-            leadFILoanAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.leadFILoanAmount)]],
-            expectedInterestRate: ['', [Validators.pattern(EnquiryApplicationRegEx.expectedInterestRate)]],
-            scheduledCOD: ['']
-        });
 
-        this.loanEnquiryFormStep2 = this._formBuilder.group({
-            partyName1: [partner.partyName1],
-            partyName2: [partner.partyName2],
-            contactPersonName: [partner.contactPersonName],
-            addressLine1: [partner.addressLine1 || ''],
-            addressLine2: [partner.addressLine2],
-            street: [partner.street],
-            city: [partner.city],
-            state: [partner.state],
-            postalCode: [partner.postalCode],
-            email: [_navigationService.currentUser.email],
-            contactNumber: [partner.contactNumber],
-            pan: [partner.pan, [Validators.pattern(EnquiryApplicationRegEx.pan)]],
-            groupCompany: [partner.groupCompany]
-        });
+  minDate = new Date();
 
-        this.loanEnquiryFormStep3 = this._formBuilder.group({
-            promoterName: [''],
-            promoterAreaOfBusinessNature: [''],
-            promoterNetWorthAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
-            promoterPATAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
-            rating: ['', [Validators.max(100)]],
-            promoterKeyDirector: ['']
-        });
+  validUserId: boolean;
+  partner: PartnerModel = new PartnerModel({});
+  user: UserModel = new UserModel({});
+  email: string;
 
-        // Initialize dropdowns.
-        this.loanClasses = _route.snapshot.data.routeResolvedData[0]._embedded.loanClasses;
-        this.financingTypes = _route.snapshot.data.routeResolvedData[1]._embedded.financingTypes;
-        this.projectTypes = _route.snapshot.data.routeResolvedData[2]._embedded.projectTypes;
-        this.states = _route.snapshot.data.routeResolvedData[3];
-        this.assistanceTypes = _route.snapshot.data.routeResolvedData[4]._embedded.assistanceTypes;
+  /**
+   * constructor()
+   * @param _route
+   * @param _formBuilder
+   * @param _dialogRef
+   * @param _location
+   * @param _loanEnquiryService
+   * @param _userService
+   * @param _partnerService
+   * @param _router
+   * @param _navigationService
+   */
+  constructor(_route: ActivatedRoute, private _formBuilder: FormBuilder, private _dialogRef: MatDialog,
+              private _loanEnquiryService: LoanEnquiryService, private _userService: UserService,
+              private _partnerService: PartnerService, private _location: Location,
+              private _router: Router, private _navigationService: FuseNavigationService) {
+
+    this.validUserId = false;
+
+    const partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
+
+    // Set min value of scheduled cod to tomorrow's date.
+    this.minDate.setDate(this.minDate.getDate() + 1);
+
+    // this.applicantEmailFormGroup = this._formBuilder.group({
+    //   applicantEmail: '' , disabled: true //,  disabled:false //disabled:this.isCurrentUserAdmin()
+    // });
+
+    this.applicantEmailFormGroup = new FormGroup({
+      applicantEmail: new FormControl({applicantEmail: ' ', disabled: true},)
+    });
+
+    // Initialize the forms.
+    this.loanEnquiryFormStep1 = this._formBuilder.group({
+      projectName: [''],
+      loanClass: [''],
+      financingType: [''],
+      projectType: [''],
+      projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity), Validators.min(1), Validators.max(9999.99)]],
+      projectCapacityUnit:[''],
+      assistanceType: [''],
+      tenorYear: ['', [Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],
+      tenorMonth: ['', [Validators.max(11), Validators.pattern(EnquiryApplicationRegEx.tenorMonth)]],
+      projectLocationState: [''],
+      projectDistrict: [''],
+      projectCost: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCost)]],
+      equity: ['', [Validators.pattern(EnquiryApplicationRegEx.equity), Validators.max(99999)]],
+      projectDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.projectDebtAmount)]],
+      pfsDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.pfsDebtAmount)]],
+      expectedSubDebt: ['', [Validators.pattern(EnquiryApplicationRegEx.expectedSubDebt)]],
+      pfsSubDebtAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.pfsSubDebtAmount)]],
+      loanPurpose: [''],
+      leadFIName: [''],
+      leadFILoanAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.leadFILoanAmount)]],
+      expectedInterestRate: ['', [Validators.pattern(EnquiryApplicationRegEx.expectedInterestRate)]],
+      scheduledCOD: ['']
+    });
+
+    if (this._navigationService.currentUser.role == 'TR0100') {
+      this.loanEnquiryFormStep2 = this._formBuilder.group({
+        partyName1: [partner.partyName1],
+        partyName2: [partner.partyName2],
+        contactPersonName: [partner.contactPersonName],
+        addressLine1: [partner.addressLine1 || ''],
+        addressLine2: [partner.addressLine2],
+        street: [partner.street],
+        city: [partner.city],
+        state: [partner.state],
+        postalCode: [partner.postalCode],
+        //  email: [_navigationService.currentUser.email, [Validators.pattern(EnquiryApplicationRegEx.email) , checkValidUserId ]],
+        email: [_navigationService.currentUser.email, [Validators.pattern(EnquiryApplicationRegEx.email)]],
+
+        contactNumber: [partner.contactNumber],
+        pan: [partner.pan, [Validators.pattern(EnquiryApplicationRegEx.pan)]],
+        groupCompany: [partner.groupCompany],
+        industrySector: [partner.industrySector]
+
+      });
+    } else {
+      this.loanEnquiryFormStep2 = this._formBuilder.group({
+        partyName1: [''],
+        partyName2: [''],
+        contactPersonName: [''],
+        addressLine1: [''],
+        addressLine2: [''],
+        street: [''],
+        city: [''],
+        state: [''],
+        postalCode: [''],
+        email: ['', [Validators.pattern(EnquiryApplicationRegEx.email)]],
+        contactNumber: [''],
+        pan: ['', [Validators.pattern(EnquiryApplicationRegEx.pan)]],
+        groupCompany: [''],
+        industrySector: ['']
+      });
     }
 
-    /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-    }
+    this.loanEnquiryFormStep3 = this._formBuilder.group({
+      promoterName: [''],
+      promoterAreaOfBusinessNature: [''],
+      promoterNetWorthAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
+      promoterPATAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
+      rating: ['', [Validators.max(100)]],
+      promoterKeyDirector: [''],
 
-    /**
-     * saveLoanApplication()
-     * This method is invoked when the user clicks on Finish on the last step of the loan application form.
-     */
-    saveLoanApplication(stepper: MatStepper): void {
+      contactBranchAddress: [''],
+      contactDesignation: [''],
+      contactDepartment: [''],
+      contactTelePhone: [''],
+      contactLandLinePhone: [''],
+      contactEmail: [''],
+      contactFaxNumber: ['']
+    });
 
-        // Re-construct the partner object.
-        const partner = this.loanEnquiryFormStep2.value;
+    // Initialize dropdowns.
+    this.loanClasses = _route.snapshot.data.routeResolvedData[0]._embedded.loanClasses;
+    this.financingTypes = _route.snapshot.data.routeResolvedData[1]._embedded.financingTypes;
+    this.projectTypes = _route.snapshot.data.routeResolvedData[2]._embedded.projectTypes;
+    this.states = _route.snapshot.data.routeResolvedData[3];
+    this.assistanceTypes = _route.snapshot.data.routeResolvedData[4]._embedded.assistanceTypes;
+    this.industrySectors = _route.snapshot.data.routeResolvedData[6]._embedded.industrySectors;
 
-        // Re-construct the loan application object.
-        const loanApplication = this.loanEnquiryFormStep1.value;
-        const promoter = this.loanEnquiryFormStep3.value;
-        loanApplication.promoterName = promoter.promoterName;
-        loanApplication.promoterAreaOfBusinessNature = promoter.promoterAreaOfBusinessNature;
-        loanApplication.promoterNetWorthAmount = promoter.promoterNetWorthAmount;
-        loanApplication.promoterPATAmount = promoter.promoterPATAmount;
-        loanApplication.rating = promoter.rating;
-        loanApplication.promoterKeyDirector = promoter.promoterKeyDirector;
+    this.unitOfMeasures = _route.snapshot.data.routeResolvedData[7]._embedded.unitOfMeasures;
+    this.applicantEmails = _route.snapshot.data.routeResolvedData[8];
 
-        // To solve the utc time zone issue
-        const scheduledCOD = new Date(loanApplication.scheduledCOD);
-        loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
+    // for (let entry of this.unitOfMeasures) {
+    //   console.log("UNIT" + entry.value);
+    // }
 
-        // Save the loan application to the database.
-        this._loanEnquiryService.saveLoanApplication(loanApplication, partner).subscribe((response) => {
-            // Display alert message and redirect to enquiry alerts page.
-            const dialogRef = this._dialogRef.open(MessageDialogComponent, {
-                width: '400px',
-                data: {
-                    message: 'Your Loan Enquiry ' + response.enquiryNo.id + ' is submitted to PFS Loan Officer.'
-                }
-            });
-            dialogRef.afterClosed().subscribe((dresponse) => {
-                this._router.navigate(['/enquiryAlerts']);
-            });
+  }
+
+
+
+  /**
+   * ngOnInit()
+   */
+  ngOnInit() {
+
+    this.applicantEmailFilteredOptions = this.applicantEmailFormControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(email => email ? this._filterStates(email) : this.applicantEmails.slice())
+      );
+  }
+
+
+  private _filterStates(value: string): ApplicantEmail[] {
+    const filterValue = value.toLowerCase();
+
+    return this.applicantEmails.filter(applicantEmail => applicantEmail.email.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+
+  backButtonClick(): void {
+    this._location.back();
+  }
+  /**
+   * saveLoanApplication()
+   * This method is invoked when the user clicks on Finish on the last step of the loan application form.
+   */
+  saveLoanApplication(stepper: MatStepper): void {
+
+    // Re-construct the partner object.
+    const partner = this.loanEnquiryFormStep2.value;
+
+    // Re-construct the loan application object.
+    const loanApplication = this.loanEnquiryFormStep1.value;
+    const promoterAndContact = this.loanEnquiryFormStep3.value;
+    loanApplication.promoterName = promoterAndContact.promoterName;
+    loanApplication.promoterAreaOfBusinessNature = promoterAndContact.promoterAreaOfBusinessNature;
+    loanApplication.promoterNetWorthAmount = promoterAndContact.promoterNetWorthAmount;
+    loanApplication.promoterPATAmount = promoterAndContact.promoterPATAmount;
+    loanApplication.rating = promoterAndContact.rating;
+    loanApplication.promoterKeyDirector = promoterAndContact.promoterKeyDirector;
+
+
+    loanApplication.contactBranchAddress = promoterAndContact.contactBranchAddress;
+    loanApplication.contactDesignation = promoterAndContact.contactDesignation;
+    loanApplication.contactDepartment = promoterAndContact.contactDepartment;
+    loanApplication.contactTelePhone =promoterAndContact.contactTelePhone;
+    loanApplication.contactLandLinePhone = promoterAndContact.contactLandLinePhone;
+    loanApplication.contactEmail =  promoterAndContact.contactEmail;
+    loanApplication.contactFaxNumber = promoterAndContact.contactFaxNumber;
+
+
+
+    // To solve the utc time zone issue
+    const scheduledCOD = new Date(loanApplication.scheduledCOD);
+    loanApplication.scheduledCOD = new Date(Date.UTC(scheduledCOD.getFullYear(), scheduledCOD.getMonth(), scheduledCOD.getDate()));
+
+    // Save the loan application to the database.
+    this._loanEnquiryService.saveLoanApplication(loanApplication, partner).subscribe((response) => {
+      // Display alert message and redirect to enquiry alerts page.
+      const dialogRef = this._dialogRef.open(MessageDialogComponent, {
+        width: '400px',
+        data: {
+          message: 'Your Loan Enquiry ' + response.enquiryNo.id + ' is submitted to PFS Loan Officer.'
+        }
+      });
+      dialogRef.afterClosed().subscribe((dresponse) => {
+        this._router.navigate(['/enquiryAlerts']);
+      });
+    });
+  }
+
+
+  validateUserId($event) {
+
+
+    let emailId = $event.target.value;
+    this.email = emailId;
+
+    // Get User By Email partner.
+
+    this._userService.getUserByEmail(emailId).subscribe((result) => {
+      this.user = result;
+
+      if (this.user != undefined || this.user != null) {
+        this.validUserId = true;
+
+        // Initialize partner.
+        this.partner = new PartnerModel({});
+        this.partner.email = this.user.email;
+        this.partner.partyName1 = this.user.firstName;
+        this.partner.partyName2 = this.user.lastName;
+        this.validUserId = true;
+
+        this.initializePartnerForm(true); // Load partner form with user details only
+
+
+        this._partnerService.getPartnerByEmail(emailId).subscribe((result) => {
+          this.partner = result;
+
+          if (this.partner != undefined || this.partner != null) {
+            this.loadPartnerForm();
+          } else {
+            this.partner = new PartnerModel({});
+            this.partner.email = this.user.email;
+            this.partner.partyName1 = this.user.firstName;
+            this.partner.partyName2 = this.user.lastName;
+          }
         });
+
+      } else {
+
+        this.validUserId = false;
+        this.initializePartnerForm(false); // Clear partner form
+
+      }
+
+
+    });
+
+  }
+
+  // Initialize the form loanEnquiryFormStep2.
+  loadPartnerForm(): void {
+
+    this.loanEnquiryFormStep2 = this._formBuilder.group({
+      partyName1: [this.partner.partyName1],
+      partyName2: [this.partner.partyName2],
+      contactPersonName: [this.partner.contactPersonName],
+      addressLine1: [this.partner.addressLine1],
+      addressLine2: [this.partner.addressLine2],
+      street: [this.partner.street],
+      city: [this.partner.city],
+      state: [this.partner.state],
+      postalCode: [this.partner.postalCode],
+      email: [this.partner.email, [Validators.pattern(EnquiryApplicationRegEx.email), validateUser(true)]],
+      contactNumber: [this.partner.contactNumber],
+      pan: [this.partner.pan, [Validators.pattern(EnquiryApplicationRegEx.pan)]],
+      groupCompany: [this.partner.groupCompany],
+      industrySector: [this.partner.industrySector]
+
+    });
+  }
+
+  // Initialize the form loanEnquiryFormStep2.
+  initializePartnerForm(isValidUser: boolean): void {
+
+    this.loanEnquiryFormStep2 = this._formBuilder.group({
+      partyName1: [this.partner.partyName1],
+      partyName2: [this.partner.partyName2],
+      contactPersonName: [''],
+      addressLine1: [''],
+      addressLine2: [''],
+      street: [''],
+      city: [''],
+      state: [''],
+      postalCode: [''],
+      email: [this.email, [Validators.pattern(EnquiryApplicationRegEx.email), validateUser(isValidUser)]],
+      contactNumber: [''],
+      pan: [' ', [Validators.pattern(EnquiryApplicationRegEx.pan)]],
+      groupCompany: [''],
+      industrySector: ['']
+    });
+  }
+
+
+
+  /**
+   * isCurrentUserAdmin()
+   * Returns true is user is admin.
+   */
+  isCurrentUserAdmin(): boolean {
+
+    // let control = this.applicantEmailFormControl.get('applicantEmail')
+    // control.disabled ? control.enable() : control.disable();
+
+    if (this._navigationService.currentUser.role === 'ZLM013' || this._navigationService.currentUser.role === 'ZLM010'
+      || this._navigationService.currentUser.role === 'ZLM023') {
+      //console.log("Is Admin............... TRUE");
+      return true;
     }
+    else {
+      //console.log("Is Admin............... FALSE");
+      return false;
+    }
+  }
+
 }
+
+//TODO
+// Move this later to a common validator module
+function validateUser(isValid: any) {
+
+  return (control: AbstractControl): { [key: string]: any } | null => {
+
+    if (isValid) {
+      //   console.log("Is Valid :" + isValid);
+      return null;
+    }
+    else {
+      // console.log("Valid :" + isValid);
+      return {'invalidUser': true};
+
+    }
+  };
+
+
+}
+
+

@@ -2,12 +2,18 @@ package pfs.lms.enquiry.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
+import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.resource.LoanApplicationResource;
 import pfs.lms.enquiry.service.ILoanApplicationService;
+
+import javax.servlet.http.HttpServletRequest;
+ import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -18,36 +24,104 @@ public class LoanApplicationService implements ILoanApplicationService {
 
     private final LoanApplicationRepository loanApplicationRepository;
 
+    private final PartnerRepository partnerRepository;
+
     @Override
     public LoanApplication save(LoanApplicationResource resource, String username) {
 
-        //Get the partner from partner service
-        Partner applicant = partnerService.getOne(username);
-        if (applicant == null) {
+        //Set PostedInSAP to False
+        resource.getLoanApplication().setPostedInSAP(false);
+        //Set Group Company from Partner Details
+        resource.getLoanApplication().setGroupCompany(resource.getPartner().getGroupCompany());
+
+        Partner applicant = new Partner();
+
+        // Check if the Email id in the Loan Application, is already a user
+        // If yes, Update the Partner with the details
+        Partner existingPartner = partnerService.getOne(resource.getPartner().getEmail());
+        if (existingPartner != null) {
+            existingPartner.setAddressLine1(resource.getPartner().getAddressLine1());
+            existingPartner.setAddressLine2(resource.getPartner().getAddressLine2());
+            existingPartner.setCity(resource.getPartner().getCity());
+            existingPartner.setContactNumber(resource.getPartner().getContactNumber());
+            existingPartner.setContactPersonName(resource.getPartner().getContactPersonName());
+            existingPartner.setCountry(resource.getPartner().getCountry());
+            existingPartner.setGroupCompany(resource.getPartner().getGroupCompany());
+            existingPartner.setPan(resource.getPartner().getPan());
+            existingPartner.setPartyCategory(resource.getPartner().getPartyCategory());
+            existingPartner.setPartyName1(resource.getPartner().getPartyName1());
+            existingPartner.setPartyName2(resource.getPartner().getPartyName2());
+            existingPartner.setPartyNumber(resource.getPartner().getPartyNumber());
+            existingPartner.setPostalCode(resource.getPartner().getPostalCode());
+            existingPartner.setState(resource.getPartner().getState());
+            existingPartner.setStreet(resource.getPartner().getStreet());
+            existingPartner.setEmail(resource.getPartner().getEmail());
+            existingPartner.setIndustrySector(resource.getPartner().getIndustrySector());
+            applicant = partnerService.save(existingPartner);
+
+        } else {
+            // Create new Partner with the role TR0100
             applicant = new Partner();
             applicant.setUserName(username);
             applicant.setPartyRole("TR0100");
+            applicant.setAddressLine1(resource.getPartner().getAddressLine1());
+            applicant.setAddressLine2(resource.getPartner().getAddressLine2());
+            applicant.setCity(resource.getPartner().getCity());
+            applicant.setContactNumber(resource.getPartner().getContactNumber());
+            applicant.setContactPersonName(resource.getPartner().getContactPersonName());
+            applicant.setCountry(resource.getPartner().getCountry());
+            applicant.setGroupCompany(resource.getPartner().getGroupCompany());
+            applicant.setPan(resource.getPartner().getPan());
+            applicant.setPartyCategory(resource.getPartner().getPartyCategory());
+            applicant.setPartyName1(resource.getPartner().getPartyName1());
+            applicant.setPartyName2(resource.getPartner().getPartyName2());
+            applicant.setPartyNumber(resource.getPartner().getPartyNumber());
+            applicant.setPostalCode(resource.getPartner().getPostalCode());
+            applicant.setState(resource.getPartner().getState());
+            applicant.setStreet(resource.getPartner().getStreet());
+            applicant.setEmail(resource.getPartner().getEmail());
+            applicant.setIndustrySector(resource.getPartner().getIndustrySector());
+            applicant = partnerService.save(applicant);
         }
-        applicant.setAddressLine1(resource.getPartner().getAddressLine1());
-        applicant.setAddressLine2(resource.getPartner().getAddressLine2());
-        applicant.setCity(resource.getPartner().getCity());
-        applicant.setContactNumber(resource.getPartner().getContactNumber());
-        applicant.setContactPersonName(resource.getPartner().getContactPersonName());
-        applicant.setCountry(resource.getPartner().getCountry());
-        applicant.setGroupCompany(resource.getPartner().getGroupCompany());
-        applicant.setPan(resource.getPartner().getPan());
-        applicant.setPartyCategory(resource.getPartner().getPartyCategory());
-        applicant.setPartyName1(resource.getPartner().getPartyName1());
-        applicant.setPartyName2(resource.getPartner().getPartyName2());
-        applicant.setPartyNumber(resource.getPartner().getPartyNumber());
-        applicant.setPostalCode(resource.getPartner().getPostalCode());
-        applicant.setState(resource.getPartner().getState());
-        applicant.setStreet(resource.getPartner().getStreet());
-        applicant.setEmail(resource.getPartner().getEmail());
-        applicant = partnerService.save(applicant);
 
-        // Partner applicant = partnerService.save(resource.getPartner()); // delete
-        // Partner app = partnerService.getOne(username); // delete
+
+        // If No, create a new user
+
+        // Check if the user is a Main Loan Partner or a Loan Officer
+
+
+        // If the user is a Main Loan Partner
+
+
+        //
+
+        //Get the partner from partner service
+//        Partner applicant = partnerService.getOne(resource.getPartner().getEmail());
+//        if (applicant == null) {
+//            applicant = new Partner();
+//            applicant.setUserName(username);
+//            applicant.setPartyRole("TR0100");
+//        }
+//        applicant.setAddressLine1(resource.getPartner().getAddressLine1());
+//        applicant.setAddressLine2(resource.getPartner().getAddressLine2());
+//        applicant.setCity(resource.getPartner().getCity());
+//        applicant.setContactNumber(resource.getPartner().getContactNumber());
+//        applicant.setContactPersonName(resource.getPartner().getContactPersonName());
+//        applicant.setCountry(resource.getPartner().getCountry());
+//        applicant.setGroupCompany(resource.getPartner().getGroupCompany());
+//        applicant.setPan(resource.getPartner().getPan());
+//        applicant.setPartyCategory(resource.getPartner().getPartyCategory());
+//        applicant.setPartyName1(resource.getPartner().getPartyName1());
+//        applicant.setPartyName2(resource.getPartner().getPartyName2());
+//        applicant.setPartyNumber(resource.getPartner().getPartyNumber());
+//        applicant.setPostalCode(resource.getPartner().getPostalCode());
+//        applicant.setState(resource.getPartner().getState());
+//        applicant.setStreet(resource.getPartner().getStreet());
+//        applicant.setEmail(resource.getPartner().getEmail());
+//        applicant = partnerService.save(applicant);
+//
+//        // Partner applicant = partnerService.save(resource.getPartner()); // delete
+//        // Partner app = partnerService.getOne(username); // delete
 
         //Set it to the Loan Application
         LoanApplication loanApplication = resource.getLoanApplication();
@@ -59,7 +133,7 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting = loanApplicationRepository.getOne(loanApplication.getId());
         }
 
-        if (loanApplicationExisting != null) {
+        if (loanApplicationExisting.getId() != null) {
 
             loanApplicationExisting.setFunctionalStatus(loanApplication.getFunctionalStatus());
 
@@ -70,8 +144,10 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setBusPartnerNumber(loanApplication.getbusPartnerNumber());
             loanApplicationExisting.setDecisionDate(loanApplication.getDecisionDate());
 
+            loanApplicationExisting.setGroupCompany(applicant.getGroupCompany());
+
             loanApplicationExisting.setId(loanApplication.getId());
-            loanApplicationExisting.setEnquiryNo(loanApplication.getEnquiryNo());
+//            loanApplicationExisting.setEnquiryNo(loanApplication.getEnquiryNo());
             loanApplicationExisting.setEquity(loanApplication.getEquity());
 
             loanApplicationExisting.setExpectedInterestRate(loanApplication.getExpectedInterestRate());
@@ -136,8 +212,20 @@ public class LoanApplicationService implements ILoanApplicationService {
                 loanApplicationExisting.setRiskDepartmentInitiator(loanApplication.getRiskDepartmentInitiator());
 
 
-            loanApplication.applicant(applicant);
-            loanApplication.created(applicant);
+            loanApplicationExisting.setContactBranchAddress(loanApplication.getContactBranchAddress());
+            loanApplicationExisting.setContactDepartment(loanApplication.getContactDepartment());
+            loanApplicationExisting.setContactDesignation(loanApplication.getContactDesignation());
+            loanApplicationExisting.setContactEmail(loanApplication.getContactEmail());
+            loanApplicationExisting.setContactFaxNumber(loanApplication.getContactFaxNumber());
+            loanApplicationExisting.setContactLandLinePhone(loanApplication.getContactLandLinePhone());
+            loanApplicationExisting.setContactTelePhone(loanApplication.getContactTelePhone());
+
+            loanApplicationExisting.setLoanApplicant(applicant.getId());
+            loanApplicationExisting.applicant(applicant);
+            loanApplicationExisting.created(applicant);
+
+            loanApplicationExisting.setLoanApplicant(applicant.getId());
+
 
             //Save and return the Loan Application
             loanApplication = loanApplicationRepository.save(loanApplicationExisting);
@@ -147,7 +235,10 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplication.applicant(applicant);
             loanApplication.created(applicant);
 
-            //Save and return the Loan Application
+            // Set Technical Status as Created
+            loanApplication.setTechnicalStatus(1);
+            loanApplication.setLoanApplicant(applicant.getId());
+            //Create and return the Loan Application
             loanApplication = loanApplicationRepository.save(loanApplication);
         }
 
@@ -386,4 +477,35 @@ public class LoanApplicationService implements ILoanApplicationService {
         return loanApplication;
     }
 
+    /*
+         If Partner to the User Belongs to the role TR0100, return only the loans associcated with that partner.
+         Else
+         Return all Loan Applications
+     */
+
+    @Override
+    public List<LoanApplication> searchLoans(HttpServletRequest request, Pageable pageable) {
+
+        String userName = request.getUserPrincipal().getName();
+
+        //Get Partner name of User
+        Partner partner = partnerRepository.findByEmail(userName);
+
+        //In case of Admin User or Other PFS User Roles - Partner does not exist
+        if (partner == null)
+            return loanApplicationRepository.findAll(pageable).getContent();
+
+        List<LoanApplication> loanApplications = new ArrayList<>();
+
+        if (partner.getPartyRole().equals("TR0100")) {
+            loanApplications = loanApplicationRepository.findByLoanApplicant(partner.getId(),pageable).getContent();
+
+            }
+         else {
+            loanApplications =loanApplicationRepository.findAll(pageable).getContent();
+        }
+
+
+        return loanApplications;
+    }
 }

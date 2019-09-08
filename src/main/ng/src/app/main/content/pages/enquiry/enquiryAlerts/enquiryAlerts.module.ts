@@ -13,6 +13,7 @@ import { EnquiryReviewComponent } from './enquiryReview/enquiryReview.component'
 import { EnquiryRejectDialogComponent } from './enquiryReject/enquiryReject.component';
 import { AppService } from '../../../../../app.service';
 import { EnquiryApprovalDialogComponent } from './enquiryApproval/enquiryApproval.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const routes = [
     {
@@ -55,7 +56,8 @@ const routes = [
         MatDatepickerModule,
         MatSnackBarModule,
         CdkTableModule,
-        MatSortModule
+        MatSortModule,
+         MatAutocompleteModule
     ],
     exports     : [
         EnquiryAlertsComponent,

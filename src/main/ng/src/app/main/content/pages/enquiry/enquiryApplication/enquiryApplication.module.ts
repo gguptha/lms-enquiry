@@ -4,11 +4,13 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { RouterModule } from '@angular/router';
 import { EnquiryApplicationComponent } from './enquiryApplication.component';
 import {
-    MatStepperModule, MatSelectModule, MatButtonModule, MatInputModule, MatDialogModule, MatDatepickerModule, MAT_DATE_LOCALE
+  MatStepperModule, MatSelectModule, MatButtonModule, MatInputModule, MatDialogModule, MatDatepickerModule,
+  MAT_DATE_LOCALE, MatAutocompleteModule, MatSortModule
 } from '@angular/material';
 import { FuseConfirmDialogModule } from '../../../../../../@fuse/components/confirm-dialog/confirm-dialog.module';
 import { EnquiryApplicationRouteGuard } from '../../../../../enquiryApplication.guard';
 import { LoanEnquiryService } from '../enquiryApplication.service';
+import {CdkTableModule} from "@angular/cdk/table";
 
 const routes = [
     {
@@ -34,16 +36,19 @@ const routes = [
         MatButtonModule,
         MatInputModule,
         MatDialogModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        CdkTableModule,
+        MatSortModule,
+        MatAutocompleteModule
     ],
     declarations: [
         EnquiryApplicationComponent
     ],
     providers: [
         LoanEnquiryService, EnquiryApplicationRouteGuard,
-        { 
-            provide: MAT_DATE_LOCALE, 
-            useValue: 'en-in' 
+        {
+            provide: MAT_DATE_LOCALE,
+            useValue: 'en-in'
         }
     ]
 })

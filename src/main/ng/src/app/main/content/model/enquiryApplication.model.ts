@@ -1,7 +1,7 @@
 export class EnquiryApplicationModel {
 
     id: string;
-    
+
     assistanceType: string;
     busPartnerNumber: string;
     createdOn: Date;
@@ -11,6 +11,7 @@ export class EnquiryApplicationModel {
     loanClass: string;
     loanContractId: string;
     projectCapacity: number;
+    projectCapacityUnit: string;
     projectCost: number;
     projectLocationState: string;
     projectName: string;
@@ -19,7 +20,7 @@ export class EnquiryApplicationModel {
     /**
      * constructor()
      * Initialize the object.
-     * @param _enquiryApplication 
+     * @param _enquiryApplication
      */
     constructor(_enquiryApplication: any) {
         this.id = _enquiryApplication.loanApplication.id || '';
@@ -33,11 +34,12 @@ export class EnquiryApplicationModel {
         this.loanClass = _enquiryApplication.loanApplication.loanClass;
         this.loanContractId = _enquiryApplication.loanApplication.loanContractId;
         this.projectCapacity = _enquiryApplication.loanApplication.projectCapacity;
+        this.projectCapacityUnit = _enquiryApplication.loanApplication.projectCapacityUnit;
         this.projectCost = _enquiryApplication.loanApplication.projectCost;
         this.projectLocationState = _enquiryApplication.loanApplication.projectLocationState;
         this.projectName = _enquiryApplication.loanApplication.projectName;
         this.projectType = _enquiryApplication.loanApplication.projectType;
-    }
+     }
 
     /**
      * loanClassDescription()
@@ -113,4 +115,7 @@ export class EnquiryApplicationModel {
             case 9: return 'Cancelled';
         }
     }
+
+
+
 }

@@ -8,9 +8,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.LoanApplication;
@@ -87,6 +85,22 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+
+    @GetMapping("/user")
+    public ResponseEntity  getUserByUserId(@RequestParam("userId") String userId, HttpServletRequest request) {
+
+
+        User user = userRepository.findByEmail(userId);
+
+        if (user != null) {
+            return  ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+
+    }
+
+
     public String getAuthorizationBearer(Principal user) {
         OAuth2Authentication authentication = (OAuth2Authentication) user;
         OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
@@ -112,7 +126,7 @@ public class UserController {
             oAuthClient.resetPassword(signupResource);
             return ResponseEntity.ok().build();
         } else
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
 
     }
 
@@ -124,7 +138,7 @@ public class UserController {
         if (user != null) {
             return  ResponseEntity.ok(user);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         }
 
     }
@@ -136,7 +150,7 @@ public class UserController {
         if (loanApplication != null)
             return ResponseEntity.ok(loanApplication);
         else
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/loanApp/id")
@@ -147,7 +161,7 @@ public class UserController {
         if (loanApplication != null)
             return ResponseEntity.ok(loanApplication);
         else
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
     }
 
 }

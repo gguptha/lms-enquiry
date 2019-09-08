@@ -1,11 +1,11 @@
 <div class="mat-table-container" style="width: 100%">
 
-    <mat-table class="users-table" #table [dataSource]="dataSource" *fuseIfOnDom [@animateStagger]="{value:'50'}"
+    <mat-table class="users-table" #table [dataSource]="dataSource" matSort *fuseIfOnDom [@animateStagger]="{value:'50'}"
         fusePerfectScrollbar>
 
         <!-- firstName Column -->
         <ng-container cdkColumnDef="firstName">
-            <mat-header-cell *cdkHeaderCellDef>Firstname</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>Firstname</mat-header-cell>
             <mat-cell *cdkCellDef="let user">
                 <p class="text-truncate">{{ user.firstName }}</p>
             </mat-cell>
@@ -13,7 +13,7 @@
 
         <!-- lastName Column -->
         <ng-container cdkColumnDef="lastName">
-            <mat-header-cell *cdkHeaderCellDef>Lastname</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>Lastname</mat-header-cell>
             <mat-cell *cdkCellDef="let user">
                 <p class="text-truncate">{{ user.lastName }}</p>
             </mat-cell>
@@ -21,7 +21,7 @@
 
         <!-- email Column -->
         <ng-container cdkColumnDef="email">
-            <mat-header-cell *cdkHeaderCellDef>Email</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>Email</mat-header-cell>
             <mat-cell *cdkCellDef="let user">
                 <p class="text-truncate">{{ user.email }}</p>
             </mat-cell>
@@ -29,7 +29,7 @@
 
         <!-- role Column -->
         <ng-container cdkColumnDef="role">
-            <mat-header-cell *cdkHeaderCellDef>Role</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>Role</mat-header-cell>
             <mat-cell *cdkCellDef="let user">
                 <p class="text-truncate">{{ user.role }}</p>
             </mat-cell>
@@ -37,7 +37,7 @@
 
         <!-- sapBPNumber Column -->
         <ng-container cdkColumnDef="sapBPNumber">
-            <mat-header-cell *cdkHeaderCellDef>SAP BP Code</mat-header-cell>
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>SAP BP Code</mat-header-cell>
             <mat-cell *cdkCellDef="let user">
                 <p class="text-truncate">{{ user.sapBPNumber }}</p>
             </mat-cell>
@@ -51,5 +51,10 @@
 
     </mat-table>
 
-    <!--mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator-->
+  <mat-paginator
+    class="paginator--centered"
+    [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+
+  </mat-paginator>
+
 </div>

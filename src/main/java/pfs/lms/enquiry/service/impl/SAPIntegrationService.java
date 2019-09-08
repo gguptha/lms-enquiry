@@ -8,10 +8,14 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.UnknownHttpStatusCodeException;
 import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
+import javax.xml.ws.http.HTTPException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -22,16 +26,34 @@ import java.nio.charset.Charset;
 @RequiredArgsConstructor
 public class SAPIntegrationService implements ISAPIntegrationService {
 
+
     @Value("${sap.postUrl}")
     private String postURL;
+
+    @Value("${sap.userName}")
+    private String userName;
+
+    @Value("${sap.password}")
+    private String password;
+
+    @Value("${sap.baseUrl}")
+    private String baseUrl;
+
+    @Value("${sap.serviceUri}")
+    private String serviceUri;
+
+    @Value("${sap.client}")
+    private String client;
 
 
     @Override
     public String fetchCSRFToken() {
 
+
+
         HttpHeaders headers = new HttpHeaders() {
             {
-                String auth = "sajeev" + ":" + "sapsap";
+                String auth = userName + ":" + password;
                 byte[] encodedAuth = Base64.encodeBase64(
                         auth.getBytes(Charset.forName("US-ASCII")) );
                 String authHeader = "Basic " + new String( encodedAuth );
@@ -46,7 +68,7 @@ public class SAPIntegrationService implements ISAPIntegrationService {
         URI uri = null;
         try
         {
-            uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/?sap-client=300$metadata" );
+            uri = new URI(postURL+"$metadata" );
         }
         catch (URISyntaxException e)
         {
@@ -75,7 +97,7 @@ public class SAPIntegrationService implements ISAPIntegrationService {
 
         HttpHeaders headers = new HttpHeaders() {
             {
-                String auth = "sajeev" + ":" + "sapsap";
+                String auth = userName + ":" + password;
                 byte[] encodedAuth = Base64.encodeBase64(
                         auth.getBytes(Charset.forName("US-ASCII")) );
                 String authHeader = "Basic " + new String( encodedAuth );
@@ -86,11 +108,57 @@ public class SAPIntegrationService implements ISAPIntegrationService {
         };
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<SAPLoanApplicationResource> createdEnquiry = null;
+        SAPLoanApplicationResource createdEnquiry = null;
         HttpEntity<SAPLoanApplicationResource> requestToPost = new HttpEntity<SAPLoanApplicationResource>(sapLoanApplicationResource, headers);
-        createdEnquiry = restTemplate.exchange(postURL, HttpMethod.POST, requestToPost, SAPLoanApplicationResource.class);
-        HttpStatus statusCode = createdEnquiry.getStatusCode();
-        SAPLoanApplicationResource sapLoanApplicationResourceResponse = createdEnquiry.getBody();
+
+        ResponseEntity responseEntity; // = new ResponseEntity();
+
+        try {
+            responseEntity = restTemplate.exchange(postURL, HttpMethod.POST, requestToPost, SAPLoanApplicationResource.class);
+            //Object o =   responseEntity.getBody();
+           // createdEnquiry = (ResponseEntity<SAPLoanApplicationResource>) responseEntity.getBody();
+
+             createdEnquiry = (SAPLoanApplicationResource)responseEntity.getBody();
+
+        } catch (HttpClientErrorException ex) {
+
+            System.out.println("HTTP EXCEPTION ----------------------- Post Loan to SAP");
+            System.out.println("HTTP Code    :" + ex.getStatusCode());
+            System.out.println("HTTP Message :" +ex.getMessage());
+            return  null;
+
+        }
+        catch (HttpServerErrorException ex) {
+
+            System.out.println("HTTP EXCEPTION ----------------------- Post Loan to SAP");
+            System.out.println("HTTP Code    :" + ex.getStatusCode());
+            System.out.println("HTTP Message :" + ex.getMessage());
+            return  null;
+        }
+        catch (UnknownHttpStatusCodeException ex) {
+
+            System.out.println("HTTP EXCEPTION ----------------------- Post Loan to SAP");
+            System.out.println("HTTP Message :" + ex.getMessage());
+            return  null;
+        }
+
+        catch (HTTPException ex) {
+
+            System.out.println("HTTP EXCEPTION ----------------------- Post Loan to SAP");
+            System.out.println("HTTP Code    :" + ex.getStatusCode());
+            System.out.println("HTTP Message :" +ex.getMessage());
+            return  null;
+        }
+        catch (Exception ex) {
+
+            System.out.println("General EXCEPTION ----------------------- Post Loan to SAP");
+            System.out.println("Exception Message :" +ex.getMessage());
+            return null;
+
+        }
+
+        //HttpStatus statusCode = createdEnquiry.getStatusCode();
+        SAPLoanApplicationResource sapLoanApplicationResourceResponse = createdEnquiry;
         return sapLoanApplicationResourceResponse;
     }
 
@@ -99,7 +167,7 @@ public class SAPIntegrationService implements ISAPIntegrationService {
 
         HttpHeaders headers = new HttpHeaders() {
             {
-                String auth = "sajeev" + ":" + "sapsap";
+                String auth = userName + ":" + password;
                 byte[] encodedAuth = Base64.encodeBase64(
                         auth.getBytes(Charset.forName("US-ASCII")) );
                 String authHeader = "Basic " + new String( encodedAuth );
@@ -111,9 +179,11 @@ public class SAPIntegrationService implements ISAPIntegrationService {
         System.out.println("THE REQUEST : "+requestEntity.toString());
 
         URI uri = null;
+
         try
         {
-            uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet('0000010003115')?sap-client=300&$format=json" );
+            uri  = new URI(baseUrl + serviceUri + "(" + loanApplicationId + ")?sap-client=" +client +"$format=json"   );
+            //uri = new URI("http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet('0000010003115')?sap-client=300&$format=json" );
         }
         catch (URISyntaxException e)
         {
