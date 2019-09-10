@@ -51,8 +51,11 @@
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput type="password" placeholder="Password" formControlName="password" required>
-                    <mat-error>
-                        Provide valid input for Password
+                    <mat-error *ngIf="userUpdateForm.get('password').hasError('required')">
+                        Provide valid input for password
+                    </mat-error>
+                    <mat-error *ngIf="userUpdateForm.get('password').hasError('pattern')">
+                        Should contain minimum 8 digits (1 upper case, 1 lower case, 1 digit and 1 special character)
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -64,7 +67,7 @@
                         <mat-option [value]="'03'">Monitoring</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-checkbox formControlName="departmentHead">Department Head</mat-checkbox>
+                <mat-checkbox formControlName="departmentHead" class="mt-16">Department Head</mat-checkbox>
                 <!-- <mat-form-field fxFlex="50">
                     <mat-checkbox formControlName="departmentHead">Department Head</mat-checkbox>
                 </mat-form-field> -->

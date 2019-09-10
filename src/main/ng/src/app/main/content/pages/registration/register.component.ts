@@ -66,7 +66,7 @@ export class Register2Component implements OnInit, OnDestroy
             firstname       : ['', Validators.required],
             lastname        : ['', Validators.required],
             email           : ['', [Validators.required, Validators.pattern(/^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/)]],
-            password        : ['', Validators.required],
+            password        : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
             passwordConfirm : ['', [Validators.required, confirmPasswordValidator]]
         });
 

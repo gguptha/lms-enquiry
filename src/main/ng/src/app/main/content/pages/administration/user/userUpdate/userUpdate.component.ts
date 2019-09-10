@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../../../../model/user.model';
 import { UserService } from '../user.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
@@ -36,7 +36,7 @@ export class UserUpdateDialogComponent implements OnInit {
             firstname: [this.selectedUser.firstName || ''],
             lastname: [this.selectedUser.lastName || ''],
             email: [this.selectedUser.email || ''],
-            password: [''],
+            password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
             sapBPNumber: [this.selectedUser.sapBPNumber || ''],
             role: [this.selectedUser.role || 'ZLM013'],
             riskDepartment: [this.selectedUser.riskDepartment],
