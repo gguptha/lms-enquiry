@@ -38,6 +38,11 @@ oauth:
   baseUrl:    http://localhost:9999/auth
 sap:
   postUrl: http://192.168.1.203:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300
+  baseUrl: http://192.168.1.203:8000
+  serviceUri: /sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet
+  client: 300
+  userName: sajeev
+  password: sapsap
 security:
   oauth2:
     client:

@@ -28,6 +28,10 @@ public class Initializer implements CommandLineRunner {
 
     private final ProductRepository productRepository;
 
+    private final IndustrySectorRepository industrySectorRepository;
+
+    private final UnitOfMeasureRepository unitOfMeasureRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -109,5 +113,86 @@ public class Initializer implements CommandLineRunner {
             productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9));
             log.info("Added products sample data");
         }
+
+        if (industrySectorRepository.count() == 0){
+            IndustrySector i0 = new IndustrySector("","");
+            IndustrySector i1 = new IndustrySector( "0" , "  ");
+            IndustrySector i2 = new IndustrySector( "1" , "Power");
+            IndustrySector i3 = new IndustrySector( "2" , "Railways");
+            IndustrySector i4 = new IndustrySector( "3" , "Urban Infra");
+            IndustrySector i5 = new IndustrySector( "4" , "Roads");
+            IndustrySector i6 = new IndustrySector( "5" , "Ports");
+            IndustrySector i7 = new IndustrySector( "6" , "Oil & Gas");
+            IndustrySector i8 = new IndustrySector( "7" , "Corporates");
+            IndustrySector i9 = new IndustrySector( "8" , "Infrastructure");
+            IndustrySector i10 = new IndustrySector( "9" , "Others");
+            IndustrySector i11 = new IndustrySector( "10" , "Energy Supply / Distribution");
+            IndustrySector i12 = new IndustrySector( "11" , "Div. Holding comp");
+            IndustrySector i13 = new IndustrySector( "12" , "Raw Materials");
+            IndustrySector i14 = new IndustrySector( "13" , "Precious Metals");
+            IndustrySector i15 = new IndustrySector( "14" , "Financial Services");
+            IndustrySector i16 = new IndustrySector( "15" , "Real Estate");
+            IndustrySector i17 = new IndustrySector( "21" , "Chemical Industry");
+            IndustrySector i18 = new IndustrySector( "22" , "Health");
+            IndustrySector i19 = new IndustrySector( "23" , "Glass");
+            IndustrySector i20 = new IndustrySector( "24" , "Construction Industry");
+            IndustrySector i21 = new IndustrySector( "25" , "Building Supplier");
+            IndustrySector i22 = new IndustrySector( "26" , "Paper and Pulp");
+            IndustrySector i23 = new IndustrySector( "27" , "Timber and Infrastructure");
+            IndustrySector i24 = new IndustrySector( "31" , "Spinning Mill, Weaving Mill and Textile Refinement");
+            IndustrySector i25 = new IndustrySector( "32" , "Apparel");
+            IndustrySector i26 = new IndustrySector( "41" , "Iron and Steel");
+            IndustrySector i27 = new IndustrySector( "42" , "Vehicles");
+            IndustrySector i28 = new IndustrySector( "43" , "Vehicle Supplier");
+            IndustrySector i29 = new IndustrySector( "44" , "Mechanical Engineering");
+            IndustrySector i30 = new IndustrySector( "45" , "Specialized Mechanical Engineering");
+            IndustrySector i31 = new IndustrySector( "46" , "Machine Tool Engineering");
+            IndustrySector i32 = new IndustrySector( "47" , "Aircraft Construction");
+            IndustrySector i33 = new IndustrySector( "51" , "Breweries, Beverages, Tobacco");
+            IndustrySector i34 = new IndustrySector( "52" , "Nutrition");
+            IndustrySector i35 = new IndustrySector( "61" , "Electricals / Electrical Engineering");
+            IndustrySector i36 = new IndustrySector( "62" , "Computers and Data Processing");
+            IndustrySector i37 = new IndustrySector( "63" , "Software");
+            IndustrySector i38 = new IndustrySector( "64" , "Telecommunications");
+            IndustrySector i39 = new IndustrySector( "71" , "Consumer Products");
+            IndustrySector i40 = new IndustrySector( "72" , "Traffic and Transport");
+            IndustrySector i41 = new IndustrySector( "73" , "Leisure and Hotel");
+            IndustrySector i42 = new IndustrySector( "81" , "Commercial Banks");
+            IndustrySector i43 = new IndustrySector( "82" , "Mortgage Banks");
+            IndustrySector i44 = new IndustrySector( "83" , "Life Insurances");
+            IndustrySector i45 = new IndustrySector( "84" , "Non-Life Insurances");
+            IndustrySector i46 = new IndustrySector( "85" , "Reinsurances");
+            IndustrySector i47 = new IndustrySector( "86" , "Insurance Holdings");
+            IndustrySector i48 = new IndustrySector( "91" , "Trading");
+            IndustrySector i49 = new IndustrySector( "92" , "Pharmaceutical Trade");
+            IndustrySector i50 = new IndustrySector( "93" , "Publishing and Media");
+            IndustrySector i51 = new IndustrySector( "94" , "Environment");
+
+
+
+            industrySectorRepository.saveAll(Arrays.asList(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10));
+            industrySectorRepository.saveAll(Arrays.asList(i11,i12,i13,i14,i15,i16,i17,i18,i19,i20));
+            industrySectorRepository.saveAll(Arrays.asList(i21,i22,i23,i24,i25,i26,i27,i28,i29,i30));
+            industrySectorRepository.saveAll(Arrays.asList(i31,i32,i33,i34,i35,i36,i37,i38,i39,i40));
+            industrySectorRepository.saveAll(Arrays.asList(i41,i42,i43,i44,i45,i46,i47,i48,i49,i50,i51));
+            log.info("Added Industry Sectors data");
+
+
+
+        }
+
+        if (unitOfMeasureRepository.count() == 0) {
+
+            UnitOfMeasure u1 = new UnitOfMeasure("MW", "Mega Watts");
+            UnitOfMeasure u2 = new UnitOfMeasure("KW", "Kilo Watts");
+            UnitOfMeasure u3 = new UnitOfMeasure("KM", "Kilometers");
+            UnitOfMeasure u4 = new UnitOfMeasure("KM2", "Square Kilometers");
+
+
+            unitOfMeasureRepository.saveAll(Arrays.asList(u1, u2,u3,u4));
+            log.info("Added Unit of Measures");
+        }
+
+
     }
 }

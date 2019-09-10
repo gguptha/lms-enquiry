@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pfs.lms.enquiry.domain.EnquiryNo;
 import pfs.lms.enquiry.domain.LoanApplication;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface LoanApplicationRepository extends JpaRepository<LoanApplication, UUID> {
@@ -21,4 +22,8 @@ public interface LoanApplicationRepository extends JpaRepository<LoanApplication
     LoanApplication findByEnquiryNo(EnquiryNo enquiryNo);
 
     LoanApplication findByLoanContractId(String loanContractId);
+
+    List<LoanApplication> findByTechnicalStatusAndPostedInSAP(Integer technicalStatus, Boolean postedInSAP);
+
+
 }

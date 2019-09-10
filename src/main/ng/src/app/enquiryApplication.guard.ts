@@ -17,8 +17,11 @@ export class EnquiryApplicationRouteGuard implements CanActivate {
         return new Observable<boolean>(observer => {
             this._httpClient.get<UserModel>('enquiry/api/me').subscribe((response) => {
                 console.log(response);
+                //alert('enquiryApplication.guard.ts');
                 this.currentUser = response;
-                if (this.currentUser.role === 'TR0100') {
+                if (this.currentUser.role === 'TR0100' ||
+                    this.currentUser.role === 'ZLM023' ||  //Added by Sajeev on Aug 10, 2019 to include ZLM023 and ZLM013
+                    this.currentUser.role === 'ZLM013') {
                     observer.next(true);
                 }
                 else {

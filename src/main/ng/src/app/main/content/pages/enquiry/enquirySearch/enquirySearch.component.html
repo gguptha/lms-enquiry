@@ -34,12 +34,20 @@
             </mat-expansion-panel-header>
             <form [formGroup]="enquirySearchForm">
                 <div fxLayout="row">
-                    <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Enquiry Date From" formControlName="enquiryDateFrom">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Enquiry Date To" formControlName="enquiryDateTo">
-                    </mat-form-field>
+
+                  <mat-form-field fxFlex="25">
+                    <input matInput   [matDatepicker]="pickerFrom"  placeholder="Enquiry Date From" formControlName="enquiryDateFrom">
+                    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerFrom></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field fxFlex="25">
+                    <input matInput   [matDatepicker]="pickerTo"  placeholder="Enquiry Date To" formControlName="enquiryDateTo">
+                    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerTo></mat-datepicker>
+                  </mat-form-field>
+
+
                     <mat-form-field fxFlex="25">
                         <input matInput placeholder="Enquiry Number From" formControlName="enquiryNoFrom">
                     </mat-form-field>
@@ -47,28 +55,59 @@
                         <input matInput placeholder="Enquiry Number To" formControlName="enquiryNoTo">
                     </mat-form-field>
                 </div>
+
                 <div fxLayout="row">
                     <mat-form-field fxFlex="25">
                         <input matInput placeholder="Name of the Project" formControlName="projectName">
                     </mat-form-field>
-                    <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Project Location (State)" formControlName="projectLocation">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Loan Class" formControlName="loanClass">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Project Type" formControlName="projectType">
-                    </mat-form-field>
+
+                  <mat-form-field fxFlex="25">
+                    <mat-select placeholder="Project Location (State)" formControlName="projectLocation"  >
+                      <mat-option *ngFor="let state of states" [value]="state.code">
+                        {{ state.value }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field fxFlex="25">
+                    <mat-select placeholder="Loan Class" formControlName="loanClass"  >
+                      <mat-option *ngFor="let loanClass of loanClasses" [value]="loanClass.code">
+                        {{ loanClass.value }}
+                      </mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+
+                  <mat-form-field fxFlex="25">
+                    <mat-select placeholder="Project Type" formControlName="projectType"  >
+                      <mat-option *ngFor="let projectType of projectTypes" [value]="projectType.code">
+                        {{ projectType.value }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
                 </div>
                 <div fxLayout="row">
-                    <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Financing Type" formControlName="financingType">
-                    </mat-form-field>
-                    <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Type of Assistance" formControlName="assistanceType">
-                    </mat-form-field>
+
+
+                  <mat-form-field fxFlex="25">
+                    <mat-select placeholder="Financing Type" formControlName="financingType"  >
+                      <mat-option *ngFor="let financingType of financingTypes" [value]="financingType.code">
+                        {{ financingType.value }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field fxFlex="25">
+                    <mat-select placeholder="Type of Assistance" formControlName="assistanceType"  >
+                      <mat-option *ngFor="let assistanceType of assistanceTypes" [value]="assistanceType.code">
+                        {{ financingType.value }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
                 </div>
+
                 <div class="pt-12" fxLayout="row" fxLayoutAlign="left center">
                     <button class="mr-8" mat-raised-button type="button" color="accent" (click)="searchEnquiries()">
                         Search
@@ -83,9 +122,12 @@
 
     <!-- CONTENT -->
     <div class="content p-16">
-        <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 125%'">
+        <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 125%">
             <fuse-enquiry-search-list [enquiryList]="enquiryList"></fuse-enquiry-search-list>
         </div>
+
+
     </div>
-    <!-- / CONTENT -->
+
+  <!-- / CONTENT -->
 </div>

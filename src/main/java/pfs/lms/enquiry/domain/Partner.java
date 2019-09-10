@@ -75,7 +75,9 @@ public class Partner extends AggregateRoot<Partner>{
 
     private String pan;
 
-    public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String addressLine1, String addressLine2, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, String userName, @Size(max = 100) String password, String pan) {
+    private String industrySector;
+
+    public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String addressLine1, String addressLine2, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, String userName, @Size(max = 100) String password, String pan, String industrySector) {
         this.partyNumber = partyNumber;
         this.partyCategory = partyCategory;
         this.partyRole = partyRole;
@@ -95,6 +97,7 @@ public class Partner extends AggregateRoot<Partner>{
         this.userName = userName;
         this.password = password;
         this.pan = pan;
+        this.industrySector = industrySector;
         registerEvent(PartnerCreated.of(this));
     }
 

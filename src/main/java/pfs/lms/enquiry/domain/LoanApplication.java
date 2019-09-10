@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.Type;
+import org.springframework.lang.Nullable;
 import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 
 import javax.persistence.CascadeType;
@@ -216,6 +217,24 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String riskDepartmentInitiator;
 
+    @Nullable
+    private Boolean postedInSAP;
+
+    @Nullable
+    private String contactBranchAddress;
+    @Nullable
+    private String contactDesignation;
+    @Nullable
+    private String contactDepartment;
+    @Nullable
+    private String contactTelePhone;
+    @Nullable
+    private String contactLandLinePhone;
+    @Nullable
+    private String contactEmail;
+    @Nullable
+    private String contactFaxNumber;
+
 
     @JsonCreator
     public LoanApplication(@JsonProperty("id") UUID id,
@@ -279,7 +298,16 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
                            @JsonProperty("projectName") String projectName,
                            @JsonProperty("projectDepartmentInitiator") String projectDepartmentInitiator ,
                            @JsonProperty("monitoringDepartmentInitiator") String monitoringDepartmentInitiator ,
-                           @JsonProperty("riskDepartmentInitiator") String riskDepartmentInitiator
+                           @JsonProperty("riskDepartmentInitiator") String riskDepartmentInitiator,
+                           @JsonProperty("postedInSAP") Boolean postedInSAP,
+
+                           @JsonProperty("contactBranchAddress") String contactBranchAddress,
+                           @JsonProperty("contactDesignation") String contactDesignation,
+                           @JsonProperty("contactDepartment") String contactDepartment,
+                           @JsonProperty("contactTelePhone") String contactTelePhone,
+                           @JsonProperty("contactLandLinePhone") String contactLandLinePhone,
+                           @JsonProperty("contactEmail") String contactEmail,
+                           @JsonProperty("contactFaxNumber") String contactFaxNumber
                            ) {
         this.id = id;
         this.version = version;
@@ -349,6 +377,16 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.projectDepartmentInitiator  = projectDepartmentInitiator;
         this.monitoringDepartmentInitiator = monitoringDepartmentInitiator;
         this.riskDepartmentInitiator = riskDepartmentInitiator;
+
+        this.postedInSAP = postedInSAP;
+
+        this.contactBranchAddress = contactBranchAddress;
+        this.contactDesignation = contactDesignation;
+        this.contactDepartment = contactDepartment;
+        this.contactTelePhone = contactTelePhone;
+        this.contactLandLinePhone =contactLandLinePhone;
+        this.contactEmail = contactEmail;
+        this.contactFaxNumber = contactFaxNumber;
     }
 
 
@@ -614,6 +652,46 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     public String getRiskDepartmentInitiator() {
         return riskDepartmentInitiator;
+    }
+
+    @Nullable
+    public Boolean getPostedInSAP() {
+        return postedInSAP;
+    }
+
+    @Nullable
+    public String getContactBranchAddress() {
+        return contactBranchAddress;
+    }
+
+    @Nullable
+    public String getContactDesignation() {
+        return contactDesignation;
+    }
+
+    @Nullable
+    public String getContactDepartment() {
+        return contactDepartment;
+    }
+
+    @Nullable
+    public String getContactTelePhone() {
+        return contactTelePhone;
+    }
+
+    @Nullable
+    public String getContactLandLinePhone() {
+        return contactLandLinePhone;
+    }
+
+    @Nullable
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    @Nullable
+    public String getContactFaxNumber() {
+        return contactFaxNumber;
     }
 
     @Value

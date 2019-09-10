@@ -9,22 +9,22 @@ import {UserModel} from './main/content/model/user.model';
 export class AppService implements CanActivate {
 
     /**
-     * Currently logged in user. 
+     * Currently logged in user.
      */
     currentUser: UserModel;
 
     /**
      * constructor()
-     * @param _http 
-     * @param _router 
+     * @param _http
+     * @param _router
      */
     constructor(private _http: HttpClient, private _router: Router) {
     }
 
     /**
      * canActivate()
-     * @param route 
-     * @param state 
+     * @param route
+     * @param state
      */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> |
         Promise<boolean> {
@@ -32,6 +32,7 @@ export class AppService implements CanActivate {
         return new Observable<boolean>((observer) => {
             this._http.get<UserModel>('enquiry/api/me').subscribe(response => {
                 console.log(response);
+                //alert('In App.Service.ts........CanActivate')
                 this.currentUser = response;
                 if (this.currentUser.role === 'TR0100') {
                     this._router.navigate(['enquiryApplication']);

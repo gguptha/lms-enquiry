@@ -88,6 +88,9 @@ public class SAPLoanApplicationDetailsResource {
     @JsonProperty(value = "FinancingType")
     private String financingType;
 
+    @JsonProperty(value = "projectType")
+    private String projectType;
+
     @JsonProperty(value = "DebtEquityIndicator")
     private String debtEquityIndicator;
 
@@ -165,6 +168,44 @@ public class SAPLoanApplicationDetailsResource {
     @JsonProperty(value = "LoanProduct")
     private String loanProduct;
 
+    @JsonProperty(value ="ContactBranchAddress")
+    private String contactBranchAddress;
+
+    @JsonProperty(value =  "ContactDesignation")
+    private String contactDesignation;
+
+    @JsonProperty(value =  "ContactDepartment")
+    private String contactDepartment;
+
+    @JsonProperty(value = "ContactTelePhone")
+    private String contactTelePhone;
+
+    @JsonProperty(value =  "ContactLandLinePhone")
+    private String contactLandLinePhone;
+
+    @JsonProperty(value = "ContactEmail")
+    private String contactEmail;
+
+    @JsonProperty(value = "ContactFaxNumber")
+    private String contactFaxNumber;
+
+
+    @JsonProperty(value = "LoanContractAmount")
+    private String  loanContractAmount;
+
+    @JsonProperty(value = "LoanRevisedSanctionAmount")
+    private String  loanRevisedSanctionAmount;
+
+    @JsonProperty(value = "LoanCurrentContractAmount")
+    private String  loanCurrentContractAmount;
+
+    @JsonProperty(value = " LoanDisbursedAmount ")
+    private String  loanDisbursedAmount;
+
+    @JsonProperty(value = "IndustrySector")
+    private String industrySector;
+
+
     public SAPLoanApplicationDetailsResource() {
 
         this.loanContract = "";
@@ -191,6 +232,7 @@ public class SAPLoanApplicationDetailsResource {
         this.panNumber = "";
         this.loanClass = "";
         this.financingType = "";
+        this.projectType = "";
         this.debtEquityIndicator = "";
         this.projectCapaacity = "" ;
         this.projectCapacityUnit="";
@@ -216,6 +258,16 @@ public class SAPLoanApplicationDetailsResource {
         this.projectName="";
         this.loanOfficer = "";
         this.loanProduct = "";
+
+        this.contactBranchAddress = "";
+        this.contactDesignation ="";
+        this.contactDepartment = "";
+        this.contactTelePhone="";
+        this.contactLandLinePhone ="";
+        this.contactEmail ="";
+        this.contactFaxNumber ="";
+
+        this.industrySector = "";
     }
 
     public String getLoanContract() {
@@ -620,6 +672,110 @@ public class SAPLoanApplicationDetailsResource {
         this.loanProduct = loanProduct;
     }
 
+    public String getProjectType() {
+        return projectType;
+    }
+
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
+    }
+
+    public String getContactBranchAddress() {
+        return contactBranchAddress;
+    }
+
+    public void setContactBranchAddress(String contactBranchAddress) {
+        this.contactBranchAddress = contactBranchAddress;
+    }
+
+    public String getContactDesignation() {
+        return contactDesignation;
+    }
+
+    public void setContactDesignation(String contactDesignation) {
+        this.contactDesignation = contactDesignation;
+    }
+
+    public String getContactDepartment() {
+        return contactDepartment;
+    }
+
+    public void setContactDepartment(String contactDepartment) {
+        this.contactDepartment = contactDepartment;
+    }
+
+    public String getContactTelePhone() {
+        return contactTelePhone;
+    }
+
+    public void setContactTelePhone(String contactTelePhone) {
+        this.contactTelePhone = contactTelePhone;
+    }
+
+    public String getContactLandLinePhone() {
+        return contactLandLinePhone;
+    }
+
+    public void setContactLandLinePhone(String contactLandLinePhone) {
+        this.contactLandLinePhone = contactLandLinePhone;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public String getContactFaxNumber() {
+        return contactFaxNumber;
+    }
+
+    public void setContactFaxNumber(String contactFaxNumber) {
+        this.contactFaxNumber = contactFaxNumber;
+    }
+
+    public String getLoanContractAmount() {
+        return loanContractAmount;
+    }
+
+    public void setLoanContractAmount(String loanContractAmount) {
+        this.loanContractAmount = loanContractAmount;
+    }
+
+    public String getLoanRevisedSanctionAmount() {
+        return loanRevisedSanctionAmount;
+    }
+
+    public void setLoanRevisedSanctionAmount(String loanRevisedSanctionAmount) {
+        this.loanRevisedSanctionAmount = loanRevisedSanctionAmount;
+    }
+
+    public String getLoanCurrentContractAmount() {
+        return loanCurrentContractAmount;
+    }
+
+    public void setLoanCurrentContractAmount(String loanCurrentContractAmount) {
+        this.loanCurrentContractAmount = loanCurrentContractAmount;
+    }
+
+    public String getLoanDisbursedAmount() {
+        return loanDisbursedAmount;
+    }
+
+    public void setLoanDisbursedAmount(String loanDisbursedAmount) {
+        this.loanDisbursedAmount = loanDisbursedAmount;
+    }
+
+    public String getIndustrySector() {
+        return industrySector;
+    }
+
+    public void setIndustrySector(String industrySector) {
+        this.industrySector = industrySector;
+    }
+
     @Override
     public String toString() {
         return "SAPLoanApplicationDetailsResource{" +
@@ -648,6 +804,7 @@ public class SAPLoanApplicationDetailsResource {
                 ", applicationDate=" + applicationDate +
                 ", loanClass='" + loanClass + '\'' +
                 ", financingType='" + financingType + '\'' +
+                ", projectType='" + projectType + '\'' +
                 ", debtEquityIndicator='" + debtEquityIndicator + '\'' +
                 ", projectCapaacity=" + projectCapaacity +
                 ", projectCapacityUnit='" + projectCapacityUnit + '\'' +

@@ -52,7 +52,8 @@ public class LoanApplicationContoller {
 
     @GetMapping("/loanApplications")
     public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
-                                                     Pageable pageable)
+                              @PageableDefault(sort = "UNSORTED", size = 9999, direction = Sort.Direction.DESC) Pageable pageable)
+                                                     //Pageable pageable)
     {
         List<LoanApplication> loanApplications = null;
 
@@ -123,18 +124,31 @@ public class LoanApplicationContoller {
 
     @PutMapping("/loanApplications/{id}")
     public ResponseEntity update(@PathVariable("id") String loanApplicationId,@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
-        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
-        Partner partner = partnerRepository.getOne(resource.getPartner().getId());
-        BeanUtils.copyProperties(resource.getLoanApplication(),loanApplication,"id","enquiryNo");
-        BeanUtils.copyProperties(resource.getPartner(),partner,"id");
-        loanApplication = loanApplicationRepository.save(loanApplication);
-        partner = partnerRepository.save(partner);
+
+
+//        //Set Technical Status to 2 - "Changed"
+//        //resource.getLoanApplication().setTechnicalStatus(2);
+//
+//        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
+//       // Partner partner = partnerRepository.getOne(resource.getPartner().getId());
+//
+//        Partner partner = partnerRepository.findByEmail(resource.getPartner().getEmail());
+//
+//        BeanUtils.copyProperties(resource.getLoanApplication(),loanApplication,"id","enquiryNo");
+//        BeanUtils.copyProperties(resource.getPartner(),partner,"id");
+//        loanApplication = loanApplicationRepository.save(loanApplication);
+//        partner = partnerRepository.save(partner);
+//        resource.setLoanApplication(loanApplication);
+//        resource.setPartner(partner);
+
+        LoanApplication loanApplication = loanApplicationService.save(resource, request.getUserPrincipal().getName());
+
         resource.setLoanApplication(loanApplication);
-        resource.setPartner(partner);
+
 
         loanNotificationService.sendUpdateNotification(
                 userRepository.findByEmail(request.getUserPrincipal().getName()),
-                loanApplication, partner);
+                loanApplication, resource.getPartner());
 
         return ResponseEntity.ok(resource);
     }
@@ -143,17 +157,21 @@ public class LoanApplicationContoller {
     public ResponseEntity approve(@PathVariable("id") String loanApplicationId,
                                   @RequestBody LoanApplicationResource resource,
                                   HttpServletRequest httpServletRequest)
-            throws Exception
-    {
+            throws Exception {
 
-        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
+        //Set Technical Status to 4 - "Approved"
+        resource.getLoanApplication().setTechnicalStatus(4);
+        LoanApplication loanApplication = loanApplicationService.save(resource, httpServletRequest.getUserPrincipal().getName());
+
+
+        loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
         Partner partner = partnerRepository.getOne(resource.getPartner().getId());
         BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
         BeanUtils.copyProperties(resource.getPartner(), partner,"id");
-        loanApplication = engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
-        partner = partnerRepository.save(partner);
-        resource.setLoanApplication(loanApplication);
-        resource.setPartner(partner);
+        resource = engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
+        partner = partnerRepository.save(resource.getPartner());
+        resource.setLoanApplication(resource.getLoanApplication());
+        resource.setPartner(resource.getPartner());
 
         loanNotificationService.sendApprovalNotification(
                 userRepository.findByEmail(httpServletRequest.getUserPrincipal().getName()),
@@ -258,7 +276,10 @@ public class LoanApplicationContoller {
     public ResponseEntity search(@RequestBody SearchResource resource, HttpServletRequest request,
                                  @PageableDefault(sort = "loanContractId", size = 9999, direction = Sort.Direction.DESC) Pageable pageable)
     {
-        List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationRepository.findAll(pageable).getContent());
+        //List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationRepository.findAll(pageable).getContent());
+
+        List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationService.searchLoans(request,pageable));
+
 
         if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null)
             loanApplications = loanApplications.stream().filter(loanApplication -> (loanApplication.getLoanEnquiryDate().isAfter(resource.getEnquiryDateFrom()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateFrom())) && (loanApplication.getLoanEnquiryDate().isBefore(resource.getEnquiryDateTo()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateTo()))).collect(Collectors.toList());
