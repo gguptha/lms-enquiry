@@ -41,6 +41,8 @@ sap:
   baseUrl: http://192.168.1.199:8000
   serviceUri: /sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet
   client: 500
+  userName: SAP_PFS_GW
+  password: Sapsap@4646
 security:
   oauth2:
     client:

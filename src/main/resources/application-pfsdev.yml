@@ -28,7 +28,7 @@ spring:
     port: 587
     username: pfsriskmodel@gmail.com
     password: Sapsap@123
-    protocol: smtp
+    protocol: smtpu
     tls: true
     properties.mail.smtp:
         auth: true
@@ -41,6 +41,8 @@ sap:
   baseUrl: http://192.168.1.203:8000
   serviceUri: /sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet
   client: 300
+  userName: sajeev
+  password: sapsap
 security:
   oauth2:
     client:
