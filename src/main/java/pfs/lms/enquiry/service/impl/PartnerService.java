@@ -121,7 +121,7 @@ public class PartnerService implements IPartnerService {
     }
 
     @Override
-    public List<Partner> searchParterns(String[] searchParameters) {
+    public List<Partner> searchPartners(String[] searchParameters) {
         String name = null;
         String email = null;
         String searchTerm ="";

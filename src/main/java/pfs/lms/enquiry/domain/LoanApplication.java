@@ -217,8 +217,12 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String riskDepartmentInitiator;
 
+    //0 - Not Posted
+    //1 - Attempted to Post
+    //2 - Errors
+    //3 - Posted Successfully
     @Nullable
-    private Boolean postedInSAP;
+    private Integer postedInSAP;
 
     @Nullable
     private String contactBranchAddress;
@@ -299,7 +303,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
                            @JsonProperty("projectDepartmentInitiator") String projectDepartmentInitiator ,
                            @JsonProperty("monitoringDepartmentInitiator") String monitoringDepartmentInitiator ,
                            @JsonProperty("riskDepartmentInitiator") String riskDepartmentInitiator,
-                           @JsonProperty("postedInSAP") Boolean postedInSAP,
+                           @JsonProperty("postedInSAP") Integer postedInSAP,
 
                            @JsonProperty("contactBranchAddress") String contactBranchAddress,
                            @JsonProperty("contactDesignation") String contactDesignation,
@@ -655,7 +659,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
     }
 
     @Nullable
-    public Boolean getPostedInSAP() {
+    public Integer getPostedInSAP() {
         return postedInSAP;
     }
 

@@ -17,7 +17,6 @@ public interface PartnerRepository extends JpaRepository<Partner, UUID> {
 
     List<Partner> findByPartyName1StartingWith(String alphabet);
 
-    //List<Partner> findByEm(String partner);
 
 
 

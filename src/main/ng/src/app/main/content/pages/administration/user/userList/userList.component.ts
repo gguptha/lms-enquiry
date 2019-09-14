@@ -14,20 +14,29 @@ import {UserService} from '../user.service';
 })
 export class UserListComponent implements OnInit {
 
-  // dataSource: UserDataSource;
-  //
-  // @ViewChild(MatSort) sort: MatSort;
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
+
   dataSource: MatTableDataSource<any>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @Input()
-  // set usersList(usersList: UserModel[]) {
-  //   this.dataSource = new MatTableDataSource(usersList);
-  //   this.dataSource.sort = this.sort
-  //   this.dataSource.paginator = this.paginator;
-  // }
 
+
+
+//   @Input()
+//   set usersList(usersList: UserModel[]) {
+// //    this.dataSource = new MatTableDataSource(usersList);
+//     this._service.usersCast.subscribe(users=> {
+//       this.users = users;
+//       this.dataSource = new MatTableDataSource(this.users);
+//       this.dataSource.sort = this.sort;
+//       this.dataSource.paginator = this.paginator;
+//     });
+//     this.dataSource.sort = this.sort
+//     this.dataSource.paginator = this.paginator;
+//   }
+
+
+
+  users: UserModel[];
 
   selectedUser: UserModel;
   pageSizeOptions: number[] = [10, 25, 50, 100];
@@ -37,19 +46,28 @@ export class UserListComponent implements OnInit {
   ];
 
   constructor(private _service: UserService) {
-    //this.dataSource = new MatTableDataSource(new UserDataSource(_service));
-
-    this.dataSource = new UserDataSource(_service);
-    this.dataSource.paginator = this.paginator;
-
+      this._service.getUsers();
   }
 
   ngOnInit(): void {
     this._service.getUsers();
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+
+    this.users = new UserDataSource(this._service).connect().getValue();
+
+    this.dataSource = new MatTableDataSource(this.users);
+
+    this._service.usersCast.subscribe(users=> {
+      this.users = users;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+
+    //this.dataSource.sort = this.sort;
+
 
   }
+
 
   onSelect(user: UserModel): void {
     this.selectedUser = user;

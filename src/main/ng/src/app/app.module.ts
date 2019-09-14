@@ -28,6 +28,8 @@ import {UserModule} from './main/content/pages/administration/user/user.module';
 import { ForgotPassword2Module } from './main/content/pages/forgotPassword/forgotPassword.module';
 import { APP_BASE_HREF } from '@angular/common';
  import {PartnerModule} from "./main/content/pages/administration/partner/partner.module";
+import { MailRepoComponent } from './main/content/pages/administration/mail-repo/mail-repo.component';
+import {MailRepoModule} from "./main/content/pages/administration/mail-repo/mail-repo.module";
 
 const appRoutes: Routes = [
     {
@@ -81,7 +83,8 @@ const appRoutes: Routes = [
         UserModule,
         Register2Module,
         ForgotPassword2Module,
-        PartnerModule
+        PartnerModule,
+        MailRepoModule
     ],
     bootstrap: [
         AppComponent

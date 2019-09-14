@@ -6,13 +6,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
+import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
+import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.LoanApplicationResource;
 import pfs.lms.enquiry.service.ILoanApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
- import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -26,11 +31,15 @@ public class LoanApplicationService implements ILoanApplicationService {
 
     private final PartnerRepository partnerRepository;
 
+    private final UserRepository userRepository;
+
     @Override
     public LoanApplication save(LoanApplicationResource resource, String username) {
 
-        //Set PostedInSAP to False
-        resource.getLoanApplication().setPostedInSAP(false);
+        //Set PostedInSAP to "Not Posted" - "0"
+        if (resource.getLoanApplication().getPostedInSAP() == null)
+            resource.getLoanApplication().setPostedInSAP(0);
+
         //Set Group Company from Partner Details
         resource.getLoanApplication().setGroupCompany(resource.getPartner().getGroupCompany());
 
@@ -57,6 +66,12 @@ public class LoanApplicationService implements ILoanApplicationService {
             existingPartner.setStreet(resource.getPartner().getStreet());
             existingPartner.setEmail(resource.getPartner().getEmail());
             existingPartner.setIndustrySector(resource.getPartner().getIndustrySector());
+
+            existingPartner.setChangedOn(LocalDate.now());
+            existingPartner.setChangedAt(LocalTime.now());
+            existingPartner.setChangedByUserName(username);
+
+
             applicant = partnerService.save(existingPartner);
 
         } else {
@@ -135,6 +150,7 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         if (loanApplicationExisting.getId() != null) {
 
+            loanApplicationExisting.setPostedInSAP(loanApplication.getPostedInSAP());
             loanApplicationExisting.setFunctionalStatus(loanApplication.getFunctionalStatus());
 
             if (loanApplication.getTechnicalStatus() != null)
@@ -219,6 +235,14 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setContactFaxNumber(loanApplication.getContactFaxNumber());
             loanApplicationExisting.setContactLandLinePhone(loanApplication.getContactLandLinePhone());
             loanApplicationExisting.setContactTelePhone(loanApplication.getContactTelePhone());
+
+            loanApplicationExisting.setTenorYear(loanApplication.getTenorYear());
+            loanApplicationExisting.setTenorMonth(loanApplication.getTenorMonth());
+
+            loanApplicationExisting.setChangedOn(LocalDate.now());
+            loanApplicationExisting.setChangedAt(LocalTime.now());
+            loanApplicationExisting.setChangedByUserName(username);
+
 
             loanApplicationExisting.setLoanApplicant(applicant.getId());
             loanApplicationExisting.applicant(applicant);
@@ -440,6 +464,12 @@ public class LoanApplicationService implements ILoanApplicationService {
             if (loanApplication.getRating() != null)
                 loanApplicationExisting.setRating(loanApplication.getRating());
 
+            if(loanApplication.getTenorYear() != null)
+                loanApplicationExisting.setTenorYear(loanApplication.getTenorYear());
+
+            if(loanApplication.getTenorMonth() != null)
+                loanApplicationExisting.setTenorMonth(loanApplication.getTenorMonth());
+
 
             if (loanApplication.getRejectionDate() != null)
                 loanApplicationExisting.setRejectionDate(loanApplication.getRejectionDate());
@@ -488,16 +518,17 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         String userName = request.getUserPrincipal().getName();
 
-        //Get Partner name of User
-        Partner partner = partnerRepository.findByEmail(userName);
+        //Get User details of User
+        User user= userRepository.findByEmail(userName);
 
         //In case of Admin User or Other PFS User Roles - Partner does not exist
-        if (partner == null)
+        if (user == null)
             return loanApplicationRepository.findAll(pageable).getContent();
 
         List<LoanApplication> loanApplications = new ArrayList<>();
 
-        if (partner.getPartyRole().equals("TR0100")) {
+        if (user.getRole().equals("TR0100")) {
+            Partner partner = partnerRepository.findByEmail(user.getEmail());
             loanApplications = loanApplicationRepository.findByLoanApplicant(partner.getId(),pageable).getContent();
 
             }

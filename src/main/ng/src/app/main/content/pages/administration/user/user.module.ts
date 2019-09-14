@@ -15,19 +15,27 @@ import {UserService} from './user.service';
 import {UserUpdateDialogComponent} from './userUpdate/userUpdate.component';
 import {UserListComponent} from './userList/userList.component';
 import {CdkTableModule} from '@angular/cdk/table';
+import { UserMgmtComponent } from './user-mgmt/user-mgmt.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 const routes = [
   {
     path: 'userManagement',
     component: UserComponent,
+    resolve: {
+      routeResolvedData: UserService
+    }
   }
 ];
+
+
 
 @NgModule({
   declarations: [
     UserComponent,
     UserListComponent,
-    UserUpdateDialogComponent
+    UserUpdateDialogComponent,
+    UserMgmtComponent 
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -47,7 +55,8 @@ const routes = [
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
   exports: [
     UserComponent

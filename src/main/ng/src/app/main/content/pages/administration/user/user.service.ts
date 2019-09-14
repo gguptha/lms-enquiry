@@ -1,12 +1,18 @@
-import { Observable, BehaviorSubject } from 'rxjs';
+import {Observable, BehaviorSubject, forkJoin} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserModel } from '../../../model/user.model';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
+import {UserRole} from "../../../model/userRole.model";
 
 @Injectable()
-export class UserService
+export class UserService  implements Resolve<any>
 {
-    users: BehaviorSubject<UserModel[]>;
+   public users: BehaviorSubject<UserModel[]> = new BehaviorSubject([new UserModel({})]) ;
+
+   public  usersCast = this.users.asObservable();
+
+   public userRoles: Observable<Array<any>>;
 
     userId: string;
 
@@ -18,7 +24,21 @@ export class UserService
      * constructor()
      * @param _http
      */
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: HttpClient) {
+      //this.users= new BehaviorSubject([]) ;
+    }
+  /**
+   * resolve()
+   * Router resolveer, fetches data before the ui is created.
+   * @param route
+   * @param state
+   */
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    return forkJoin([
+      this.getUserRoles() // Get User Roles
+
+    ]);
+  }
 
     /**
      * createUser()
@@ -60,6 +80,34 @@ export class UserService
         });
     }
 
+
+  /*
+      Search Users
+   */
+  public searchUsers(request: Array<string>): Observable<UserModel[]> {
+
+    let queryParams;
+
+    request.forEach(function(value) {
+      if (value != undefined){
+        queryParams = queryParams + value + "&";
+      }
+    });
+
+
+    return new Observable(observer => {
+      const users = new Array<UserModel>();
+      this._http.get<UserModel[]>('enquiry/api/users/queryParams?query=' + request).subscribe(result => {
+        result.map(userModel => {
+          users.push(new UserModel(userModel));
+        });
+        observer.next(users);
+        observer.complete();
+      });
+    });
+  }
+
+
     /*
       Get user by Email Id
      */
@@ -72,7 +120,21 @@ export class UserService
     return this._http.get<UserModel>('enquiry/api/user?userId=' + email);
   }
 
+  /**
+   * getUserRoles()
+    */
+  public getUserRoles():  Observable<any> {
 
+    return this._http.get<any>('enquiry/api/userRoles');
 
+    // this.userRoles = [
+    //   {code: 'TR0100' , name: 'Loan Applicant'},
+    //   {code: 'ZLM013' , name: 'Loan Officer'},
+    //   {code: 'ZLM023' , name: 'Administrator'}
+    // ];
+    //
+    // return this.userRoles;
+
+  }
 
 }

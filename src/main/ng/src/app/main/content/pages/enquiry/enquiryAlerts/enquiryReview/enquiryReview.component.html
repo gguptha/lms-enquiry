@@ -58,6 +58,7 @@
 
               <mat-form-field fxFlex="40">
                 <mat-select placeholder="Project Type" formControlName="projectType" required>
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let projectType of projectTypes" [value]="projectType.code">
                     {{ projectType.value }}
                   </mat-option>
@@ -71,6 +72,7 @@
             <div fxLayout="row">
               <mat-form-field fxFlex="33">
                 <mat-select placeholder="Loan Class" formControlName="loanClass" required>
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let loanClass of loanClasses" [value]="loanClass.code">
                     {{ loanClass.value }}
                   </mat-option>
@@ -82,6 +84,7 @@
 
               <mat-form-field fxFlex="33">
                 <mat-select placeholder="Financing Type" formControlName="financingType" required>
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let financingType of financingTypes" [value]="financingType.code">
                     {{ financingType.value }}
                   </mat-option>
@@ -101,6 +104,7 @@
 
               <mat-form-field fxFlex="14">
                 <mat-select placeholder="Units" formControlName="projectCapacityUnit">
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let unitOfMeasure of unitOfMeasures" [value]="unitOfMeasure.code">
                     {{ unitOfMeasure.value }}
                   </mat-option>
@@ -114,6 +118,7 @@
 
               <mat-form-field fxFlex="33">
                 <mat-select placeholder="Type of Assistance" formControlName="assistanceType">
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let assistanceType of assistanceTypes" [value]="assistanceType.code">
                     {{ assistanceType.value }}
                   </mat-option>
@@ -140,6 +145,7 @@
             <div fxLayout="row">
               <mat-form-field fxFlex="50">
                 <mat-select placeholder="Project Location - State" formControlName="projectLocationState" required>
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let state of states" [value]="state.code">
                     {{ state.value }}
                   </mat-option>
@@ -349,7 +355,7 @@
               </mat-form-field>
 
               <mat-form-field fxFlex="33">
-                <input matInput placeholder="Street Name" formControlName="street">
+                <input matInput placeholder="Street Name" formControlName="street" maxlength="40">
                 <mat-error>
                   Provide valid input
                 </mat-error>
@@ -358,7 +364,7 @@
 
             <div fxLayout="row">
               <mat-form-field fxFlex="33">
-                <input matInput placeholder="City" formControlName="city" required>
+                <input matInput placeholder="City" formControlName="city" required maxlength="40">
                 <mat-error>
                   Provide valid input
                 </mat-error>
@@ -366,6 +372,7 @@
 
               <mat-form-field fxFlex="34">
                 <mat-select placeholder="State" formControlName="state" required>
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let state of states" [value]="state.code">
                     {{ state.value }}
                   </mat-option>
@@ -382,12 +389,7 @@
             </div>
 
             <div fxLayout="row">
-              <!--                            <mat-form-field fxFlex="33">
-                                              <input matInput type="email" placeholder="Email" formControlName="email" readonly>
-                                              <mat-error>
-                                                  Provide valid input
-                                              </mat-error>
-                                          </mat-form-field>-->
+
 
               <mat-form-field fxFlex="34">
                 <input matInput placeholder="Contact Number" formControlName="contactNumber" required>
@@ -411,6 +413,7 @@
 
               <mat-form-field fxFlex="33">
                 <mat-select placeholder="Industry Sector" formControlName="industrySector" required>
+                  <mat-option> </mat-option>
                   <mat-option *ngFor="let industrySector of industrySectors" [value]="industrySector.code">
                     {{ industrySector.value }}
                   </mat-option>

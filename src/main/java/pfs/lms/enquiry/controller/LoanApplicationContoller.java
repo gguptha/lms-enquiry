@@ -161,17 +161,18 @@ public class LoanApplicationContoller {
 
         //Set Technical Status to 4 - "Approved"
         resource.getLoanApplication().setTechnicalStatus(4);
+        resource.getLoanApplication().setPostedInSAP(0);
         LoanApplication loanApplication = loanApplicationService.save(resource, httpServletRequest.getUserPrincipal().getName());
 
 
-        loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
-        Partner partner = partnerRepository.getOne(resource.getPartner().getId());
-        BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
-        BeanUtils.copyProperties(resource.getPartner(), partner,"id");
-        resource = engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
-        partner = partnerRepository.save(resource.getPartner());
-        resource.setLoanApplication(resource.getLoanApplication());
-        resource.setPartner(resource.getPartner());
+         loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
+         Partner partner = partnerRepository.getOne(resource.getPartner().getId());
+//        BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
+//        BeanUtils.copyProperties(resource.getPartner(), partner,"id");
+//        resource = engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
+//        partner = partnerRepository.save(resource.getPartner());
+//        resource.setLoanApplication(resource.getLoanApplication());
+//        resource.setPartner(resource.getPartner());
 
         loanNotificationService.sendApprovalNotification(
                 userRepository.findByEmail(httpServletRequest.getUserPrincipal().getName()),

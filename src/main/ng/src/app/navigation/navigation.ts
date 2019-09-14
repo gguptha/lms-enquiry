@@ -94,6 +94,14 @@ export const adminNavigation: FuseNavigation[] = [
         icon: 'account_box',
         url: '/userManagement',
       },
+      {
+        id: 'mail-repo',
+        title: 'Email Repository',
+        translate: 'NAV.MAILREPOSITORY',
+        type: 'item',
+        icon: 'mail',
+        url: '/mailRepo',
+      }
     ]
   },
   {

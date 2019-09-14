@@ -7,14 +7,17 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
+import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
+import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.LoanApplicationResource;
 import pfs.lms.enquiry.resource.SAPLoanApplicationDetailsResource;
 import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +41,9 @@ public class LoanApplicationsScheduledTask {
     @Autowired
     private final PartnerRepository partnerRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
 
     public LoanApplicationsScheduledTask(LoanApplicationRepository loanApplicationRepository, ISAPIntegrationService isapIntegrationService, PartnerRepository partnerRepository) {
@@ -46,13 +52,24 @@ public class LoanApplicationsScheduledTask {
         this.partnerRepository = partnerRepository;
     }
 
-    //@Scheduled(fixedRate = 500000000)
-    public void reportCurrentTime() {
+    @Scheduled(fixedRate = 5000)
+    public void reportCurrentTime() throws ParseException {
         log.info("The time is now {}", dateFormat.format(new Date()));
         System.out.println("The time is now :" + dateFormat.format(new Date()));
 
-        List<LoanApplication> loanApplicationList = loanApplicationRepository.findByTechnicalStatusAndPostedInSAP(4,false);
+        //Collect Loan Application with the following SAP Posting Statuses
+        // 0 - Not Posted in SAP
+        // 2 - Posting Failed
+        List<LoanApplication> loanApplicationList = loanApplicationRepository.findByTechnicalStatusAndPostedInSAP(4,0);
+        loanApplicationList.addAll(loanApplicationRepository.findByTechnicalStatusAndPostedInSAP(4,2));
+
+
+
         for (LoanApplication loanApplication: loanApplicationList) {
+
+            // Set SAP Posting Status to Attempted to Post - "1"
+            loanApplication.setPostedInSAP(1);
+            loanApplicationRepository.saveAndFlush(loanApplication);
 
             SAPLoanApplicationResource sapLoanApplicationResource = new SAPLoanApplicationResource();
 
@@ -62,7 +79,12 @@ public class LoanApplicationsScheduledTask {
             loanApplicationResource.setPartner(partner);
             loanApplicationResource.setLoanApplication(loanApplication);
 
-            SAPLoanApplicationDetailsResource detailsResource= sapLoanApplicationResource.mapLoanApplicationToSAP(loanApplication,partner);
+
+            // Find Last Changed By User
+            User lastChangedByUser = userRepository.findByEmail(loanApplication.getChangedByUserName());
+
+            SAPLoanApplicationDetailsResource detailsResource=
+                    sapLoanApplicationResource.mapLoanApplicationToSAP(loanApplication,partner,lastChangedByUser);
 
 
             SAPLoanApplicationResource d = new SAPLoanApplicationResource();
@@ -73,11 +95,24 @@ public class LoanApplicationsScheduledTask {
             if (sapLoanApplicationResource != null) {
                 loanApplication.responseFromSAP(sapLoanApplicationResource);
 
-                //Set PostedInSAP to True
-                loanApplication.setPostedInSAP(true);
+                // Set SAP Posting Status to "Posting Successfully"  - "3"
+                loanApplication.setPostedInSAP(3);
 
-                loanApplication = loanApplicationRepository.save(loanApplication);
+                loanApplication = loanApplicationRepository.saveAndFlush(loanApplication);
                 System.out.println("Loan Contract Id in SAP: " + loanApplication.getLoanContractId());
+
+                //TODO - Update Business Partner Number to the User of the Loan Applicant
+
+                User user = userRepository.findByEmail(partner.getEmail());
+                user.setSapBPNumber(sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getBusPartnerNumber());
+                userRepository.saveAndFlush(user);
+
+
+            } else {
+
+                // Set SAP Posting Status to "Posting Failed"  - "2"
+                loanApplication.setPostedInSAP(2);
+                loanApplication = loanApplicationRepository.saveAndFlush(loanApplication);
             }
         }
 

@@ -3,14 +3,23 @@ package pfs.lms.enquiry.resource;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.stereotype.Component;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.Partner;
+import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.repository.UserRepository;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+@Component
 @JsonInclude (JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties (ignoreUnknown = true)
-public class SAPLoanApplicationResource implements Serializable {
+public class SAPLoanApplicationResource implements Serializable   {
+
+
 
     public SAPLoanApplicationResource() {
         sapLoanApplicationDetailsResource = new SAPLoanApplicationDetailsResource();
@@ -28,7 +37,8 @@ public class SAPLoanApplicationResource implements Serializable {
     }
 
 
-    public SAPLoanApplicationDetailsResource mapLoanApplicationToSAP(LoanApplication loanApplication, Partner partner){
+    public SAPLoanApplicationDetailsResource
+                    mapLoanApplicationToSAP(LoanApplication loanApplication, Partner partner, User lastProcessedBy) throws ParseException {
 
         SAPLoanApplicationDetailsResource detailsResource = new SAPLoanApplicationDetailsResource();
 
@@ -58,8 +68,15 @@ public class SAPLoanApplicationResource implements Serializable {
                 String.format("%.2f", loanApplication.getProjectCapacity()));
         detailsResource.setProjectCapacityUnit("MW");
 
+        //String myDate = "2014/10/29 18:10:45";
+        String myDate = loanApplication.getScheduledCOD().toString();
+        myDate = myDate + " 01:01:01";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = sdf.parse(myDate);
+        long millis = date.getTime();
+
         if(loanApplication.getScheduledCOD() != null) {
-            detailsResource.setScheduledCommDate("\\/Date(" + loanApplication.getScheduledCOD().toEpochDay() + ")\\/");
+            detailsResource.setScheduledCommDate ("\\/Date(" + millis + ")\\/");
         }
         else {
             detailsResource.setScheduledCommDate(null);
@@ -88,7 +105,10 @@ public class SAPLoanApplicationResource implements Serializable {
         detailsResource.setPromoterKeyDirector(loanApplication.getPromoterKeyDirector());
         detailsResource.setLoanStatus(Integer.toString(loanApplication.getFunctionalStatus()));
         detailsResource.setProjectName(loanApplication.getProjectName());
-        detailsResource.setLoanOfficer(loanApplication.getUserBPNumber());
+
+        detailsResource.setTenorYear(loanApplication.getTenorYear().toString());
+        detailsResource.setTenorMonth(loanApplication.getTenorMonth().toString());
+
         detailsResource.setLoanProduct(loanApplication.getProductCode());
         detailsResource.setProjectState(loanApplication.getProjectLocationState());
         detailsResource.setProjectDistrict(loanApplication.getProjectDistrict());
@@ -100,6 +120,10 @@ public class SAPLoanApplicationResource implements Serializable {
         detailsResource.setContactFaxNumber(loanApplication.getContactFaxNumber());
         detailsResource.setContactLandLinePhone(loanApplication.getContactLandLinePhone());
         detailsResource.setContactTelePhone(loanApplication.getContactTelePhone());
+
+        // Set Loan Officer
+        if (lastProcessedBy != null)
+            detailsResource.setLoanOfficer(lastProcessedBy.getSapBPNumber());
 
 
         return detailsResource;

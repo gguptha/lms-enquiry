@@ -20,6 +20,7 @@ public class User extends AggregateRoot<User> {
     private String email;
 
     private String role;
+    private String roleDescription;
     private boolean status;
     private String userName;
     private String sapBPNumber;
@@ -74,6 +75,50 @@ public class User extends AggregateRoot<User> {
 
     public boolean isDepartmentHead() {
         return this.departmentHead;
+    }
+
+    public String getRoleDescription() {
+        return roleDescription;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setRoleDescription(String roleDescription) {
+        this.roleDescription = roleDescription;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setSapBPNumber(String sapBPNumber) {
+        this.sapBPNumber = sapBPNumber;
+    }
+
+    public void setRiskDepartment(String riskDepartment) {
+        this.riskDepartment = riskDepartment;
+    }
+
+    public void setDepartmentHead(@Nullable boolean departmentHead) {
+        this.departmentHead = departmentHead;
     }
 
     @Value

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.LoanApplication;
+import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.mail.service.PasswordResetService;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
@@ -21,10 +22,12 @@ import pfs.lms.enquiry.resource.LoanNumberResource;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
 import pfs.lms.enquiry.service.ISignupService;
+import pfs.lms.enquiry.service.IUserService;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 
 @Slf4j
 @ApiController
@@ -43,6 +46,8 @@ public class UserController {
     private final PasswordResetService passwordResetService;
 
     private final LoanApplicationRepository loanApplicationRepository;
+
+    private final IUserService userService;
 
 
     @PostMapping("/user")
@@ -162,6 +167,20 @@ public class UserController {
             return ResponseEntity.ok(loanApplication);
         else
             return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("users/queryParams")
+    public ResponseEntity getPartnersByQueryParams(@RequestParam("query") String[] queryParams, HttpServletRequest httpServletRequest) {
+
+        List<User> users = userService.searchUsers(queryParams);
+
+        if (users != null){
+            return ResponseEntity.ok(users);
+
+        }else{
+            return ResponseEntity.noContent().build();
+        }
+
     }
 
 }

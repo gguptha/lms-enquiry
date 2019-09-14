@@ -22,6 +22,7 @@ import pfs.lms.enquiry.mail.service.EmailService;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 /**
@@ -97,6 +98,7 @@ import java.util.Properties;
             ex.printStackTrace();
         }
 
+        mailObject.setDateTime(LocalDateTime.now());
         return mailObjectRepository.save(mailObject);
 
     }

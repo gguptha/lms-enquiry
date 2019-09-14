@@ -32,6 +32,8 @@ public class Initializer implements CommandLineRunner {
 
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
+    private final UserRoleRepository userRoleRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -115,9 +117,7 @@ public class Initializer implements CommandLineRunner {
         }
 
         if (industrySectorRepository.count() == 0){
-            IndustrySector i0 = new IndustrySector("","");
-            IndustrySector i1 = new IndustrySector( "0" , "  ");
-            IndustrySector i2 = new IndustrySector( "1" , "Power");
+             IndustrySector i2 = new IndustrySector( "1" , "Power");
             IndustrySector i3 = new IndustrySector( "2" , "Railways");
             IndustrySector i4 = new IndustrySector( "3" , "Urban Infra");
             IndustrySector i5 = new IndustrySector( "4" , "Roads");
@@ -170,7 +170,7 @@ public class Initializer implements CommandLineRunner {
 
 
 
-            industrySectorRepository.saveAll(Arrays.asList(i0,i1,i2,i3,i4,i5,i6,i7,i8,i9,i10));
+            industrySectorRepository.saveAll(Arrays.asList( i2,i3,i4,i5,i6,i7,i8,i9,i10));
             industrySectorRepository.saveAll(Arrays.asList(i11,i12,i13,i14,i15,i16,i17,i18,i19,i20));
             industrySectorRepository.saveAll(Arrays.asList(i21,i22,i23,i24,i25,i26,i27,i28,i29,i30));
             industrySectorRepository.saveAll(Arrays.asList(i31,i32,i33,i34,i35,i36,i37,i38,i39,i40));
@@ -193,6 +193,19 @@ public class Initializer implements CommandLineRunner {
             log.info("Added Unit of Measures");
         }
 
+        if (userRoleRepository.count() == 0){
+            UserRole r1 = new UserRole("TR0100", "Loan Applicant");
+            UserRole r2 = new UserRole("ZLM013", "Appraisal Officer");
+            UserRole r3 = new UserRole("ZLM023", "Administrator");
+            UserRole r4 = new UserRole("ZLM001", "Promoter");
+            UserRole r5 = new UserRole("ZLM023", "Co-Appraisal Officer");
+            UserRole r6 = new UserRole("ZLM023", "Appraisal Officer");
+            UserRole r7 = new UserRole("TR0110", "Prospect");
+
+
+            userRoleRepository.saveAll(Arrays.asList(r1,r2,r3));
+            log.info("Added User Roles");
+        }
 
     }
 }

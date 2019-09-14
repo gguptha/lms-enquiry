@@ -8,6 +8,7 @@ export const locale = {
             'ENQUIRYLIST'   : 'Enquiry List',
             'ADMINISTRATION': 'Administration',
             'USERMANAGEMENT': 'User Management',
+            'MAILREPOSITORY': 'Email Repository',
             'PARTNER'       : 'Business Partners',
             'SAMPLE'        : {
                 'TITLE': 'Sample',

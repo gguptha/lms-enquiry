@@ -63,6 +63,7 @@
 
                   <mat-form-field fxFlex="25">
                     <mat-select placeholder="Project Location (State)" formControlName="projectLocation"  >
+                      <mat-option> </mat-option>
                       <mat-option *ngFor="let state of states" [value]="state.code">
                         {{ state.value }}
                       </mat-option>
@@ -71,6 +72,7 @@
 
                   <mat-form-field fxFlex="25">
                     <mat-select placeholder="Loan Class" formControlName="loanClass"  >
+                      <mat-option> </mat-option>
                       <mat-option *ngFor="let loanClass of loanClasses" [value]="loanClass.code">
                         {{ loanClass.value }}
                       </mat-option>
@@ -80,6 +82,7 @@
 
                   <mat-form-field fxFlex="25">
                     <mat-select placeholder="Project Type" formControlName="projectType"  >
+                      <mat-option> </mat-option>
                       <mat-option *ngFor="let projectType of projectTypes" [value]="projectType.code">
                         {{ projectType.value }}
                       </mat-option>
@@ -92,6 +95,7 @@
 
                   <mat-form-field fxFlex="25">
                     <mat-select placeholder="Financing Type" formControlName="financingType"  >
+                      <mat-option> </mat-option>
                       <mat-option *ngFor="let financingType of financingTypes" [value]="financingType.code">
                         {{ financingType.value }}
                       </mat-option>
@@ -100,8 +104,9 @@
 
                   <mat-form-field fxFlex="25">
                     <mat-select placeholder="Type of Assistance" formControlName="assistanceType"  >
+                      <mat-option> </mat-option>
                       <mat-option *ngFor="let assistanceType of assistanceTypes" [value]="assistanceType.code">
-                        {{ financingType.value }}
+                        {{ assistanceType.value }}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>

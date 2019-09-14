@@ -19,13 +19,18 @@ export class EnquiryAlertsListComponent implements OnInit {
 
     selectedEnquiry: EnquiryApplicationModel;
 
-    displayedColumns = [
+    pageSizeOptions: number[] = [10, 25, 50, 100];
+
+
+  displayedColumns = [
         'functionalStatusDescription', 'createdOn', 'enquiryNumber', 'projectName', 'projectLocationState', 'projectTypeDescription',
         'loanClassDescription', 'projectCapacity', 'assistanceTypeDescription', 'projectCost', 'loanAmount'
     ];
 
     constructor(private _service: EnquiryAlertsService) {
         this.dataSource = new MatTableDataSource(_service.loanApplications.value);
+
+
     }
 
     ngOnInit(): void {

@@ -11,7 +11,7 @@ public interface IPartnerService {
     Partner save(Partner partner);
     Partner migrate(Partner partner);
     Partner update(Partner partner);
-    List<Partner> searchParterns(String[] searchParameters);
+    List<Partner> searchPartners(String[] searchParameters);
     PartnerResourcesOrderByAlphabet getPartnersOrderedByAlphabets();
 
     List<PartnerResourceByEmail> getPartnerByEmail();

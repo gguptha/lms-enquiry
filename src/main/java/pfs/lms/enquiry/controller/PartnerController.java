@@ -10,11 +10,9 @@ import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.PartnerResourceByEmail;
 import pfs.lms.enquiry.resource.PartnerResourcesOrderByAlphabet;
-import pfs.lms.enquiry.service.IPartnerService;
 import pfs.lms.enquiry.service.impl.PartnerService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @ApiController
@@ -50,7 +48,7 @@ public class PartnerController {
     @GetMapping("partner/queryParams")
     public ResponseEntity getPartnersByQueryParams(@RequestParam("query") String[] queryParams, HttpServletRequest httpServletRequest) {
 
-        List<Partner> partners = partnerService.searchParterns(queryParams);
+        List<Partner> partners = partnerService.searchPartners(queryParams);
 
         if (partners != null){
             return ResponseEntity.ok(partners);

@@ -134,8 +134,8 @@ public class LoanApplicationEngine {
 
         loanApplication = loanApplication.responseFromSAP(sapLoanApplicationResourceResponse);
 
-        //Set PostedInSAP to True
-        loanApplication.setPostedInSAP(true);
+        //Set PostedInSAP to Success
+        loanApplication.setPostedInSAP(3);
 
         loanApplication = loanApplicationRepository.save(loanApplication);
 

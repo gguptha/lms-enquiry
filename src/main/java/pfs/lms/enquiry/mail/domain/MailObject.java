@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -28,6 +29,8 @@ public class MailObject { //extends AggregateRoot<MailObject> {
     protected Long id;
 
     private String toAddress;
+
+    private LocalDateTime dateTime;
 
     @Column(columnDefinition = "LONGTEXT")
     private String subject;

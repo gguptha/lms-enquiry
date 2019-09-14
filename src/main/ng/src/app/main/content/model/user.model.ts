@@ -1,4 +1,4 @@
-export class UserModel 
+export class UserModel
 {
     firstName: string; // partyName1
     lastName: string; // partyName2
@@ -7,10 +7,11 @@ export class UserModel
     password: string;
     sapBPNumber: string;
     role: string;
+    roleDescription: string;
     status: boolean;
     riskDepartment: string;
     departmentHead: boolean;
-    
+
     constructor(user: any)
     {
         if (user.firstName === undefined) {
@@ -30,8 +31,12 @@ export class UserModel
         this.password = user.password;
         this.sapBPNumber = user.sapBPNumber;
         this.role = user.role;
+        this.roleDescription = user.roleDescription;
         this.status = user.status;
         this.riskDepartment = user.riskDepartment;
         this.departmentHead = user.departmentHead;
     }
+
+
+
 }
