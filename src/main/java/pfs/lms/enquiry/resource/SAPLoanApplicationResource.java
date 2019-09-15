@@ -57,7 +57,8 @@ public class SAPLoanApplicationResource implements Serializable   {
         detailsResource.setPanNumber(partner.getPan());
         detailsResource.setContactPerName(partner.getContactPersonName());
         detailsResource.setIndustrySector(partner.getIndustrySector());
-
+        if (partner.getPartyNumber() != null)
+            detailsResource.setBusPartnerNumber(partner.getPartyNumber().toString());
 
         detailsResource.setApplicationDate("\\/Date(" + System.currentTimeMillis() + ")\\/");
         detailsResource.setLoanClass(loanApplication.getLoanClass());
@@ -69,13 +70,12 @@ public class SAPLoanApplicationResource implements Serializable   {
         detailsResource.setProjectCapacityUnit("MW");
 
         //String myDate = "2014/10/29 18:10:45";
-        String myDate = loanApplication.getScheduledCOD().toString();
-        myDate = myDate + " 01:01:01";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = sdf.parse(myDate);
-        long millis = date.getTime();
-
-        if(loanApplication.getScheduledCOD() != null) {
+        if (loanApplication.getScheduledCOD() != null) {
+            String scheduledCOD = loanApplication.getScheduledCOD().toString();
+            scheduledCOD = scheduledCOD + " 01:01:01";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = sdf.parse(scheduledCOD);
+            long millis = date.getTime();
             detailsResource.setScheduledCommDate ("\\/Date(" + millis + ")\\/");
         }
         else {

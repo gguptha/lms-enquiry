@@ -21,6 +21,7 @@ import pfs.lms.enquiry.resource.EmailId;
 import pfs.lms.enquiry.resource.LoanNumberResource;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
+import pfs.lms.enquiry.service.IPartnerService;
 import pfs.lms.enquiry.service.ISignupService;
 import pfs.lms.enquiry.service.IUserService;
 
@@ -49,6 +50,7 @@ public class UserController {
 
     private final IUserService userService;
 
+    private final IPartnerService partnerService;
 
     @PostMapping("/user")
     public ResponseEntity signup(@RequestBody UserResource userResource) {
@@ -73,6 +75,16 @@ public class UserController {
         SignupResource signupResource = new SignupResource(userResource.getFirstName(), userResource.getLastName(),
                 userResource.getEmail(), "", userResource.getPassword());
         modifyPassword(signupResource, principal);
+
+        //Update Partner for the User
+        Partner partner = new Partner();
+        partner.setEmail(userResource.getEmail());
+        partner.setPartyName1(userResource.getFirstName());
+        partner.setPartyName2(userResource.getLastName());
+        partner.setContactNumber(userResource.getMobile());
+        partner.setPartyRole(user.getRole());
+        partnerService.save(partner);
+
         return ResponseEntity.ok().build();
     }
 

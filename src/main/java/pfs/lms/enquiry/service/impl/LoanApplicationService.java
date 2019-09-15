@@ -60,12 +60,14 @@ public class LoanApplicationService implements ILoanApplicationService {
             existingPartner.setPartyCategory(resource.getPartner().getPartyCategory());
             existingPartner.setPartyName1(resource.getPartner().getPartyName1());
             existingPartner.setPartyName2(resource.getPartner().getPartyName2());
-            existingPartner.setPartyNumber(resource.getPartner().getPartyNumber());
             existingPartner.setPostalCode(resource.getPartner().getPostalCode());
             existingPartner.setState(resource.getPartner().getState());
             existingPartner.setStreet(resource.getPartner().getStreet());
             existingPartner.setEmail(resource.getPartner().getEmail());
             existingPartner.setIndustrySector(resource.getPartner().getIndustrySector());
+
+            //existingPartner.setPartyNumber(existingPartner.getPartyNumber());
+
 
             existingPartner.setChangedOn(LocalDate.now());
             existingPartner.setChangedAt(LocalTime.now());

@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pfs.lms.enquiry.client.OAuthClient;
+import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.exception.LmsException;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
+import pfs.lms.enquiry.service.IPartnerService;
 import pfs.lms.enquiry.service.ISignupService;
 
 @Slf4j
@@ -23,6 +25,8 @@ public class SignupService implements ISignupService {
     private final UserRepository userRepository;
 
     private final OAuthClient oAuthClient;
+
+    private final IPartnerService iPartnerService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -41,6 +45,15 @@ public class SignupService implements ISignupService {
 
         if (!response.getBody())
             throw new LmsException("Error creating OAuth User", HttpStatus.PRECONDITION_FAILED);
+
+        //Create Partner for the User
+        Partner partner = new Partner();
+        partner.setEmail(signupResource.getEmail());
+        partner.setPartyName1(signupResource.getFirstName());
+        partner.setPartyName2(signupResource.getLastName());
+        partner.setPartyRole("TR0100");
+        iPartnerService.save(partner);
+
     }
 
     @Override
@@ -60,6 +73,16 @@ public class SignupService implements ISignupService {
 
         if (!response.getBody())
             throw new LmsException("Error creating OAuth User", HttpStatus.PRECONDITION_FAILED);
+
+        //Create Partner for the User
+        Partner partner = new Partner();
+        partner.setEmail(userResource.getEmail());
+        partner.setPartyName1(userResource.getFirstName());
+        partner.setPartyName2(userResource.getLastName());
+        partner.setContactNumber(userResource.getMobile());
+        partner.setPartyRole(user.getRole());
+        iPartnerService.save(partner);
+
     }
 
 

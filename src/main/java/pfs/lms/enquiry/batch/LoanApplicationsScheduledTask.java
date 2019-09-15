@@ -53,9 +53,9 @@ public class LoanApplicationsScheduledTask {
     }
 
     @Scheduled(fixedRate = 5000)
-    public void reportCurrentTime() throws ParseException {
-        log.info("The time is now {}", dateFormat.format(new Date()));
-        System.out.println("The time is now :" + dateFormat.format(new Date()));
+    public void syncLoanApplicationsToBackend() throws ParseException {
+       // log.info("The time is now {}", dateFormat.format(new Date()));
+       // System.out.println("The time is now :" + dateFormat.format(new Date()));
 
         //Collect Loan Application with the following SAP Posting Statuses
         // 0 - Not Posted in SAP
@@ -67,6 +67,12 @@ public class LoanApplicationsScheduledTask {
 
         for (LoanApplication loanApplication: loanApplicationList) {
 
+            Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+
+            System.out.println("-----------------------------------------------------------------------------------------------" );
+            System.out.println("Attempting to Post Loan Application in SAP: Loan Application :" +loanApplication.getLoanEnquiryId());
+            System.out.println("SAP Business Partner Number :" + partner.getPartyNumber());
+
             // Set SAP Posting Status to Attempted to Post - "1"
             loanApplication.setPostedInSAP(1);
             loanApplicationRepository.saveAndFlush(loanApplication);
@@ -75,7 +81,6 @@ public class LoanApplicationsScheduledTask {
 
             LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
 
-            Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
             loanApplicationResource.setPartner(partner);
             loanApplicationResource.setLoanApplication(loanApplication);
 
@@ -97,15 +102,21 @@ public class LoanApplicationsScheduledTask {
 
                 // Set SAP Posting Status to "Posting Successfully"  - "3"
                 loanApplication.setPostedInSAP(3);
-
                 loanApplication = loanApplicationRepository.saveAndFlush(loanApplication);
                 System.out.println("Loan Contract Id in SAP: " + loanApplication.getLoanContractId());
 
-                //TODO - Update Business Partner Number to the User of the Loan Applicant
+                // Save Partner with SAP Business partner number
+                partner.setPartyNumber(Integer.parseInt(sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getBusPartnerNumber()));
+                partner = partnerRepository.save(partner);
 
+                //Update SA{ Business Partner Number to the User of the Loan Applicant
                 User user = userRepository.findByEmail(partner.getEmail());
                 user.setSapBPNumber(sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getBusPartnerNumber());
                 userRepository.saveAndFlush(user);
+
+                System.out.println("-----------------------------------------------------------------------------------------------" );
+                System.out.println("Successfully Posted Loan Application in SAP: Loan Contract Id :" +loanApplication.getLoanContractId());
+                System.out.println("SAP Business Partner Number :" + partner.getPartyNumber());
 
 
             } else {
@@ -113,6 +124,10 @@ public class LoanApplicationsScheduledTask {
                 // Set SAP Posting Status to "Posting Failed"  - "2"
                 loanApplication.setPostedInSAP(2);
                 loanApplication = loanApplicationRepository.saveAndFlush(loanApplication);
+
+                System.out.println("-----------------------------------------------------------------------------------------------" );
+                System.out.println("Failed to Post Loan Application in SAP: Loan Application :" +loanApplication.getLoanEnquiryId());
+                System.out.println("SAP Business Partner Number :" + partner.getPartyNumber());
             }
         }
 
