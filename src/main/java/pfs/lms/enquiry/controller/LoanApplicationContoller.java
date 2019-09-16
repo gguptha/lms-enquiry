@@ -278,8 +278,10 @@ public class LoanApplicationContoller {
                                  @PageableDefault(sort = "loanContractId", size = 9999, direction = Sort.Direction.DESC) Pageable pageable)
     {
         //List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationRepository.findAll(pageable).getContent());
-
+        System.out.println("Search Loans............: search resource: " + resource);
         List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationService.searchLoans(request,pageable));
+
+        System.out.println("Loans Search Intermin Results: " + loanApplications );
 
 
         if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null)
@@ -347,15 +349,15 @@ public class LoanApplicationContoller {
         List<LoanApplicationResource> resources = new ArrayList<>(0);
 
 
-//        System.out.println("-------------- Loans Applications Count :" + loanApplications.size());
+        System.out.println("-------------- Loans Applications Count :" + loanApplications.size());
 
         loanApplications.forEach(loanApplication -> {
-//            System.out.println("Loan Contract Id     : " + loanApplication.getLoanContractId());
-//            System.out.println("Applicant Details    : " + loanApplication.getLoanApplicant());
+            System.out.println("Loan Contract Id     : " + loanApplication.getLoanContractId());
+            System.out.println("Applicant Details    : " + loanApplication.getLoanApplicant());
 
             Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
             if (partner == null) {
-//                System.out.println("-------------- Partner is null for loan :" + loanApplication.getLoanContractId());
+                System.out.println("-------------- Partner is null for loan :" + loanApplication.getLoanContractId());
 
             }
             resources.add(new LoanApplicationResource(loanApplication, partner));
