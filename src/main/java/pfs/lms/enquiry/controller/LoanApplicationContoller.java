@@ -287,8 +287,14 @@ public class LoanApplicationContoller {
         System.out.println("Loans Search Intermin Results: " + loanApplications );
 
 
-        if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> (loanApplication.getLoanEnquiryDate().isAfter(resource.getEnquiryDateFrom()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateFrom())) && (loanApplication.getLoanEnquiryDate().isBefore(resource.getEnquiryDateTo()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateTo()))).collect(Collectors.toList());
+        if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null) {
+            loanApplications = loanApplications.stream()
+                    .filter(loanApplication -> (
+                            loanApplication.getLoanEnquiryDate().isAfter(resource.getEnquiryDateFrom()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateFrom())) &&
+                            (loanApplication.getLoanEnquiryDate().isBefore(resource.getEnquiryDateTo()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateTo())))
+                    .collect(Collectors
+                            .toList());
+        }
 
         if (resource.getEnquiryNoFrom() != null)
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getEnquiryNo().getId() >=

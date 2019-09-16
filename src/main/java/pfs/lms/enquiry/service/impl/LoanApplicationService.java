@@ -241,6 +241,9 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setTenorYear(loanApplication.getTenorYear());
             loanApplicationExisting.setTenorMonth(loanApplication.getTenorMonth());
 
+            if (loanApplicationExisting != null)
+                loanApplicationExisting.setLoanEnquiryDate(LocalDate.now());
+
             loanApplicationExisting.setChangedOn(LocalDate.now());
             loanApplicationExisting.setChangedAt(LocalTime.now());
             loanApplicationExisting.setChangedByUserName(username);
@@ -258,6 +261,7 @@ public class LoanApplicationService implements ILoanApplicationService {
 
         } else {
 
+            loanApplication.setLoanEnquiryDate(LocalDate.now());
             loanApplication.applicant(applicant);
             loanApplication.created(applicant);
 
@@ -343,6 +347,8 @@ public class LoanApplicationService implements ILoanApplicationService {
 
 
         LoanApplication loanApplicationExisting = new LoanApplication();
+
+        loanApplication.setLoanEnquiryDate(LocalDate.now());
 
         // Check if loan application is existing
         if (loanApplication.getLoanContractId() != null) {
