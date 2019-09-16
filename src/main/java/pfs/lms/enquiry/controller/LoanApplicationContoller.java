@@ -355,13 +355,18 @@ public class LoanApplicationContoller {
             System.out.println("Loan Contract Id     : " + loanApplication.getLoanContractId());
             System.out.println("Applicant Details    : " + loanApplication.getLoanApplicant());
 
-            Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
-            if (partner == null) {
-                System.out.println("-------------- Partner is null for loan :" + loanApplication.getLoanContractId());
+            if (loanApplication.getLoanApplicant() != null) {
+                Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+                if (partner == null) {
+                    System.out.println("-------------- Partner is null for loan :" + loanApplication.getLoanContractId());
 
+                }
+                resources.add(new LoanApplicationResource(loanApplication, partner));
             }
-            resources.add(new LoanApplicationResource(loanApplication, partner));
         });
+
+
+        System.out.println("-------------- All Loans Prepareed...... Ready for Return............. ");
 
         return ResponseEntity.ok(resources);
     }
