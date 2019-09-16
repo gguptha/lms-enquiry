@@ -78,9 +78,12 @@ public class LoanApplicationContoller {
 
         List<LoanApplicationResource> resources = new ArrayList<>(0);
         if (loanApplications != null) {
+
             loanApplications.forEach(loanApplication -> {
-                Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
-                resources.add(new LoanApplicationResource(loanApplication, partner));
+                if (loanApplication.getLoanApplicant() != null) {
+                    Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+                    resources.add(new LoanApplicationResource(loanApplication, partner));
+                }
             });
         }
 
