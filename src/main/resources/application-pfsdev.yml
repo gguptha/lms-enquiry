@@ -28,7 +28,7 @@ spring:
     port: 587
     username: pfsriskmodel@gmail.com
     password: Sapsap@123
-    protocol: smtpu
+    protocol: smtp
     tls: true
     properties.mail.smtp:
         auth: true
