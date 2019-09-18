@@ -71,6 +71,15 @@ export class UserUpdateDialogComponent implements OnInit {
                     this._matSnackBar.open('User details are updated successfully.', 'OK', { duration: 7000 });
                     // Close the add/ update dialog.
                     this._dialogRef.close();
+                },
+                (error: string) => {
+                    // Show a snack.
+                    if (error.startsWith('status 412 reading OAuthClient#modifyPassword')) {
+                        this._matSnackBar.open('Password cannot be the same as the previous 3 passwords', 'OK', { duration: 7000 });
+                    }
+                    else {
+                        this._matSnackBar.open(error, 'OK', { duration: 7000 });
+                    }
                 });
             }
         }

@@ -1,52 +1,55 @@
-import {Observable, BehaviorSubject, forkJoin} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserModel } from '../../../model/user.model';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
-import {UserRole} from "../../../model/userRole.model";
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { UserRole } from "../../../model/userRole.model";
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { debug } from 'util';
 
 @Injectable()
-export class UserService  implements Resolve<any>
+export class UserService implements Resolve<any>
 {
-   public users: BehaviorSubject<UserModel[]> = new BehaviorSubject([new UserModel({})]) ;
+    public users: BehaviorSubject<UserModel[]> = new BehaviorSubject([new UserModel({})]);
 
-   public  usersCast = this.users.asObservable();
+    public usersCast = this.users.asObservable();
 
-   public userRoles: Observable<Array<any>>;
+    public userRoles: Observable<Array<any>>;
 
     userId: string;
 
     selectedUser: BehaviorSubject<UserModel> = new BehaviorSubject(new UserModel({}));
 
-    user : BehaviorSubject<UserModel>;
+    user: BehaviorSubject<UserModel>;
 
     /**
      * constructor()
      * @param _http
      */
     constructor(private _http: HttpClient) {
-      //this.users= new BehaviorSubject([]) ;
+        //this.users= new BehaviorSubject([]) ;
     }
-  /**
-   * resolve()
-   * Router resolveer, fetches data before the ui is created.
-   * @param route
-   * @param state
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return forkJoin([
-      this.getUserRoles() // Get User Roles
 
-    ]);
-  }
+    /**
+     * resolve()
+     * Router resolveer, fetches data before the ui is created.
+     * @param route
+     * @param state
+     */
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+        return forkJoin([
+            this.getUserRoles() // Get User Roles
+
+        ]);
+    }
 
     /**
      * createUser()
      * Creates a new user.
      * @param user
      */
-    public createUser(user: UserModel): Observable<any>
-    {
+    public createUser(user: UserModel): Observable<any> {
         return this._http.post('enquiry/api/user', user);
     }
 
@@ -55,17 +58,23 @@ export class UserService  implements Resolve<any>
      * Creates a new user.
      * @param user
      */
-    public updateUser(user: UserModel): Observable<any>
-    {
-        return this._http.put('enquiry/api/user', user);
+    public updateUser(user: UserModel): Observable<any> {
+        return this._http.put('enquiry/api/user', user).catch(this.errorHandler);
+    }
+
+    /**
+     * errorHandler()
+     * @param error 
+     */
+    errorHandler(error: HttpErrorResponse): Observable<any> {
+        return Observable.throw(error.error.message || 'Service error occured.');
     }
 
     /**
      * getUsers()
      * Fetches a list of users.
      */
-    public getUsers(): void
-    {
+    public getUsers(): void {
         this._http.get<any>('enquiry/api/users?sort=role&sort=firstName').subscribe((response) => {
             const users = new Array<UserModel>();
             response._embedded.users.map((user) => {
@@ -81,60 +90,59 @@ export class UserService  implements Resolve<any>
     }
 
 
-  /*
-      Search Users
-   */
-  public searchUsers(request: Array<string>): Observable<UserModel[]> {
+    /*
+        Search Users
+     */
+    public searchUsers(request: Array<string>): Observable<UserModel[]> {
 
-    let queryParams;
+        let queryParams;
 
-    request.forEach(function(value) {
-      if (value != undefined){
-        queryParams = queryParams + value + "&";
-      }
-    });
-
-
-    return new Observable(observer => {
-      const users = new Array<UserModel>();
-      this._http.get<UserModel[]>('enquiry/api/users/queryParams?query=' + request).subscribe(result => {
-        result.map(userModel => {
-          users.push(new UserModel(userModel));
+        request.forEach(function (value) {
+            if (value != undefined) {
+                queryParams = queryParams + value + "&";
+            }
         });
-        observer.next(users);
-        observer.complete();
-      });
-    });
-  }
+
+
+        return new Observable(observer => {
+            const users = new Array<UserModel>();
+            this._http.get<UserModel[]>('enquiry/api/users/queryParams?query=' + request).subscribe(result => {
+                result.map(userModel => {
+                    users.push(new UserModel(userModel));
+                });
+                observer.next(users);
+                observer.complete();
+            });
+        });
+    }
 
 
     /*
       Get user by Email Id
      */
 
-  /**
-   * getUserByEmail()
-   * @param email
-   */
-  public getUserByEmail(email: string): Observable<UserModel> {
-    return this._http.get<UserModel>('enquiry/api/user?userId=' + email);
-  }
+    /**
+     * getUserByEmail()
+     * @param email
+     */
+    public getUserByEmail(email: string): Observable<UserModel> {
+        return this._http.get<UserModel>('enquiry/api/user?userId=' + email);
+    }
 
-  /**
-   * getUserRoles()
-    */
-  public getUserRoles():  Observable<any> {
+    /**
+     * getUserRoles()
+      */
+    public getUserRoles(): Observable<any> {
 
-    return this._http.get<any>('enquiry/api/userRoles');
+        return this._http.get<any>('enquiry/api/userRoles');
 
-    // this.userRoles = [
-    //   {code: 'TR0100' , name: 'Loan Applicant'},
-    //   {code: 'ZLM013' , name: 'Loan Officer'},
-    //   {code: 'ZLM023' , name: 'Administrator'}
-    // ];
-    //
-    // return this.userRoles;
+        // this.userRoles = [
+        //   {code: 'TR0100' , name: 'Loan Applicant'},
+        //   {code: 'ZLM013' , name: 'Loan Officer'},
+        //   {code: 'ZLM023' , name: 'Administrator'}
+        // ];
+        //
+        // return this.userRoles;
 
-  }
-
+    }
 }
