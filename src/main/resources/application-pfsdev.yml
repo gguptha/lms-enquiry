@@ -20,7 +20,7 @@ spring:
   data:
     rest:
       basePath: /api
-  jackson:
+  jackson:rt
     serialization:
       fail-on-empty-beans: false
   mail:

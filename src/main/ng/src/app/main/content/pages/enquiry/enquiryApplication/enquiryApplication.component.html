@@ -13,7 +13,7 @@
 
           <div fxLayout="row">
             <mat-form-field fxFlex="60">
-              <input matInput placeholder="Project Name" formControlName="projectName" required>
+              <input matInput placeholder="Project Name" formControlName="projectName" required maxlength="60">
               <mat-error>
                 Provide valid input for Project Name
               </mat-error>
@@ -59,9 +59,9 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="20">
-              <input matInput placeholder="Project Capacity" formControlName="projectCapacity">
+              <input matInput placeholder="Project Capacity" formControlName="projectCapacity" maxlength="10">
               <mat-error>
-                Provide numeric input b/w 1 and 9999.99
+                Provide numeric input b/w 1 and 999999.99
               </mat-error>
             </mat-form-field>
 
@@ -90,14 +90,14 @@
 
             <mat-form-field fxFlex="33">
               <input matInput type="number" placeholder="Tenor of Loan (Years)" formControlName="tenorYear"
-                     required>
+                     required maxlength="2">
               <mat-error>
                 Provide numeric input b/w 1 and 99
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput type="number" placeholder="(Months)" formControlName="tenorMonth" required>
+              <input matInput type="number" placeholder="(Months)" formControlName="tenorMonth" maxlength="2"required>
               <mat-error>
                 Provide numeric input b/w 1 and 11
               </mat-error>
@@ -115,7 +115,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="50">
-              <input matInput placeholder="Project District" formControlName="projectDistrict" required>
+              <input matInput placeholder="Project District" formControlName="projectDistrict" required maxlength="60">
             </mat-form-field>
 
 
@@ -124,21 +124,21 @@
           <div fxLayout="row">
 
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="Project Cost (in Crores)" formControlName="projectCost">
+              <input matInput placeholder="Project Cost (in Crores)" formControlName="projectCost" maxlength="10">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="33">
-              <input matInput type="number" placeholder="Project Equity Amt.(in Crores)" formControlName="equity">
+              <input matInput type="number" placeholder="Project Equity Amt.(in Crores)" formControlName="equity" maxlength="10">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput type="number" placeholder="Project Debt Amount (in Crores)"
+              <input matInput type="number" placeholder="Project Debt Amount (in Crores)" maxlength="10"
                      formControlName="projectDebtAmount">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
@@ -151,7 +151,7 @@
 
             <mat-form-field fxFlex="33">
               <input matInput type="number" placeholder="Loan Application Amt./PFS Debt Amount (in Crores)" formControlName="pfsDebtAmount"
-                     required>
+                     maxlength="10" required>
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
               </mat-error>
@@ -159,7 +159,7 @@
 
             <mat-form-field fxFlex="33">
               <input matInput type="number" placeholder="Expected Sub Debt If Any (in Crores)"
-                     formControlName="expectedSubDebt">
+                     formControlName="expectedSubDebt" maxlength="10">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
               </mat-error>
@@ -167,7 +167,7 @@
 
             <mat-form-field fxFlex="34">
               <input matInput type="number" placeholder="PFS Sub Debt If Any (in Crores)"
-                     formControlName="pfsSubDebtAmount">
+                     formControlName="pfsSubDebtAmount" maxlength="10">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
               </mat-error>
@@ -176,7 +176,7 @@
 
           <div fxLayout="row">
             <mat-form-field fxFlex="100">
-              <input matInput placeholder="Purpose of Loan" formControlName="loanPurpose" required>
+              <input matInput placeholder="Purpose of Loan" formControlName="loanPurpose" required maxlength="60">
             </mat-form-field>
           </div>
 
@@ -186,7 +186,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="25">
-              <input matInput type="number" placeholder="Lead FI Loan Amount (in Crores)"
+              <input matInput type="number" placeholder="Lead FI Loan Amount (in Crores)" maxlength="10"
                      formControlName="leadFILoanAmount">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
@@ -194,7 +194,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="25">
-              <input matInput placeholder="Expected Rate of Interest (%)" formControlName="expectedInterestRate">
+              <input matInput placeholder="Expected Rate of Interest (%)" formControlName="expectedInterestRate" maxlength="5">
               <mat-error>
                 Provide numeric input b/w 1 and 99.99
               </mat-error>
@@ -277,7 +277,7 @@
 
           <div fxLayout="row">
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="Organization Name/ First Name" formControlName="partyName1"
+              <input matInput placeholder="Organization Name/ First Name" formControlName="partyName1" maxlength="60"
                      required>
               <mat-error>
                 Provide valid input
@@ -285,11 +285,11 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput placeholder="Other Name/ Last Name" formControlName="partyName2" >
+              <input matInput placeholder="Other Name/ Last Name" formControlName="partyName2" maxlength="60">
             </mat-form-field>
 
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="Contact Person" formControlName="contactPersonName" required>
+              <input matInput placeholder="Contact Person" formControlName="contactPersonName" required maxlength="60">
               <mat-error>
                 Provide valid input
               </mat-error>
@@ -302,7 +302,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput placeholder="Address" formControlName="addressLine2">
+              <input matInput placeholder="Address" formControlName="addressLine2" maxlength="60">
             </mat-form-field>
 
             <mat-form-field fxFlex="33">
@@ -339,14 +339,14 @@
           <div fxLayout="row">
 
             <mat-form-field fxFlex="34">
-              <input matInput placeholder="Contact Number" formControlName="contactNumber" required>
+              <input matInput placeholder="Contact Number" formControlName="contactNumber" required maxlength="12">
               <mat-error>
                 Provide valid input
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="PAN Number" formControlName="pan" maxlength="10" required>
+              <input matInput placeholder="PAN Number" formControlName="pan" maxlength="10" required maxlength="10">
               <mat-error>
                 Provide valid input (Uppercase text and numeric only)
               </mat-error>
@@ -355,7 +355,7 @@
 
           <div fxLayout="row">
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="Group Company (if any)" formControlName="groupCompany">
+              <input matInput placeholder="Group Company (if any)" formControlName="groupCompany" maxlength="60">
             </mat-form-field>
 
             <mat-form-field fxFlex="33">
@@ -399,18 +399,18 @@
           <div class="h2">Contact Details</div>
           <div fxLayout="row">
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="Branch Address" formControlName="contactBranchAddress">
+              <input matInput placeholder="Branch Address" formControlName="contactBranchAddress" maxlength="80">
             </mat-form-field>
 
             <mat-form-field fxFlex="33">
-              <input matInput type="text" placeholder="Designation" formControlName="contactDesignation">
+              <input matInput type="text" placeholder="Designation" formControlName="contactDesignation" maxlength="60">
               <mat-error>
                 Enter the designation
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput type="text" placeholder="Department" formControlName="contactDepartment">
+              <input matInput type="text" placeholder="Department" formControlName="contactDepartment" maxlength="60">
               <mat-error>
               </mat-error>
             </mat-form-field>
@@ -419,7 +419,7 @@
 
           <div fxLayout="row">
             <mat-form-field fxFlex="33">
-              <input matInput type="text" placeholder="Mobile" formControlName="contactTelePhone">
+              <input matInput type="text" placeholder="Mobile" formControlName="contactTelePhone" maxlength="12">
               <mat-error>
                 Enter the designation
               </mat-error>
@@ -432,7 +432,7 @@
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput placeholder="Email" formControlName="contactEmail" type="email" maxlength="200">
+              <input matInput placeholder="Email" formControlName="contactEmail" type="email" maxlength="120">
               <mat-error>
               </mat-error>
             </mat-form-field>
@@ -441,7 +441,7 @@
 
           <div fxLayout="row">
             <mat-form-field fxFlex="33">
-              <input matInput type="text" placeholder="FAX Number" formControlName="contactFaxNumber">
+              <input matInput type="text" placeholder="FAX Number" formControlName="contactFaxNumber" maxlength="12">
               <mat-error>
                 Enter the designation
               </mat-error>
@@ -453,29 +453,29 @@
 
           <div fxLayout="row">
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="Promoter Name" formControlName="promoterName">
+              <input matInput placeholder="Promoter Name" formControlName="promoterName" maxlength="60">
             </mat-form-field>
 
             <mat-form-field fxFlex="33">
-              <input matInput placeholder="Key Promoter" formControlName="promoterKeyDirector">
+              <input matInput placeholder="Key Promoter" formControlName="promoterKeyDirector" maxlength="60">
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput placeholder="Area of Business & Nature" formControlName="promoterAreaOfBusinessNature">
+              <input matInput placeholder="Area of Business & Nature" formControlName="promoterAreaOfBusinessNature" maxlength="60">
             </mat-form-field>
           </div>
 
 
           <div fxLayout="row">
             <mat-form-field fxFlex="33">
-              <input matInput type="number" placeholder="Net Worth in Cr" formControlName="promoterNetWorthAmount">
+              <input matInput type="number" placeholder="Net Worth in Cr" formControlName="promoterNetWorthAmount" maxlength="10">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="34">
-              <input matInput type="number" placeholder="PAT in Cr" formControlName="promoterPATAmount">
+              <input matInput type="number" placeholder="PAT in Cr" formControlName="promoterPATAmount" maxlength="10">
               <mat-error>
                 Provide numeric input b/w 1 and 9999.99
               </mat-error>

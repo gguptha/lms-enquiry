@@ -114,7 +114,7 @@ export class EnquiryApplicationComponent implements OnInit {
       loanClass: [''],
       financingType: [''],
       projectType: [''],
-      projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity), Validators.min(1), Validators.max(9999.99)]],
+      projectCapacity: ['', [Validators.pattern(EnquiryApplicationRegEx.projectCapacity), Validators.min(1), Validators.max(999999.99)]],
       projectCapacityUnit:[''],
       assistanceType: [''],
       tenorYear: ['', [Validators.pattern(EnquiryApplicationRegEx.tenorYear)]],

@@ -58,11 +58,11 @@
 
                 <div fxLayout="row">
                     <mat-form-field fxFlex="25">
-                        <input matInput placeholder="Name of the Project" formControlName="projectName">
+                        <input matInput placeholder="Name of the Project" formControlName="partyName">
                     </mat-form-field>
 
                   <mat-form-field fxFlex="25">
-                    <mat-select placeholder="Project Location (State)" formControlName="projectLocation"  >
+                    <mat-select placeholder="Project Location (State)" formControlName="projectLocationState"  >
                       <mat-option> </mat-option>
                       <mat-option *ngFor="let state of states" [value]="state.code">
                         {{ state.value }}
