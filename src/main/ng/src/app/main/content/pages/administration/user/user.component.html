@@ -18,6 +18,11 @@
                     [disabled]="!selectedUser.firstName">
                 Edit User
             </button>
+
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="resetPassword()"
+                    [disabled]="!selectedUser.firstName">
+                Reset Password
+            </button>
         </div>
         <!-- / TOOLBAR -->
 
