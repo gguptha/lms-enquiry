@@ -3,8 +3,10 @@ package pfs.lms.enquiry.domain;
 import lombok.*;
 import org.springframework.lang.Nullable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Setter
@@ -25,8 +27,10 @@ public class User extends AggregateRoot<User> {
     private String userName;
     private String sapBPNumber;
     private String riskDepartment;
+
     @Nullable
     private boolean departmentHead;
+    private boolean passwordReset;
 
     public User(String firstName, String lastName, String email, String role, boolean status, String userName, String sapBPNumber, String riskDepartment, boolean departmentHead) {
         this.firstName = firstName;
@@ -119,6 +123,15 @@ public class User extends AggregateRoot<User> {
 
     public void setDepartmentHead(@Nullable boolean departmentHead) {
         this.departmentHead = departmentHead;
+    }
+
+    public boolean isPasswordReset() {
+        return passwordReset;
+    }
+
+    public User setPasswordReset(boolean passwordReset) {
+        this.passwordReset = passwordReset;
+        return this;
     }
 
     @Value

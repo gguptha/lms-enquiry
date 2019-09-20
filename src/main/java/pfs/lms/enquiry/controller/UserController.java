@@ -28,6 +28,7 @@ import pfs.lms.enquiry.service.IUserService;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -90,14 +91,14 @@ public class UserController {
 
     @PutMapping("/password/modify")
     public ResponseEntity modifyPassword(@RequestBody SignupResource signupResource, Principal principal) {
+        // Update user password in oAuth service.
         String token = getAuthorizationBearer(principal);
         oAuthClient.modifyPassword(token, signupResource);
-
-
-//        Thread t = new Thread(passwordResetService.sendPasswordChangeNotificationMail(
-//                                signupResource.getEmail(), signupResource.getFirstName(), signupResource.getLastName()));
-//        t.start();
-
+        // Update password reset to false.
+        User user = userRepository.findByEmail(signupResource.getEmail());
+        user.setPasswordReset(false);
+        userRepository.save(user);
+        // Post update formalities.
         passwordResetService.sendPasswordChangeNotificationMail(signupResource.getEmail(), signupResource.getFirstName(), signupResource.getLastName());
         return ResponseEntity.ok().build();
     }
@@ -130,19 +131,24 @@ public class UserController {
     public ResponseEntity resetPassword(@RequestBody String emailId, Principal principal) {
 
         User user = userRepository.findByEmail(emailId);
-
         if (user != null) {
-            //String token = getAuthorizationBearer(principal);
+            // Generate the new random password.
             String newPassword = passwordResetService.sendMailWithNewPassword(user.getEmail(),
                     user.getFirstName(),
                     user.getLastName());
 
+            // Update user password by invoking the oAuth service method.
             SignupResource signupResource = new SignupResource(user.getFirstName(), user.getLastName(),
                     user.getEmail(), "", newPassword);
-            // modifyPassword(signupResource, principal);
             oAuthClient.resetPassword(signupResource);
+
+            // Update the user with passwordReset status as true.
+            user = user.setPasswordReset(true);
+            user = userRepository.save(user);
+
             return ResponseEntity.ok().build();
-        } else
+        }
+        else
             return ResponseEntity.noContent().build();
 
     }

@@ -11,7 +11,8 @@ export class UserModel
     status: boolean;
     riskDepartment: string;
     departmentHead: boolean;
-
+    passwordReset: boolean;
+    
     constructor(user: any)
     {
         if (user.firstName === undefined) {

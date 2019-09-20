@@ -30,6 +30,7 @@ import { APP_BASE_HREF } from '@angular/common';
  import {PartnerModule} from "./main/content/pages/administration/partner/partner.module";
 import { MailRepoComponent } from './main/content/pages/administration/mail-repo/mail-repo.component';
 import {MailRepoModule} from "./main/content/pages/administration/mail-repo/mail-repo.module";
+import { ChangePasswordModule } from './main/content/pages/changePassword/changePassword.module';
 
 const appRoutes: Routes = [
     {
@@ -83,6 +84,7 @@ const appRoutes: Routes = [
         UserModule,
         Register2Module,
         ForgotPassword2Module,
+        ChangePasswordModule,
         PartnerModule,
         MailRepoModule
     ],
