@@ -94,7 +94,7 @@ public class LoanApplicationContoller {
                 System.out.println(" Loan Application Applicant:" + loanApplication.getLoanApplicant());
 
                 if (loanApplication.getLoanApplicant() != null) {
-                    System.out.println(" Loan Applicant is not NULL:" + partnerRepository.getOne(loanApplication.getLoanApplicant()));
+                    System.out.println(" Loan Applicant is not NULL:" + partnerRepository.findById(loanApplication.getLoanApplicant()));
 
                     Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
                     resources.add(new LoanApplicationResource(loanApplication, partner));
