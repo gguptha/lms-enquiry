@@ -57,11 +57,18 @@ public class LoanApplicationContoller {
     {
         List<LoanApplication> loanApplications = null;
 
+
         User user;
-        if(request.getUserPrincipal().getName().equals("admin"))
+        if(request.getUserPrincipal().getName().equals("admin")) {
             user = userRepository.findByEmail("admin@gmail.com");
-        else
+        }
+        else {
             user = userRepository.findByEmail(request.getUserPrincipal().getName());
+        }
+
+        System.out.println(" Fetching loan application by status :" + status);
+        System.out.println(" User ROLE:" + user.getRole());
+
 
         if (user.getRole().equals("ZLM023") || user.getRole().equals("ZLM013") ||
                 user.getRole().equals("ZLM010")) {
@@ -79,8 +86,16 @@ public class LoanApplicationContoller {
         List<LoanApplicationResource> resources = new ArrayList<>(0);
         if (loanApplications != null) {
 
+            System.out.println(" Loan applications count :" + loanApplications.size());
+
             loanApplications.forEach(loanApplication -> {
+                System.out.println(" Loan Application :" + loanApplication.getLoanApplicant());
+
+                System.out.println(" Loan Application Applicant:" + loanApplication.getLoanApplicant());
+
                 if (loanApplication.getLoanApplicant() != null) {
+                    System.out.println(" Loan Applicant is not NULL:" + partnerRepository.getOne(loanApplication.getLoanApplicant()));
+
                     Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
                     resources.add(new LoanApplicationResource(loanApplication, partner));
                 }
