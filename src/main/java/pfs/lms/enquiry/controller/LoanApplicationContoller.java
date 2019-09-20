@@ -96,7 +96,7 @@ public class LoanApplicationContoller {
                 if (loanApplication.getLoanApplicant() != null) {
                     System.out.println(" Loan Applicant is not NULL:" + partnerRepository.findById(loanApplication.getLoanApplicant()));
 
-                    Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+                    Partner partner = (Partner) partnerRepository.findById(loanApplication.getLoanApplicant()).get();
                     resources.add(new LoanApplicationResource(loanApplication, partner));
                 }
             });
@@ -184,7 +184,7 @@ public class LoanApplicationContoller {
 
 
          loanApplication = loanApplicationRepository.getOne(resource.getLoanApplication().getId());
-         Partner partner = partnerRepository.getOne(resource.getPartner().getId());
+         Partner partner = partnerRepository.findById(resource.getPartner().getId()).get();
 //        BeanUtils.copyProperties(resource.getLoanApplication(), loanApplication,"id", "enquiryNo");
 //        BeanUtils.copyProperties(resource.getPartner(), partner,"id");
 //        resource = engine.onLoanApplicationApproved(LoanApplication.LoanApplicationApproved.of(loanApplication));
@@ -380,7 +380,7 @@ public class LoanApplicationContoller {
             System.out.println("Applicant Details    : " + loanApplication.getLoanApplicant());
 
             if (loanApplication.getLoanApplicant() != null) {
-                Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+                Partner partner = partnerRepository.findById(loanApplication.getLoanApplicant()).get();
                 if (partner == null) {
                     System.out.println("-------------- Partner is null for loan :" + loanApplication.getLoanContractId());
 

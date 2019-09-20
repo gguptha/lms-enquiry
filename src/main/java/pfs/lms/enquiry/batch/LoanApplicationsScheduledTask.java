@@ -67,7 +67,8 @@ public class LoanApplicationsScheduledTask {
 
         for (LoanApplication loanApplication: loanApplicationList) {
 
-            Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+            Partner partner = (Partner) partnerRepository.findById(loanApplication.getLoanApplicant()).get();
+
 
             System.out.println("-----------------------------------------------------------------------------------------------" );
             System.out.println("Attempting to Post Loan Application in SAP: Loan Application :" +loanApplication.getLoanEnquiryId());

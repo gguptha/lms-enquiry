@@ -46,7 +46,7 @@ public class LoanApplicationEngine {
     public LoanApplicationResource onLoanApplicationApproved(LoanApplication.LoanApplicationApproved loanApplicationApproved){
 
         LoanApplication loanApplication = loanApplicationApproved.getLoanApplication();
-        Partner partner = partnerRepository.getOne(loanApplication.getLoanApplicant());
+        Partner partner = partnerRepository.findById(loanApplication.getLoanApplicant()).get();
         SAPLoanApplicationDetailsResource detailsResource = new SAPLoanApplicationDetailsResource();
         detailsResource.setLoanApplicationId(Long.toString(loanApplication.getEnquiryNo().getId()));
         detailsResource.setPartnerExternalNumber("");
