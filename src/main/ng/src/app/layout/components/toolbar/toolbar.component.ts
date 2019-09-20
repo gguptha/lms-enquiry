@@ -10,6 +10,8 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { navigation } from 'app/navigation/navigation';
 import { AppService } from '../../../app.service';
 import { UserModel } from '../../../main/content/model/user.model';
+import { MatDialog } from '@angular/material';
+import { UpdatePasswordComponent } from 'app/main/content/pages/changePassword/updatePassword.component';
 
 @Component({
     selector: 'toolbar',
@@ -41,7 +43,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
-        private _appService: AppService
+        private _appService: AppService,
+        private _dialogRef: MatDialog
     ) {
         // Set the defaults
         this.userStatusOptions = [
@@ -164,5 +167,15 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     logout(): void {
         window.location.href = '/enquiry/logout';
+    }
+
+    invokePasswordChangeDialog(): void {
+        // Open the dialog.
+        const dialogRef = this._dialogRef.open(UpdatePasswordComponent, {
+            panelClass: 'fuse-update-password',
+            width: '500px'
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { });
     }
 }
