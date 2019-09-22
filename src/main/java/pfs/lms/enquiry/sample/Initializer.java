@@ -34,6 +34,8 @@ public class Initializer implements CommandLineRunner {
 
     private final UserRoleRepository userRoleRepository;
 
+    private final StateRepository stateRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -206,6 +208,86 @@ public class Initializer implements CommandLineRunner {
             userRoleRepository.saveAll(Arrays.asList(r1,r2,r3));
             log.info("Added User Roles");
         }
+
+
+        if (stateRepository.count() ==0){
+            State s1 = new State("01","Andra Pradesh");
+            State s2 = new State("02","Arunachal Pradesh");
+            State s3 = new State("03","Assam");
+            State s4 = new State("04","Bihar");
+            State s5 = new State("05","Goa");
+            State s6 = new State("06","Gujarat");
+            State s7 = new State("07","Haryana");
+            State s8 = new State("08","Himachal Pradesh");
+            State s9 = new State("09","Jammu und Kashmir");
+            State s10 = new State("10","Karnataka");
+            State s11 = new State("11","Kerala");
+            State s12 = new State("12","Madhya Pradesh");
+            State s13 = new State("13","Maharashtra");
+            State s14 = new State("14","Manipur");
+            State s15 = new State("15","Megalaya");
+            State s16 = new State("16","Mizoram");
+            State s17 = new State("17","Nagaland");
+            State s18 = new State("18","Orissa");
+            State s19 = new State("19","Punjab");
+            State s20 = new State("20","Rajasthan");
+            State s21 = new State("21","Sikkim");
+            State s22 = new State("22","Tamil Nadu");
+            State s23 = new State("23","Tripura");
+            State s24 = new State("24","Uttar Pradesh");
+            State s25 = new State("25","West Bengal");
+            State s26 = new State("26","Andaman and Nico.In.");
+            State s27 = new State("27","Chandigarh");
+            State s28 = new State("28","Dadra und Nagar Hav.");
+            State s29 = new State("29","Daman und Diu");
+            State s30 = new State("30","Delhi");
+            State s31 = new State("31","Lakshadweep");
+            State s32 = new State("32","Pondicherry");
+            State s33 = new State("33","Chhaattisgarh");
+            State s34 = new State("34","Jharkhand");
+            State s35 = new State("35","Uttaranchal");
+            State s36 = new State("36","Telangana");
+
+        stateRepository.saveAll(Arrays.asList(s1,
+                s2,
+                s3,
+                s4,
+                s5,
+                s6,
+                s7,
+                s8,
+                s9,
+                s10,
+                s11,
+                s12,
+                s13,
+                s14,
+                s15,
+                s16,
+                s17,
+                s18,
+                s19,
+                s20,
+                s21,
+                s22,
+                s23,
+                s24,
+                s25,
+                s26,
+                s27,
+                s28,
+                s29,
+                s30,
+                s31,
+                s32,
+                s33,
+                s34,
+                s35,
+                s36
+                ));
+        log.info("Added STATES");
+
+    }
 
     }
 }

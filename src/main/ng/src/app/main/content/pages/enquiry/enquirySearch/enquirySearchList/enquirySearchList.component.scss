@@ -6,3 +6,7 @@ mat-paginator.mat-paginator.paginator--centered {
   display: flex;
   justify-content: left;
 }
+
+.mat-cell, .mat-header-cell {
+  text-align: left;
+}

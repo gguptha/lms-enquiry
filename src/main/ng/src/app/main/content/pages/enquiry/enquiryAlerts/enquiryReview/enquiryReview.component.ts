@@ -69,7 +69,7 @@ export class EnquiryReviewComponent implements OnInit {
   user: UserModel = new UserModel({});
   email: string;
 
-  /**
+   /**
    * constructor()
    * @param _route
    * @param _formBuilder
@@ -88,6 +88,9 @@ export class EnquiryReviewComponent implements OnInit {
     this.loanApplication = _route.snapshot.data.routeResolvedData[5];
     //this.partner = _route.snapshot.data.routeResolvedData[8];
 
+    // Disable the Form
+    if ( this.loanApplication.functionalStatus >= 3){
+     }
 
     // Initialize partner.
     this.partner = new PartnerModel({});

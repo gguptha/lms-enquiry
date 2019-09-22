@@ -209,6 +209,14 @@ export class EnquiryApplicationComponent implements OnInit {
 
 
 
+  clearFrom(){
+    this.loanEnquiryFormStep1.reset();
+    this.loanEnquiryFormStep2.reset();
+    this.loanEnquiryFormStep3.reset();
+
+
+  }
+
   /**
    * ngOnInit()
    */

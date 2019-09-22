@@ -99,7 +99,7 @@ public class UserController {
         user.setPasswordReset(false);
         userRepository.save(user);
         // Post update formalities.
-        passwordResetService.sendPasswordChangeNotificationMail(signupResource.getEmail(), signupResource.getFirstName(), signupResource.getLastName());
+        passwordResetService.sendPasswordChangeNotificationMail(signupResource.getEmail(), user.getFirstName(), user.getLastName());
         return ResponseEntity.ok().build();
     }
 

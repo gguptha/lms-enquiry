@@ -75,8 +75,8 @@
                     </mat-error>
                 </mat-form-field>
 
-                <div class="terms" fxLayout="row" fxLayoutAlign="center center">
-                    <mat-checkbox name="terms" aria-label="Accept" required>
+                <div class="terms" fxLayout="row" fxLayoutAlign="center center" formControlName="termsAndConditionsCheck">
+                    <mat-checkbox name="terms" aria-label="Accept" required (change)="termsAndConditions($event)">
                         <span>Accept</span>
                     </mat-checkbox>
                     <a href="#">terms and conditions</a>

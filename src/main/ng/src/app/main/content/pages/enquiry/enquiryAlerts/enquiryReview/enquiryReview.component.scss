@@ -13,3 +13,7 @@ table {
   background-color: rgba(255, 140, 0, 1.0);
   color: #fff;
 }
+
+.disabledDiv {
+  pointer-events: none;
+  opacity: 0.4;   }

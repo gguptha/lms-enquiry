@@ -17,6 +17,7 @@ import pfs.lms.enquiry.mail.service.LoanNotificationService;
 import pfs.lms.enquiry.process.LoanApplicationEngine;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
+import pfs.lms.enquiry.repository.StateRepository;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.EnquiryRejectReason;
 import pfs.lms.enquiry.resource.LoanApplicationResource;
@@ -49,6 +50,8 @@ public class LoanApplicationContoller {
 
 
     private final LoanNotificationService loanNotificationService;
+
+    private final StateRepository stateRepository;
 
     @GetMapping("/loanApplications")
     public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
@@ -101,6 +104,14 @@ public class LoanApplicationContoller {
                 }
             });
         }
+
+        // Set the project location state name
+        for ( LoanApplicationResource loanApplicationResource : resources) {
+            if (loanApplicationResource.getLoanApplication().getProjectLocationState() != null)
+                loanApplicationResource.getLoanApplication().setProjectLocationState(
+                        stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
+        }
+
 
         return ResponseEntity.ok(resources);
     }
@@ -388,6 +399,13 @@ public class LoanApplicationContoller {
                 resources.add(new LoanApplicationResource(loanApplication, partner));
             }
         });
+
+        // Set the project location state name
+        for ( LoanApplicationResource loanApplicationResource : resources) {
+            if (loanApplicationResource.getLoanApplication().getProjectLocationState() != null)
+            loanApplicationResource.getLoanApplication().setProjectLocationState(
+                          stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
+        }
 
 
         System.out.println("-------------- All Loans Prepareed...... Ready for Return............. ");

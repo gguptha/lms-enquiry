@@ -7,6 +7,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { UserModel } from '../../model/user.model';
 import { RegisterService } from './register.service';
+import {MatSnackBar} from "@angular/material";
 
 @Component({
     selector   : 'register-2',
@@ -22,13 +23,16 @@ export class Register2Component implements OnInit, OnDestroy
 
     userEmail: string;
 
+    termsAndConditionsCheck: boolean = false;
+
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
-        private _registerService: RegisterService
+        private _registerService: RegisterService, private _matSnackBar: MatSnackBar
     )
     {
         // Configure the layout
@@ -78,6 +82,15 @@ export class Register2Component implements OnInit, OnDestroy
                 this.registerForm.get('passwordConfirm').updateValueAndValidity();
             });
     }
+  /**
+   * Terms and Conditions Check
+   */
+    termsAndConditions(values:any){
+
+      this.termsAndConditionsCheck = !this.termsAndConditionsCheck;
+
+  }
+
 
     /**
      * On destroy
@@ -92,8 +105,15 @@ export class Register2Component implements OnInit, OnDestroy
     /**
      * register()
      */
-    register(): void 
-    {
+    register(): void {
+
+      if (this.termsAndConditionsCheck == false ){
+        this._matSnackBar.open('Accept the Terms & Conditions to sign up', 'OK', { duration: 3000 });
+
+        return;
+      }
+
+
         const user: UserModel = new UserModel(this.registerForm.value);
         this._registerService.register(user).subscribe((response) => {
             this.userEmail = this.registerForm.value.email;

@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { EnquiryAlertsService } from '../enquiryAlerts/enquiryAlerts.service';
 import { BehaviorSubject } from 'rxjs';
 import { EnquiryApplicationModel } from 'app/main/content/model/enquiryApplication.model';
-import {MatPaginator} from "@angular/material";
+import {MatPaginator, MatSnackBar} from "@angular/material";
 
 @Component({
     selector: 'fuse-enquiry-search',
@@ -39,7 +39,7 @@ export class EnquirySearchComponent {
      */
     constructor(_route: ActivatedRoute,_formBuilder: FormBuilder,
                  public _service: LoanEnquiryService, private _router: Router,
-                private _enquiryAlertsService: EnquiryAlertsService) {
+                private _enquiryAlertsService: EnquiryAlertsService,private _matSnackBar: MatSnackBar) {
 
         this.enquirySearchForm = _formBuilder.group({
             enquiryNoFrom: [],
@@ -70,7 +70,46 @@ export class EnquirySearchComponent {
      * searchEnquiries()
      */
     searchEnquiries(): void {
-        this._service.searchLoanEnquiries(this.enquirySearchForm.value).subscribe((result) => {
+
+      this._matSnackBar.dismiss();
+
+      const enquirySearchParameters = this.enquirySearchForm.value;
+
+      if (enquirySearchParameters.enquiryDateFrom == undefined &&
+        enquirySearchParameters.enquiryNoFrom == undefined  &&
+        enquirySearchParameters.partyName == undefined  &&
+        enquirySearchParameters.enquiryNoFrom == undefined  &&
+        enquirySearchParameters.projectLocationState == undefined  &&
+        enquirySearchParameters.loanClass == undefined  &&
+        enquirySearchParameters.projectType == undefined  &&
+        enquirySearchParameters.financingType == undefined  &&
+        enquirySearchParameters.assistanceType == undefined ) {
+        this._matSnackBar.open('Error: Enter at least one search parameter', 'OK', { duration: 7000 });
+
+        return;
+      }
+
+      //Check if from date is empty
+      if (enquirySearchParameters.enquiryDateFrom == '' ||
+          enquirySearchParameters.enquiryDateFrom == undefined &&
+          enquirySearchParameters.enquiryDateTo != undefined) {
+        this._matSnackBar.open('Error: From Date is not entered. Please enter the from date', 'OK', { duration: 7000 });
+
+        return;
+      }
+
+      //Check if To Date is greater than From Date
+      let dateFrom = new Date(enquirySearchParameters.enquiryDateFrom);
+      let dateTo = new Date(enquirySearchParameters.enquiryDateTo);
+
+      if (dateTo < dateFrom){
+        this._matSnackBar.open('Error: To Date is less than From Date', 'OK', { duration: 7000 });
+        return;
+      }
+
+
+
+      this._service.searchLoanEnquiries(this.enquirySearchForm.value).subscribe((result) => {
             const enquiryApplications = new Array<EnquiryApplicationModel>();
             result.map(loanApplicationResourceModel => {
                 enquiryApplications.push(new EnquiryApplicationModel(loanApplicationResourceModel));
