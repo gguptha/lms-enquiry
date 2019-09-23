@@ -108,9 +108,11 @@ public class LoanApplicationContoller {
         // Set the project location state name
         for ( LoanApplicationResource loanApplicationResource : resources) {
             if (loanApplicationResource.getLoanApplication().getProjectLocationState() != null)
-                loanApplicationResource.getLoanApplication().setProjectLocationState(
-                        stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
-        }
+                if (loanApplicationResource.getLoanApplication().getProjectLocationState().length() == 2) {
+                    loanApplicationResource.getLoanApplication().setProjectLocationState(
+                            stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
+                }
+            }
 
 
         return ResponseEntity.ok(resources);
@@ -312,6 +314,13 @@ public class LoanApplicationContoller {
 
         System.out.println("Loans Search Intermin Results: " + loanApplications );
 
+        // IF state name is passed, get the code and vice versa
+        if (resource.getProjectLocationState() != null || resource.getProjectLocationState() != "" ) {
+            if (resource.getProjectLocationState().length() == 2) {
+                resource.setProjectLocationState(stateRepository.findByCode(resource.getProjectLocationState()).getName());
+            }
+        }
+
 
         if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null) {
             loanApplications = loanApplications.stream()
@@ -403,8 +412,11 @@ public class LoanApplicationContoller {
         // Set the project location state name
         for ( LoanApplicationResource loanApplicationResource : resources) {
             if (loanApplicationResource.getLoanApplication().getProjectLocationState() != null)
-            loanApplicationResource.getLoanApplication().setProjectLocationState(
-                          stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
+                if (loanApplicationResource.getLoanApplication().getProjectLocationState().length() == 2) {
+                    loanApplicationResource.getLoanApplication().setProjectLocationState(
+                            stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
+                }
+
         }
 
 
