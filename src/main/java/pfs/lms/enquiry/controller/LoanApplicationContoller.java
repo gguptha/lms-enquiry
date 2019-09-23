@@ -316,7 +316,7 @@ public class LoanApplicationContoller {
 
         // IF state name is passed, get the code and vice versa
         if (resource.getProjectLocationState().length() == 2 ){
-            resource.setProjectLocationState(stateRepository.findByCode(resource.getProjectLocationState()).getCode());
+            resource.setProjectLocationState(stateRepository.findByCode(resource.getProjectLocationState()).getName());
         }
 
 
