@@ -315,7 +315,8 @@ public class LoanApplicationContoller {
         System.out.println("Loans Search Intermin Results: " + loanApplications );
 
         // IF state name is passed, get the code and vice versa
-        if (resource.getProjectLocationState() != null || resource.getProjectLocationState() != "" ) {
+        System.out.println("SEARCH LOAN APPLICATIONS : " + resource.getProjectLocationState());
+        if (resource.getProjectLocationState() != null || resource.getProjectLocationState() != "" || resource.getProjectLocationState() != " " ) {
             if (resource.getProjectLocationState().length() == 2) {
                 resource.setProjectLocationState(stateRepository.findByCode(resource.getProjectLocationState()).getName());
             }
