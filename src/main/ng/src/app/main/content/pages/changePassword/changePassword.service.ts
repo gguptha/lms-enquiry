@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AppService } from 'app/app.service';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ChangePasswordService 
@@ -16,6 +18,14 @@ export class ChangePasswordService
             'password': password,
             'email': this._appService.currentUser.email
         };
-        return this._http.put<any>('enquiry/api/password/modify', request);
+        return this._http.put<any>('enquiry/api/password/modify', request).catch(this.errorHandler);
+    }
+
+    /**
+     * errorHandler()
+     * @param error 
+     */
+    errorHandler(error: HttpErrorResponse): Observable<any> {
+        return Observable.throw(error.error.message || 'Service error occured.');
     }
 }

@@ -31,8 +31,6 @@ export class AppService implements CanActivate {
 
         return new Observable<boolean>((observer) => {
             this._http.get<UserModel>('enquiry/api/me').subscribe(response => {
-                console.log(response);
-                //alert('In App.Service.ts........CanActivate')
                 this.currentUser = response;
                 if (this.currentUser.role === 'TR0100') {
                     this._router.navigate(['enquiryApplication']);

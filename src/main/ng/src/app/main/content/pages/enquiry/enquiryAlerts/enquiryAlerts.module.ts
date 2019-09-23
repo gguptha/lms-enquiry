@@ -14,6 +14,7 @@ import { EnquiryRejectDialogComponent } from './enquiryReject/enquiryReject.comp
 import { AppService } from '../../../../../app.service';
 import { EnquiryApprovalDialogComponent } from './enquiryApproval/enquiryApproval.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { EnquiryApplicationRouteGuard } from 'app/enquiryApplication.guard';
 
 const routes = [
     {
@@ -21,7 +22,10 @@ const routes = [
         component : EnquiryAlertsComponent,
         resolve   : {
             routeResolvedData: EnquiryAlertsService
-        }
+        },
+        canActivate: [
+          EnquiryApplicationRouteGuard
+        ]
     },
     {
         path      : 'enquiryReview',

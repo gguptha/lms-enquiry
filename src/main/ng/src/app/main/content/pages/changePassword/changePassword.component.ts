@@ -6,6 +6,8 @@ import { fuseAnimations } from '@fuse/animations';
 import { MatSnackBar } from '@angular/material';
 import { ChangePasswordService } from './changePassword.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'change-password',
@@ -16,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class ChangePasswordComponent implements OnInit {
     forgotPasswordForm: FormGroup;
+
+    _unsubscribeAll: Subject<any>;
 
     /**
      * Constructor
@@ -45,6 +49,9 @@ export class ChangePasswordComponent implements OnInit {
                 }
             }
         };
+
+        // Set the private defaults
+        this._unsubscribeAll = new Subject();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -59,6 +66,14 @@ export class ChangePasswordComponent implements OnInit {
             password        : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
             passwordConfirm : ['', [Validators.required, confirmPasswordValidator]]
         });
+
+        // Update the validity of the 'passwordConfirm' field
+        // when the 'password' field changes
+        this.forgotPasswordForm.get('password').valueChanges
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(() => {
+                this.forgotPasswordForm.get('passwordConfirm').updateValueAndValidity();
+            });      
     }
 
     /**
@@ -70,6 +85,15 @@ export class ChangePasswordComponent implements OnInit {
                 duration: 7000
             });
             this._router.navigate(['enquiryApplication']);
+        },
+        (error: string) => {
+            // Show a snack.
+            if (error.startsWith('status 412 reading OAuthClient#modifyPassword')) {
+                this._matSnackBar.open('Password cannot be the same as the previous 3 passwords', 'OK', { duration: 7000 });
+            }
+            else {
+                this._matSnackBar.open(error, 'OK', { duration: 7000 });
+            }
         });
     }
 }

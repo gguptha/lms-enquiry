@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, Valid
 import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { ChangePasswordService } from './changePassword.service';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'fuse-update-password',
@@ -18,6 +20,9 @@ export class UpdatePasswordComponent implements OnInit {
 
     updatePasswordForm: FormGroup;
 
+    // Private
+    private _unsubscribeAll: Subject<any>;
+    
     constructor(_formBuilder: FormBuilder, public _dialogRef: MatDialogRef<UpdatePasswordComponent>, private _passwordService: ChangePasswordService,
         private _matSnackBar: MatSnackBar) {
 
@@ -25,9 +30,19 @@ export class UpdatePasswordComponent implements OnInit {
             password        : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
             passwordConfirm : ['', [Validators.required, confirmPasswordValidator]]
         });
+
+        // Set the private defaults
+        this._unsubscribeAll = new Subject();
     }
 
     ngOnInit(): void {
+        // Update the validity of the 'passwordConfirm' field
+        // when the 'password' field changes
+        this.updatePasswordForm.get('password').valueChanges
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(() => {
+                this.updatePasswordForm.get('passwordConfirm').updateValueAndValidity();
+            });    
     }
 
     submit(): void {
@@ -36,6 +51,15 @@ export class UpdatePasswordComponent implements OnInit {
                 duration: 7000
             });
             this._dialogRef.close();
+        },
+        (error: string) => {
+            // Show a snack.
+            if (error.startsWith('status 412 reading OAuthClient#modifyPassword')) {
+                this._matSnackBar.open('Password cannot be the same as the previous 3 passwords', 'OK', { duration: 7000 });
+            }
+            else {
+                this._matSnackBar.open(error, 'OK', { duration: 7000 });
+            }
         });
     }
 }

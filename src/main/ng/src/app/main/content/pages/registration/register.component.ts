@@ -107,7 +107,7 @@ export class Register2Component implements OnInit, OnDestroy
      */
     register(): void {
 
-      if (this.termsAndConditionsCheck == false ){
+      if (this.termsAndConditionsCheck === false ){
         this._matSnackBar.open('Accept the Terms & Conditions to sign up', 'OK', { duration: 3000 });
 
         return;
@@ -119,6 +119,9 @@ export class Register2Component implements OnInit, OnDestroy
             this.userEmail = this.registerForm.value.email;
             this.registerForm.reset();
             this.displayForm = false;
+        }, 
+        (error) => {
+            this._matSnackBar.open('User already exists or other errors occured.', 'OK', { duration: 7000 });
         });
     }
 }
