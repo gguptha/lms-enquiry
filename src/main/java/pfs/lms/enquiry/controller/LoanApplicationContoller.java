@@ -314,6 +314,11 @@ public class LoanApplicationContoller {
 
         System.out.println("Loans Search Intermin Results: " + loanApplications );
 
+        // IF state name is passed, get the code and vice versa
+        if (resource.getProjectLocationState().length() == 2 ){
+            resource.setProjectLocationState(stateRepository.findByCode(resource.getProjectLocationState()).getCode());
+        }
+
 
         if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null) {
             loanApplications = loanApplications.stream()
