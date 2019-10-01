@@ -169,8 +169,8 @@ public class PartnerService implements IPartnerService {
         }
 
 
-        if (partnerNumberTo != 0) {
-            partyNumberTo = partyNumberFrom;
+        if (partnerNumberTo == 0) {
+            partnerNumberTo = partnerNumberFrom;
         }
 
 

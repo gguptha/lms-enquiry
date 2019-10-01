@@ -30,7 +30,7 @@ public class SapPfsApplicationTests {
 		EnquiryNo enquiryNo = new EnquiryNo();
 		enquiryNo.setId(new Long(11));
 		LoanApplication loanApplication = loanApplicationRepository.findByEnquiryNo(enquiryNo);
-		System.out.println(loanApplication.getLoanEnquiryDate());
+		//System.out.println(loanApplication.getLoanEnquiryDate());
 	}
 
 	@Test

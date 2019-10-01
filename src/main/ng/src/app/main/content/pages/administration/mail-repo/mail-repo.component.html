@@ -54,14 +54,14 @@
 
   <!-- / SEARCH Results-->
 
-  <div class="mat-table-container" style="width: 100%">
+  <div class="mat-table-container" style="width: 98%; margin:10px;">
     <!-- <mat-table class="enquiries-table" #table [dataSource]="dataSource" *fuseIfOnDom [@animateStagger]="{value:'50'}" fusePerfectScrollbar> -->
     <mat-table class="emails-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
 
       <!-- Id -->
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header  fxFlex="10">Id</mat-header-cell>
-        <mat-cell *matCellDef="let mailObject" fxFlex="10">
+        <mat-header-cell *matHeaderCellDef mat-sort-header  fxFlex="5">Id</mat-header-cell>
+        <mat-cell *matCellDef="let mailObject" fxFlex="5">
           <p class="text-truncate">{{ mailObject.id}}</p>
         </mat-cell>
       </ng-container>
@@ -92,8 +92,8 @@
       </ng-container>
       <!-- sendingApp  -->
       <ng-container matColumnDef="sendingApp">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10">Sending Application</mat-header-cell>
-        <mat-cell *matCellDef="let mailObject"fxFlex="10">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15">Sending Appl.</mat-header-cell>
+        <mat-cell *matCellDef="let mailObject"fxFlex="15">
           <p class="text-truncate">{{ mailObject.sendingApp  }}</p>
         </mat-cell>
       </ng-container>

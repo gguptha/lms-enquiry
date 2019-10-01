@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {PartnerModel} from "../../../../model/partner.model";
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
+import {MatPaginator, MatSnackBar, MatSort, MatTableDataSource} from "@angular/material";
 import {BehaviorSubject} from "rxjs/Rx";
 import { fuseAnimations } from '@fuse/animations';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -54,7 +54,7 @@ export class PartnerComponent implements OnInit {
   pageSizeOptions: number[] = [10, 25, 50, 100];
 
 
-  constructor(private _service: PartnerService,_formBuilder: FormBuilder, private _router: Router) {
+  constructor(private _service: PartnerService,_formBuilder: FormBuilder, private _router: Router,private _matSnackBar: MatSnackBar) {
     this.partnerSearchForm = _formBuilder.group({
       partnerName: [],
       email: [],
@@ -83,8 +83,30 @@ export class PartnerComponent implements OnInit {
                                            searchForm.partnerNumberTo];
 
 
+    //Check if from search parameters are is empty
+    if ( searchForm.partnerName == undefined &&
+         searchForm.email == undefined &&
+         searchForm.partnerNumberFrom == undefined &&
+         searchForm.partnerNumberTo == undefined) {
+      this._matSnackBar.open('Error: Enter at least one search parameter', 'OK', { duration: 7000 });
+
+      return;
+    }
+    // Check if Partner number to is lesser than partner number from
+    if (searchForm.partnerNumberTo) {
+      if (searchForm.partnerNumberTo < searchForm.partnerNumberFrom) {
+        this._matSnackBar.open('Error: Partner Number To is less than Partner Number From', 'OK', {duration: 7000});
+        return;
+      }
+    }
+
+
     this._service.getPartners(searchParameters).subscribe((result) => {
       const partners = new Array<PartnerModel>();
+      if (result.length == 0 ){
+        this._matSnackBar.open('No business partners found', 'OK', {duration: 2000});
+        return;
+      }
 
       result.map(partnerResourceModel => {
         // console.log("RESULT:" + partnerResourceModel);

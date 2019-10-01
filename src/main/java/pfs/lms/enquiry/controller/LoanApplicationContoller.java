@@ -89,15 +89,15 @@ public class LoanApplicationContoller {
         List<LoanApplicationResource> resources = new ArrayList<>(0);
         if (loanApplications != null) {
 
-            System.out.println(" Loan applications count :" + loanApplications.size());
+            //System.out.println(" Loan applications count :" + loanApplications.size());
 
             loanApplications.forEach(loanApplication -> {
-                System.out.println(" Loan Application :" + loanApplication.getLoanApplicant());
+                //System.out.println(" Loan Application :" + loanApplication.getLoanApplicant());
 
                 System.out.println(" Loan Application Applicant:" + loanApplication.getLoanApplicant());
 
                 if (loanApplication.getLoanApplicant() != null) {
-                    System.out.println(" Loan Applicant is not NULL:" + partnerRepository.findById(loanApplication.getLoanApplicant()));
+                   // System.out.println(" Loan Applicant is not NULL:" + partnerRepository.findById(loanApplication.getLoanApplicant()));
 
                     Partner partner = (Partner) partnerRepository.findById(loanApplication.getLoanApplicant()).get();
                     resources.add(new LoanApplicationResource(loanApplication, partner));
