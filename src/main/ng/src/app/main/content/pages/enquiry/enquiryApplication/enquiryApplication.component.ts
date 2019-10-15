@@ -186,7 +186,7 @@ export class EnquiryApplicationComponent implements OnInit {
       contactDepartment: [''],
       contactTelePhone: [''],
       contactLandLinePhone: [''],
-      contactEmail: [''],
+      contactEmail: ['',[Validators.pattern(EnquiryApplicationRegEx.email)]],
       contactFaxNumber: ['']
     });
 

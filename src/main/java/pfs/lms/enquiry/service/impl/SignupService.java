@@ -2,6 +2,7 @@ package pfs.lms.enquiry.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,11 +11,15 @@ import pfs.lms.enquiry.client.OAuthClient;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.exception.LmsException;
+import pfs.lms.enquiry.mail.domain.MailObject;
+import pfs.lms.enquiry.mail.service.EmailService;
 import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.resource.SignupResource;
 import pfs.lms.enquiry.resource.UserResource;
 import pfs.lms.enquiry.service.IPartnerService;
 import pfs.lms.enquiry.service.ISignupService;
+
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -27,6 +32,10 @@ public class SignupService implements ISignupService {
     private final OAuthClient oAuthClient;
 
     private final IPartnerService iPartnerService;
+
+
+    @Autowired
+    EmailService emailService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -53,6 +62,8 @@ public class SignupService implements ISignupService {
         partner.setPartyName2(signupResource.getLastName());
         partner.setPartyRole("TR0100");
         iPartnerService.save(partner);
+
+        this.sendSignUpNotificationMail(signupResource.getEmail(),signupResource.getFirstName(),signupResource.getLastName());
 
     }
 
@@ -85,6 +96,38 @@ public class SignupService implements ISignupService {
 
     }
 
+    @Override
+    public String sendSignUpNotificationMail(String emailId, String fName, String lName) {
+        String line1 = "Dear" + " " + fName + " " + lName + System.lineSeparator();
+        String line2 = "   Welcome! You are signed up on PTC Financial Services Portal." + System.lineSeparator();
+        String line3 = "     " + System.lineSeparator() ;
+        String line4 = "    " + System.lineSeparator();
+        String line5 = "Regards," + System.lineSeparator() + "PTC Financial Services";
+        String content = line1 + line2 + line3 + line4 + line5  ;
+
+        MailObject mailObject = new MailObject();
+        mailObject.setSendingApp("PFS Portal");
+        mailObject.setAppObjectId(" ");
+        mailObject.setToAddress(emailId);
+        mailObject.setSubject("PTC Financial Services Portal Signup ");
+        mailObject.setMailContent(content);
+
+        //emailService.sendEmailMessage(mailObject);
+
+//        new Thread(() -> {
+//            // code goes here.
+//            emailService.sendEmailMessage(mailObject);
+//        }).start();
+//
+
+        CompletableFuture.runAsync(() -> {
+            // method call or code to be asynch.
+            emailService.sendEmailMessage(mailObject);
+
+        });
+
+        return null;
+    }
 
     @Override
     public ResponseEntity verify(String activation) {

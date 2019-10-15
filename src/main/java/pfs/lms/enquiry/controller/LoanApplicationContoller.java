@@ -28,6 +28,8 @@ import pfs.lms.enquiry.service.ISAPIntegrationService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +60,7 @@ public class LoanApplicationContoller {
                               @PageableDefault(sort = "UNSORTED", size = 9999, direction = Sort.Direction.DESC) Pageable pageable)
                                                      //Pageable pageable)
     {
-        List<LoanApplication> loanApplications = null;
+        List<LoanApplication> loanApplications = new ArrayList<LoanApplication>();
 
 
         User user;
@@ -69,8 +71,8 @@ public class LoanApplicationContoller {
             user = userRepository.findByEmail(request.getUserPrincipal().getName());
         }
 
-        System.out.println(" Fetching loan application by status :" + status);
-        System.out.println(" User ROLE:" + user.getRole());
+        //System.out.println(" Fetching loan application by status :" + status);
+        //System.out.println(" User ROLE:" + user.getRole());
 
 
         if (user.getRole().equals("ZLM023") || user.getRole().equals("ZLM013") ||
@@ -86,17 +88,33 @@ public class LoanApplicationContoller {
                 loanApplications = loanApplicationRepository.findByLoanApplicant(partner.getId(), pageable).getContent();
         }
 
+        if (loanApplications.size() > 0) {
+
+//           loanApplications.sort(Comparator.comparing(LoanApplication::getProjectName));
+//
+//            Collections.sort(loanApplications, new Comparator<LoanApplication>() {
+//                @Override
+//                public int compare(LoanApplication l1, LoanApplication l2) {
+//                    return l1.getLoanEnquiryId().compareTo(l2.getLoanEnquiryId());
+//                }
+//            });
+        }
+
+
         List<LoanApplicationResource> resources = new ArrayList<>(0);
-        if (loanApplications != null) {
+        if (loanApplications.size() > 0) {
 
             //System.out.println(" Loan applications count :" + loanApplications.size());
 
             loanApplications.forEach(loanApplication -> {
                 //System.out.println(" Loan Application :" + loanApplication.getLoanApplicant());
 
-                System.out.println(" Loan Application Applicant:" + loanApplication.getLoanApplicant());
+                //System.out.println(" Loan Application Applicant:" + loanApplication.getLoanApplicant());
 
-                if (loanApplication.getLoanApplicant() != null) {
+                if (loanApplication.getLoanApplicant() != null &&
+                            ( loanApplication.getPostedInSAP() == null ||
+                                    loanApplication.getPostedInSAP() == 0 ||
+                                        loanApplication.getPostedInSAP() == 2) ) {
                    // System.out.println(" Loan Applicant is not NULL:" + partnerRepository.findById(loanApplication.getLoanApplicant()));
 
                     Partner partner = (Partner) partnerRepository.findById(loanApplication.getLoanApplicant()).get();
@@ -192,7 +210,7 @@ public class LoanApplicationContoller {
 
         //Set Technical Status to 4 - "Approved"
         resource.getLoanApplication().setTechnicalStatus(4);
-        resource.getLoanApplication().setPostedInSAP(0);
+        resource.getLoanApplication().setPostedInSAP(4); //Approved but not Posted in SAP Yet
         LoanApplication loanApplication = loanApplicationService.save(resource, httpServletRequest.getUserPrincipal().getName());
 
 
@@ -217,7 +235,8 @@ public class LoanApplicationContoller {
                                  @RequestBody EnquiryRejectReason enquiryRejectReason,
                                  HttpServletRequest request) {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
-        loanApplication.reject(enquiryRejectReason.getRejectReason(), partner);
+        loanApplication.setTechnicalStatus(6);
+        loanApplication.reject(enquiryRejectReason.getRejectionCategory(),enquiryRejectReason.getRejectReason(), partner);
         loanApplication = loanApplicationRepository.save(loanApplication);
 
         loanNotificationService.sendRejectNotification(
@@ -232,6 +251,8 @@ public class LoanApplicationContoller {
         Partner partner = partnerRepository.findByUserName(request.getUserPrincipal().getName());
         // Set functional status to 9 (cancelled).
         loanApplication.setFunctionalStatus(9);
+        loanApplication.setTechnicalStatus(5);
+
         loanApplication = loanApplicationRepository.save(loanApplication);
 
         loanNotificationService.sendCancelNotification(
@@ -309,10 +330,10 @@ public class LoanApplicationContoller {
                                  @PageableDefault(sort = "loanContractId", size = 9999, direction = Sort.Direction.DESC) Pageable pageable)
     {
         //List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationRepository.findAll(pageable).getContent());
-        System.out.println("Search Loans............: search resource: " + resource);
+        //System.out.println("Search Loans............: search resource: " + resource);
         List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationService.searchLoans(request,pageable));
 
-        System.out.println("Loans Search Intermin Results: " + loanApplications );
+        //System.out.println("Loans Search Intermin Results: " + loanApplications );
 
         // IF state name is passed, get the code and vice versa
 //        System.out.println("SEARCH LOAN APPLICATIONS : " + resource.getProjectLocationState());
@@ -375,6 +396,9 @@ public class LoanApplicationContoller {
         if (resource.getAssistanceType() != null)
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getAssistanceType().equals(resource.getAssistanceType())).collect(Collectors.toList());
 
+        if (resource.getTechnicalStatus() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getTechnicalStatus() == Integer.parseInt(resource.getTechnicalStatus())).collect(Collectors.toList());
+
         User user;
         if(request.getUserPrincipal().getName().equals("admin")) {
             user = userRepository.findByEmail("admin@gmail.com");
@@ -394,18 +418,40 @@ public class LoanApplicationContoller {
         List<LoanApplicationResource> resources = new ArrayList<>(0);
 
 
-        System.out.println("-------------- Loans Applications Count :" + loanApplications.size());
+       // System.out.println("-------------- Loans Applications Count :" + loanApplications.size());
 
         loanApplications.forEach(loanApplication -> {
-            System.out.println("Loan Contract Id     : " + loanApplication.getLoanContractId());
-            System.out.println("Applicant Details    : " + loanApplication.getLoanApplicant());
+            //System.out.println("Loan Contract Id     : " + loanApplication.getLoanContractId());
+            //System.out.println("Applicant Details    : " + loanApplication.getLoanApplicant());
 
             if (loanApplication.getLoanApplicant() != null) {
                 Partner partner = partnerRepository.findById(loanApplication.getLoanApplicant()).get();
                 if (partner == null) {
-                    System.out.println("-------------- Partner is null for loan :" + loanApplication.getLoanContractId());
-
+                    //System.out.println("-------------- Partner is null for loan :" + loanApplication.getLoanContractId());
                 }
+                if (loanApplication.getTechnicalStatus() != null) {
+                    switch (loanApplication.getTechnicalStatus()) {
+                        case 0:
+                            loanApplication.setTechnicalStatusDescription("Created");
+                            break;
+                        case 1:
+                            loanApplication.setTechnicalStatusDescription("Modified");
+                            break;
+                        case 2:
+                            loanApplication.setTechnicalStatusDescription("Submitted");
+                            break;
+                        case 3:
+                            loanApplication.setTechnicalStatusDescription("Approved");
+                            break;
+                        case 4:
+                            loanApplication.setTechnicalStatusDescription("Cancelled");
+                            break;
+                        case 5:
+                            loanApplication.setTechnicalStatusDescription("Rejected");
+                            break;
+                    }
+                }
+
                 resources.add(new LoanApplicationResource(loanApplication, partner));
             }
         });
@@ -421,7 +467,7 @@ public class LoanApplicationContoller {
         }
 
 
-        System.out.println("-------------- All Loans Prepareed...... Ready for Return............. ");
+        //System.out.println("-------------- All Loans Prepareed...... Ready for Return............. ");
 
         return ResponseEntity.ok(resources);
     }

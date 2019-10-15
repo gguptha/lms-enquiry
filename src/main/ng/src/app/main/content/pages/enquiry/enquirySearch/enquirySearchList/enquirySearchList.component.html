@@ -5,11 +5,19 @@
 
         <!-- functionalStatus Column -->
         <ng-container matColumnDef="functionalStatusDescription">
-            <mat-header-cell *matHeaderCellDef mat-sort-header > Status</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Process Status</mat-header-cell>
             <mat-cell *matCellDef="let enquiry" >
                 <p class="text-truncate">{{ enquiry.functionalStatusDescription }}</p>
             </mat-cell>
         </ng-container>
+
+      <!-- Technical Status Column -->
+      <ng-container matColumnDef="technicalStatusDescription">
+        <mat-header-cell *matHeaderCellDef mat-sort-header >Status</mat-header-cell>
+        <mat-cell *matCellDef="let enquiry" >
+          <p class="text-truncate">{{ enquiry.technicalStatusDescription }}</p>
+        </mat-cell>
+      </ng-container>
 
         <!-- createdOn Column -->
         <ng-container matColumnDef="createdOn">

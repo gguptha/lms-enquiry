@@ -42,6 +42,8 @@ public class UserService implements IUserService {
         Integer index = 0;
 
         List<User> users = new ArrayList<>();
+        List<User> usersContaining = new ArrayList<>();
+
 
         for (String parameter:searchParameters) {
 
@@ -68,14 +70,20 @@ public class UserService implements IUserService {
 
         if (firstName != null && lastName == null) {
             users = userRepository.findByFirstNameStartingWith(firstName);
+            usersContaining = userRepository.findByFirstNameContaining(firstName);
+
         }
 
         if (firstName == null && lastName != null) {
             users = userRepository.findByLastNameStartingWith(lastName);
+            usersContaining = userRepository.findByLastNameContaining(lastName);
+
         }
 
         if (firstName != null && lastName != null) {
             users = userRepository.findByFirstNameStartingWithAndLastNameStartingWith(firstName, lastName);
+            usersContaining = userRepository.findByFirstNameStartingWithAndLastNameContaining(firstName, lastName);
+
         }
 
         if (email != null && role == null)
@@ -95,7 +103,9 @@ public class UserService implements IUserService {
             user.setRoleDescription(userRoleRepository.findByCode(user.getRole()).getValue());
         }
 
-
+        users.removeAll(usersContaining);
+        usersContaining.removeAll(users);
+        users.addAll(usersContaining);
         return users;
     }
 

@@ -24,12 +24,12 @@ export class EnquirySearchComponent {
 
     expandPanel = true;
 
-  loanClasses: Array<any>;
-  financingTypes: Array<any>;
-  projectTypes: Array<any>;
-  assistanceTypes: Array<any>;
-  states: Array<string>;
-
+    loanClasses: Array<any>;
+    financingTypes: Array<any>;
+    projectTypes: Array<any>;
+    assistanceTypes: Array<any>;
+    states: Array<string>;
+    technicalStatuses: Array<any>;
    /**
      *
      * @param _formBuilder
@@ -51,7 +51,8 @@ export class EnquirySearchComponent {
             loanClass: [],
             projectType: [],
             financingType: [],
-            assistanceType: []
+            assistanceType: [],
+            technicalStatus:[]
         });
 
         _service.selectedLoanApplicationId = undefined;
@@ -63,6 +64,7 @@ export class EnquirySearchComponent {
      this.projectTypes = _route.snapshot.data.routeResolvedData[2]._embedded.projectTypes;
      this.states = _route.snapshot.data.routeResolvedData[3];
      this.assistanceTypes = _route.snapshot.data.routeResolvedData[4]._embedded.assistanceTypes;
+     this.technicalStatuses = _route.snapshot.data.routeResolvedData[9];
 
      }
 
@@ -83,7 +85,8 @@ export class EnquirySearchComponent {
         enquirySearchParameters.loanClass == undefined  &&
         enquirySearchParameters.projectType == undefined  &&
         enquirySearchParameters.financingType == undefined  &&
-        enquirySearchParameters.assistanceType == undefined ) {
+        enquirySearchParameters.assistanceType == undefined &&
+        enquirySearchParameters.technicalStatus == undefined) {
         this._matSnackBar.open('Error: Enter at least one search parameter', 'OK', { duration: 7000 });
 
         return;

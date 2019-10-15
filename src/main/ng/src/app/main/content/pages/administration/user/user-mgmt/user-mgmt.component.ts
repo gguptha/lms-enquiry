@@ -60,6 +60,10 @@ export class UserMgmtComponent implements OnInit {
     });
     this.roleTypes = _route.snapshot.data.routeResolvedData[0]._embedded.userRoles;
 
+    //this._service.selectedUser = new BehaviorSubject(new UserModel({}));
+    this._service.selectedUser.next(new UserModel({}));
+
+
   }
 
   ngOnInit() {
@@ -92,6 +96,7 @@ export class UserMgmtComponent implements OnInit {
       console.log("Users : " + users.values());
       this.userList = users;
       this.expandPanel = true;
+       this._service.selectedUser.next(new UserModel({}));
     });
   }
 

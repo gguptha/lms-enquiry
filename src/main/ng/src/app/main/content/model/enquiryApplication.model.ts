@@ -16,6 +16,8 @@ export class EnquiryApplicationModel {
     projectLocationState: string;
     projectName: string;
     projectType: string;
+    technicalStatusDescription:string;
+
 
     /**
      * constructor()
@@ -39,6 +41,7 @@ export class EnquiryApplicationModel {
         this.projectLocationState = _enquiryApplication.loanApplication.projectLocationState;
         this.projectName = _enquiryApplication.loanApplication.projectName;
         this.projectType = _enquiryApplication.loanApplication.projectType;
+        this.technicalStatusDescription = _enquiryApplication.loanApplication.technicalStatusDescription;
      }
 
     /**

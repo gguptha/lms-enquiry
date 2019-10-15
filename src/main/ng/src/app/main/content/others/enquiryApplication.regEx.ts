@@ -25,7 +25,7 @@ export class EnquiryApplicationRegEx {
     // Accepts upto 8 digits and upto 2 decimal places.
     public static expectedInterestRate = /^\d{1,2}(\.\d{1,2})?$/;
 
-    public static pan = /^[A-Z0-9]*$/;
+    public static pan =   /[A-Za-z]{5}\d{4}[A-Za-z]{1}?$/; // /^[A-Z0-9]*$/;
 
    public  static email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 

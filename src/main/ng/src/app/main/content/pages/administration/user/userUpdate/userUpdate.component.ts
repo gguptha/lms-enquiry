@@ -58,7 +58,7 @@ export class UserUpdateDialogComponent implements OnInit {
                     this._matSnackBar.open('New user is added successfully.', 'OK', { duration: 7000 });
                     // Close the add/ update dialog.
                     this._dialogRef.close();
-                }, 
+                },
                 (error) => {
                     this._matSnackBar.open('User already exists or other errors occured.', 'OK', { duration: 7000 });
                 });
@@ -84,4 +84,8 @@ export class UserUpdateDialogComponent implements OnInit {
             }
         }
     }
+
+  closeClick(): void {
+    this._dialogRef.close();
+  }
 }

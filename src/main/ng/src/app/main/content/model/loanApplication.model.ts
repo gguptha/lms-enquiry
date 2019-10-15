@@ -40,6 +40,14 @@ export class LoanApplicationModel {
     loanContractId: string;
     busPartnerNumber: string;
 
+    rejectionCategory: string;
+    rejectionReason : string;
+    rejectionDate : string;
+
+    technicalStatus: string;
+    technicalStatusDescription: string;
+
+
     contactBranchAddress: string;
     contactDesignation: string;
     contactDepartment: string;

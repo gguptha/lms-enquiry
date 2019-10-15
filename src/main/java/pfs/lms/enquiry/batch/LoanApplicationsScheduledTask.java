@@ -60,8 +60,10 @@ public class LoanApplicationsScheduledTask {
         //Collect Loan Application with the following SAP Posting Statuses
         // 0 - Not Posted in SAP
         // 2 - Posting Failed
+        // 4 - Approved but not Posted in SAP Yet
         List<LoanApplication> loanApplicationList = loanApplicationRepository.findByTechnicalStatusAndPostedInSAP(4,0);
         loanApplicationList.addAll(loanApplicationRepository.findByTechnicalStatusAndPostedInSAP(4,2));
+        loanApplicationList.addAll(loanApplicationRepository.findByTechnicalStatusAndPostedInSAP(4,4));
 
 
 
@@ -112,9 +114,10 @@ public class LoanApplicationsScheduledTask {
 
                 //Update SA{ Business Partner Number to the User of the Loan Applicant
                 User user = userRepository.findByEmail(partner.getEmail());
-                user.setSapBPNumber(sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getBusPartnerNumber());
-                userRepository.saveAndFlush(user);
-
+                if (user != null) {
+                    user.setSapBPNumber(sapLoanApplicationResource.getSapLoanApplicationDetailsResource().getBusPartnerNumber());
+                    userRepository.saveAndFlush(user);
+                }
                 System.out.println("-----------------------------------------------------------------------------------------------" );
                 System.out.println("Successfully Posted Loan Application in SAP: Loan Contract Id :" +loanApplication.getLoanContractId());
                 System.out.println("SAP Business Partner Number :" + partner.getPartyNumber());

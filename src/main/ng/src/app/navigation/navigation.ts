@@ -96,7 +96,7 @@ export const adminNavigation: FuseNavigation[] = [
       },
       {
         id: 'mail-repo',
-        title: 'Email Repository',
+        title: 'Email Events',
         translate: 'NAV.MAILREPOSITORY',
         type: 'item',
         icon: 'mail',

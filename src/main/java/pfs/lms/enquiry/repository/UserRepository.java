@@ -20,8 +20,17 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Set<User> findByRiskDepartmentContainingIgnoreCase(String riskDepartment);
 
     List<User> findByFirstNameStartingWith(String firstName);
+
+    List<User> findByFirstNameContaining(String firstName);
+
     List<User> findByLastNameStartingWith(String lastName);
+    List<User> findByLastNameContaining(String lastName);
+
+
     List<User> findByFirstNameStartingWithAndLastNameStartingWith(String firstName, String lastName);
+    List<User> findByFirstNameStartingWithAndLastNameContaining(String firstName, String lastName);
+
+
 
     List<User> findByEmailContains(String email);
     List<User> findByRole(String role);

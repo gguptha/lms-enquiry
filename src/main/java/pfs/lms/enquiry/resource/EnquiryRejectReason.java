@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class EnquiryRejectReason {
 
     private String rejectReason;
+    private String rejectionCategory;
+    private String rejectionDate;
 }

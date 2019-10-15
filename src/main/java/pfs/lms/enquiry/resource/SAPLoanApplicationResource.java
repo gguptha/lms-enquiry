@@ -47,6 +47,11 @@ public class SAPLoanApplicationResource implements Serializable   {
         detailsResource.setPartnerRole("TR0100");
         detailsResource.setName1(partner.getPartyName1());
         detailsResource.setName2(partner.getPartyName2() == null? "": partner.getPartyName2());
+
+        if (partner.getEmail().contains("@") == false){
+            partner.setEmail(partner.getEmail() + "@dummy.co.in");
+        }
+
         detailsResource.setEmail(partner.getEmail());
         detailsResource.setCity(partner.getCity());
         detailsResource.setRegiogroup(partner.getState());
@@ -116,6 +121,11 @@ public class SAPLoanApplicationResource implements Serializable   {
         detailsResource.setContactBranchAddress(loanApplication.getContactBranchAddress());
         detailsResource.setContactDepartment(loanApplication.getContactDepartment());
         detailsResource.setContactDesignation(loanApplication.getContactDesignation());
+        if (loanApplication.getContactEmail() != null) {
+            if (loanApplication.getContactEmail().contains("@") == false) {
+                loanApplication.setContactEmail(loanApplication.getContactEmail() + "@dummy.co.in");
+            }
+        }
         detailsResource.setContactEmail(loanApplication.getContactEmail());
         detailsResource.setContactFaxNumber(loanApplication.getContactFaxNumber());
         detailsResource.setContactLandLinePhone(loanApplication.getContactLandLinePhone());

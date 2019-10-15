@@ -32,8 +32,8 @@ export class EnquiryApprovalDialogComponent implements OnInit {
 
     /**
      * constructor()
-     * @param _dialogRef 
-     * @param _datePipe 
+     * @param _dialogRef
+     * @param _datePipe
      */
     constructor(public _dialogRef: MatDialogRef<EnquiryApprovalDialogComponent>, @Inject(MAT_DIALOG_DATA) _data: any,
         private _service: EnquiryAlertsService, private _appService: AppService, private matSnackBar: MatSnackBar,
@@ -76,9 +76,12 @@ export class EnquiryApprovalDialogComponent implements OnInit {
                 this.loanApplication.productCode = this.productCode;
                 this._service.approveLoanApplication(this.loanApplication, this.partner).subscribe(
                     (response: LoanApplicationResourceModel) => {
-                        this.matSnackBar.open('The Loan application was submitted to the SAP loans management system. The Loan Contract Id is '
-                            + response.loanApplication.loanContractId + ' and the Business Partner Id is ' 
-                            + response.loanApplication.userBPNumber, 'OK', { duration: 10000 });
+                        this.matSnackBar.open('The Loan application is submitted and saved in the SAP loans management system. ' + ''
+                          // 'The Loan Contract Id is '
+                          //   + response.loanApplication.loanContractId + ' and the Business Partner Id is '
+                          //   + response.loanApplication.userBPNumber
+                          ,
+                          'OK', { duration: 10000 });
                         this._dialogRef.close({ action: 'Approved' });
                     },
                     (errorResponse) => {

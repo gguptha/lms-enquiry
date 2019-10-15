@@ -17,3 +17,8 @@ table {
 .disabledDiv {
   pointer-events: none;
   opacity: 0.4;   }
+
+
+.mat-step-header .mat-step-icon-selected {
+  background-color: green;
+}

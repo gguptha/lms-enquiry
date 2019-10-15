@@ -37,7 +37,8 @@ export class LoanEnquiryService implements Resolve<any> {
             this.getPartnerByPrincipal(), // get logged in partner details.
             this.getIndustrySectors(), // Get Industry Sectors
             this.getUnitOfMeasures(),   // Get Units
-            this.getLoanApplicantsByEmail() // Get Loan Applicants by Email
+            this.getLoanApplicantsByEmail(), // Get Loan Applicants by Email
+            this.getTechnicalStatus()   // Get Technical Status
         ]);
     }
 
@@ -101,7 +102,20 @@ export class LoanEnquiryService implements Resolve<any> {
     return this._http.get('enquiry/api/unitOfMeasures');
   }
 
-
+  /**
+   * getRejectionCategories()
+   * returns a list of Rejection Categories
+   */
+  public getRejectionCategories(): Observable<any> {
+    return this._http.get('enquiry/api/rejectionCategories');
+  }
+  /**
+   * getTechnicalStatus()
+   * returns a list of Technical Status
+   */
+  public getTechnicalStatus(): Observable<any> {
+    return this._http.get('enquiry/api/technicalStatus');
+  }
   /**
      * getStates()
      * Returns a list of states in the country.

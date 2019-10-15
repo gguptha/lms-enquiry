@@ -34,6 +34,8 @@ public class Initializer implements CommandLineRunner {
 
     private final UserRoleRepository userRoleRepository;
 
+    private final RejectionCategoryRepository rejectionCategoryRepository;
+
     private final StateRepository stateRepository;
 
     @Override
@@ -195,6 +197,19 @@ public class Initializer implements CommandLineRunner {
             log.info("Added Unit of Measures");
         }
 
+        if (rejectionCategoryRepository.count() == 0){
+            RejectionCategory r1 = new RejectionCategory("1", "Rejected by Borrower");
+            RejectionCategory r2 = new RejectionCategory("2", "Rejected by BD");
+            RejectionCategory r3 = new RejectionCategory("3", "Rejected by ICC");
+            RejectionCategory r4 = new RejectionCategory("4", "Rejected by Appraisal");
+            RejectionCategory r5 = new RejectionCategory("5", "Rejected by Board");
+
+
+            rejectionCategoryRepository.saveAll(Arrays.asList(r1,r2,r3,r4,r5));
+            log.info("Added Rejection Categories");
+        }
+
+
         if (userRoleRepository.count() == 0){
             UserRole r1 = new UserRole("TR0100", "Loan Applicant");
             UserRole r2 = new UserRole("ZLM013", "Appraisal Officer");
@@ -208,7 +223,6 @@ public class Initializer implements CommandLineRunner {
             userRoleRepository.saveAll(Arrays.asList(r1,r2,r3));
             log.info("Added User Roles");
         }
-
 
         if (stateRepository.count() ==0){
             State s1 = new State("01","Andra Pradesh");

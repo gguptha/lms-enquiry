@@ -212,6 +212,10 @@ public class LoanApplicationService implements ILoanApplicationService {
             loanApplicationExisting.setPromoterPATAmount(loanApplication.getPromoterPATAmount());
 
             loanApplicationExisting.setRating(loanApplication.getRating());
+
+            if(loanApplication.getRejectionCategory() != null) {
+                loanApplicationExisting.setRejectionCategory(loanApplication.getRejectionCategory());
+            }
             if (loanApplication.getRejectionDate() != null)
                 loanApplicationExisting.setRejectionDate(loanApplication.getRejectionDate());
             if (loanApplication.getRejectionReason() != null)
@@ -301,7 +305,7 @@ public class LoanApplicationService implements ILoanApplicationService {
         // Temporary solution to get data migration done for BusinessPartners with empty email id
         if (resource.getPartner().getEmail() == null || resource.getPartner().getEmail().equals("")) {
             partner.setUserName(resource.getLoanApplication().getLoanContractId() + resource.getPartner().getPartyName1());
-            partner.setEmail(resource.getLoanApplication().getLoanContractId() + resource.getPartner().getPartyName1());
+            partner.setEmail(resource.getLoanApplication().getLoanContractId() + resource.getPartner().getPartyName1() +"@dummy.co.in");
         } else {
             partner.setUserName(resource.getPartner().getEmail());
             partner.setEmail(resource.getPartner().getEmail());
@@ -361,6 +365,9 @@ public class LoanApplicationService implements ILoanApplicationService {
 
             if (loanApplication.getTechnicalStatus() != null)
                 loanApplicationExisting.setTechnicalStatus(loanApplication.getTechnicalStatus());
+            else
+                loanApplicationExisting.setTechnicalStatus(4);
+
             if (loanApplication.getAssistanceType() != null)
                 loanApplicationExisting.setAssistanceType(loanApplication.getAssistanceType());
 

@@ -45,7 +45,8 @@ export class EnquiryAlertsService implements Resolve<any> {
                     this._loanEnquiryService.getIndustrySectors(), // Get Industry Sectors
                     this._loanEnquiryService.getUnitOfMeasures(), // Get Unit of Measures Sectors
                     //this.getLoanApplicants(),
-                    this.getLoanApplicantsByEmail()
+                    this.getLoanApplicantsByEmail(),
+                    this.getRejectionCategories()
 
 
 
@@ -143,9 +144,19 @@ export class EnquiryAlertsService implements Resolve<any> {
      * @param loanApplication
      * @param rejectReason
      */
-    public rejectEnquiry(loanApplication: LoanApplicationModel, rejectReason: string): Observable<any> {
-        return this._http.put('enquiry/api/loanApplications/' + loanApplication.id + '/reject', { rejectReason });
+    public rejectEnquiry(loanApplication: LoanApplicationModel,
+                          rejectReason: string,rejectionCategory: string, rejectionDate: string): Observable<any> {
+        return this._http.put('enquiry/api/loanApplications/' + loanApplication.id + '/reject',
+          {   rejectReason , rejectionCategory,rejectionDate });
     }
+
+  /**
+   * getRejectionCategories()
+   * returns a list of Rejection Categories
+   */
+  public getRejectionCategories(): Observable<any> {
+    return this._http.get('enquiry/api/rejectionCategories');
+  }
 
     /**
      * cancelEnquiry()

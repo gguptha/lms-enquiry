@@ -113,7 +113,7 @@
       <!--</mat-row>-->
 
       <mat-row *cdkRowDef="let user; columns: displayedColumns;" class="user" matRipple (click)="onSelect(user)"
-               [ngClass]="{'mat-light-blue-50-bg':user == selectedUser}" [@animate]="{value:'*',params:{y:'100%'}}">
+               [ngClass]= "{'highlight':user == selectedUser}" [@animate]="{value:'*',params:{y:'100%'}}">
       </mat-row>
 
 

@@ -166,21 +166,23 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
 
     /**
-     * 01- Created
-     * 02-Changed
-     * 03-Submitted
-     * 04-Approved
-     * 05-Cancelled
-     * 06-Rejected
+     * 1- Created
+     * 2- Changed
+     * 3- Submitted
+     * 4- Approved for processing
+     * 5- Cancelled
+     * 6- Rejected
      */
     private Integer technicalStatus;
+
+    private String technicalStatusDescription;
 
     /**
      * 01-Enquiry Stage
      * 02-ICC ApprovalStage
-     * 03-Apprisal Stage
+     * 03-Appraisal Stage
      * 04-Board Approval Stage
-     * 05-Loan Documenation Stage
+     * 05-Loan Documentation Stage
      * 06-Loan Disbursement Stage
      * 07-Approved
      * 08-Rejected
@@ -194,8 +196,22 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      */
     private Integer finalDecisionStatus;
 
+
+    /*
+    1 - Rejected by Borrower
+    2 - Rejected by BD
+    3 - Rejected by ICC
+    4 - Rejected by Appraisal
+    5 - Rejected by Board
+    */
+    private Integer rejectionCategory;
+
+
+
+
     @Size(max = 100)
     private String rejectionReason;
+
 
     private LocalDateTime rejectionDate;
 
@@ -221,6 +237,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
     //1 - Attempted to Post
     //2 - Errors
     //3 - Posted Successfully
+    //4 - Approved but Posting Pending
     @Nullable
     private Integer postedInSAP;
 
@@ -290,8 +307,10 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
                            @JsonProperty("promoterKeyDirector") String promoterKeyDirector,
                            @JsonProperty("keyPromoter") String keyPromoter,
                            @JsonProperty("technicalStatus") Integer technicalStatus,
+                           @JsonProperty("technicalStatusDescription") String technicalStatusDescription,
                            @JsonProperty("functionalStatus") Integer functionalStatus,
                            @JsonProperty("finalDecisionStatus") Integer finalDecisionStatus,
+                           @JsonProperty("rejectionCategory") Integer rejectionCategory,
                            @JsonProperty("rejectionReason") String rejectionReason,
                            @JsonProperty("rejectionDate") LocalDateTime rejectionDate,
                            @JsonProperty("decisionDate") LocalDate decisionDate,
@@ -364,12 +383,14 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         this.promoterKeyDirector = promoterKeyDirector;
         this.keyPromoter = keyPromoter;
         this.technicalStatus = technicalStatus;
+        this.technicalStatusDescription = technicalStatusDescription;
         if (functionalStatus == null)
             this.functionalStatus = 1;
         else
             this.functionalStatus = functionalStatus;
 
         this.finalDecisionStatus = finalDecisionStatus;
+        this.rejectionCategory = rejectionCategory;
         this.rejectionReason = rejectionReason;
         this.rejectionDate = rejectionDate;
         this.decisionDate = decisionDate;
@@ -414,10 +435,11 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this;
     }
 
-    public LoanApplication reject(String reason,Partner modified){
+    public LoanApplication reject(String rejectionCategory, String reason,Partner modified){
         this.functionalStatus = 8;
         this.finalDecisionStatus = 2;
         this.rejectionReason = reason;
+        this.rejectionCategory = Integer.parseInt(rejectionCategory);
         this.rejectionDate = LocalDateTime.now();
         registerEvent(LoanApplicationRejected.of(this));
         return this;
@@ -606,12 +628,20 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this.technicalStatus;
     }
 
+    public String getTechnicalStatusDescription() {
+        return technicalStatusDescription;
+    }
+
     public Integer getFunctionalStatus() {
         return this.functionalStatus;
     }
 
     public Integer getFinalDecisionStatus() {
         return this.finalDecisionStatus;
+    }
+
+    public Integer getRejectionCategory() {
+        return rejectionCategory;
     }
 
     public LocalDateTime getRejectionDate() {
