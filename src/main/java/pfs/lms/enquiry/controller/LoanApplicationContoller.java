@@ -26,6 +26,7 @@ import pfs.lms.enquiry.resource.SearchResource;
 import pfs.lms.enquiry.service.ILoanApplicationService;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,6 +121,31 @@ public class LoanApplicationContoller {
                     Partner partner = (Partner) partnerRepository.findById(loanApplication.getLoanApplicant()).get();
                     resources.add(new LoanApplicationResource(loanApplication, partner));
                 }
+
+                if (loanApplication.getTechnicalStatus() != null) {
+                    switch (loanApplication.getTechnicalStatus()) {
+                        case 0:
+                            loanApplication.setTechnicalStatusDescription("Created");
+                            break;
+                        case 1:
+                            loanApplication.setTechnicalStatusDescription("Modified");
+                            break;
+                        case 2:
+                            loanApplication.setTechnicalStatusDescription("Submitted");
+                            break;
+                        case 3:
+                            loanApplication.setTechnicalStatusDescription("Taken up for Processing");
+                            break;
+                        case 4:
+                            loanApplication.setTechnicalStatusDescription("Cancelled");
+                            break;
+                        case 5:
+                            loanApplication.setTechnicalStatusDescription("Rejected");
+                            break;
+                    }
+                }
+
+
             });
         }
 
@@ -394,10 +420,20 @@ public class LoanApplicationContoller {
             loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectType().equals(resource.getProjectType())).collect(Collectors.toList());
 
         if (resource.getAssistanceType() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getAssistanceType().equals(resource.getAssistanceType())).collect(Collectors.toList());
+            loanApplications = loanApplications.stream().filter(loanApplication ->
+                    loanApplication.getAssistanceType()
+                            .equals(resource.getAssistanceType()))
+                    .collect(Collectors.toList());
+
 
         if (resource.getTechnicalStatus() != null)
-            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getTechnicalStatus() == Integer.parseInt(resource.getTechnicalStatus())).collect(Collectors.toList());
+            loanApplications = loanApplications
+                    .stream()
+                    .filter(
+                            loanApplication ->
+                                    loanApplication.getTechnicalStatus()
+                                            == Integer.parseInt(resource.getTechnicalStatus() ))
+                    .collect(Collectors.toList());
 
         User user;
         if(request.getUserPrincipal().getName().equals("admin")) {
@@ -441,7 +477,7 @@ public class LoanApplicationContoller {
                             loanApplication.setTechnicalStatusDescription("Submitted");
                             break;
                         case 3:
-                            loanApplication.setTechnicalStatusDescription("Approved");
+                            loanApplication.setTechnicalStatusDescription("Taken up for Processing");
                             break;
                         case 4:
                             loanApplication.setTechnicalStatusDescription("Cancelled");

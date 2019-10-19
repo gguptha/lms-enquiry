@@ -50,6 +50,20 @@ export class UserUpdateDialogComponent implements OnInit {
     submit(): void {
         if (this.userUpdateForm.valid) {
             const user: UserModel = new UserModel(this.userUpdateForm.value);
+
+          console.log("user.riskDepartment :" + user.riskDepartment);
+
+          console.log("user.departmentHead :" + user.departmentHead);
+
+
+
+          if (user.riskDepartment == null && user.departmentHead == true) {
+              this._matSnackBar.open('Error: Select the department.', 'OK', { duration: 7000 });
+              return;
+            }
+
+
+
             if (this._dialogData.operation === 'addUser') {
                 this._userService.createUser(user).subscribe(() => {
                     // Refresh the user list.

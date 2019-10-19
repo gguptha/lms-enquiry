@@ -185,7 +185,8 @@ export class EnquiryReviewComponent implements OnInit {
       promoterAreaOfBusinessNature: [this.loanApplication.promoterAreaOfBusinessNature],
       promoterNetWorthAmount: [this.loanApplication.promoterNetWorthAmount, [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
       promoterPATAmount: [this.loanApplication.promoterPATAmount, [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
-      rating: [this.loanApplication.rating, [Validators.max(100)]],
+      //rating: [this.loanApplication.rating, [Validators.max(100)]],
+      rating: [this.loanApplication.rating],
       promoterKeyDirector: [this.loanApplication.promoterKeyDirector],
 
       contactBranchAddress: [this.loanApplication.contactBranchAddress],

@@ -23,7 +23,7 @@ export class EnquiryAlertsListComponent implements OnInit {
 
 
   displayedColumns = [
-        'functionalStatusDescription', 'createdOn', 'enquiryNumber', 'projectName', 'projectLocationState', 'projectTypeDescription',
+        'functionalStatusDescription', 'technicalStatusDescription','createdOn', 'enquiryNumber', 'projectName', 'projectLocationState', 'projectTypeDescription',
         'loanClassDescription', 'projectCapacity', 'assistanceTypeDescription', 'projectCost', 'loanAmount'
     ];
 

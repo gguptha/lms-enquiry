@@ -8,10 +8,7 @@ import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
 import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -173,6 +170,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 5- Cancelled
      * 6- Rejected
      */
+    @Column(columnDefinition = "integer default 1")
     private Integer technicalStatus;
 
     private String technicalStatusDescription;

@@ -10,6 +10,15 @@
             </mat-cell>
         </ng-container>
 
+      <!-- functionalStatus Column -->
+      <ng-container matColumnDef="technicalStatusDescription">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Processing Status</mat-header-cell>
+        <mat-cell *matCellDef="let enquiry">
+          <p class="text-truncate">{{ enquiry.technicalStatusDescription }}</p>
+        </mat-cell>
+      </ng-container>
+
+
         <!-- createdOn Column -->
         <ng-container matColumnDef="createdOn">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Enquiry Date</mat-header-cell>
@@ -93,7 +102,7 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row *matRowDef="let enquiry; columns: displayedColumns;" class="enquiry" matRipple (click)="onSelect(enquiry)"
-            [ngClass]="{'mat-light-blue-50-bg':enquiry == selectedEnquiry}" [@animate]="{value:'*',params:{y:'100%'}}">
+            [ngClass]="{'highlight':enquiry == selectedEnquiry}" [@animate]="{value:'*',params:{y:'100%'}}">
         </mat-row>
 
     </mat-table>

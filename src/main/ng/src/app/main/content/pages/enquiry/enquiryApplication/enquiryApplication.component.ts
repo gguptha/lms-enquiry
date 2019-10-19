@@ -178,7 +178,10 @@ export class EnquiryApplicationComponent implements OnInit {
       promoterAreaOfBusinessNature: [''],
       promoterNetWorthAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerNetWorth)]],
       promoterPATAmount: ['', [Validators.pattern(EnquiryApplicationRegEx.borrowerPAT)]],
-      rating: ['', [Validators.max(100)]],
+
+      //rating: ['', [Validators.max(100)]],
+      rating: [''],
+
       promoterKeyDirector: [''],
 
       contactBranchAddress: [''],
