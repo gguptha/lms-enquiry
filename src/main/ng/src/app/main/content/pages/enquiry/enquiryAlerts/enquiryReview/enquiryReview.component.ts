@@ -69,6 +69,8 @@ export class EnquiryReviewComponent implements OnInit {
   user: UserModel = new UserModel({});
   email: string;
 
+  readonlyFields: boolean;
+
    /**
    * constructor()
    * @param _route
@@ -89,8 +91,13 @@ export class EnquiryReviewComponent implements OnInit {
     //this.partner = _route.snapshot.data.routeResolvedData[8];
 
     // Disable the Form
-    if ( this.loanApplication.functionalStatus >= 3){
-     }
+    if (this.loanApplication.technicalStatus == '4' || this.loanApplication.technicalStatus == '5' || this.loanApplication.technicalStatus == '6') {
+        this.readonlyFields = true;
+    }
+    else {
+        this.readonlyFields = false;
+    }
+    console.log('readonlyFields', this.readonlyFields);
 
     // Initialize partner.
     this.partner = new PartnerModel({});
@@ -294,7 +301,7 @@ export class EnquiryReviewComponent implements OnInit {
     this._userService.getUserByEmail(emailId).subscribe((result) => {
       this.user = result;
 
-      if (this.user != undefined || this.user != null) {
+      if (this.user !== undefined || this.user != null) {
         this.validUserId = true;
 
 
