@@ -36,9 +36,9 @@
         }
 
         #register-form-wrapper {
-            width: 400px;
-            min-width: 400px;
-            max-width: 400px;
+            width: 600px;
+            min-width: 600px;
+            max-width: 600px;
             background: #FFFFFF;
             overflow: auto;
             -webkit-overflow-scrolling: touch;
@@ -58,7 +58,8 @@
             }
 
             #register-form {
-                padding: 70px 48px 48px 48px;
+
+              padding: 48px 48px 48px 48px;
 
                 @include media-breakpoint('xs') {
                     text-align: center;
@@ -157,7 +158,10 @@
                     }
                 }
 
-                button {
+              background: url('/assets/images/backgrounds/DD-Blurred-Spring-Background-88878-Preview.jpg') repeat;
+
+
+              button {
 
                     &.google,
                     &.facebook {

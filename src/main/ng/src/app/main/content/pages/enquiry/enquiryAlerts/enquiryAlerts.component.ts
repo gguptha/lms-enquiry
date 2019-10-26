@@ -16,7 +16,9 @@ export class EnquiryAlertsComponent {
      * constructor()
      * @param _route
      */
-    constructor(private _route: ActivatedRoute, public _service: EnquiryAlertsService, private _router: Router) 
+    constructor(private _route: ActivatedRoute,
+                public _service: EnquiryAlertsService,
+                private _router: Router)
     {
         // Initialize EnquiryAlertsService.loanApplication.
         this._service.loanApplications = new BehaviorSubject(_route.snapshot.data.routeResolvedData[0]);
@@ -24,7 +26,7 @@ export class EnquiryAlertsComponent {
         this._service.selectedLoanApplicationId = undefined;
     }
 
-    redirectToEnquiryReview(): void 
+    redirectToEnquiryReview(): void
     {
         this._router.navigate(['/enquiryReview']);
     }

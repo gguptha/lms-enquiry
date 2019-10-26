@@ -38,11 +38,11 @@ const routes = [
 
 @NgModule({
     declarations: [
-        EnquiryAlertsComponent,
-        EnquiryAlertsListComponent,
-        EnquiryReviewComponent,
-        EnquiryRejectDialogComponent,
-        EnquiryApprovalDialogComponent
+        //EnquiryAlertsComponent,
+       // EnquiryAlertsListComponent,
+       //  EnquiryReviewComponent,
+       //  EnquiryRejectDialogComponent,
+       //  EnquiryApprovalDialogComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -64,9 +64,9 @@ const routes = [
          MatAutocompleteModule
     ],
     exports     : [
-        EnquiryAlertsComponent,
-        EnquiryAlertsListComponent,
-        EnquiryReviewComponent
+        // EnquiryAlertsComponent,
+        // EnquiryAlertsListComponent,
+        // EnquiryReviewComponent
     ],
     providers   : [
         AppService,

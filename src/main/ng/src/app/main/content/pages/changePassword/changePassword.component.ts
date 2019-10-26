@@ -8,6 +8,7 @@ import { ChangePasswordService } from './changePassword.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import {AppService} from "../../../../app.service";
 
 @Component({
     selector: 'change-password',
@@ -30,7 +31,8 @@ export class ChangePasswordComponent implements OnInit {
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder, private _changePasswordService: ChangePasswordService,
-        private _matSnackBar: MatSnackBar, private _router: Router
+        private _matSnackBar: MatSnackBar, private _router: Router,
+        private _appService: AppService
     ) {
         // Configure the layout
         this._fuseConfigService.config = {
@@ -67,19 +69,58 @@ export class ChangePasswordComponent implements OnInit {
             passwordConfirm : ['', [Validators.required, confirmPasswordValidator]]
         });
 
+
+
+
         // Update the validity of the 'passwordConfirm' field
         // when the 'password' field changes
         this.forgotPasswordForm.get('password').valueChanges
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(() => {
                 this.forgotPasswordForm.get('passwordConfirm').updateValueAndValidity();
-            });      
+            });
     }
 
     /**
      * submit()
      */
     submit(): void {
+
+      let firstNameLowerCase = this._appService.currentUser.firstName.toLowerCase;
+      let lastNameLowerCase = this._appService.currentUser.lastName.toLowerCase();
+      let firstName = this._appService.currentUser.firstName;
+      let lastName = this._appService.currentUser.lastName;
+
+
+      let password = this.forgotPasswordForm.value.password;
+
+      //Additional Password Validations
+      if (password.includes(firstName) ||
+          password.includes(firstNameLowerCase)) {
+        this._matSnackBar.open('Error: Password should not contain first name of the user.', 'OK', {
+          duration: 5000
+        });
+        return;
+      }
+
+
+      if (password.includes(lastName)||
+          password.includes(lastNameLowerCase )) {
+        this._matSnackBar.open('Error: Password should not contain last name of the user.', 'OK', {
+          duration: 5000
+        });
+        return;
+      }
+
+      if (password.includes('123') ||
+        password.includes('1234') ||
+        password.includes('12345')) {
+        this._matSnackBar.open('Error: Password should not contain running numbers.', 'OK', {
+          duration: 5000
+        });
+        return;
+      }
+
         this._changePasswordService.changePassword(this.forgotPasswordForm.value.password).subscribe(response => {
             this._matSnackBar.open('Password is updated.', 'OK', {
                 duration: 7000

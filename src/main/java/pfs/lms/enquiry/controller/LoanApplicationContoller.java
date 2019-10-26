@@ -124,22 +124,22 @@ public class LoanApplicationContoller {
 
                 if (loanApplication.getTechnicalStatus() != null) {
                     switch (loanApplication.getTechnicalStatus()) {
-                        case 0:
+                        case 1:
                             loanApplication.setTechnicalStatusDescription("Created");
                             break;
-                        case 1:
+                        case 2:
                             loanApplication.setTechnicalStatusDescription("Modified");
                             break;
-                        case 2:
+                        case 3:
                             loanApplication.setTechnicalStatusDescription("Submitted");
                             break;
-                        case 3:
+                        case 4:
                             loanApplication.setTechnicalStatusDescription("Taken up for Processing");
                             break;
-                        case 4:
+                        case 5:
                             loanApplication.setTechnicalStatusDescription("Cancelled");
                             break;
-                        case 5:
+                        case 6:
                             loanApplication.setTechnicalStatusDescription("Rejected");
                             break;
                     }
@@ -467,22 +467,22 @@ public class LoanApplicationContoller {
                 }
                 if (loanApplication.getTechnicalStatus() != null) {
                     switch (loanApplication.getTechnicalStatus()) {
-                        case 0:
+                        case 1:
                             loanApplication.setTechnicalStatusDescription("Created");
                             break;
-                        case 1:
+                        case 2:
                             loanApplication.setTechnicalStatusDescription("Modified");
                             break;
-                        case 2:
+                        case 3:
                             loanApplication.setTechnicalStatusDescription("Submitted");
                             break;
-                        case 3:
+                        case 4:
                             loanApplication.setTechnicalStatusDescription("Taken up for Processing");
                             break;
-                        case 4:
+                        case 5:
                             loanApplication.setTechnicalStatusDescription("Cancelled");
                             break;
-                        case 5:
+                        case 6:
                             loanApplication.setTechnicalStatusDescription("Rejected");
                             break;
                     }

@@ -6,6 +6,7 @@ import { ChangePasswordService } from './changePassword.service';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import {AppService} from "../../../../app.service";
 
 @Component({
     selector: 'fuse-update-password',
@@ -22,9 +23,12 @@ export class UpdatePasswordComponent implements OnInit {
 
     // Private
     private _unsubscribeAll: Subject<any>;
-    
-    constructor(_formBuilder: FormBuilder, public _dialogRef: MatDialogRef<UpdatePasswordComponent>, private _passwordService: ChangePasswordService,
-        private _matSnackBar: MatSnackBar) {
+
+    constructor(_formBuilder: FormBuilder,
+                public _dialogRef: MatDialogRef<UpdatePasswordComponent>,
+                private _passwordService: ChangePasswordService,
+                private _matSnackBar: MatSnackBar,
+                private _appService: AppService) {
 
         this.updatePasswordForm = _formBuilder.group({
             password        : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
@@ -42,10 +46,48 @@ export class UpdatePasswordComponent implements OnInit {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(() => {
                 this.updatePasswordForm.get('passwordConfirm').updateValueAndValidity();
-            });    
+            });
     }
 
     submit(): void {
+
+      let firstNameLowerCase = this._appService.currentUser.firstName.toLowerCase;
+      let lastNameLowerCase = this._appService.currentUser.lastName.toLowerCase();
+      let firstName = this._appService.currentUser.firstName;
+      let lastName = this._appService.currentUser.lastName;
+
+
+      let password = this.updatePasswordForm.value.password;
+
+      //Additional Password Validations
+      if (password.includes(firstName) ||
+        password.includes(firstNameLowerCase)) {
+        this._matSnackBar.open('Error: Password should not contain first name of the user.', 'OK', {
+          duration: 5000
+        });
+        return;
+      }
+
+
+      if (password.includes(lastName)||
+        password.includes(lastNameLowerCase )) {
+        this._matSnackBar.open('Error: Password should not contain last name of the user.', 'OK', {
+          duration: 5000
+        });
+        return;
+      }
+
+      if (password.includes('123') ||
+        password.includes('1234') ||
+        password.includes('12345')) {
+        this._matSnackBar.open('Error: Password should not contain running numbers.', 'OK', {
+          duration: 5000
+        });
+        return;
+      }
+
+
+
         this._passwordService.changePassword(this.updatePasswordForm.value.password).subscribe(response => {
             this._matSnackBar.open('Password is updated.', 'OK', {
                 duration: 7000

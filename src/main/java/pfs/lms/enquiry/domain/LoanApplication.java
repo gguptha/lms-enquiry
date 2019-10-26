@@ -166,7 +166,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 1- Created
      * 2- Changed
      * 3- Submitted
-     * 4- Approved for processing
+     * 4- Approved/Taken Up for processing
      * 5- Cancelled
      * 6- Rejected
      */
