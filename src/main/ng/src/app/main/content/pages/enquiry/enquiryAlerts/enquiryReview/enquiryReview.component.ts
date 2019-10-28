@@ -38,6 +38,10 @@ export interface ApplicantEmail {
 })
 export class EnquiryReviewComponent implements OnInit {
 
+
+  projectNameLength = 0;
+  loanPurposeLength = 0;
+
   // Applicants Email and NameAddress
   applicantEmailFilteredOptions: Observable<ApplicantEmail[]>;
 
@@ -81,7 +85,10 @@ export class EnquiryReviewComponent implements OnInit {
               private _userService: UserService, private _partnerService: PartnerService,
               private _navigationService: FuseNavigationService, private matSnackBar: MatSnackBar) {
 
-    // Set min value of scheduled cod to tomorrow's date.
+
+
+
+     // Set min value of scheduled cod to tomorrow's date.
     this.minDate.setDate(this.minDate.getDate() + 1);
 
     this.isCurrentUserAdmin();
@@ -143,11 +150,24 @@ export class EnquiryReviewComponent implements OnInit {
    */
   ngOnInit() {
 
+    // Project Name Length
+    this.projectNameLength = this.loanEnquiryFormStep1.value.projectName.length;
+    // Purpose Length
+    this.loanPurposeLength = this.loanEnquiryFormStep1.value.loanPurpose.length;
+
     this.applicantEmailFilteredOptions = this.applicantEmailFormControl.valueChanges
       .pipe(
         startWith(''),
         map(email => email ? this._filterStates(email) : this.applicantEmails.slice())
       );
+  }
+
+
+  onProjectNameChange() {
+    this.projectNameLength = this.loanEnquiryFormStep1.value.projectName.length;
+  }
+  onLoanPurposeChange() {
+    this.loanPurposeLength = this.loanEnquiryFormStep1.value.loanPurpose.length;
   }
 
 

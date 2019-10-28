@@ -38,6 +38,8 @@ public class Initializer implements CommandLineRunner {
 
     private final StateRepository stateRepository;
 
+    private final EnquiryPortalCommonConfigRepository enquiryPortalCommonConfigRepository;
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -224,6 +226,17 @@ public class Initializer implements CommandLineRunner {
             log.info("Added User Roles");
         }
 
+        if (enquiryPortalCommonConfigRepository.count() == 0) {
+            EnquiryPortalCommonConfig e1 = new EnquiryPortalCommonConfig("DEV","info@leanthoughts.com");
+            EnquiryPortalCommonConfig e2 = new EnquiryPortalCommonConfig("QA","naveenkverma@ptcfinancial.com");
+            EnquiryPortalCommonConfig e3 = new EnquiryPortalCommonConfig("PRD","debt@ptcfinancial.com");
+            EnquiryPortalCommonConfig e4 = new EnquiryPortalCommonConfig("","info@leanthoughts.com");
+
+            enquiryPortalCommonConfigRepository.saveAll(Arrays.asList( e1,e2,e3));
+            log.info("Added Common Config.............");
+
+        }
+
         if (stateRepository.count() ==0){
             State s1 = new State("01","Andra Pradesh");
             State s2 = new State("02","Arunachal Pradesh");
@@ -304,4 +317,8 @@ public class Initializer implements CommandLineRunner {
     }
 
     }
+
+
+
+
 }

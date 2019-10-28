@@ -27,6 +27,14 @@
             </mat-cell>
         </ng-container>
 
+      <!-- Created By -->
+      <ng-container matColumnDef="createdByUserName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header >Created By User</mat-header-cell>
+        <mat-cell *matCellDef="let enquiry" >
+          <p class="text-truncate">{{ enquiry.createdByUserName }}</p>
+        </mat-cell>
+      </ng-container>
+
         <!-- enquiryNo Column -->
         <ng-container matColumnDef="enquiryNumber">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Enquiry No.</mat-header-cell>
@@ -114,6 +122,8 @@
                 <p class="text-truncate">{{ enquiry.loanAmount }}</p>
             </mat-cell>
         </ng-container>
+
+
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 

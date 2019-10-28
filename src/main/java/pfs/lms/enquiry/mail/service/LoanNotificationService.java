@@ -10,6 +10,10 @@ import pfs.lms.enquiry.domain.User;
 public interface LoanNotificationService {
 
     public String sendSubmissionNotification(User user, LoanApplication loanApplication, Partner partner);
+
+    public String sendSubmissionNotificationToBDTeam(User user, LoanApplication loanApplication, Partner partner);
+
+
     public String sendApprovalNotification(User user, LoanApplication loanApplication, Partner partner);;
     public String sendRejectNotification(User user, LoanApplication loanApplication, Partner partner);
     public String sendCancelNotification(User user, LoanApplication loanApplication, Partner partner);

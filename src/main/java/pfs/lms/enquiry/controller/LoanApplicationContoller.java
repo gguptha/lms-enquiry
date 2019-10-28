@@ -176,7 +176,9 @@ public class LoanApplicationContoller {
         loanNotificationService.sendSubmissionNotification(
                 userRepository.findByEmail(request.getUserPrincipal().getName()),
                 loanApplication, resource.getPartner());
-
+        loanNotificationService.sendSubmissionNotificationToBDTeam(
+                userRepository.findByEmail(request.getUserPrincipal().getName()),
+                loanApplication, resource.getPartner());
         return ResponseEntity.ok(loanApplication);
     }
 

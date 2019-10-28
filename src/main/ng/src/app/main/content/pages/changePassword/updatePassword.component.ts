@@ -31,8 +31,9 @@ export class UpdatePasswordComponent implements OnInit {
                 private _appService: AppService) {
 
         this.updatePasswordForm = _formBuilder.group({
-            password        : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
-            passwordConfirm : ['', [Validators.required, confirmPasswordValidator]]
+          //password        : ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]],
+          password        : ['', [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]],
+          passwordConfirm : ['', [Validators.required, confirmPasswordValidator]]
         });
 
         // Set the private defaults

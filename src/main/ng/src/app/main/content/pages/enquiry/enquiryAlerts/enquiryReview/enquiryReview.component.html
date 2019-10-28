@@ -50,10 +50,18 @@
 
               <ng-template matStepLabel>Project Details</ng-template>
 
+
+
+
               <div fxLayout="row">
                 <mat-form-field fxFlex="60">
+                  <mat-hint > {{projectNameLength}} /60</mat-hint>
                   <input matInput type="text" placeholder="Project Name" formControlName="projectName" required
-                         maxlength="60" [readonly]="readonlyFields">
+                         maxlength="60" [readonly]="readonlyFields"
+                         (change)="onProjectNameChange()"
+                         (keyup)="onProjectNameChange()" >
+
+
                   <mat-error>
                     Provide valid input for Project Name
                   </mat-error>
@@ -221,7 +229,13 @@
 
               <div fxLayout="row">
                 <mat-form-field fxFlex="100">
-                  <input matInput placeholder="Purpose of Loan" formControlName="loanPurpose" required maxlength="60" [readonly]="readonlyFields">
+                  <mat-hint > {{loanPurposeLength}} /60</mat-hint>
+                  <input matInput placeholder="Purpose of Loan"
+                         formControlName="loanPurpose"
+                         required maxlength="60"
+                         [readonly]="readonlyFields"
+                         (change)="onLoanPurposeChange()"
+                         (keyup)="onLoanPurposeChange()">
                 </mat-form-field>
               </div>
 

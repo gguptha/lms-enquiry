@@ -255,7 +255,7 @@ public class LoanApplicationService implements ILoanApplicationService {
 
             loanApplicationExisting.setLoanApplicant(applicant.getId());
             loanApplicationExisting.applicant(applicant);
-            loanApplicationExisting.created(applicant);
+            //loanApplicationExisting.created(applicant,username);
 
             loanApplicationExisting.setLoanApplicant(applicant.getId());
 
@@ -267,7 +267,7 @@ public class LoanApplicationService implements ILoanApplicationService {
 
             loanApplication.setLoanEnquiryDate(LocalDate.now());
             loanApplication.applicant(applicant);
-            loanApplication.created(applicant);
+            loanApplication.created(applicant,username);
 
             // Set Technical Status as Created
             loanApplication.setTechnicalStatus(1);
@@ -335,7 +335,7 @@ public class LoanApplicationService implements ILoanApplicationService {
 
 
         loanApplication.applicant(partner);
-        loanApplication.created(partner);
+        loanApplication.created(partner, username);
 
         //Save and return the Loan Application
         loanApplication = this.migrateUpdate(loanApplication, partner, username);
@@ -503,7 +503,7 @@ public class LoanApplicationService implements ILoanApplicationService {
             if (loanApplicationExisting.getRiskDepartmentInitiator() != null)
                 loanApplicationExisting.setRiskDepartmentInitiator(loanApplication.getRiskDepartmentInitiator());
 
-            loanApplicationExisting.created(partner);
+            loanApplicationExisting.created(partner,username);
             loanApplicationExisting.applicant(partner);
 
             //Save and return the Loan Application

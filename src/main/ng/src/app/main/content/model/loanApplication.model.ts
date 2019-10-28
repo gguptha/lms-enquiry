@@ -4,6 +4,7 @@ export class LoanApplicationModel {
 
     assistanceType: string;
     createdOn: Date;
+    createdByUserName:string;
     enquiryNo: EnquiryNumber;
     equity: number;
     expectedInterestRate: number;
@@ -71,6 +72,7 @@ export class LoanApplicationModel {
 
         this.assistanceType = _loanApplication.assistanceType || '';
         this.createdOn = _loanApplication.createdOn || '';
+        this.createdByUserName = _loanApplication.createdByUserName || '';
         this.enquiryNo = _loanApplication.enquiryNo;
         this.equity = _loanApplication.equity;
         this.expectedInterestRate = _loanApplication.expectedInterestRate;

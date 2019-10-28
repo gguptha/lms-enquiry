@@ -419,17 +419,17 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
         return this;
     }
 
-    public LoanApplication created(Partner partner) {
+    public LoanApplication created(Partner partner, String userName) {
         this.createdAt = LocalTime.now();
         this.createdOn = LocalDate.now();
-        this.createdByUserName = partner.getUserName();
+        this.createdByUserName = userName;
         return this;
     }
 
-    public LoanApplication modified(Partner partner) {
+    public LoanApplication modified(Partner partner, String userName) {
         this.changedAt = LocalTime.now();
         this.changedOn = LocalDate.now();
-        this.changedByUserName = partner.getUserName();
+        this.changedByUserName = userName;
         return this;
     }
 
