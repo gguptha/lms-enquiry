@@ -79,6 +79,7 @@ export class EnquirySearchComponent {
       const enquirySearchParameters = this.enquirySearchForm.value;
 
       if (enquirySearchParameters.enquiryDateFrom == undefined &&
+        enquirySearchParameters.enquiryDateTo == undefined &&
         enquirySearchParameters.enquiryNoFrom == undefined  &&
         enquirySearchParameters.partyName == undefined  &&
         enquirySearchParameters.enquiryNoFrom == undefined  &&
@@ -108,8 +109,23 @@ export class EnquirySearchComponent {
       let dateFrom = new Date(enquirySearchParameters.enquiryDateFrom);
       let dateTo = new Date(enquirySearchParameters.enquiryDateTo);
 
-      if (dateTo < dateFrom){
-        this._matSnackBar.open('Error: To Date is less than From Date', 'OK', { duration: 7000 });
+      if (enquirySearchParameters.enquiryDateFrom != undefined)
+        if (dateTo < dateFrom) {
+          this._matSnackBar.open('Error: To Date is less than From Date', 'OK', {duration: 7000});
+          return;
+        }
+
+
+      let today = new Date();
+      today.setHours(0,0,0,0);
+
+      if (dateFrom > today){
+        this._matSnackBar.open('Error: Enquiry from date is in the future', 'OK', { duration: 7000 });
+        return;
+      }
+
+      if (dateTo > today){
+        this._matSnackBar.open('Error: Enquiry to date is in the future', 'OK', { duration: 7000 });
         return;
       }
 
