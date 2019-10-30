@@ -123,6 +123,13 @@
             </mat-cell>
         </ng-container>
 
+      <!-- Rating Column -->
+      <ng-container matColumnDef="rating">
+        <mat-header-cell *matHeaderCellDef mat-sort-header >Rating</mat-header-cell>
+        <mat-cell *matCellDef="let enquiry" >
+          <p class="text-truncate">{{ enquiry.rating }}</p>
+        </mat-cell>
+      </ng-container>
 
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

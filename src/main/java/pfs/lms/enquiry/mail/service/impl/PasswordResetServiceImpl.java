@@ -69,19 +69,19 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
 
         String line1 = "Dear" + " " + fName + " " + lName + System.lineSeparator();
-        String line2 = "    Your password for PTC Financial Services is reset." + System.lineSeparator();
+        String line2 = "    Your password for PTC India Financial Services Ltd. portal is reset." + System.lineSeparator();
         String line3 = "    The new password is as follows:" + System.lineSeparator() ;
         String line4 = "" ; //System.lineSeparator();
         String line5 = "    " + newPassword + System.lineSeparator();
         String line6 = "    " + System.lineSeparator();
-        String line7 = "Regards," + System.lineSeparator() + "PTC Financial Services";
+        String line7 = "Regards," + System.lineSeparator() + "PTC India Financial Services Ltd.";
         String content = line1 + line2 + line3 + line4 + line5 + line6 + line7;
 
         MailObject mailObject = new MailObject();
         mailObject.setSendingApp("PFS Portal");
         mailObject.setAppObjectId(" ");
         mailObject.setToAddress(emailId);
-        mailObject.setSubject("Your password for PTC Financial Services is reset");
+        mailObject.setSubject("Your password for PTC India Financial Services Ltd. portal is reset");
         mailObject.setMailContent(content);
 
         //emailService.sendEmailMessage(mailObject);
@@ -106,17 +106,17 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public String sendPasswordChangeNotificationMail(String emailId, String fName, String lName) {
 
         String line1 = "Dear" + " " + fName + " " + lName + System.lineSeparator();
-        String line2 = "    Your password for PTC Financial Services Portal has been changed." + System.lineSeparator();
-        String line3 = "    In case this is unintentional, please contact PTC Financial Services immediately" + System.lineSeparator() ;
+        String line2 = "    Your password for PTC India Financial Services Ltd. portal has been changed." + System.lineSeparator();
+        String line3 = "    In case this is unintentional, please contact PTC India Financial Services Ltd. immediately" + System.lineSeparator() ;
         String line4 = "    " + System.lineSeparator();
-        String line5 = "Regards," + System.lineSeparator() + "PTC Financial Services";
+        String line5 = "Regards," + System.lineSeparator() + "PTC India Financial Services Ltd.";
         String content = line1 + line2 + line3 + line4 + line5 ;
 
         MailObject mailObject = new MailObject();
         mailObject.setSendingApp("PFS Portal");
         mailObject.setAppObjectId(" ");
         mailObject.setToAddress(emailId);
-        mailObject.setSubject("Your password for PTC Financial Services has been changed");
+        mailObject.setSubject("Your password for PTC India Financial Services Ltd. portal has been changed");
         mailObject.setMailContent(content);
 
 

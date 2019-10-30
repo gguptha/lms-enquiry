@@ -99,17 +99,17 @@ public class SignupService implements ISignupService {
     @Override
     public String sendSignUpNotificationMail(String emailId, String fName, String lName) {
         String line1 = "Dear" + " " + fName + " " + lName + System.lineSeparator();
-        String line2 = "   Welcome! You are signed up on PTC Financial Services Portal." + System.lineSeparator();
+        String line2 = "   Welcome! You are signed up on PTC India Financial Services Ltd. Portal." + System.lineSeparator();
         String line3 = "     " + System.lineSeparator() ;
         String line4 = "    " + System.lineSeparator();
-        String line5 = "Regards," + System.lineSeparator() + "PTC Financial Services";
+        String line5 = "Regards," + System.lineSeparator() + "PTC India Financial Services Ltd.";
         String content = line1 + line2 + line3 + line4 + line5  ;
 
         MailObject mailObject = new MailObject();
         mailObject.setSendingApp("PFS Portal");
         mailObject.setAppObjectId(" ");
         mailObject.setToAddress(emailId);
-        mailObject.setSubject("PTC Financial Services Portal Signup ");
+        mailObject.setSubject("PTC India Financial Services Ltd. Portal Signup ");
         mailObject.setMailContent(content);
 
         //emailService.sendEmailMessage(mailObject);

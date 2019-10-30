@@ -19,4 +19,5 @@ public class SearchResource {
     private String projectType;
     private String assistanceType;
     private String technicalStatus;
+    private String rating;
 }

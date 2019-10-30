@@ -18,6 +18,7 @@ export class EnquiryApplicationModel {
     projectName: string;
     projectType: string;
     technicalStatusDescription:string;
+    rating:string;
 
 
     /**
@@ -44,7 +45,8 @@ export class EnquiryApplicationModel {
         this.projectName = _enquiryApplication.loanApplication.projectName;
         this.projectType = _enquiryApplication.loanApplication.projectType;
         this.technicalStatusDescription = _enquiryApplication.loanApplication.technicalStatusDescription;
-     }
+        this.rating = _enquiryApplication.loanApplication.rating;
+    }
 
     /**
      * loanClassDescription()

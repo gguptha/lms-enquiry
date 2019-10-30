@@ -218,13 +218,43 @@ public class Initializer implements CommandLineRunner {
             UserRole r3 = new UserRole("ZLM023", "Administrator");
             UserRole r4 = new UserRole("ZLM001", "Promoter");
             UserRole r5 = new UserRole("ZLM023", "Co-Appraisal Officer");
-            UserRole r6 = new UserRole("ZLM023", "Appraisal Officer");
+            UserRole r6 = new UserRole("ZLM010", "Appraisal Officer");
             UserRole r7 = new UserRole("TR0110", "Prospect");
 
 
             userRoleRepository.saveAll(Arrays.asList(r1,r2,r3));
             log.info("Added User Roles");
         }
+
+        if (userRoleRepository.count() <= 7){
+
+            UserRole r1 = new UserRole("ZLM002", "Lenders Financial Advisor");
+            UserRole r2 = new UserRole("ZLM003", "Lenders Engineer");
+            UserRole r3 = new UserRole("ZLM004", "Lenders Insurance Advisor");
+            UserRole r4 = new UserRole("ZLM005", "Security Trustee");
+            UserRole r5 = new UserRole("ZLM006", "Legal Counsel");
+            UserRole r6 = new UserRole("ZLM007", "Loan underwriter");
+            UserRole r7 = new UserRole("ZLM008", "Syndicate Partner");
+            UserRole r8 = new UserRole("ZLM009", "Co-Security Trustee");
+            UserRole r9 = new UserRole("ZLM011", "TRA Banker");
+            UserRole r10 = new UserRole("ZLM012", "Consultant");
+            UserRole r11 = new UserRole("ZLM014", "PFS Relationship officer");
+            UserRole r12 = new UserRole("ZLM015", "EPC contractor");
+            UserRole r13 = new UserRole("ZLM016", "Co-Lender");
+            UserRole r14 = new UserRole("ZLM017", "Customer-Empl(Supp. 3rd Party");
+            UserRole r15 = new UserRole("ZLM018", "Nodal Officer-Legal");
+            UserRole r16 = new UserRole("ZLM019", "Nodal Officer-Disb&Recov");
+            UserRole r17 = new UserRole("ZLM020", "Lead Bank");
+            UserRole r18 = new UserRole("ZLM021", "Employee(SuppServ&3rd pa)");
+            UserRole r19 = new UserRole("ZLM022", "Loan DocumentationOfficer");
+            UserRole r20 = new UserRole("ZLM024", "Nodal Officer-Monitoring");
+
+
+            userRoleRepository.saveAll(Arrays.asList(r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,
+                                                      r11,r12,r13,r14,r15,r16,r17,r18,r19,r20));
+            log.info("Added Additonal User Roles");
+        }
+
 
         if (enquiryPortalCommonConfigRepository.count() == 0) {
             EnquiryPortalCommonConfig e1 = new EnquiryPortalCommonConfig("DEV","info@leanthoughts.com");

@@ -427,6 +427,11 @@ public class LoanApplicationContoller {
                             .equals(resource.getAssistanceType()))
                     .collect(Collectors.toList());
 
+        if (resource.getRating() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication ->
+                    loanApplication.getRating().equals(resource.getRating()))
+                    .collect(Collectors.toList());
+
 
         if (resource.getTechnicalStatus() != null)
             loanApplications = loanApplications

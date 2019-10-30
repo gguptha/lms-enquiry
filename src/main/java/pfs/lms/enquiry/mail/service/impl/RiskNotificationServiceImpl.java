@@ -58,7 +58,7 @@ public class RiskNotificationServiceImpl implements RiskNotificationService {
         String line3 = "    " + System.lineSeparator();
         String line4 = "    Loan Contract  : " +loanApplication.getLoanContractId() + System.lineSeparator() ;
         String line5 = "    Project Name : " +loanApplication.getProjectName() + System.lineSeparator();
-        String line6 = "Regards," + System.lineSeparator() + "PTC Financial Services";
+        String line6 = "Regards," + System.lineSeparator() + "PTC India Financial Services Ltd.";
         String content = line1 + line2 + line3 + line4 + line5 + line6;
 
         MailObject mailObject = new MailObject();

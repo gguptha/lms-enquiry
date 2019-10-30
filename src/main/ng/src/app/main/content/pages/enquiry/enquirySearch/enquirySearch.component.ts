@@ -52,7 +52,8 @@ export class EnquirySearchComponent {
             projectType: [],
             financingType: [],
             assistanceType: [],
-            technicalStatus:[]
+            technicalStatus:[],
+            rating:[]
         });
 
         _service.selectedLoanApplicationId = undefined;
@@ -86,7 +87,9 @@ export class EnquirySearchComponent {
         enquirySearchParameters.projectType == undefined  &&
         enquirySearchParameters.financingType == undefined  &&
         enquirySearchParameters.assistanceType == undefined &&
-        enquirySearchParameters.technicalStatus == undefined) {
+        enquirySearchParameters.technicalStatus == undefined &&
+        enquirySearchParameters.rating == undefined
+      ) {
         this._matSnackBar.open('Error: Enter at least one search parameter', 'OK', { duration: 7000 });
 
         return;
