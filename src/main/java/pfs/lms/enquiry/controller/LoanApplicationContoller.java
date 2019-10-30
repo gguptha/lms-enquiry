@@ -371,12 +371,23 @@ public class LoanApplicationContoller {
 //            }
 //        }
 
+        if (resource.getEnquiryDateTo() == null){
+            resource.setEnquiryDateTo(resource.getEnquiryDateFrom().plusDays(1));
+        }
 
         if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null) {
             loanApplications = loanApplications.stream()
                     .filter(loanApplication -> (
                             loanApplication.getLoanEnquiryDate().isAfter(resource.getEnquiryDateFrom()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateFrom())) &&
                             (loanApplication.getLoanEnquiryDate().isBefore(resource.getEnquiryDateTo()) || loanApplication.getLoanEnquiryDate().equals(resource.getEnquiryDateTo())))
+                    .collect(Collectors
+                            .toList());
+        }
+
+        if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() == null) {
+            loanApplications = loanApplications.stream()
+                    .filter(loanApplication -> (
+                            loanApplication.getLoanEnquiryDate().isEqual(resource.getEnquiryDateFrom())))
                     .collect(Collectors
                             .toList());
         }

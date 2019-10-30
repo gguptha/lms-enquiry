@@ -109,11 +109,13 @@ export class EnquirySearchComponent {
       let dateFrom = new Date(enquirySearchParameters.enquiryDateFrom);
       let dateTo = new Date(enquirySearchParameters.enquiryDateTo);
 
-      if (enquirySearchParameters.enquiryDateFrom != undefined)
+      if (enquirySearchParameters.enquiryDateTo !=  null) {
+        //alert(enquirySearchParameters.enquiryDateTo);
         if (dateTo < dateFrom) {
           this._matSnackBar.open('Error: To Date is less than From Date', 'OK', {duration: 7000});
           return;
         }
+      }
 
 
       let today = new Date();
@@ -129,7 +131,7 @@ export class EnquirySearchComponent {
         return;
       }
 
-
+      //alert(dateFrom);
 
       this._service.searchLoanEnquiries(this.enquirySearchForm.value).subscribe((result) => {
             const enquiryApplications = new Array<EnquiryApplicationModel>();
