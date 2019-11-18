@@ -372,7 +372,10 @@ public class LoanApplicationContoller {
 //        }
 
         if (resource.getEnquiryDateTo() == null){
-            resource.setEnquiryDateTo(resource.getEnquiryDateFrom().plusDays(1));
+            if (resource.getEnquiryDateFrom() != null) {
+                resource.setEnquiryDateTo(resource.getEnquiryDateFrom().plusDays(1));
+
+            }
         }
 
         if (resource.getEnquiryDateFrom() != null && resource.getEnquiryDateTo() != null) {
