@@ -24,16 +24,16 @@ spring:
     serialization:
       fail-on-empty-beans: false
   mail:
-    host: smtp.gmail.com
+    host: smtp.office365.com
     port: 587
     username: pfs_sapadmin@ptcfinancial.com
-    password: SapAdmin@321#
+    password: PFSsapadmin@5674
     protocol: smtp
     tls: true
     properties.mail.smtp:
         auth: true
         starttls.enable: true
-        ssl.trust: smtp.gmail.com
+        ssl.trust: smtp.office365.com
 oauth:
   baseUrl: https://enquiry.pfs-ess.com/auth
 sap:
