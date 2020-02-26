@@ -84,12 +84,15 @@ import java.util.Properties;
 
         JavaMailSender emailSender = this.getJavaMailSender();
 
+
         try {
             SimpleMailMessage message = new SimpleMailMessage();
+
 
             message.setTo(mailObject.getToAddress());
             message.setSubject(mailObject.getSubject());
             message.setText(mailObject.getMailContent());
+            message.setFrom(username); //"pfs_sapadmin@ptcfinancial.com");
 
             emailSender.send(message);
         } catch (MailException exception) {
