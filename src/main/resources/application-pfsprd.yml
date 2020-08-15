@@ -35,8 +35,8 @@ spring:
         starttls.enable: true
         ssl.trust: smtp.office365.com
 oauth:
-#  baseUrl: https://enquiry.pfs-ess.com/auth
-   baseUrl: http://192.168.1.247:9999/auth
+  baseUrl: https://enquiry.pfs-ess.com/auth
+#   baseUrl: http://192.168.1.247:9999/auth
 sap:
   postUrl: http://192.168.1.207:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=500
   baseUrl: http://192.168.1.207:8000
@@ -49,13 +49,13 @@ security:
     client:
       client-id: pfs-client
       client-secret: pfs-secret
-#      access-token-uri: https://enquiry.pfs-ess.com/auth/oauth/token
-      access-token-uri: http://192.168.1.247:9999/auth/oauth/token
-#      user-authorization-uri: https://enquiry.pfs-ess.com/auth/oauth/authorize
-      user-authorization-uri: http://192.168.1.247:9999/auth/oauth/authorize
+      access-token-uri: https://enquiry.pfs-ess.com/auth/oauth/token
+#      access-token-uri: http://192.168.1.247:9999/auth/oauth/token
+      user-authorization-uri: https://enquiry.pfs-ess.com/auth/oauth/authorize
+#      user-authorization-uri: http://192.168.1.247:9999/auth/oauth/authorize
     resource:
-#      user-info-uri: https://enquiry.pfs-ess.com/time   
-      user-info-uri: http://192.168.1.247:9999/time
+      user-info-uri: https://enquiry.pfs-ess.com/time
+#      user-info-uri: http://192.168.1.247:9999/time
     jwt:
         keyValue: PfS$$$98567
 server:
