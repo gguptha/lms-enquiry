@@ -54,7 +54,7 @@ security:
       user-authorization-uri: https://enquiry.pfs-ess.com/auth/oauth/authorize
 #      user-authorization-uri: http://192.168.1.247:9999/auth/oauth/authorize
     resource:
-      user-info-uri: https://enquiry.pfs-ess.com/time
+      user-info-uri: https://enquiry.pfs-ess.com/auth/time
 #      user-info-uri: http://192.168.1.247:9999/time
     jwt:
         keyValue: PfS$$$98567
