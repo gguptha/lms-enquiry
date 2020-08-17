@@ -48,8 +48,8 @@ security:
     client:
       client-id: pfs-client
       client-secret: pfs-secret
-       access-token-uri: http://192.168.1.247:9999/auth/oauth/token
-       user-authorization-uri: http://192.168.1.247:9999/auth/oauth/authorize
+      access-token-uri: http://192.168.1.247:9999/auth/oauth/token
+      user-authorization-uri: http://192.168.1.247:9999/auth/oauth/authorize
     resource:
       user-info-uri: http://192.168.1.247:9999/auth/time
     jwt:
