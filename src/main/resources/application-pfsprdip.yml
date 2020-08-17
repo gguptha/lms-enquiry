@@ -56,3 +56,4 @@ security:
         keyValue: PfS$$$98567
 server:
   port: 8080
+  
