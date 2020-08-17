@@ -35,7 +35,7 @@ spring:
         starttls.enable: true
         ssl.trust: smtp.office365.com
 oauth:
-  baseUrl: http://192.168.1.247:9999/auth
+  baseUrl: http://192.168.1.247:9999/auth/
 sap:
   postUrl: http://192.168.1.207:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=500
   baseUrl: http://192.168.1.207:8000
@@ -56,4 +56,3 @@ security:
         keyValue: PfS$$$98567
 server:
   port: 8080
-  
