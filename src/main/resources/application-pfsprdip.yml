@@ -51,7 +51,7 @@ security:
       access-token-uri: http://192.168.1.247:9999/auth/oauth/token
       user-authorization-uri: http://192.168.1.247:9999/auth/oauth/authorize
     resource:
-      user-info-uri: http://192.168.1.247:9999/time
+      user-info-uri: http://192.168.1.247:9999/auth/api/me
     jwt:
         keyValue: PfS$$$98567
 server:
