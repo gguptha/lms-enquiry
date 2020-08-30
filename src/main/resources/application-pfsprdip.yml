@@ -27,7 +27,7 @@ spring:
     host: smtp.office365.com
     port: 587
     username: pfs_sapadmin@ptcfinancial.com
-    password: PFSsapadmin@5674
+    password: SAP$admin@456#!%*
     protocol: smtp
     tls: true
     properties.mail.smtp:
