@@ -19,10 +19,7 @@ import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.repository.StateRepository;
 import pfs.lms.enquiry.repository.UserRepository;
-import pfs.lms.enquiry.resource.EnquiryRejectReason;
-import pfs.lms.enquiry.resource.LoanApplicationResource;
-import pfs.lms.enquiry.resource.LoanNumberResource;
-import pfs.lms.enquiry.resource.SearchResource;
+import pfs.lms.enquiry.resource.*;
 import pfs.lms.enquiry.service.ILoanApplicationService;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
@@ -542,5 +539,137 @@ public class LoanApplicationContoller {
         return ResponseEntity.ok(loanApplication);
     }
 
+    @PutMapping("/loanApplications/loanContracts/search")
+    public ResponseEntity search(@RequestBody LoanContractSearchResource resource, HttpServletRequest request,
+                                 @PageableDefault(sort = "loanContractId", size = 9999, direction = Sort.Direction.DESC) Pageable pageable)
+    {
+        List<LoanApplication> loanApplications = new ArrayList<>(loanApplicationService.searchLoans(request,pageable));
+
+
+        if (resource.getBorrowerCodeFrom() != null && resource.getBorrowerCodeTo() == null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getbusPartnerNumber() != null
+                    && !loanApplication.getbusPartnerNumber().isEmpty())
+                    .filter(loanApplication -> loanApplication.getbusPartnerNumber().contains(resource.getBorrowerCodeFrom() + "")).collect(Collectors.toList());
+        }
+        else if (resource.getBorrowerCodeFrom() == null && resource.getBorrowerCodeTo() != null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getbusPartnerNumber() != null
+                    && !loanApplication.getbusPartnerNumber().isEmpty())
+                    .filter(loanApplication -> loanApplication.getbusPartnerNumber().contains(resource.getBorrowerCodeTo() + "")).collect(Collectors.toList());
+        }
+        else if (resource.getBorrowerCodeFrom() != null && resource.getBorrowerCodeTo() != null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getbusPartnerNumber() != null && !loanApplication.getbusPartnerNumber().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getbusPartnerNumber()) >=
+                    resource.getBorrowerCodeFrom()).collect(Collectors.toList());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getbusPartnerNumber() != null && !loanApplication.getbusPartnerNumber().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getbusPartnerNumber()) <=
+                    resource.getBorrowerCodeTo()).collect(Collectors.toList());
+        }
+
+        if (resource.getLoanNumberFrom() != null && resource.getLoanNumberTo() == null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null
+                    && !loanApplication.getLoanContractId().isEmpty())
+                    .filter(loanApplication -> loanApplication.getLoanContractId().contains(resource.getLoanNumberFrom() + "")).collect(Collectors.toList());
+        }
+        else if (resource.getLoanNumberFrom() == null && resource.getLoanNumberTo() != null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null
+                    && !loanApplication.getLoanContractId().isEmpty())
+                    .filter(loanApplication -> loanApplication.getLoanContractId().contains(resource.getLoanNumberTo() + "")).collect(Collectors.toList());
+        }
+        else if (resource.getLoanNumberFrom() != null && resource.getLoanNumberTo() != null) {
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null && !loanApplication.getLoanContractId().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getLoanContractId()) >=
+                    resource.getLoanNumberFrom()).collect(Collectors.toList());
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanContractId() != null && !loanApplication.getLoanContractId().isEmpty()).filter(loanApplication -> new Integer(loanApplication.getLoanContractId()) <=
+                    resource.getLoanNumberTo()).collect(Collectors.toList());
+        }
+
+        if (resource.getPartyName() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectName().toLowerCase().contains(resource.getPartyName().toLowerCase())).collect(Collectors.toList());
+
+        if (resource.getLoanClass() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanClass().equals(resource.getLoanClass())).collect(Collectors.toList());
+
+        if (resource.getFinancingType() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getFinancingType().equals(resource.getFinancingType())).collect(Collectors.toList());
+
+        if (resource.getProjectLocationState() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectLocationState().equals(resource.getProjectLocationState())).collect(Collectors.toList());
+
+        if (resource.getProjectType() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getProjectType().equals(resource.getProjectType())).collect(Collectors.toList());
+
+        if (resource.getAssistanceType() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication ->
+                    loanApplication.getAssistanceType()
+                            .equals(resource.getAssistanceType()))
+                    .collect(Collectors.toList());
+
+
+        if (resource.getTechnicalStatus() != null)
+            loanApplications = loanApplications
+                    .stream()
+                    .filter(
+                            loanApplication ->
+                                    loanApplication.getTechnicalStatus()
+                                            == Integer.parseInt(resource.getTechnicalStatus() ))
+                    .collect(Collectors.toList());
+
+        User user;
+        if(request.getUserPrincipal().getName().equals("admin")) {
+            user = userRepository.findByEmail("admin@gmail.com");
+        }
+        else {
+            user = userRepository.findByEmail(request.getUserPrincipal().getName());
+        }
+
+        if (user.getRole().equals("TR0100")) {
+            Partner partner = partnerRepository.findByEmail(user.getEmail());
+            if (partner != null) {
+                loanApplications = loanApplications.stream().filter(loanApplication -> loanApplication.getLoanApplicant()
+                        .equals(partner.getId())).collect(Collectors.toList());
+            }
+        }
+
+        List<LoanApplicationResource> resources = new ArrayList<>(0);
+
+        loanApplications.forEach(loanApplication -> {
+
+            if (loanApplication.getLoanApplicant() != null) {
+                Partner partner = partnerRepository.findById(loanApplication.getLoanApplicant()).get();
+
+                if (loanApplication.getTechnicalStatus() != null) {
+                    switch (loanApplication.getTechnicalStatus()) {
+                        case 1:
+                            loanApplication.setTechnicalStatusDescription("Created");
+                            break;
+                        case 2:
+                            loanApplication.setTechnicalStatusDescription("Modified");
+                            break;
+                        case 3:
+                            loanApplication.setTechnicalStatusDescription("Submitted");
+                            break;
+                        case 4:
+                            loanApplication.setTechnicalStatusDescription("Taken up for Processing");
+                            break;
+                        case 5:
+                            loanApplication.setTechnicalStatusDescription("Cancelled");
+                            break;
+                        case 6:
+                            loanApplication.setTechnicalStatusDescription("Rejected");
+                            break;
+                    }
+                }
+
+                resources.add(new LoanApplicationResource(loanApplication, partner));
+            }
+        });
+
+        for ( LoanApplicationResource loanApplicationResource : resources) {
+            if (loanApplicationResource.getLoanApplication().getProjectLocationState() != null)
+                if (loanApplicationResource.getLoanApplication().getProjectLocationState().length() == 2) {
+                    loanApplicationResource.getLoanApplication().setProjectLocationState(
+                            stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
+                }
+        }
+
+        return ResponseEntity.ok(resources);
+    }
 
 }

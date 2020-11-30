@@ -31,6 +31,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { MailRepoComponent } from './main/content/pages/administration/mail-repo/mail-repo.component';
 import {MailRepoModule} from "./main/content/pages/administration/mail-repo/mail-repo.module";
 import { ChangePasswordModule } from './main/content/pages/changePassword/changePassword.module';
+import { LoanContractsSearchModule } from './main/content/pages/monitoring/loanContractsSearch/loanContractsSearch.module';
 
 const appRoutes: Routes = [
     {
@@ -86,7 +87,10 @@ const appRoutes: Routes = [
         ForgotPassword2Module,
         ChangePasswordModule,
         PartnerModule,
-        MailRepoModule
+        MailRepoModule,
+
+        // Monitoring
+        LoanContractsSearchModule
     ],
     bootstrap: [
         AppComponent

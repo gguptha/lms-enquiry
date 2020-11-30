@@ -18,8 +18,8 @@ export class EnquiryApplicationModel {
     projectName: string;
     projectType: string;
     technicalStatusDescription:string;
-    rating:string;
-
+    rating: string;
+    borrowerName: string;
 
     /**
      * constructor()
@@ -46,6 +46,7 @@ export class EnquiryApplicationModel {
         this.projectType = _enquiryApplication.loanApplication.projectType;
         this.technicalStatusDescription = _enquiryApplication.loanApplication.technicalStatusDescription;
         this.rating = _enquiryApplication.loanApplication.rating;
+        this.borrowerName = _enquiryApplication.partner.partyName1;
     }
 
     /**
@@ -122,7 +123,4 @@ export class EnquiryApplicationModel {
             case 9: return 'Cancelled';
         }
     }
-
-
-
 }

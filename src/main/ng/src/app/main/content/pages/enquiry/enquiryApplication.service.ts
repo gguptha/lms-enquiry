@@ -13,8 +13,7 @@ export class LoanEnquiryService implements Resolve<any> {
     selectedLoanApplicationId: BehaviorSubject<string>;
     selectedLoanApplicationPartyNumber: BehaviorSubject<string>;
 
-
-  /**
+    /**
      *
      * @param _http
      */
@@ -42,17 +41,17 @@ export class LoanEnquiryService implements Resolve<any> {
         ]);
     }
 
-  /**
-   * getPartnersOrderedByEmail()
-   */
-  public getLoanApplicantsByEmail(): Observable<any> {
-    return this._http.get<ApplicantEmail>('enquiry/api/partners/byEmail'  );
-  }
+    /**
+     * getPartnersOrderedByEmail()
+     */
+    public getLoanApplicantsByEmail(): Observable<any> {
+        return this._http.get<ApplicantEmail>('enquiry/api/partners/byEmail'  );
+    }
 
-
-  public getPartnerByPrincipal(): Observable<any> {
+    public getPartnerByPrincipal(): Observable<any> {
         return this._http.get('enquiry/api/partners/byPrincipal');
     }
+
     /**
      * getLoanClasses()
      * returns a list of loan classes.
@@ -85,38 +84,38 @@ export class LoanEnquiryService implements Resolve<any> {
         return this._http.get('enquiry/api/assistanceTypes');
     }
 
+    /**
+     * getIndustrySectors()
+     * Returns a list of Industry Sectors.
+     */
+    public getIndustrySectors(): Observable<any> {
+        return this._http.get('enquiry/api/industrySectors?sort=code');
+    }
 
-  /**
-   * getIndustrySectors()
-   * Returns a list of Industry Sectors.
-   */
-  public getIndustrySectors(): Observable<any> {
-    return this._http.get('enquiry/api/industrySectors?sort=code');
-  }
+    /**
+     * getProjectCapacityUnits()
+     * Returns a list of Units .
+     */
+    public getUnitOfMeasures(): Observable<any> {
+        return this._http.get('enquiry/api/unitOfMeasures');
+    }
 
-  /**
-   * getProjectCapacityUnits()
-   * Returns a list of Units .
-   */
-  public getUnitOfMeasures(): Observable<any> {
-    return this._http.get('enquiry/api/unitOfMeasures');
-  }
+    /**
+     * getRejectionCategories()
+     * returns a list of Rejection Categories
+     */
+    public getRejectionCategories(): Observable<any> {
+        return this._http.get('enquiry/api/rejectionCategories');
+    }
+    /**
+     * getTechnicalStatus()
+     * returns a list of Technical Status
+     */
+    public getTechnicalStatus(): Observable<any> {
+        return this._http.get('enquiry/api/technicalStatus');
+    }
 
-  /**
-   * getRejectionCategories()
-   * returns a list of Rejection Categories
-   */
-  public getRejectionCategories(): Observable<any> {
-    return this._http.get('enquiry/api/rejectionCategories');
-  }
-  /**
-   * getTechnicalStatus()
-   * returns a list of Technical Status
-   */
-  public getTechnicalStatus(): Observable<any> {
-    return this._http.get('enquiry/api/technicalStatus');
-  }
-  /**
+    /**
      * getStates()
      * Returns a list of states in the country.
      */
@@ -144,5 +143,13 @@ export class LoanEnquiryService implements Resolve<any> {
      */
     public searchLoanEnquiries(request: any): Observable<any> {
         return this._http.put<any>('enquiry/api/loanApplications/search', request);
+    }
+
+    /**
+     * searchLoanContracts()
+     * @param request 
+     */
+    public searchLoanContracts(request: any): Observable<any> {
+        return this._http.put<any>('enquiry/api/loanApplications/loanContracts/search', request);
     }
 }

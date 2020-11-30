@@ -143,5 +143,21 @@ export const adminNavigation: FuseNavigation[] = [
         url: '/partner',
       }
     ]
+  },
+  {
+    id: 'monitoring',
+    title: 'Monitoring',
+    translate: 'NAV.MONITORING',
+    type: 'group',
+    children: [
+      {
+        id: 'loan-contracts',
+        title: 'Loan Contracts List',
+        translate: 'NAV.LOANCONTRACTSLIST',
+        type: 'item',
+        icon: 'create',
+        url: '/loanContractsList',
+      }
+    ]
   }
 ];
