@@ -1,15 +1,13 @@
 package pfs.lms.enquiry.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Setter
+@Getter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor

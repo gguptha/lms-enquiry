@@ -11,9 +11,12 @@ import pfs.lms.enquiry.repository.LIERepository;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.resource.LIEResource;
+import pfs.lms.enquiry.resource.LoanMonitorResource;
 import pfs.lms.enquiry.service.ILIEService;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -71,5 +74,26 @@ public class LIEService implements ILIEService {
         existingLendersIndependentEngineer = lieRepository.save(existingLendersIndependentEngineer);
 
         return existingLendersIndependentEngineer;
+    }
+
+    @Override
+    public List<LIEResource> getLendersIndependentEngineers(String loanApplicationId, String name) {
+
+        List<LIEResource> lendersIndependentEngineerResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<LendersIndependentEngineer> lendersIndependentEngineers
+                    = lieRepository.findByLoanMonitor(loanMonitor.getId());
+            lendersIndependentEngineers.forEach(
+                    lendersIndependentEngineer -> {
+                        LIEResource lieResource = new LIEResource();
+                        lieResource.setLoanApplicationId(loanApplication.getId());
+                        lieResource.setLendersIndependentEngineer(lendersIndependentEngineer);
+                        lendersIndependentEngineerResources.add(lieResource);
+                    }
+            );
+        }
+        return lendersIndependentEngineerResources;
     }
 }
