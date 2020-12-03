@@ -40,15 +40,12 @@ public class LIEController {
 
     }
 
-    @GetMapping("/loanApplications/loanmonitor/{loanapplicationid}")
-    public ResponseEntity getLendersIndependentEngineers(@PathVariable("loanapplicationid")
-                                              String loanApplicationId,
+    @GetMapping("/loanApplications/{loanapplicationid}/lendersIndependentEngineers")
+    public ResponseEntity getLendersIndependentEngineers(@PathVariable("loanapplicationid") String loanApplicationId,
                                                HttpServletRequest request)
     {
         List<LIEResource> lendersIndependentEngineers = lieService.getLendersIndependentEngineers(loanApplicationId,
                                         request.getUserPrincipal().getName());
         return ResponseEntity.ok(lendersIndependentEngineers);
     }
-
-
 }
