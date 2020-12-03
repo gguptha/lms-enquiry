@@ -25,17 +25,14 @@ public class LIEController {
     private final ILIEService lieService;
 
 
-    @PostMapping("/lendersindependentengineer/create/{loanapplicationid}")
-    public ResponseEntity create(@PathVariable("loanapplicationid") String loanapplicationid, @RequestBody LIEResource resource, HttpServletRequest request) {
-        resource.setLoanApplicationId(UUID.fromString(loanapplicationid));
+    @PostMapping("/loanApplications/lendersindependentengineers/create")
+    public ResponseEntity create(@RequestBody LIEResource resource, HttpServletRequest request) {
         LendersIndependentEngineer lendersIndependentEngineer =
                 lieService.save(resource, request.getUserPrincipal().getName());
-
         return ResponseEntity.ok(lendersIndependentEngineer);
-
     }
 
-    @PutMapping("/lendersindependentengineer/{id}")
+    @PutMapping("/lendersindependentengineers/{id}")
     public ResponseEntity update(@PathVariable("id") String lieId, @RequestBody LIEResource resource, HttpServletRequest request) {
         LendersIndependentEngineer lendersIndependentEngineer =
                 lieService.update(resource, request.getUserPrincipal().getName());

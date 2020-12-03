@@ -117,6 +117,6 @@ export class LoanContractsSearchComponent {
             this._enquiryAlertsService.selectedLoanApplicationId = new BehaviorSubject(this._service.selectedLoanApplicationId.value);
             this._enquiryAlertsService.selectedLoanApplicationPartyNumber = new BehaviorSubject(this._service.selectedLoanApplicationPartyNumber.value);
         }
-        this._router.navigate(['/enquiryReview']);
+        this._router.navigate(['/loanMonitoring']);
     }
 }
