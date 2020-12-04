@@ -5,15 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pfs.lms.enquiry.domain.LIEReportAndFee;
 import pfs.lms.enquiry.domain.LendersIndependentEngineer;
+import pfs.lms.enquiry.resource.LIEReportAndFeeResource;
 import pfs.lms.enquiry.resource.LIEResource;
 
-import pfs.lms.enquiry.resource.LoanMonitorResource;
+import pfs.lms.enquiry.service.ILIEReportAndFeeService;
 import pfs.lms.enquiry.service.ILIEService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RepositoryRestController
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class LIEController {
 
     private final ILIEService lieService;
+    private final ILIEReportAndFeeService lieReportAndFeeService;
 
 
     @PostMapping("/loanApplications/lendersindependentengineers/create")
@@ -49,6 +51,36 @@ public class LIEController {
                                         request.getUserPrincipal().getName());
         return ResponseEntity.ok(lendersIndependentEngineers);
     }
+
+
+    // create, update , list LIE Report Submission and Fee
+
+    @PostMapping("/loanApplications/liereportandfeesubmission/create")
+    public ResponseEntity createLIEReportSubmissionAndFee(@RequestBody LIEReportAndFeeResource resource, HttpServletRequest request) {
+        LIEReportAndFee lieReportAndFee =
+                lieReportAndFeeService.save(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(lieReportAndFee);
+    }
+
+    @PutMapping("/loanApplications/liereportandfeesubmission/{id}")
+    public ResponseEntity updateLIEReortSubmissionAndFee(@PathVariable("id") String lieId, @RequestBody LIEReportAndFeeResource resource, HttpServletRequest request) {
+        LIEReportAndFee lieReportAndFee =
+                lieReportAndFeeService.update(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(lieReportAndFee);
+
+    }
+
+    @GetMapping("/loanApplications/lendersIndependentEngineer/{lendersindependentengineerid}")
+    public ResponseEntity getLIEReportAndFee(@PathVariable("lendersindependentengineerid")
+                                                                 String lendersIndependentEngineerId,
+                                                         HttpServletRequest request)
+    {
+        List<LIEReportAndFeeResource>  lieReportAndFeeResources = lieReportAndFeeService.getLIEReportAndFee(lendersIndependentEngineerId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(lieReportAndFeeResources);
+    }
+
 
 
 }
