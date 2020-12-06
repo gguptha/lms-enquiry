@@ -38,19 +38,6 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
 
         LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(resource.getLendersIndependentEngineerId());
         LIEReportAndFee lieReportAndFee = resource.getLieReportAndFee();
-        //lieReportAndFee.setLendersIndependentEngineer();
-/*
-        lendersIndependentEngineer.setLoanMonitor(loanMonitor);
-        lendersIndependentEngineer.setAdvisor(resource.getLendersIndependentEngineer().getAdvisor());
-        lendersIndependentEngineer.setBpCode(resource.getLendersIndependentEngineer().getBpCode());
-        lendersIndependentEngineer.setName(resource.getLendersIndependentEngineer().getName());
-        lendersIndependentEngineer.setDateOfAppointment(resource.getLendersIndependentEngineer().getDateOfAppointment());
-        lendersIndependentEngineer.setContractPeriodFrom(resource.getLendersIndependentEngineer().getContractPeriodFrom());
-        lendersIndependentEngineer.setContractPeriodTo(resource.getLendersIndependentEngineer().getContractPeriodTo());
-        lendersIndependentEngineer.setContactPerson(resource.getLendersIndependentEngineer().getContactPerson());
-        lendersIndependentEngineer.setContactNumber(resource.getLendersIndependentEngineer().getContactNumber());
-        lendersIndependentEngineer.setEmail(resource.getLendersIndependentEngineer().getEmail());
-*/
         lieReportAndFee.setLendersIndependentEngineer(lendersIndependentEngineer);
         lieReportAndFee = lieReportAndFeeRepository.save(lieReportAndFee);
         return lieReportAndFee;

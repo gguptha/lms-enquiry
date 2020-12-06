@@ -12,7 +12,7 @@ import { LoanMonitoringService } from '../loanMonitoring.service';
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None
 })
-export class LieUpdateDialogComponent {
+export class LIEUpdateDialogComponent {
 
     dialogTitle = 'Add LIE';
 
@@ -29,7 +29,7 @@ export class LieUpdateDialogComponent {
      * @param _matSnackBar 
      */
     constructor(_formBuilder: FormBuilder, private _loanMonitoringService: LoanMonitoringService,
-        public _dialogRef: MatDialogRef<LieUpdateDialogComponent>, @Inject(MAT_DIALOG_DATA) public _dialogData: any,
+        public _dialogRef: MatDialogRef<LIEUpdateDialogComponent>, @Inject(MAT_DIALOG_DATA) public _dialogData: any,
         private _matSnackBar: MatSnackBar) {
 
         // Fetch selected user details from the dialog's data attribute.
@@ -42,7 +42,7 @@ export class LieUpdateDialogComponent {
 
         this.lieUpdateForm = _formBuilder.group({
             bpCode: [this.selectedLIE.bpCode],
-            name: [this.selectedLIE.bpCode || ''],
+            name: [this.selectedLIE.name || ''],
             dateOfAppointment: [this.selectedLIE.dateOfAppointment || ''],
             contactPerson: [this.selectedLIE.contactPerson],
             contractPeriodFrom: [this.selectedLIE.contractPeriodFrom || ''],

@@ -3,7 +3,7 @@ import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { BehaviorSubject } from 'rxjs';
 import { EnquiryApplicationModel } from 'app/main/content/model/enquiryApplication.model';
-import { LoanEnquiryService } from '../../../enquiry/enquiryApplication.service';
+import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
 
 @Component({
     selector: 'fuse-loancontracts-search-list',

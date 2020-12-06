@@ -3,10 +3,12 @@ import { FormBuilder } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { Router} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
 import { MatDialog } from '@angular/material';
-import { LieUpdateDialogComponent } from '../lieUpdate/lieUpdate.component';
-import { LoanMonitoringService } from '../loanMonitoring.service';
+import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
+import { LoanMonitoringService } from './loanMonitoring.service';
+import { LIEUpdateDialogComponent } from './lieUpdate/lieUpdate.component';
+import { LIEReportAndFeeUpdateDialogComponent } from './lieReportAndFeeUpdate/lieReportAndFeeUpdate.component';
+import { LIEModel } from '../../model/lie.model';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -18,6 +20,7 @@ export class LoanMonitoringComponent {
 
     loanApplicationId: string;
 
+    selectedLIE: LIEModel;
     lieList: any;
 
     /**
@@ -36,6 +39,11 @@ export class LoanMonitoringComponent {
                 this.lieList = data;
             });
         });
+        
+        _loanMonitoringService.selectedLIE.subscribe(data => {
+            console.log('data', data);
+            this.selectedLIE = data;
+        })
     }
 
     /**
@@ -50,7 +58,7 @@ export class LoanMonitoringComponent {
      */
     addLIE(): void {
         // Open the dialog.
-        const dialogRef = this._dialogRef.open(LieUpdateDialogComponent, {
+        const dialogRef = this._dialogRef.open(LIEUpdateDialogComponent, {
             panelClass: 'fuse-lie-update-dialog',
             width: '750px',
             data: {
@@ -63,6 +71,24 @@ export class LoanMonitoringComponent {
             this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
                 this.lieList = data;
             });
+        });    
+    }
+
+    /**
+     * addLIEReportAndFee()
+     */
+    addLIEReportAndFee(): void {
+        // Open the dialog.
+        const dialogRef = this._dialogRef.open(LIEReportAndFeeUpdateDialogComponent, {
+            panelClass: 'fuse-lie-report-fee-update-dialog',
+            width: '750px',
+            data: {
+                operation: 'addLIEReportAndFee',
+                selectedLIE: this.selectedLIE
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
         });    
     }
 }

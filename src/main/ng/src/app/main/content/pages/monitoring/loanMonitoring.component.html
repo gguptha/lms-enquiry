@@ -33,7 +33,10 @@
                 </div>
 
                 <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIE()"> Add Report For LIE </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIEReportAndFee()" 
+                            [disabled]="_loanMonitoringService.selectedLIE === undefined || _loanMonitoringService.selectedLIE.id === ''"> 
+                        Add Report For LIE 
+                    </button>
                     <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIE()"> Modify Report For LIE </button>
                 </div>
                 <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 125%">

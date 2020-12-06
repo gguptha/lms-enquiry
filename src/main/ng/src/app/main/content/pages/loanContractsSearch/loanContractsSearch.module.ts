@@ -7,8 +7,8 @@ import {
   MatPaginatorModule, MatToolbarModule, MatIconModule, MatSelectModule, MatProgressSpinnerModule, MatDatepickerModule,
   MatDatepickerToggle
 } from '@angular/material';
-import {EnquiryApplicationRouteGuard} from "../../../../../enquiryApplication.guard";
-import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
+import {EnquiryApplicationRouteGuard} from "../../../../enquiryApplication.guard";
+import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanContractListComponent } from './loanContractList/loanContractList.component';
 import { LoanContractsSearchComponent } from './loanContractsSearch.component';
 

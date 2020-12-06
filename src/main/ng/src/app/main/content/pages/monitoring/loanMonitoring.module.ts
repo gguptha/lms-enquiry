@@ -7,12 +7,13 @@ import {
   MatPaginatorModule, MatToolbarModule, MatIconModule, MatSelectModule, MatProgressSpinnerModule, MatDatepickerModule,
   MatTabsModule
 } from '@angular/material';
-import {EnquiryApplicationRouteGuard} from "../../../../../enquiryApplication.guard";
-import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
 import { LoanMonitoringComponent } from './loanMonitoring.component';
-import { LoanMonitoringService } from '../loanMonitoring.service';
-import { LieUpdateDialogComponent } from '../lieUpdate/lieUpdate.component';
-import { LIEListComponent } from '../lieList/lieList.component';
+import { EnquiryApplicationRouteGuard } from 'app/enquiryApplication.guard';
+import { LIEUpdateDialogComponent } from './lieUpdate/lieUpdate.component';
+import { LIEListComponent } from './lieList/lieList.component';
+import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
+import { LoanMonitoringService } from './loanMonitoring.service';
+import { LIEReportAndFeeUpdateDialogComponent } from './lieReportAndFeeUpdate/lieReportAndFeeUpdate.component';
 
 const routes = [
     {
@@ -44,8 +45,9 @@ const routes = [
     ],
     declarations: [
         LoanMonitoringComponent,
-        LieUpdateDialogComponent,
-        LIEListComponent
+        LIEUpdateDialogComponent,
+        LIEListComponent,
+        LIEReportAndFeeUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -53,12 +55,14 @@ const routes = [
     ],
     exports: [
         LoanMonitoringComponent,
-        LieUpdateDialogComponent,
-        LIEListComponent
+        LIEUpdateDialogComponent,
+        LIEListComponent,
+        LIEReportAndFeeUpdateDialogComponent
     ],  
     entryComponents: [
-        LieUpdateDialogComponent,
-        LIEListComponent
+        LIEUpdateDialogComponent,
+        LIEListComponent,
+        LIEReportAndFeeUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {

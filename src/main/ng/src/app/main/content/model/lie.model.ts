@@ -1,5 +1,6 @@
 export class LIEModel
 {
+    id: string;
     bpCode: string;
     name: string;
     dateOfAppointment: Date;
@@ -14,6 +15,7 @@ export class LIEModel
      */
     constructor(_lie: any)
     {
+        this.id = _lie.id || '';
         this.bpCode = _lie.bpCode || '';
         this.name = _lie.name || '';
         this.dateOfAppointment = _lie.dateOfAppointment || undefined;

@@ -5,8 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { EnquiryApplicationModel } from 'app/main/content/model/enquiryApplication.model';
 import {MatPaginator, MatSnackBar} from "@angular/material";
-import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
-import { EnquiryAlertsService } from '../../enquiry/enquiryAlerts/enquiryAlerts.service';
+import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
+import { EnquiryAlertsService } from '../enquiry/enquiryAlerts/enquiryAlerts.service';
 
 @Component({
     selector: 'fuse-loancontracts-search',

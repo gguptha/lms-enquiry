@@ -63,7 +63,7 @@ public class LIEController {
     }
 
     @PutMapping("/loanApplications/liereportandfeesubmission/{id}")
-    public ResponseEntity updateLIEReortSubmissionAndFee(@PathVariable("id") String lieId, @RequestBody LIEReportAndFeeResource resource, HttpServletRequest request) {
+    public ResponseEntity updateLIEReportSubmissionAndFee(@PathVariable("id") String lieId, @RequestBody LIEReportAndFeeResource resource, HttpServletRequest request) {
         LIEReportAndFee lieReportAndFee =
                 lieReportAndFeeService.update(resource, request.getUserPrincipal().getName());
 
@@ -80,8 +80,5 @@ public class LIEController {
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(lieReportAndFeeResources);
     }
-
-
-
 
 }

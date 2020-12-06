@@ -31,8 +31,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { MailRepoComponent } from './main/content/pages/administration/mail-repo/mail-repo.component';
 import {MailRepoModule} from "./main/content/pages/administration/mail-repo/mail-repo.module";
 import { ChangePasswordModule } from './main/content/pages/changePassword/changePassword.module';
-import { LoanContractsSearchModule } from './main/content/pages/monitoring/loanContractsSearch/loanContractsSearch.module';
-import { LoanMonitoringModule } from './main/content/pages/monitoring/loanMonitoring/loanMonitoring.module';
+import { LoanContractsSearchModule } from './main/content/pages/loanContractsSearch/loanContractsSearch.module';
+import { LoanMonitoringModule } from './main/content/pages/monitoring/loanMonitoring.module';
 
 const appRoutes: Routes = [
     {

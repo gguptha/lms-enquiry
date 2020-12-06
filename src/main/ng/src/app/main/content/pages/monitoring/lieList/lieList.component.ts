@@ -51,6 +51,6 @@ export class LIEListComponent implements OnInit {
     onSelect(lie: any): void {
         console.log(lie);
         this.selectedLIE = lie;
-        this._service.selectedLIE = new BehaviorSubject(this.selectedLIE);
+        this._service.selectedLIE.next(this.selectedLIE);
     }
 }
