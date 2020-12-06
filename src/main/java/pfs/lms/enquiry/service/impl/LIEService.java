@@ -60,7 +60,7 @@ public class LIEService implements ILIEService {
     public LendersIndependentEngineer update(LIEResource resource, String username) {
 
         LendersIndependentEngineer existingLendersIndependentEngineer
-                = lieRepository.getOne(UUID.fromString(resource.getLendersIndependentEngineer().getId()));
+                = lieRepository.getOne(resource.getLendersIndependentEngineer().getId());
 
         existingLendersIndependentEngineer.setAdvisor(resource.getLendersIndependentEngineer().getAdvisor());
         existingLendersIndependentEngineer.setBpCode(resource.getLendersIndependentEngineer().getBpCode());

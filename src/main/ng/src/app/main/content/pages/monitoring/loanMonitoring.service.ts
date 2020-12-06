@@ -8,6 +8,7 @@ export class LoanMonitoringService {
     public enquirySearchList: BehaviorSubject<any>;
 
     selectedLIE: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedLIEReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
 
     /**
      *
@@ -34,6 +35,14 @@ export class LoanMonitoringService {
         return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'lendersIndependentEngineer':lie });
     }
 
+    /**
+     * getLIEReportsAndFees()
+     * @param lieId 
+     */
+    public getLIEReportsAndFees(lieId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/lendersIndependentEngineer/' + lieId + '/lieReceiptsAndFees');
+    }
+    
     /**
      * saveLIEReportAndFee();
      * @param lie 

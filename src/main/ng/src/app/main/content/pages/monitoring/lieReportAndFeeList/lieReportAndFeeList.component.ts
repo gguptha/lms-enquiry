@@ -1,37 +1,39 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LIEReportAndFeeModel } from 'app/main/content/model/lieReportAndFee.model';
 import { BehaviorSubject } from 'rxjs';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 
 @Component({
-    selector: 'fuse-lie-list',
-    templateUrl: './lieList.component.html',
-    styleUrls: ['./lieList.component.scss'],
+    selector: 'fuse-lie-report-fee-list',
+    templateUrl: './lieReportAndFeeList.component.html',
+    styleUrls: ['./lieReportAndFeeList.component.scss'],
     animations: fuseAnimations
 })
-export class LIEListComponent implements OnInit {
+export class LIEReportAndFeeListComponent implements OnInit {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
 
     @Input()
-    set lieList(lieList: any) {
-        this.dataSource = new MatTableDataSource(lieList);
+    set lieReportAndFeeList(list: any) {
+        this.dataSource = new MatTableDataSource(list);
         this.dataSource.sort = this.sort
     }
 
     displayedColumns = [
-        'advisor', 'bpCode','name', 'dateOfAppointment', 'contractPeriodFrom', 'contractPeriodTo', 'contactNumber', 'email'
+        'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
+            'nextReportDate'
     ];
 
-    selectedLIE: any;
+    selectedLIEReportAndFee: any;
 
     /**
      * constructor()
      */
     constructor(private _service: LoanMonitoringService) {
-        this._service.selectedLIE.next({});
+        this._service.selectedLIEReportAndFee.next({});
     }
 
     /**
@@ -49,9 +51,8 @@ export class LIEListComponent implements OnInit {
      *
      * @param enquiry
      */
-    onSelect(lie: any): void {
-        console.log(lie);
-        this.selectedLIE = lie;
-        this._service.selectedLIE.next(this.selectedLIE);
+    onSelect(lieReportAndFee: any): void {
+        this.selectedLIEReportAndFee = new LIEReportAndFeeModel(lieReportAndFee);
+        this._service.selectedLIE.next(this.selectedLIEReportAndFee);
     }
 }

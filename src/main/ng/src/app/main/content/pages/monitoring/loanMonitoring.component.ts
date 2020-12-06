@@ -22,6 +22,7 @@ export class LoanMonitoringComponent {
 
     selectedLIE: LIEModel;
     lieList: any;
+    lieReportAndFeeList: any;
 
     /**
      * constructor()
@@ -41,8 +42,10 @@ export class LoanMonitoringComponent {
         });
         
         _loanMonitoringService.selectedLIE.subscribe(data => {
-            console.log('data', data);
-            this.selectedLIE = data;
+            this.selectedLIE = new LIEModel(data);
+            _loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
+                this.lieReportAndFeeList = data;
+            });
         })
     }
 
@@ -89,6 +92,9 @@ export class LoanMonitoringComponent {
         });
         // Subscribe to the dialog close event to intercept the action taken.
         dialogRef.afterClosed().subscribe((result) => { 
+            this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
+                this.lieReportAndFeeList = data;
+            });
         });    
     }
 }

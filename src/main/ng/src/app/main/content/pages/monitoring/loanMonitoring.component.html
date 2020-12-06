@@ -34,13 +34,13 @@
 
                 <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
                     <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIEReportAndFee()" 
-                            [disabled]="_loanMonitoringService.selectedLIE === undefined || _loanMonitoringService.selectedLIE.id === ''"> 
+                            [disabled]="selectedLIE.id == ''"> 
                         Add Report For LIE 
                     </button>
                     <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIE()"> Modify Report For LIE </button>
                 </div>
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 125%">
-                    <!-- <fuse-loancontracts-search-list [loanContractList]="loanContractList"></fuse-loancontracts-search-list> -->
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-lie-report-fee-list [lieReportAndFeeList]="lieReportAndFeeList"></fuse-lie-report-fee-list>
                 </div>
             </mat-tab>
             <!-- LIE Details Tab - Ends Here -->

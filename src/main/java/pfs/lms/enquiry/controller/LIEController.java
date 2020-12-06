@@ -71,7 +71,7 @@ public class LIEController {
 
     }
 
-    @GetMapping("/loanApplications/lendersIndependentEngineer/{lendersindependentengineerid}")
+    @GetMapping("/loanApplications/lendersIndependentEngineer/{lendersindependentengineerid}/lieReceiptsAndFees")
     public ResponseEntity getLIEReportAndFee(@PathVariable("lendersindependentengineerid")
                                                      String lendersIndependentEngineerId,
                                              HttpServletRequest request)

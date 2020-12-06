@@ -14,6 +14,7 @@ import { LIEListComponent } from './lieList/lieList.component';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
 import { LIEReportAndFeeUpdateDialogComponent } from './lieReportAndFeeUpdate/lieReportAndFeeUpdate.component';
+import { LIEReportAndFeeListComponent } from './lieReportAndFeeList/lieReportAndFeeList.component';
 
 const routes = [
     {
@@ -47,7 +48,8 @@ const routes = [
         LoanMonitoringComponent,
         LIEUpdateDialogComponent,
         LIEListComponent,
-        LIEReportAndFeeUpdateDialogComponent
+        LIEReportAndFeeUpdateDialogComponent,
+        LIEReportAndFeeListComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -57,12 +59,14 @@ const routes = [
         LoanMonitoringComponent,
         LIEUpdateDialogComponent,
         LIEListComponent,
-        LIEReportAndFeeUpdateDialogComponent
+        LIEReportAndFeeUpdateDialogComponent,
+        LIEReportAndFeeListComponent
     ],  
     entryComponents: [
         LIEUpdateDialogComponent,
         LIEListComponent,
-        LIEReportAndFeeUpdateDialogComponent
+        LIEReportAndFeeUpdateDialogComponent,
+        LIEReportAndFeeListComponent
     ]
 })
 export class LoanMonitoringModule {
