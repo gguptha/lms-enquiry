@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
 import { MatDialog } from '@angular/material';
 import { LieUpdateDialogComponent } from '../lieUpdate/lieUpdate.component';
+import { LoanMonitoringService } from '../loanMonitoring.service';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -17,6 +18,8 @@ export class LoanMonitoringComponent {
 
     loanApplicationId: string;
 
+    lieList: any;
+
     /**
      * constructor()
      * @param _formBuilder 
@@ -24,10 +27,15 @@ export class LoanMonitoringComponent {
      * @param _router 
      * @param _dialogRef 
      */
-    constructor(_formBuilder: FormBuilder, public _service: LoanEnquiryService, private _router: Router, private _dialogRef: MatDialog) {
-        _service.selectedLoanApplicationId.subscribe(data => {
+    constructor(_formBuilder: FormBuilder, public _loanEnquiryService: LoanEnquiryService, private _router: Router, private _dialogRef: MatDialog,
+            private _loanMonitoringService: LoanMonitoringService) {
+            
+        _loanEnquiryService.selectedLoanApplicationId.subscribe(data => {
             this.loanApplicationId = data;
-        })
+            _loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
+                this.lieList = data;
+            });
+        });
     }
 
     /**
@@ -51,6 +59,10 @@ export class LoanMonitoringComponent {
             }
         });
         // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { });    
+        dialogRef.afterClosed().subscribe((result) => { 
+            this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
+                this.lieList = data;
+            });
+        });    
     }
 }

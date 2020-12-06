@@ -84,7 +84,7 @@ public class LIEService implements ILIEService {
         LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
         if(loanMonitor != null) {
             List<LendersIndependentEngineer> lendersIndependentEngineers
-                    = lieRepository.findByLoanMonitor(loanMonitor.getId());
+                    = lieRepository.findByLoanMonitor(loanMonitor);
             lendersIndependentEngineers.forEach(
                     lendersIndependentEngineer -> {
                         LIEResource lieResource = new LIEResource();

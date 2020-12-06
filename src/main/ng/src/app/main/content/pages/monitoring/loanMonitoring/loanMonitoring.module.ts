@@ -12,6 +12,7 @@ import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
 import { LoanMonitoringComponent } from './loanMonitoring.component';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 import { LieUpdateDialogComponent } from '../lieUpdate/lieUpdate.component';
+import { LIEListComponent } from '../lieList/lieList.component';
 
 const routes = [
     {
@@ -43,7 +44,8 @@ const routes = [
     ],
     declarations: [
         LoanMonitoringComponent,
-        LieUpdateDialogComponent
+        LieUpdateDialogComponent,
+        LIEListComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -51,10 +53,12 @@ const routes = [
     ],
     exports: [
         LoanMonitoringComponent,
-        LieUpdateDialogComponent
+        LieUpdateDialogComponent,
+        LIEListComponent
     ],  
     entryComponents: [
-        LieUpdateDialogComponent
+        LieUpdateDialogComponent,
+        LIEListComponent
     ]
 })
 export class LoanMonitoringModule {

@@ -42,15 +42,15 @@ public class LIEController {
 
     }
 
-    @GetMapping("/loanApplications/loanmonitor/{loanapplicationid}")
-    public ResponseEntity getLendersIndependentEngineers(@PathVariable("loanapplicationid")
-                                              String loanApplicationId,
-                                               HttpServletRequest request)
+    @GetMapping("/loanApplications/{loanapplicationid}/lendersIndependentEngineers")
+    public ResponseEntity getLendersIndependentEngineers(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                         HttpServletRequest request)
     {
         List<LIEResource> lendersIndependentEngineers = lieService.getLendersIndependentEngineers(loanApplicationId,
-                                        request.getUserPrincipal().getName());
+                request.getUserPrincipal().getName());
         return ResponseEntity.ok(lendersIndependentEngineers);
     }
+
 
 
     // create, update , list LIE Report Submission and Fee
@@ -73,13 +73,14 @@ public class LIEController {
 
     @GetMapping("/loanApplications/lendersIndependentEngineer/{lendersindependentengineerid}")
     public ResponseEntity getLIEReportAndFee(@PathVariable("lendersindependentengineerid")
-                                                                 String lendersIndependentEngineerId,
-                                                         HttpServletRequest request)
+                                                     String lendersIndependentEngineerId,
+                                             HttpServletRequest request)
     {
         List<LIEReportAndFeeResource>  lieReportAndFeeResources = lieReportAndFeeService.getLIEReportAndFee(lendersIndependentEngineerId,
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(lieReportAndFeeResources);
     }
+
 
 
 

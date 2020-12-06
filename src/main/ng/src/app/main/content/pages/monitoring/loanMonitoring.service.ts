@@ -7,8 +7,7 @@ export class LoanMonitoringService {
 
     public enquirySearchList: BehaviorSubject<any>;
 
-    selectedLoanApplicationId: BehaviorSubject<string>;
-    selectedLoanApplicationPartyNumber: BehaviorSubject<string>;
+    selectedLIE: BehaviorSubject<any>;
 
     /**
      *
@@ -18,11 +17,11 @@ export class LoanMonitoringService {
     }
 
     /**
-     * getTechnicalStatus()
-     * returns a list of Technical Status
+     * getLendersIndependentEngineers()
+     * @param loanApplicationId 
      */
-    public getTechnicalStatus(): Observable<any> {
-        return this._http.get('enquiry/api/technicalStatus');
+    public getLendersIndependentEngineers(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/lendersIndependentEngineers');
     }
 
     /**
