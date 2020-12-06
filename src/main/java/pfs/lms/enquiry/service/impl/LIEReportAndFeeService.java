@@ -36,7 +36,7 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
     public LIEReportAndFee save(LIEReportAndFeeResource resource, String username) {
 
 
-        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(resource.getLendersIndependentEngineerId());
+        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(UUID.fromString(resource.getLendersIndependentEngineerId()));
         LIEReportAndFee lieReportAndFee = resource.getLieReportAndFee();
         lieReportAndFee.setLendersIndependentEngineer(lendersIndependentEngineer);
         lieReportAndFee = lieReportAndFeeRepository.save(lieReportAndFee);
@@ -65,10 +65,10 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
     }
 
     @Override
-    public List<LIEReportAndFeeResource> getLIEReportAndFee(String llendersIndependentEngineerId, String name) {
+    public List<LIEReportAndFeeResource> getLIEReportAndFee(String lendersIndependentEngineerId, String name) {
 
         List<LIEReportAndFeeResource>  lieReportAndFeeResources  = new ArrayList<>();
-        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(UUID.fromString(llendersIndependentEngineerId));
+        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(UUID.fromString(lendersIndependentEngineerId));
         //LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
         if(lendersIndependentEngineer != null) {
             List<LIEReportAndFee> lieReportAndFees
@@ -77,7 +77,7 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
                     lieReportAndFee -> {
                         LIEReportAndFeeResource lieReportAndFeeResource = new LIEReportAndFeeResource();
                         //lieResource.setLoanApplicationId(loanApplication.getId());
-                        lieReportAndFeeResource.setLendersIndependentEngineerId(UUID.fromString(lendersIndependentEngineer.getId()));
+                        lieReportAndFeeResource.setLendersIndependentEngineerId(lendersIndependentEngineer.getId());
                         lieReportAndFeeResource.setLieReportAndFee(lieReportAndFee);
                         lieReportAndFeeResources.add(lieReportAndFeeResource);
                     }

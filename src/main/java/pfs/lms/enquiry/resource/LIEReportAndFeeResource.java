@@ -17,6 +17,6 @@ import java.util.UUID;
 
 public class LIEReportAndFeeResource {
 
-    private UUID lendersIndependentEngineerId;
+    private String lendersIndependentEngineerId;
     private LIEReportAndFee lieReportAndFee;
 }
