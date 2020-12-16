@@ -36,7 +36,7 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
     public LIEReportAndFee save(LIEReportAndFeeResource resource, String username) {
 
 
-        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(UUID.fromString(resource.getLendersIndependentEngineerId()));
+        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(resource.getLendersIndependentEngineerId());
         LIEReportAndFee lieReportAndFee = resource.getLieReportAndFee();
         lieReportAndFee.setLendersIndependentEngineer(lendersIndependentEngineer);
         lieReportAndFee = lieReportAndFeeRepository.save(lieReportAndFee);
@@ -47,7 +47,7 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
     public LIEReportAndFee update(LIEReportAndFeeResource resource, String username) {
 
         LIEReportAndFee existinglieReportAndFee
-                = lieReportAndFeeRepository.getOne(UUID.fromString(resource.getLieReportAndFee().getId()));
+                = lieReportAndFeeRepository.getOne(resource.getLieReportAndFee().getId());
 
         existinglieReportAndFee.setReportType(resource.getLieReportAndFee().getReportType());
         existinglieReportAndFee.setDateOfReceipt(resource.getLieReportAndFee().getDateOfReceipt());
@@ -68,7 +68,7 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
     public List<LIEReportAndFeeResource> getLIEReportAndFee(String lendersIndependentEngineerId, String name) {
 
         List<LIEReportAndFeeResource>  lieReportAndFeeResources  = new ArrayList<>();
-        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(UUID.fromString(lendersIndependentEngineerId));
+        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(lendersIndependentEngineerId);
         //LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
         if(lendersIndependentEngineer != null) {
             List<LIEReportAndFee> lieReportAndFees

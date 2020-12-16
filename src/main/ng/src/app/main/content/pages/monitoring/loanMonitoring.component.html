@@ -26,7 +26,7 @@
             <mat-tab label="LIE Details">
                 <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
                     <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIE()"> Add LIE </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIE()"> Modify LIE </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateLIE()" [disabled]="selectedLIE.id == ''"> Modify LIE </button>
                 </div>            
                 <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
                     <fuse-lie-list [lieList]="lieList"></fuse-lie-list>
@@ -34,13 +34,16 @@
 
                 <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
                     <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIEReportAndFee()" 
-                            [disabled]="_loanMonitoringService.selectedLIE === undefined || _loanMonitoringService.selectedLIE.id === ''"> 
+                            [disabled]="selectedLIE.id == ''"> 
                         Add Report For LIE 
                     </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLIE()"> Modify Report For LIE </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateLIEReportAndFee()" 
+                            [disabled]="selectedLIEReportAndFee.id == ''"> 
+                        Modify Report For LIE 
+                    </button>
                 </div>
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 125%">
-                    <!-- <fuse-loancontracts-search-list [loanContractList]="loanContractList"></fuse-loancontracts-search-list> -->
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-lie-report-fee-list [lieReportAndFeeList]="lieReportAndFeeList"></fuse-lie-report-fee-list>
                 </div>
             </mat-tab>
             <!-- LIE Details Tab - Ends Here -->
