@@ -47,7 +47,7 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
     public LIEReportAndFee update(LIEReportAndFeeResource resource, String username) {
 
         LIEReportAndFee existinglieReportAndFee
-                = lieReportAndFeeRepository.getOne(UUID.fromString(resource.getLieReportAndFee().getId()));
+                = lieReportAndFeeRepository.getOne(resource.getLieReportAndFee().getId());
 
         existinglieReportAndFee.setReportType(resource.getLieReportAndFee().getReportType());
         existinglieReportAndFee.setDateOfReceipt(resource.getLieReportAndFee().getDateOfReceipt());

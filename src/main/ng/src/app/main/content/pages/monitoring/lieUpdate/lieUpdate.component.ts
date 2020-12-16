@@ -64,7 +64,18 @@ export class LIEUpdateDialogComponent {
                 });
             }
             else {
-                console.log('updating', lie);
+                this.selectedLIE.bpCode  = lie.bpCode;
+                this.selectedLIE.name = lie.name;
+                this.selectedLIE.dateOfAppointment = lie.dateOfAppointment;
+                this.selectedLIE.contactPerson = lie.contactPerson;
+                this.selectedLIE.contractPeriodFrom = lie.contractPeriodFrom;
+                this.selectedLIE.contractPeriodTo = lie.contractPeriodTo;
+                this.selectedLIE.email = lie.email;
+
+                this._loanMonitoringService.updateLIE(this.selectedLIE).subscribe(() => {
+                    this._matSnackBar.open('LIE updated successfully.', 'OK', { duration: 7000 });
+                    this._dialogRef.close();
+                });            
             }
         }
     }

@@ -52,7 +52,7 @@ export class LIEReportAndFeeListComponent implements OnInit {
      * @param enquiry
      */
     onSelect(lieReportAndFee: any): void {
-        this.selectedLIEReportAndFee = new LIEReportAndFeeModel(lieReportAndFee);
-        this._service.selectedLIE.next(this.selectedLIEReportAndFee);
+        this.selectedLIEReportAndFee = lieReportAndFee;
+        this._service.selectedLIEReportAndFee.next(this.selectedLIEReportAndFee);
     }
 }

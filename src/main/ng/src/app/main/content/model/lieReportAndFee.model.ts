@@ -1,5 +1,6 @@
 export class LIEReportAndFeeModel
 {
+    id: string;
     reportType: string;
     dateOfReceipt: Date;
     invoiceDate: Date;
@@ -16,6 +17,7 @@ export class LIEReportAndFeeModel
      */
     constructor(_lieReportAndFee: any)
     {
+        this.id = _lieReportAndFee.id || '';
         this.reportType = _lieReportAndFee.reportType || '';
         this.dateOfReceipt = _lieReportAndFee.dateOfReceipt || undefined;
         this.invoiceDate = _lieReportAndFee.invoiceDate || undefined;
@@ -27,4 +29,3 @@ export class LIEReportAndFeeModel
         this.nextReportDate = _lieReportAndFee.nextReportDate || undefined;
     }
 }
- 

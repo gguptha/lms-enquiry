@@ -10,7 +10,7 @@
     <div mat-dialog-content fusePerfectScrollbar>
         <form [formGroup]="lieUpdateForm">
             <div fxLayout="row">
-                <mat-form-field fxFlex="34">
+                <mat-form-field fxFlex="50">
                     <mat-select placeholder="Report Type" formControlName="reportType" required>
                       <mat-option> </mat-option>
                       <mat-option *ngFor="let reportType of reportTypes" [value]="reportType.code">
@@ -37,7 +37,7 @@
                 </mat-form-field>
             </div>
             <div fxLayout="row">
-                <mat-form-field fxFlex="34">
+                <mat-form-field fxFlex="50">
                     <mat-select placeholder="Status of Fee Paid" formControlName="statusOfFeePaid">
                       <mat-option> </mat-option>
                       <mat-option *ngFor="let feePaidStatus of feePaidStatuses" [value]="feePaidStatus.code">
@@ -51,16 +51,16 @@
                 </mat-form-field>            
             </div>
             <div fxLayout="row">
-                <mat-form-field fxFlex="100">
-                    <input matInput type="email" placeholder="Document Title" formControlName="documentTitle">          
-                  </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Document Title" formControlName="documentTitle">          
+                </mat-form-field>
 
-                  <mat-form-field fxFlex="34">
+                <mat-form-field fxFlex="50">
                     <mat-select placeholder="Status of Fee Receipt" formControlName="statusOfFeeReceipt">
-                      <mat-option> </mat-option>
-                      <mat-option *ngFor="let feeReceiptStatus of feeReceiptStatuses" [value]="feeReceiptStatus.code">
+                        <mat-option> </mat-option>
+                        <mat-option *ngFor="let feeReceiptStatus of feeReceiptStatuses" [value]="feeReceiptStatus.code">
                         {{ feeReceiptStatus.value }}
-                      </mat-option>
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>                   
             </div>

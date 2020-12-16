@@ -19,7 +19,7 @@ export class LIEReportAndFeeUpdateDialogComponent {
     dialogTitle = 'Add LIE Report Submission';
 
     selectedLIE: LIEModel;
-    selectedLIEReport: LIEReportAndFeeModel;
+    selectedLIEReportAndFee: LIEReportAndFeeModel;
 
     lieUpdateForm: FormGroup;
 
@@ -41,23 +41,24 @@ export class LIEReportAndFeeUpdateDialogComponent {
 
         // Fetch selected user details from the dialog's data attribute.
         this.selectedLIE = _dialogData.selectedLIE;
-        if (_dialogData.selectedLIEReport !== undefined) {
-            this.selectedLIEReport = _dialogData.selectedLIEReport;
+        if (_dialogData.selectedLIEReportAndFee !== undefined) {
+            console.log('_dialogData.selectedLIEReportAndFee', _dialogData.selectedLIEReportAndFee);
+            this.selectedLIEReportAndFee = _dialogData.selectedLIEReportAndFee;
         }
         else {
-            this.selectedLIEReport = new LIEReportAndFeeModel({});
+            this.selectedLIEReportAndFee = new LIEReportAndFeeModel({});
         }
 
         this.lieUpdateForm = _formBuilder.group({
-            reportType: [this.selectedLIEReport.reportType],
-            dateOfReceipt: [this.selectedLIEReport.dateOfReceipt || ''],
-            invoiceDate: [this.selectedLIEReport.invoiceDate || ''],
-            invoiceNo: [this.selectedLIEReport.invoiceNo],
-            feeAmount: [this.selectedLIEReport.feeAmount],
-            statusOfFeeReceipt: [this.selectedLIEReport.statusOfFeeReceipt],
-            statusOfFeePaid: [this.selectedLIEReport.statusOfFeePaid],
-            documentTitle: [this.selectedLIEReport.documentTitle],
-            nextReportDate: [this.selectedLIEReport.nextReportDate || ''],
+            reportType: [this.selectedLIEReportAndFee.reportType],
+            dateOfReceipt: [this.selectedLIEReportAndFee.dateOfReceipt || ''],
+            invoiceDate: [this.selectedLIEReportAndFee.invoiceDate || ''],
+            invoiceNo: [this.selectedLIEReportAndFee.invoiceNo],
+            feeAmount: [this.selectedLIEReportAndFee.feeAmount],
+            statusOfFeeReceipt: [this.selectedLIEReportAndFee.statusOfFeeReceipt],
+            statusOfFeePaid: [this.selectedLIEReportAndFee.statusOfFeePaid],
+            documentTitle: [this.selectedLIEReportAndFee.documentTitle],
+            nextReportDate: [this.selectedLIEReportAndFee.nextReportDate || ''],
         });
     }
 
@@ -74,7 +75,20 @@ export class LIEReportAndFeeUpdateDialogComponent {
                 });
             }
             else {
-                console.log('updating', lieReportAndFee);
+                this.selectedLIEReportAndFee.reportType = lieReportAndFee.reportType;
+                this.selectedLIEReportAndFee.dateOfReceipt = lieReportAndFee.dateOfReceipt;
+                this.selectedLIEReportAndFee.invoiceDate = lieReportAndFee.invoiceDate;
+                this.selectedLIEReportAndFee.invoiceNo = lieReportAndFee.invoiceNo;
+                this.selectedLIEReportAndFee.feeAmount = lieReportAndFee.feeAmount;
+                this.selectedLIEReportAndFee.statusOfFeeReceipt = lieReportAndFee.statusOfFeeReceipt;
+                this.selectedLIEReportAndFee.statusOfFeePaid = lieReportAndFee.statusOfFeePaid;
+                this.selectedLIEReportAndFee.documentTitle = lieReportAndFee.documentTitle;
+                this.selectedLIEReportAndFee.nextReportDate = lieReportAndFee.nextReportDate;
+
+                this._loanMonitoringService.updateLIEReportAndFee(this.selectedLIEReportAndFee).subscribe(() => {
+                    this._matSnackBar.open('LIE report updated successfully.', 'OK', { duration: 7000 });
+                    this._dialogRef.close();
+                });
             }
         }
     }

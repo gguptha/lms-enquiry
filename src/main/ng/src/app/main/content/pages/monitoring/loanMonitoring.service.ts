@@ -36,6 +36,15 @@ export class LoanMonitoringService {
     }
 
     /**
+     * updateLIE()
+     * @param lie 
+     */
+    public updateLIE(lie: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/lendersindependentengineers/" + lie.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'lendersIndependentEngineer':lie });
+    }
+
+    /**
      * getLIEReportsAndFees()
      * @param lieId 
      */
@@ -51,6 +60,17 @@ export class LoanMonitoringService {
     public saveLIEReportAndFee(lieReportAndFee: any, lieId: string): Observable<any> {
         const url = "enquiry/api/loanApplications/liereportandfeesubmission/create";
         return this._http.post(url, { 'lendersIndependentEngineerId': lieId, 'lieReportAndFee': lieReportAndFee });
+    }
+
+    /**
+     * updateLIEReportAndFee()
+     * @param lieReportAndFee 
+     * @param lieId 
+     */
+    public updateLIEReportAndFee(lieReportAndFee: any): Observable<any> {
+        console.log('in service', lieReportAndFee);
+        const url = "enquiry/api/loanApplications/liereportandfeesubmission/" + lieReportAndFee.id;
+        return this._http.put(url, { 'lendersIndependentEngineerId': '', 'lieReportAndFee': lieReportAndFee });
     }
 
     /**
