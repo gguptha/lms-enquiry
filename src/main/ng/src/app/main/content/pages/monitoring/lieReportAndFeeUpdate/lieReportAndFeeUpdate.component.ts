@@ -67,11 +67,19 @@ export class LIEReportAndFeeUpdateDialogComponent {
      */
     submit(): void {
         if (this.lieUpdateForm.valid) {
-            const lieReportAndFee: LIEReportAndFeeModel = new LIEReportAndFeeModel(this.lieUpdateForm.value);
+            // To solve the utc time zone issue
+            var lieReportAndFee: LIEReportAndFeeModel = new LIEReportAndFeeModel(this.lieUpdateForm.value);
+            var dt = new Date(lieReportAndFee.dateOfReceipt);
+            lieReportAndFee.dateOfReceipt = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+            dt = new Date(lieReportAndFee.invoiceDate);
+            lieReportAndFee.invoiceDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+            dt = new Date(lieReportAndFee.nextReportDate);
+            lieReportAndFee.nextReportDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+
             if (this._dialogData.operation === 'addLIEReportAndFee') {
                 this._loanMonitoringService.saveLIEReportAndFee(lieReportAndFee, this.selectedLIE.id).subscribe(() => {
                     this._matSnackBar.open('LIE report added successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close();
+                    this._dialogRef.close({ 'refresh': true });
                 });
             }
             else {
@@ -87,7 +95,7 @@ export class LIEReportAndFeeUpdateDialogComponent {
 
                 this._loanMonitoringService.updateLIEReportAndFee(this.selectedLIEReportAndFee).subscribe(() => {
                     this._matSnackBar.open('LIE report updated successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close();
+                    this._dialogRef.close({ 'refresh': true });
                 });
             }
         }
@@ -97,6 +105,6 @@ export class LIEReportAndFeeUpdateDialogComponent {
      * closeClick()
      */
     closeClick(): void {
-        this._dialogRef.close();
+        this._dialogRef.close({ 'refresh': false });
     }
 }

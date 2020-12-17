@@ -65,7 +65,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public LendersIndependentEngineer updateLIE(LIEResource resource, String username) {
 
         LendersIndependentEngineer existingLendersIndependentEngineer
-                = lieRepository.getOne(UUID.fromString(resource.getLendersIndependentEngineer().getId()));
+                = lieRepository.getOne(resource.getLendersIndependentEngineer().getId());
 
         existingLendersIndependentEngineer.setAdvisor(resource.getLendersIndependentEngineer().getAdvisor());
         existingLendersIndependentEngineer.setBpCode(resource.getLendersIndependentEngineer().getBpCode());
@@ -107,7 +107,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public LIEReportAndFee saveLIEReportAndFee(LIEReportAndFeeResource resource, String username) {
 
 
-        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(UUID.fromString(resource.getLendersIndependentEngineerId()));
+        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(resource.getLendersIndependentEngineerId());
         LIEReportAndFee lieReportAndFee = resource.getLieReportAndFee();
         lieReportAndFee.setLendersIndependentEngineer(lendersIndependentEngineer);
         lieReportAndFee = lieReportAndFeeRepository.save(lieReportAndFee);
@@ -118,7 +118,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public LIEReportAndFee updateLIEReportAndFee(LIEReportAndFeeResource resource, String username) {
 
         LIEReportAndFee existinglieReportAndFee
-                = lieReportAndFeeRepository.getOne(UUID.fromString(resource.getLieReportAndFee().getId()));
+                = lieReportAndFeeRepository.getOne(resource.getLieReportAndFee().getId());
 
         existinglieReportAndFee.setReportType(resource.getLieReportAndFee().getReportType());
         existinglieReportAndFee.setDateOfReceipt(resource.getLieReportAndFee().getDateOfReceipt());
@@ -139,7 +139,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public List<LIEReportAndFeeResource> getLIEReportAndFee(String lendersIndependentEngineerId, String name) {
 
         List<LIEReportAndFeeResource>  lieReportAndFeeResources  = new ArrayList<>();
-        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(UUID.fromString(lendersIndependentEngineerId));
+        LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(lendersIndependentEngineerId);
         //LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
         if(lendersIndependentEngineer != null) {
             List<LIEReportAndFee> lieReportAndFees
@@ -191,7 +191,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public LendersFinancialAdvisor updateLFA(LFAResource resource, String username) {
 
         LendersFinancialAdvisor existingLendersFinancialAdvisor
-                = lfaRepository.getOne(UUID.fromString(resource.getLendersFinancialAdvisor().getId()));
+                = lfaRepository.getOne(resource.getLendersFinancialAdvisor().getId());
 
         existingLendersFinancialAdvisor.setBpCode(resource.getLendersFinancialAdvisor().getBpCode());
         existingLendersFinancialAdvisor.setName(resource.getLendersFinancialAdvisor().getName());
@@ -229,7 +229,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     @Override
     public LFAReportAndFee saveLFAReportAndFee(LFAReportAndFeeResource resource, String username) {
-        LendersFinancialAdvisor lendersFinancialAdvisor = lfaRepository.getOne(UUID.fromString(resource.getLendersFinancialAdvisorId()));
+        LendersFinancialAdvisor lendersFinancialAdvisor = lfaRepository.getOne(resource.getLendersFinancialAdvisorId());
         LFAReportAndFee lfaReportAndFee = resource.getLfaReportAndFee();
         lfaReportAndFee.setLendersFinancialAdvisor(lendersFinancialAdvisor);
         lfaReportAndFee = lfaReportAndFeeRepository.save(lfaReportAndFee);
@@ -240,7 +240,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     @Override
     public LFAReportAndFee updateLFAReportAndFee(LFAReportAndFeeResource resource, String username) {
         LFAReportAndFee existinglfaReportAndFee
-                = lfaReportAndFeeRepository.getOne(UUID.fromString(resource.getLfaReportAndFee().getId()));
+                = lfaReportAndFeeRepository.getOne(resource.getLfaReportAndFee().getId());
 
         existinglfaReportAndFee.setReportType(resource.getLfaReportAndFee().getReportType());
         existinglfaReportAndFee.setDateOfReceipt(resource.getLfaReportAndFee().getDateOfReceipt());
@@ -261,7 +261,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     @Override
     public List<LFAReportAndFeeResource> getLFAReportAndFee(String  lendersFinancialAdvisorId, String name) {
         List<LFAReportAndFeeResource>  lfaReportAndFeeResources  = new ArrayList<>();
-        LendersFinancialAdvisor lendersFinancialAdvisor = lfaRepository.getOne(UUID.fromString(lendersFinancialAdvisorId));
+        LendersFinancialAdvisor lendersFinancialAdvisor = lfaRepository.getOne(lendersFinancialAdvisorId);
         //LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
         if(lendersFinancialAdvisor != null) {
             List<LFAReportAndFee> lfaReportAndFees

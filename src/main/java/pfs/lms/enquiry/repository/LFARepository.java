@@ -7,6 +7,6 @@ import pfs.lms.enquiry.domain.LoanMonitor;
 import java.util.List;
 import java.util.UUID;
 
-public interface LFARepository extends JpaRepository<LendersFinancialAdvisor, UUID> {
+public interface LFARepository extends JpaRepository<LendersFinancialAdvisor, String> {
     List<LendersFinancialAdvisor> findByLoanMonitor(LoanMonitor loanMonitor);
 }

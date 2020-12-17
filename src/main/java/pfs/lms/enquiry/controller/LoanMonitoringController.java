@@ -32,7 +32,7 @@ public class LoanMonitoringController {
 
     private final ILoanMonitoringService loanMonitoringService;
 
-
+    // Create update and list (LIE)
 
     @PostMapping("/loanApplications/lendersindependentengineers/create")
     public ResponseEntity createLIE(@RequestBody LIEResource resource, HttpServletRequest request) {
@@ -61,7 +61,7 @@ public class LoanMonitoringController {
 
 
 
-    // create, update , list LIE Report Submission and Fee
+    // create, update and list (LIE Report Submission and Fee)
 
     @PostMapping("/loanApplications/liereportandfeesubmission/create")
     public ResponseEntity createLIEReportSubmissionAndFee(@RequestBody LIEReportAndFeeResource resource, HttpServletRequest request) {
@@ -79,7 +79,7 @@ public class LoanMonitoringController {
 
     }
 
-    @GetMapping("/loanApplications/lendersIndependentEngineer/{lendersindependentengineerid}")
+    @GetMapping("/loanApplications/lendersIndependentEngineer/{lendersindependentengineerid}/lieReceiptsAndFees")
     public ResponseEntity getLIEReportAndFee(@PathVariable("lendersindependentengineerid")
                                                      String lendersIndependentEngineerId,
                                              HttpServletRequest request)
@@ -89,7 +89,7 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(lieReportAndFeeResources);
     }
 
-    //LFA
+    // create, update and list (LFA)
 
     @PostMapping("/loanApplications/lendersfinancialAdvisors/create")
     public ResponseEntity createLFA(@RequestBody LFAResource resource, HttpServletRequest request) {
@@ -118,7 +118,7 @@ public class LoanMonitoringController {
 
 
 
-    // create, update , list LIE Report Submission and Fee
+    // create, update and list (LFA Report Submission and Fee)
 
     @PostMapping("/loanApplications/lfareportandfeesubmission/create")
     public ResponseEntity createLFAReportSubmissionAndFee(@RequestBody LFAReportAndFeeResource resource, HttpServletRequest request) {
@@ -145,6 +145,4 @@ public class LoanMonitoringController {
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(lfaReportAndFeeResources);
     }
-
-
 }

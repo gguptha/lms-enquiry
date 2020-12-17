@@ -44,7 +44,7 @@ public abstract class AbstractEntity {
 
     @PrePersist
     public void init() {
-        if(this.id == null) {
+        if(this.id == null || this.id.equals("")) {
             this.id = UUID.randomUUID().toString();
         }
     }

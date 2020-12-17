@@ -82,9 +82,11 @@ export class LoanMonitoringComponent {
         });
         // Subscribe to the dialog close event to intercept the action taken.
         dialogRef.afterClosed().subscribe((result) => { 
-            this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
-                this.lieList = data;
-            });
+            if (result.refresh) {
+                this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
+                    this.lieList = data;
+                });
+            }
         });    
     }
 
@@ -104,9 +106,11 @@ export class LoanMonitoringComponent {
         });
         // Subscribe to the dialog close event to intercept the action taken.
         dialogRef.afterClosed().subscribe((result) => { 
-            this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
-                this.lieList = data;
-            });
+            if (result.refresh) {
+                this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
+                    this.lieList = data;
+                });
+            }
         });    
     }
 
@@ -125,9 +129,11 @@ export class LoanMonitoringComponent {
         });
         // Subscribe to the dialog close event to intercept the action taken.
         dialogRef.afterClosed().subscribe((result) => { 
-            this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
-                this.lieReportAndFeeList = data;
-            });
+            if (result.refresh) {
+                this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
+                    this.lieReportAndFeeList = data;
+                });
+            }
         });    
     }
 
@@ -147,9 +153,11 @@ export class LoanMonitoringComponent {
         });
         // Subscribe to the dialog close event to intercept the action taken.
         dialogRef.afterClosed().subscribe((result) => { 
-            this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
-                this.lieReportAndFeeList = data;
-            });
+            if (result.refresh) {
+                this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
+                    this.lieReportAndFeeList = data;
+                });
+            }
         });    
     }
 }

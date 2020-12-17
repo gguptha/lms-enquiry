@@ -56,11 +56,19 @@ export class LIEUpdateDialogComponent {
      */
     submit(): void {
         if (this.lieUpdateForm.valid) {
-            const lie: LIEModel = new LIEModel(this.lieUpdateForm.value);
+            // To solve the utc time zone issue
+            var lie: LIEModel = new LIEModel(this.lieUpdateForm.value);
+            var dt = new Date(lie.dateOfAppointment);
+            lie.dateOfAppointment = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+            dt = new Date(lie.contractPeriodFrom);
+            lie.contractPeriodFrom = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+            dt = new Date(lie.contractPeriodTo);
+            lie.contractPeriodTo = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+
             if (this._dialogData.operation === 'addLIE') {
                 this._loanMonitoringService.saveLIE(lie, this._dialogData.loanApplicationId).subscribe(() => {
                     this._matSnackBar.open('LIE added successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close();
+                    this._dialogRef.close({ 'refresh': true });
                 });
             }
             else {
@@ -74,7 +82,7 @@ export class LIEUpdateDialogComponent {
 
                 this._loanMonitoringService.updateLIE(this.selectedLIE).subscribe(() => {
                     this._matSnackBar.open('LIE updated successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close();
+                    this._dialogRef.close({ 'refresh': true });
                 });            
             }
         }
@@ -84,6 +92,6 @@ export class LIEUpdateDialogComponent {
      * closeClick()
      */
     closeClick(): void {
-        this._dialogRef.close();
+        this._dialogRef.close({ 'refresh': false });
     }
 }

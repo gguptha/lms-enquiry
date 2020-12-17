@@ -5,7 +5,8 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import {
   MatExpansionModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatTableModule, MatSortModule,
   MatPaginatorModule, MatToolbarModule, MatIconModule, MatSelectModule, MatProgressSpinnerModule, MatDatepickerModule,
-  MatTabsModule
+  MatTabsModule,
+  MAT_DATE_LOCALE
 } from '@angular/material';
 import { LoanMonitoringComponent } from './loanMonitoring.component';
 import { EnquiryApplicationRouteGuard } from 'app/enquiryApplication.guard';
@@ -53,7 +54,11 @@ const routes = [
     ],
     providers: [
         LoanEnquiryService,
-        LoanMonitoringService
+        LoanMonitoringService,
+        {
+            provide: MAT_DATE_LOCALE,
+            useValue: 'en-in'
+        }
     ],
     exports: [
         LoanMonitoringComponent,

@@ -9,7 +9,7 @@ import pfs.lms.enquiry.domain.LendersIndependentEngineer;
 import java.util.List;
 import java.util.UUID;
 
-public interface LFAReportAndFeeRepository extends JpaRepository<LFAReportAndFee, UUID> {
+public interface LFAReportAndFeeRepository extends JpaRepository<LFAReportAndFee, String> {
 
     List<LFAReportAndFee> findByLendersFinancialAdvisor(LendersFinancialAdvisor lendersFinancialAdvisor);
 }
