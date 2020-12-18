@@ -136,7 +136,7 @@ public class LoanMonitoringController {
 
     }
 
-    @GetMapping("/loanApplications/lendersFinancialAdvisor/{lendersfinancialadvisorid}")
+    @GetMapping("/loanApplications/lendersFinancialAdvisor/{lendersfinancialadvisorid}/lfaReceiptsAndFees")
     public ResponseEntity getLFAReportAndFee(@PathVariable("lendersfinancialadvisorid")
                                                      String lendersFinancialAdvisorId,
                                              HttpServletRequest request)

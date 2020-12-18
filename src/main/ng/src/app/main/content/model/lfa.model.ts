@@ -1,4 +1,4 @@
-export class LIEModel
+export class LFAModel
 {
     id: string;
     bpCode: string;
