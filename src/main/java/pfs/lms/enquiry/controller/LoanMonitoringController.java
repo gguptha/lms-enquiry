@@ -5,14 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pfs.lms.enquiry.domain.LFAReportAndFee;
-import pfs.lms.enquiry.domain.LIEReportAndFee;
-import pfs.lms.enquiry.domain.LendersFinancialAdvisor;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
-import pfs.lms.enquiry.resource.LFAReportAndFeeResource;
-import pfs.lms.enquiry.resource.LFAResource;
-import pfs.lms.enquiry.resource.LIEReportAndFeeResource;
-import pfs.lms.enquiry.resource.LIEResource;
+import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.resource.*;
 
 import pfs.lms.enquiry.service.ILIEReportAndFeeService;
 import pfs.lms.enquiry.service.ILIEService;
@@ -145,4 +139,63 @@ public class LoanMonitoringController {
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(lfaReportAndFeeResources);
     }
+
+
+
+    // Create update and list (TRA)
+
+    @PostMapping("/loanApplications/trustretentionaccount/create")
+    public ResponseEntity createTRA(@RequestBody TRAResource resource, HttpServletRequest request) {
+        TrustRetentionAccount trustRetentionAccount =
+                loanMonitoringService.saveTRA(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(trustRetentionAccount);
+    }
+
+    @PutMapping("/loanApplications/trustretentionaccounts/{id}")
+    public ResponseEntity updateTRA(@PathVariable("id") String traId, @RequestBody TRAResource resource, HttpServletRequest request) {
+        TrustRetentionAccount trustRetentionAccount =
+                loanMonitoringService.updateTRA(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(trustRetentionAccount);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/trustretentionaccounts")
+    public ResponseEntity getTrustRetentionAccounts(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                         HttpServletRequest request)
+    {
+        List<TRAResource> trustRetentionAccounts = loanMonitoringService.getTrustRetentionAccounts(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(trustRetentionAccounts);
+    }
+
+    // create, update and list (TRA Statement)
+
+    @PostMapping("/loanApplications/trastatement/create")
+    public ResponseEntity createTRAStatement(@RequestBody TRAStatementResource resource, HttpServletRequest request) {
+        TrustRetentionAccountStatement trustRetentionAccountStatement =
+                loanMonitoringService.saveTRAStatement(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(trustRetentionAccountStatement);
+    }
+
+    @PutMapping("/loanApplications/trastatement/{id}")
+    public ResponseEntity updateTRAStatement(@PathVariable("id") String traId, @RequestBody TRAStatementResource resource, HttpServletRequest request) {
+        TrustRetentionAccountStatement trustRetentionAccountStatement =
+                loanMonitoringService.updateTRAStatement(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(trustRetentionAccountStatement);
+
+    }
+
+    @GetMapping("/loanApplications/trustretentionaccount/{trustretentionaccountid}")
+    public ResponseEntity getTRAStatements(@PathVariable("trustretentionaccountid")
+                                                     String trustRetentionAccountid,
+                                             HttpServletRequest request)
+    {
+        List<TRAStatementResource>  traStatementResources = loanMonitoringService.getTrustRetentionAccountStatements(trustRetentionAccountid,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(traStatementResources);
+    }
+
+
 }

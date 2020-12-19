@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.repository.*;
-import pfs.lms.enquiry.resource.LFAReportAndFeeResource;
-import pfs.lms.enquiry.resource.LFAResource;
-import pfs.lms.enquiry.resource.LIEReportAndFeeResource;
-import pfs.lms.enquiry.resource.LIEResource;
+import pfs.lms.enquiry.resource.*;
 import pfs.lms.enquiry.service.ILoanMonitoringService;
 
 import javax.transaction.Transactional;
@@ -31,6 +28,9 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final LFARepository lfaRepository;
     private final LFAReportAndFeeRepository lfaReportAndFeeRepository;
+
+    private final TRARepository traRepository;
+    private final TRAStatementRepository traStatementRepository;
 
 
     @Override
@@ -277,6 +277,132 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             );
         }
         return lfaReportAndFeeResources;
+
+    }
+
+    @Override
+    public TrustRetentionAccount saveTRA(TRAResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        TrustRetentionAccount trustRetentionAccount = resource.getTrustRetentionAccount();
+        trustRetentionAccount.setLoanMonitor(loanMonitor);
+        trustRetentionAccount.setBankKey(resource.getTrustRetentionAccount().getBankKey());
+        trustRetentionAccount.setTRABankName(resource.getTrustRetentionAccount().getTRABankName());
+        trustRetentionAccount.setBranch(resource.getTrustRetentionAccount().getBranch());
+        trustRetentionAccount.setAddress(resource.getTrustRetentionAccount().getAddress());
+        trustRetentionAccount.setBeneficiaryName(resource.getTrustRetentionAccount().getBeneficiaryName());
+        trustRetentionAccount.setIFSCCode(resource.getTrustRetentionAccount().getIFSCCode());
+        trustRetentionAccount.setAccountNumber(resource.getTrustRetentionAccount().getAccountNumber());
+        trustRetentionAccount.setContactName(resource.getTrustRetentionAccount().getContactName());
+        trustRetentionAccount.setAccountType(resource.getTrustRetentionAccount().getAccountType());
+        trustRetentionAccount.setContactNumber(resource.getTrustRetentionAccount().getContactNumber());
+        trustRetentionAccount.setEmail(resource.getTrustRetentionAccount().getEmail());
+        trustRetentionAccount.setPFSAuthorisedPerson(resource.getTrustRetentionAccount().getPFSAuthorisedPerson());
+        trustRetentionAccount.setPFSAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPFSAuthorisedPersonBPCode());
+        trustRetentionAccount = traRepository.save(trustRetentionAccount);
+
+        return trustRetentionAccount;
+
+    }
+
+    @Override
+    public TrustRetentionAccount updateTRA(TRAResource resource, String username) {
+        TrustRetentionAccount existingTrustRetentionAccount
+                = traRepository.getOne(resource.getTrustRetentionAccount().getId());
+
+        existingTrustRetentionAccount.setBankKey(resource.getTrustRetentionAccount().getBankKey());
+        existingTrustRetentionAccount.setTRABankName(resource.getTrustRetentionAccount().getTRABankName());
+        existingTrustRetentionAccount.setBranch(resource.getTrustRetentionAccount().getBranch());
+        existingTrustRetentionAccount.setAddress(resource.getTrustRetentionAccount().getAddress());
+        existingTrustRetentionAccount.setBeneficiaryName(resource.getTrustRetentionAccount().getBeneficiaryName());
+        existingTrustRetentionAccount.setIFSCCode(resource.getTrustRetentionAccount().getIFSCCode());
+        existingTrustRetentionAccount.setAccountNumber(resource.getTrustRetentionAccount().getAccountNumber());
+        existingTrustRetentionAccount.setContactName(resource.getTrustRetentionAccount().getContactName());
+        existingTrustRetentionAccount.setAccountType(resource.getTrustRetentionAccount().getAccountType());
+        existingTrustRetentionAccount.setContactNumber(resource.getTrustRetentionAccount().getContactNumber());
+        existingTrustRetentionAccount.setEmail(resource.getTrustRetentionAccount().getEmail());
+        existingTrustRetentionAccount.setPFSAuthorisedPerson(resource.getTrustRetentionAccount().getPFSAuthorisedPerson());
+        existingTrustRetentionAccount.setPFSAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPFSAuthorisedPersonBPCode());
+        existingTrustRetentionAccount = traRepository.save(existingTrustRetentionAccount);
+
+        return existingTrustRetentionAccount;
+    }
+
+    @Override
+    public List<TRAResource> getTrustRetentionAccounts(String loanApplicationId, String name) {
+        List<TRAResource> trustRetentionAccountrResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<TrustRetentionAccount> trustRetentionAccounts
+                    = traRepository.findByLoanMonitor(loanMonitor);
+            trustRetentionAccounts.forEach(
+                    trustRetentionAccount -> {
+                        TRAResource traResource = new TRAResource();
+                        traResource.setLoanApplicationId(loanApplication.getId());
+                        traResource.setTrustRetentionAccount(trustRetentionAccount);
+                        trustRetentionAccountrResources.add(traResource);
+                    }
+            );
+        }
+        return trustRetentionAccountrResources;
+
+    }
+
+    @Override
+    public TrustRetentionAccountStatement saveTRAStatement(TRAStatementResource resource, String username) {
+        TrustRetentionAccount trustRetentionAccount = traRepository.getOne(resource.getTrustRetentionAccountId());
+        TrustRetentionAccountStatement trustRetentionAccountStatement = resource.getTrustRetentionAccountStatement();
+        trustRetentionAccountStatement.setTrustRetentionAccount(trustRetentionAccount);
+        trustRetentionAccountStatement = traStatementRepository.save(trustRetentionAccountStatement);
+        return trustRetentionAccountStatement;
+
+    }
+
+    @Override
+    public TrustRetentionAccountStatement updateTRAStatement(TRAStatementResource resource, String username) {
+        TrustRetentionAccountStatement existingTrustRetentionAccountStatement
+                = traStatementRepository.getOne(resource.getTrustRetentionAccountStatement().getId());
+
+        existingTrustRetentionAccountStatement.setViewRights(resource.getTrustRetentionAccountStatement().getViewRights());
+        existingTrustRetentionAccountStatement.setRemarks(resource.getTrustRetentionAccountStatement().getRemarks());
+        existingTrustRetentionAccountStatement.setTRAAccountNumber(resource.getTrustRetentionAccountStatement().getTRAAccountNumber());
+        existingTrustRetentionAccountStatement.setPeriodQuarter(resource.getTrustRetentionAccountStatement().getPeriodQuarter());
+        existingTrustRetentionAccountStatement.setPeriodYear(resource.getTrustRetentionAccountStatement().getPeriodYear());
+        existingTrustRetentionAccountStatement.setDocumentType(resource.getTrustRetentionAccountStatement().getDocumentType());
+        existingTrustRetentionAccountStatement.setDocumentContent(resource.getTrustRetentionAccountStatement().getDocumentContent());
+        existingTrustRetentionAccountStatement = traStatementRepository.save(existingTrustRetentionAccountStatement);
+
+        return existingTrustRetentionAccountStatement;
+
+    }
+
+    @Override
+    public List<TRAStatementResource> getTrustRetentionAccountStatements(String trustRetentionAccountId, String name) {
+        List<TRAStatementResource>  traStatementResources  = new ArrayList<>();
+        TrustRetentionAccount trustRetentionAccount = traRepository.getOne(trustRetentionAccountId);
+        //LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(trustRetentionAccount != null) {
+            List<TrustRetentionAccountStatement> trustRetentionAccountStatements
+                    = traStatementRepository.findByTrustRetentionAccount(trustRetentionAccount);
+            trustRetentionAccountStatements.forEach(
+                    trustRetentionAccountStatement -> {
+                        TRAStatementResource traStatementResource = new TRAStatementResource();
+                        //lieResource.setLoanApplicationId(loanApplication.getId());
+                        traStatementResource.setTrustRetentionAccountId(trustRetentionAccount.getId());
+                        traStatementResource.setTrustRetentionAccountStatement(trustRetentionAccountStatement);
+                        traStatementResources.add(traStatementResource);
+                    }
+            );
+        }
+        return traStatementResources;
 
     }
 

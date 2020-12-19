@@ -1,13 +1,7 @@
 package pfs.lms.enquiry.service;
 
-import pfs.lms.enquiry.domain.LFAReportAndFee;
-import pfs.lms.enquiry.domain.LIEReportAndFee;
-import pfs.lms.enquiry.domain.LendersFinancialAdvisor;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
-import pfs.lms.enquiry.resource.LFAReportAndFeeResource;
-import pfs.lms.enquiry.resource.LFAResource;
-import pfs.lms.enquiry.resource.LIEReportAndFeeResource;
-import pfs.lms.enquiry.resource.LIEResource;
+import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.resource.*;
 
 import java.util.List;
 
@@ -36,5 +30,14 @@ public interface ILoanMonitoringService {
     LFAReportAndFee updateLFAReportAndFee(LFAReportAndFeeResource resource, String username);
     List<LFAReportAndFeeResource> getLFAReportAndFee(String loanApplicationId, String name);
 
+    // Trust Retention Account
+    TrustRetentionAccount saveTRA(TRAResource resource, String username);
+    TrustRetentionAccount updateTRA(TRAResource resource, String username);
+    List<TRAResource> getTrustRetentionAccounts(String loanApplicationId, String name);
+
+    //TRA STATEMENT
+    TrustRetentionAccountStatement saveTRAStatement(TRAStatementResource resource, String username);
+    TrustRetentionAccountStatement updateTRAStatement(TRAStatementResource resource, String username);
+    List<TRAStatementResource> getTrustRetentionAccountStatements(String loanApplicationId, String name);
 
 }

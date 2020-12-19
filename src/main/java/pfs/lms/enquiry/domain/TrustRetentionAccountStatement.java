@@ -1,9 +1,6 @@
 package pfs.lms.enquiry.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,6 +10,7 @@ import java.sql.Blob;
 
 @Entity
 @Setter
+@Getter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
