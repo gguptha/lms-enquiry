@@ -47,6 +47,32 @@
                 </div>
             </mat-tab>
             <!-- LIE Details Tab - Ends Here -->
+
+            <!-- LFA Details Tab - Starts Here -->
+            <mat-tab label="LFA Details">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLFA()"> Add LFA </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateLFA()" [disabled]="selectedLFA.id == ''"> Modify LFA </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-lfa-list [lfaList]="lfaList"></fuse-lfa-list>
+                </div>
+
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLFAReportAndFee()" 
+                            [disabled]="selectedLFA.id == ''"> 
+                        Add Report For LFA 
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateLFAReportAndFee()" 
+                            [disabled]="selectedLFAReportAndFee.id == ''"> 
+                        Modify Report For LFA
+                    </button>
+                </div>
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-lfa-report-fee-list [lfaReportAndFeeList]="lfaReportAndFeeList"></fuse-lfa-report-fee-list>
+                </div>
+            </mat-tab>
+            <!-- LFA Details Tab - Ends Here -->
         </mat-tab-group>
         <!-- / CONTENT -->
     </div>

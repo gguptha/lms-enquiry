@@ -9,6 +9,8 @@ export class LoanMonitoringService {
 
     selectedLIE: BehaviorSubject<any> = new BehaviorSubject({});
     selectedLIEReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedLFA: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedLFAReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
 
     /**
      *
@@ -17,67 +19,72 @@ export class LoanMonitoringService {
     constructor(private _http: HttpClient) {
     }
 
-    /**
-     * getLendersIndependentEngineers()
-     * @param loanApplicationId 
-     */
+    // All about LIE
+
     public getLendersIndependentEngineers(loanApplicationId: string): Observable<any> {
         return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/lendersIndependentEngineers');
     }
 
-    /**
-     * saveLIE();
-     * @param lie 
-     * @param loanApplicationId 
-     */
     public saveLIE(lie: any, loanApplicationId: any): Observable<any> {
         const url = "enquiry/api/loanApplications/lendersindependentengineers/create";
         return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'lendersIndependentEngineer':lie });
     }
 
-    /**
-     * updateLIE()
-     * @param lie 
-     */
     public updateLIE(lie: any): Observable<any> {
         const url = "enquiry/api/loanApplications/lendersindependentengineers/" + lie.id;
         return this._http.put(url, { 'loanApplicationId':'', 'lendersIndependentEngineer':lie });
     }
 
-    /**
-     * getLIEReportsAndFees()
-     * @param lieId 
-     */
+    // All about LIE Reports And Fees
+    
     public getLIEReportsAndFees(lieId: string): Observable<any> {
         return this._http.get('enquiry/api/loanApplications/lendersIndependentEngineer/' + lieId + '/lieReceiptsAndFees');
     }
     
-    /**
-     * saveLIEReportAndFee();
-     * @param lie 
-     * @param loanApplicationId 
-     */
     public saveLIEReportAndFee(lieReportAndFee: any, lieId: string): Observable<any> {
         const url = "enquiry/api/loanApplications/liereportandfeesubmission/create";
         return this._http.post(url, { 'lendersIndependentEngineerId': lieId, 'lieReportAndFee': lieReportAndFee });
     }
 
-    /**
-     * updateLIEReportAndFee()
-     * @param lieReportAndFee 
-     * @param lieId 
-     */
     public updateLIEReportAndFee(lieReportAndFee: any): Observable<any> {
         console.log('in service', lieReportAndFee);
         const url = "enquiry/api/loanApplications/liereportandfeesubmission/" + lieReportAndFee.id;
         return this._http.put(url, { 'lendersIndependentEngineerId': '', 'lieReportAndFee': lieReportAndFee });
     }
 
-    /**
-     * searchLoanEnquiries()
-     * Fetches a list of loan applications based on the request parameters.
-     * @param request
-     */
+    // All about LFA
+
+    public getLendersFinancialAdvisors(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/lendersFinancialAdvisors');
+    }
+    
+    public saveLFA(lfa: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/lendersfinancialAdvisors/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'lendersFinancialAdvisor':lfa });
+    }
+
+    public updateLFA(lfa: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/lendersfinancialAdvisors/" + lfa.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'lendersFinancialAdvisor':lfa });
+    }
+
+    // All about LFA Reports And Fees
+
+    public getLFAReportsAndFees(lfaId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/lendersFinancialAdvisor/' + lfaId + '/lfaReceiptsAndFees');
+    }
+
+    public saveLFAReportAndFee(lfaReportAndFee: any, lfaId: string): Observable<any> {
+        const url = "enquiry/api/loanApplications/lfareportandfeesubmission/create";
+        return this._http.post(url, { 'lendersFinancialAdvisorId': lfaId, 'lfaReportAndFee': lfaReportAndFee });
+    }
+
+    public updateLFAReportAndFee(lfaReportAndFee: any): Observable<any> {
+        console.log('in service', lfaReportAndFee);
+        const url = "enquiry/api/loanApplications/lfareportandfeesubmission/" + lfaReportAndFee.id;
+        return this._http.put(url, { 'lendersFinancialAdvisorId': '', 'lfaReportAndFee': lfaReportAndFee });
+    }
+
     public searchLoanEnquiries(request: any): Observable<any> {
         return this._http.put<any>('enquiry/api/loanApplications/search', request);
     }

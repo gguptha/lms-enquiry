@@ -16,6 +16,10 @@ import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
 import { LIEReportAndFeeUpdateDialogComponent } from './lieReportAndFeeUpdate/lieReportAndFeeUpdate.component';
 import { LIEReportAndFeeListComponent } from './lieReportAndFeeList/lieReportAndFeeList.component';
+import { LFAListComponent } from './lfaList/lfaList.component';
+import { LFAUpdateDialogComponent } from './lfaUpdate/lfaUpdate.component';
+import { LFAReportAndFeeListComponent } from './lfaReportAndFeeList/lfaReportAndFeeList.component';
+import { LFAReportAndFeeUpdateDialogComponent } from './lfaReportAndFeeUpdate/lfaReportAndFeeUpdate.component';
 
 const routes = [
     {
@@ -47,10 +51,14 @@ const routes = [
     ],
     declarations: [
         LoanMonitoringComponent,
-        LIEUpdateDialogComponent,
         LIEListComponent,
+        LIEUpdateDialogComponent,
+        LIEReportAndFeeListComponent,
         LIEReportAndFeeUpdateDialogComponent,
-        LIEReportAndFeeListComponent
+        LFAListComponent,
+        LFAUpdateDialogComponent,
+        LFAReportAndFeeListComponent,
+        LFAReportAndFeeUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -62,16 +70,24 @@ const routes = [
     ],
     exports: [
         LoanMonitoringComponent,
-        LIEUpdateDialogComponent,
         LIEListComponent,
+        LIEUpdateDialogComponent,
+        LIEReportAndFeeListComponent,
         LIEReportAndFeeUpdateDialogComponent,
-        LIEReportAndFeeListComponent
+        LFAListComponent,
+        LFAUpdateDialogComponent,
+        LFAReportAndFeeListComponent,
+        LFAReportAndFeeUpdateDialogComponent
     ],  
     entryComponents: [
-        LIEUpdateDialogComponent,
         LIEListComponent,
+        LIEUpdateDialogComponent,
+        LIEReportAndFeeListComponent,
         LIEReportAndFeeUpdateDialogComponent,
-        LIEReportAndFeeListComponent
+        LFAListComponent,
+        LFAUpdateDialogComponent,
+        LFAReportAndFeeListComponent,
+        LFAReportAndFeeUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {
