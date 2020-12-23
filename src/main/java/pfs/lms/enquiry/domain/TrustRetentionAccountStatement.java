@@ -14,7 +14,7 @@ import java.sql.Blob;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class TrustRetentionAccountStatement extends AbstractEntity {
+public class    TrustRetentionAccountStatement extends AbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TrustRetentionAccount trustRetentionAccount;
@@ -22,8 +22,6 @@ public class TrustRetentionAccountStatement extends AbstractEntity {
     private String viewRights;
 
     private String remarks;
-
-    private String tRAAccountNumber;
 
     private String periodQuarter;
 

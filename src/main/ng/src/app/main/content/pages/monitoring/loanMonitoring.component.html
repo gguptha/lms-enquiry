@@ -73,6 +73,32 @@
                 </div>
             </mat-tab>
             <!-- LFA Details Tab - Ends Here -->
+
+            <!-- TRA Details Tab - Starts Here -->
+            <mat-tab label="TRA Statement">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addTRA()"> Add TRA </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateTRA()" [disabled]="selectedTRA.id == ''"> Modify TRA </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-tra-list [traList]="traList"></fuse-tra-list>
+                </div>
+
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateTRAStatement('addTRAStatement')" 
+                            [disabled]="selectedTRA.id == ''"> 
+                        Add TRA Statement
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateTRAStatement('updateTRAStatement')" 
+                            [disabled]="selectedTRAStatement.id == ''"> 
+                        Modify TRA Statement
+                    </button>
+                </div>
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-tra-statement-list [traStatementList]="traStatementList"></fuse-tra-statement-list>
+                </div>
+            </mat-tab>
+            <!-- TRA Details Tab - Ends Here -->            
         </mat-tab-group>
         <!-- / CONTENT -->
     </div>

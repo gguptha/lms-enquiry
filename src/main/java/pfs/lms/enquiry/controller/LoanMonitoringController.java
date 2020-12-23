@@ -187,7 +187,7 @@ public class LoanMonitoringController {
 
     }
 
-    @GetMapping("/loanApplications/trustretentionaccount/{trustretentionaccountid}")
+    @GetMapping("/loanApplications/trustretentionaccount/{trustretentionaccountid}/traStatements")
     public ResponseEntity getTRAStatements(@PathVariable("trustretentionaccountid")
                                                      String trustRetentionAccountid,
                                              HttpServletRequest request)

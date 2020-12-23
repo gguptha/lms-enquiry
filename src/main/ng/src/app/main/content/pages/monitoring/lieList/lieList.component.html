@@ -73,6 +73,7 @@
                 <p class="text-truncate">{{ obj.lendersIndependentEngineer.email }}</p>
             </mat-cell>
         </ng-container>
+        
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.lendersIndependentEngineer)"

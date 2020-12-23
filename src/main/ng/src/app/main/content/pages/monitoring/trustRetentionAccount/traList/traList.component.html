@@ -1,0 +1,108 @@
+<div class="mat-table-container" style="width: 100%">
+
+    <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+        <!-- bankKey Column -->
+        <ng-container matColumnDef="bankKey">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Bank Key</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.bankKey }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- traBankName Column -->
+        <ng-container matColumnDef="traBankName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >TRA Bank Name</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.traBankName }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- branch Column -->
+        <ng-container matColumnDef="branch">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Branch</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.branch }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- address Column -->
+        <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Address</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.address }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- beneficiaryName Column -->
+        <ng-container matColumnDef="beneficiaryName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Beneficiary Name</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.beneficiaryName }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- ifscCode Column -->
+        <ng-container matColumnDef="ifscCode">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >IFSC Code</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.ifscCode }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- accountNumber Column -->
+        <ng-container matColumnDef="accountNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >A/c Number</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.accountNumber }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- contactName Column -->
+        <ng-container matColumnDef="contactName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Contact Name</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.contactName }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- typeOfAccount Column -->
+        <ng-container matColumnDef="typeOfAccount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Type of Account</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.typeOfAccount }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- contactNumber Column -->
+        <ng-container matColumnDef="contactNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Contact Number</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.contactNumber }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- email Column -->
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Email</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.email }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- pfsAuthorisedPerson Column -->
+        <ng-container matColumnDef="pfsAuthorisedPerson">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >PFS Authorised Person</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.trustRetentionAccount.pfsAuthorisedPerson }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.trustRetentionAccount)"
+            [ngClass]="{'highlight':obj.trustRetentionAccount === selectedTRA}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+</div>

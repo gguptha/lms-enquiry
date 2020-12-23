@@ -23,10 +23,6 @@ export class LFAReportAndFeeUpdateDialogComponent {
 
     lfaUpdateForm: FormGroup;
 
-    reportTypes = LoanMonitoringConstants.reportTypes;
-    feeReceiptStatuses = LoanMonitoringConstants.feeReceiptStatuses;
-    feePaidStatuses = LoanMonitoringConstants.feePaidStatuses;
-
     /**
      * constructor()
      * @param _formBuilder 

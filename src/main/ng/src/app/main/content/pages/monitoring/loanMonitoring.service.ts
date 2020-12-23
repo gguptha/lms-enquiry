@@ -11,6 +11,8 @@ export class LoanMonitoringService {
     selectedLIEReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
     selectedLFA: BehaviorSubject<any> = new BehaviorSubject({});
     selectedLFAReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedTRA: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedTRAStatement: BehaviorSubject<any> = new BehaviorSubject({});
 
     /**
      *
@@ -84,6 +86,40 @@ export class LoanMonitoringService {
         const url = "enquiry/api/loanApplications/lfareportandfeesubmission/" + lfaReportAndFee.id;
         return this._http.put(url, { 'lendersFinancialAdvisorId': '', 'lfaReportAndFee': lfaReportAndFee });
     }
+
+    // All about TRA
+
+    public getTrustRetentionaccounts(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/trustretentionaccounts');
+    }
+
+    public saveTRA(tra: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/trustretentionaccount/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'trustRetentionAccount':tra });
+    }
+
+    public updateTRA(tra: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/trustretentionaccounts/" + tra.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'trustRetentionAccount':tra });
+    }
+    
+    // All about TRA Statement
+
+    public getTRAStatements(traId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/trustretentionaccount/' + traId + '/traStatements');
+    }
+
+    public saveTRAStatement(traStatement: any, traId: string): Observable<any> {
+        const url = "enquiry/api/loanApplications/trastatement/create";
+        return this._http.post(url, { 'trustRetentionAccountId': traId, 'trustRetentionAccountStatement': traStatement });
+    }
+
+    public updateTRAStatement(traStatement: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/trastatement/" + traStatement.id;
+        return this._http.put(url, { 'trustRetentionAccountId': '', 'trustRetentionAccountStatement': traStatement });
+    }
+
+    // Others
 
     public searchLoanEnquiries(request: any): Observable<any> {
         return this._http.put<any>('enquiry/api/loanApplications/search', request);

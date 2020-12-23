@@ -20,6 +20,10 @@ import { LFAListComponent } from './lfaList/lfaList.component';
 import { LFAUpdateDialogComponent } from './lfaUpdate/lfaUpdate.component';
 import { LFAReportAndFeeListComponent } from './lfaReportAndFeeList/lfaReportAndFeeList.component';
 import { LFAReportAndFeeUpdateDialogComponent } from './lfaReportAndFeeUpdate/lfaReportAndFeeUpdate.component';
+import { TRAUpdateDialogComponent } from './trustRetentionAccount/traUpdate/traUpdate.component';
+import { TRAListComponent } from './trustRetentionAccount/traList/traList.component';
+import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traStatementUpdate/traStatementUpdate.component';
+import { TRAStatementListComponent } from './trustRetentionAccount/traStatementList/traStatementList.component';
 
 const routes = [
     {
@@ -58,7 +62,11 @@ const routes = [
         LFAListComponent,
         LFAUpdateDialogComponent,
         LFAReportAndFeeListComponent,
-        LFAReportAndFeeUpdateDialogComponent
+        LFAReportAndFeeUpdateDialogComponent,
+        TRAListComponent,
+        TRAUpdateDialogComponent,
+        TRAStatementUpdateDialogComponent,
+        TRAStatementListComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -77,7 +85,11 @@ const routes = [
         LFAListComponent,
         LFAUpdateDialogComponent,
         LFAReportAndFeeListComponent,
-        LFAReportAndFeeUpdateDialogComponent
+        LFAReportAndFeeUpdateDialogComponent,
+        TRAListComponent,
+        TRAUpdateDialogComponent,
+        TRAStatementUpdateDialogComponent,
+        TRAStatementListComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -87,7 +99,11 @@ const routes = [
         LFAListComponent,
         LFAUpdateDialogComponent,
         LFAReportAndFeeListComponent,
-        LFAReportAndFeeUpdateDialogComponent
+        LFAReportAndFeeUpdateDialogComponent,
+        TRAListComponent,
+        TRAUpdateDialogComponent,
+        TRAStatementUpdateDialogComponent,
+        TRAStatementListComponent
     ]
 })
 export class LoanMonitoringModule {

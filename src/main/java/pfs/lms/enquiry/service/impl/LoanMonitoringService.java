@@ -294,18 +294,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         TrustRetentionAccount trustRetentionAccount = resource.getTrustRetentionAccount();
         trustRetentionAccount.setLoanMonitor(loanMonitor);
         trustRetentionAccount.setBankKey(resource.getTrustRetentionAccount().getBankKey());
-        trustRetentionAccount.setTRABankName(resource.getTrustRetentionAccount().getTRABankName());
+        trustRetentionAccount.setTraBankName(resource.getTrustRetentionAccount().getTraBankName());
         trustRetentionAccount.setBranch(resource.getTrustRetentionAccount().getBranch());
         trustRetentionAccount.setAddress(resource.getTrustRetentionAccount().getAddress());
         trustRetentionAccount.setBeneficiaryName(resource.getTrustRetentionAccount().getBeneficiaryName());
-        trustRetentionAccount.setIFSCCode(resource.getTrustRetentionAccount().getIFSCCode());
+        trustRetentionAccount.setIfscCode(resource.getTrustRetentionAccount().getIfscCode());
         trustRetentionAccount.setAccountNumber(resource.getTrustRetentionAccount().getAccountNumber());
         trustRetentionAccount.setContactName(resource.getTrustRetentionAccount().getContactName());
-        trustRetentionAccount.setAccountType(resource.getTrustRetentionAccount().getAccountType());
+        trustRetentionAccount.setTypeOfAccount(resource.getTrustRetentionAccount().getTypeOfAccount());
         trustRetentionAccount.setContactNumber(resource.getTrustRetentionAccount().getContactNumber());
         trustRetentionAccount.setEmail(resource.getTrustRetentionAccount().getEmail());
-        trustRetentionAccount.setPFSAuthorisedPerson(resource.getTrustRetentionAccount().getPFSAuthorisedPerson());
-        trustRetentionAccount.setPFSAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPFSAuthorisedPersonBPCode());
+        trustRetentionAccount.setPfsAuthorisedPerson(resource.getTrustRetentionAccount().getPfsAuthorisedPerson());
+        trustRetentionAccount.setPfsAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPfsAuthorisedPersonBPCode());
         trustRetentionAccount = traRepository.save(trustRetentionAccount);
 
         return trustRetentionAccount;
@@ -318,18 +318,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 = traRepository.getOne(resource.getTrustRetentionAccount().getId());
 
         existingTrustRetentionAccount.setBankKey(resource.getTrustRetentionAccount().getBankKey());
-        existingTrustRetentionAccount.setTRABankName(resource.getTrustRetentionAccount().getTRABankName());
+        existingTrustRetentionAccount.setTraBankName(resource.getTrustRetentionAccount().getTraBankName());
         existingTrustRetentionAccount.setBranch(resource.getTrustRetentionAccount().getBranch());
         existingTrustRetentionAccount.setAddress(resource.getTrustRetentionAccount().getAddress());
         existingTrustRetentionAccount.setBeneficiaryName(resource.getTrustRetentionAccount().getBeneficiaryName());
-        existingTrustRetentionAccount.setIFSCCode(resource.getTrustRetentionAccount().getIFSCCode());
+        existingTrustRetentionAccount.setIfscCode(resource.getTrustRetentionAccount().getIfscCode());
         existingTrustRetentionAccount.setAccountNumber(resource.getTrustRetentionAccount().getAccountNumber());
         existingTrustRetentionAccount.setContactName(resource.getTrustRetentionAccount().getContactName());
-        existingTrustRetentionAccount.setAccountType(resource.getTrustRetentionAccount().getAccountType());
+        existingTrustRetentionAccount.setTypeOfAccount(resource.getTrustRetentionAccount().getTypeOfAccount());
         existingTrustRetentionAccount.setContactNumber(resource.getTrustRetentionAccount().getContactNumber());
         existingTrustRetentionAccount.setEmail(resource.getTrustRetentionAccount().getEmail());
-        existingTrustRetentionAccount.setPFSAuthorisedPerson(resource.getTrustRetentionAccount().getPFSAuthorisedPerson());
-        existingTrustRetentionAccount.setPFSAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPFSAuthorisedPersonBPCode());
+        existingTrustRetentionAccount.setPfsAuthorisedPerson(resource.getTrustRetentionAccount().getPfsAuthorisedPerson());
+        existingTrustRetentionAccount.setPfsAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPfsAuthorisedPersonBPCode());
         existingTrustRetentionAccount = traRepository.save(existingTrustRetentionAccount);
 
         return existingTrustRetentionAccount;
@@ -373,7 +373,6 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         existingTrustRetentionAccountStatement.setViewRights(resource.getTrustRetentionAccountStatement().getViewRights());
         existingTrustRetentionAccountStatement.setRemarks(resource.getTrustRetentionAccountStatement().getRemarks());
-        existingTrustRetentionAccountStatement.setTRAAccountNumber(resource.getTrustRetentionAccountStatement().getTRAAccountNumber());
         existingTrustRetentionAccountStatement.setPeriodQuarter(resource.getTrustRetentionAccountStatement().getPeriodQuarter());
         existingTrustRetentionAccountStatement.setPeriodYear(resource.getTrustRetentionAccountStatement().getPeriodYear());
         existingTrustRetentionAccountStatement.setDocumentType(resource.getTrustRetentionAccountStatement().getDocumentType());

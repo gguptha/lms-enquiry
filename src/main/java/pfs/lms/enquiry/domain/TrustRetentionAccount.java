@@ -20,7 +20,7 @@ public class TrustRetentionAccount extends AbstractEntity {
 
     private String bankKey;
 
-    private String tRABankName;
+    private String traBankName;
 
     private String branch;
 
@@ -28,19 +28,19 @@ public class TrustRetentionAccount extends AbstractEntity {
 
     private String beneficiaryName;
 
-    private String iFSCCode;
+    private String ifscCode;
 
     private String accountNumber;
 
     private String contactName;
 
-    private String accountType;
+    private String typeOfAccount;
 
     private String contactNumber;
 
     private String email;
 
-    private String pFSAuthorisedPersonBPCode;
+    private String pfsAuthorisedPersonBPCode;
 
-    private String pFSAuthorisedPerson;
+    private String pfsAuthorisedPerson;
 }

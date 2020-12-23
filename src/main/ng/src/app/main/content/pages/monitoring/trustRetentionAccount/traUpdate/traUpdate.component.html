@@ -1,0 +1,82 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button mat-button class="mat-icon-button" (click)="_dialogRef.close()" aria-label="Close Dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content fusePerfectScrollbar>
+        <form [formGroup]="traUpdateForm">
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Type Of Account" formControlName="typeOfAccount" required>
+                    <mat-error>
+                        Provide valid input for Type Of Account
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Contact Name" formControlName="contactName">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" class="mt-16">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Bank Key" formControlName="bankKey">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="TRA Bank Name" formControlName="traBankName">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Contact Number" formControlName="contactNumber">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Branch" formControlName="branch">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Address" formControlName="address">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="PFS Authorised Person-BP Code" formControlName="pfsAuthorisedPersonBPCode">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Beneficiary Name" formControlName="beneficiaryName">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="PFS Authorised Person" formControlName="pfsAuthorisedPerson">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="IFSC Code" formControlName="ifscCode">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Account Number" formControlName="accountNumber" required>
+                    <mat-error>
+                        Provide valid input for Account Number
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div mat-dialog-actions fxLayout="row">
+                <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
+                    Submit
+                </button>
+                <button class="mr-8" mat-raised-button type="button" color="accent" (click)="closeClick()">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
