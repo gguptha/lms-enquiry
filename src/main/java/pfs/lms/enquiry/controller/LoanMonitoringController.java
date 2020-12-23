@@ -198,4 +198,32 @@ public class LoanMonitoringController {
     }
 
 
+    // Create update and list (Terms and Conditions)
+
+    @PostMapping("/loanApplications/termsandconditions/create")
+    public ResponseEntity createTermsAndConditions(@RequestBody TermsAndConditionsResource resource, HttpServletRequest request) {
+        TermsAndConditionsModification termsAndConditions =
+                loanMonitoringService.saveTermsAndConditions(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(termsAndConditions);
+    }
+
+    @PutMapping("/loanApplications/termsandconditions/{id}")
+    public ResponseEntity updateTermsAndConditions(@PathVariable("id") String traId, @RequestBody TermsAndConditionsResource resource, HttpServletRequest request) {
+        TermsAndConditionsModification termsAndConditions =
+                loanMonitoringService.updateTermsAndConditions(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(termsAndConditions);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/termsandconditions")
+    public ResponseEntity getTermsAndConditions(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                    HttpServletRequest request)
+    {
+        List<TermsAndConditionsResource> termsAndConditions = loanMonitoringService.getTermsAndConditions(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(termsAndConditions);
+    }
+
+
 }

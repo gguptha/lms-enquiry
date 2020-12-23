@@ -32,6 +32,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     private final TRARepository traRepository;
     private final TRAStatementRepository traStatementRepository;
 
+    private final TermsAndConditionsRepository termsAndConditionsRepository;
+
 
     @Override
     @Transactional
@@ -404,5 +406,72 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         return traStatementResources;
 
     }
+
+    //Terms and Conditions
+    @Override
+    public TermsAndConditionsModification saveTermsAndConditions(TermsAndConditionsResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        TermsAndConditionsModification termsAndConditions = resource.getTermsAndConditionsModification();
+        termsAndConditions.setLoanMonitor(loanMonitor);
+        termsAndConditions.setDocumentType(resource.getTermsAndConditionsModification().getDocumentType());
+        termsAndConditions.setCommunication(resource.getTermsAndConditionsModification().getCommunication());
+        termsAndConditions.setBorrowerRequestLetterDate(resource.getTermsAndConditionsModification().getBorrowerRequestLetterDate());
+        termsAndConditions.setDateofIssueofAmendedSanctionLetter(resource.getTermsAndConditionsModification().getDateofIssueofAmendedSanctionLetter());
+        termsAndConditions.setRemarks(resource.getTermsAndConditionsModification().getRemarks());
+        termsAndConditions.setDocumentContent(resource.getTermsAndConditionsModification().getDocumentContent());
+        termsAndConditions = termsAndConditionsRepository.save(termsAndConditions);
+
+        return termsAndConditions;
+
+    }
+
+    @Override
+    public TermsAndConditionsModification updateTermsAndConditions(TermsAndConditionsResource resource, String username) {
+        TermsAndConditionsModification existingTermsAndConditionsModification
+                = termsAndConditionsRepository.getOne(resource.getTermsAndConditionsModification().getId());
+
+        existingTermsAndConditionsModification.setDocumentType(resource.getTermsAndConditionsModification().getDocumentType());
+        existingTermsAndConditionsModification.setCommunication(resource.getTermsAndConditionsModification().getCommunication());
+        existingTermsAndConditionsModification.setBorrowerRequestLetterDate(resource.getTermsAndConditionsModification().getBorrowerRequestLetterDate());
+        existingTermsAndConditionsModification.setDateofIssueofAmendedSanctionLetter(resource.getTermsAndConditionsModification().getDateofIssueofAmendedSanctionLetter());
+        existingTermsAndConditionsModification.setRemarks(resource.getTermsAndConditionsModification().getRemarks());
+        existingTermsAndConditionsModification.setDocumentContent(resource.getTermsAndConditionsModification().getDocumentContent());
+        existingTermsAndConditionsModification = termsAndConditionsRepository.save(existingTermsAndConditionsModification);
+
+        return existingTermsAndConditionsModification;
+
+    }
+
+
+    @Override
+    public List<TermsAndConditionsResource> getTermsAndConditions(String loanApplicationId, String name) {
+        List<TermsAndConditionsResource> termsAndConditionsResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<TermsAndConditionsModification> termsAndConditions
+                    = termsAndConditionsRepository.findByLoanMonitor(loanMonitor);
+            termsAndConditions.forEach(
+                    termsAndCondition -> {
+                        TermsAndConditionsResource termsAndConditionsResource = new TermsAndConditionsResource();
+                        termsAndConditionsResource.setLoanApplicationId(loanApplication.getId());
+                        termsAndConditionsResource.setTermsAndConditionsModification(termsAndCondition);
+                        termsAndConditionsResources.add(termsAndConditionsResource);
+                    }
+            );
+        }
+        return termsAndConditionsResources;
+
+
+    }
+
 
 }
