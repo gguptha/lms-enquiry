@@ -22,6 +22,8 @@ public class TermsAndConditionsModification extends AbstractEntity {
 
     private String documentType;
 
+    private String documentTitle;
+
     private String communication;
 
     private LocalDate borrowerRequestLetterDate;

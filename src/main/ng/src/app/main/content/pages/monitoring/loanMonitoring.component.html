@@ -98,7 +98,24 @@
                     <fuse-tra-statement-list [traStatementList]="traStatementList"></fuse-tra-statement-list>
                 </div>
             </mat-tab>
-            <!-- TRA Details Tab - Ends Here -->            
+            <!-- TRA Details Tab - Ends Here -->
+            
+            <!-- Terms & Conditions Modification Tab - Starts Here -->
+            <mat-tab label="T&C Modification">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateTermsAndConditions('addT&C')"> 
+                        Add New T&C 
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateTermsAndConditions('updateT&C')" 
+                            [disabled]="selectedTandC.id == ''"> 
+                        Modify T&C 
+                    </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-tandc-list [tandcList]="tandcList"></fuse-tandc-list>
+                </div>
+            </mat-tab>
+            <!-- Terms & Conditions Modification Tab - Ends Here -->
         </mat-tab-group>
         <!-- / CONTENT -->
     </div>

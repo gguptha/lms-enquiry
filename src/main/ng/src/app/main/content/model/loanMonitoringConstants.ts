@@ -38,4 +38,10 @@ export class LoanMonitoringConstants {
         {code: "ZPFSLM11" , value:"Lenders Agent Agreement"},
         {code: "ZPFSLM12" , value:"Security Trustee Agreement"}
     ]
+
+    static communications = [
+        {code: "0" , value:"Original"},
+        {code: "1" , value:"Amended"},
+        {code: "2" , value:"Others"}
+    ]
 }

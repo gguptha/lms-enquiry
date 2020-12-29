@@ -422,6 +422,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         TermsAndConditionsModification termsAndConditions = resource.getTermsAndConditionsModification();
         termsAndConditions.setLoanMonitor(loanMonitor);
         termsAndConditions.setDocumentType(resource.getTermsAndConditionsModification().getDocumentType());
+        termsAndConditions.setDocumentTitle(resource.getTermsAndConditionsModification().getDocumentTitle());
         termsAndConditions.setCommunication(resource.getTermsAndConditionsModification().getCommunication());
         termsAndConditions.setBorrowerRequestLetterDate(resource.getTermsAndConditionsModification().getBorrowerRequestLetterDate());
         termsAndConditions.setDateofIssueofAmendedSanctionLetter(resource.getTermsAndConditionsModification().getDateofIssueofAmendedSanctionLetter());
@@ -439,6 +440,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 = termsAndConditionsRepository.getOne(resource.getTermsAndConditionsModification().getId());
 
         existingTermsAndConditionsModification.setDocumentType(resource.getTermsAndConditionsModification().getDocumentType());
+        existingTermsAndConditionsModification.setDocumentTitle(resource.getTermsAndConditionsModification().getDocumentTitle());
         existingTermsAndConditionsModification.setCommunication(resource.getTermsAndConditionsModification().getCommunication());
         existingTermsAndConditionsModification.setBorrowerRequestLetterDate(resource.getTermsAndConditionsModification().getBorrowerRequestLetterDate());
         existingTermsAndConditionsModification.setDateofIssueofAmendedSanctionLetter(resource.getTermsAndConditionsModification().getDateofIssueofAmendedSanctionLetter());

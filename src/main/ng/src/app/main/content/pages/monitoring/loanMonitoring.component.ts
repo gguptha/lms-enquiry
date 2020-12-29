@@ -18,6 +18,8 @@ import { TRAUpdateDialogComponent } from './trustRetentionAccount/traUpdate/traU
 import { TRAModel } from '../../model/tra.model';
 import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traStatementUpdate/traStatementUpdate.component';
 import { TRAStatementModel } from '../../model/traStatement.model';
+import { TandCModel } from '../../model/tandc.model';
+import { TandCUpdateDialogComponent } from './termsAndConditions/tandcUpdate/tandcUpdate.component';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -35,13 +37,15 @@ export class LoanMonitoringComponent {
     selectedLFAReportAndFee: LFAReportAndFeeModel;
     selectedTRA: TRAModel;
     selectedTRAStatement: TRAStatementModel = new TRAStatementModel({});
-    
+    selectedTandC: TandCModel = new TandCModel({});
+
     lieList: any;
     lieReportAndFeeList: any;
     lfaList: any;
     lfaReportAndFeeList: any;
     traList: any;
     traStatementList: any;
+    tandcList: any;
 
     /**
      * constructor()
@@ -67,6 +71,10 @@ export class LoanMonitoringComponent {
             _loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
                 this.traList = data;
             });
+            // getTermsAndConditions
+            _loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
+                this.tandcList = data;
+            })
         });
         
         // All about LIE
@@ -118,6 +126,12 @@ export class LoanMonitoringComponent {
 
         _loanMonitoringService.selectedTRAStatement.subscribe(data => {
             this.selectedTRAStatement = new TRAStatementModel(data);
+        })
+
+        // All about Terms & Conditions
+
+        _loanMonitoringService.selectedTandC.subscribe(data => {
+            this.selectedTandC = new TandCModel(data);
         })
     }
 
@@ -360,6 +374,31 @@ export class LoanMonitoringComponent {
             if (result.refresh) {
                 this._loanMonitoringService.getTRAStatements(this.selectedTRA.id).subscribe(data => {
                     this.traStatementList = data;
+                });
+            }
+        });    
+    }
+
+    updateTermsAndConditions(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedTandC': undefined
+        };
+        if (operation === 'updateT&C') {
+            data.selectedTandC = this.selectedTandC;
+        }
+        const dialogRef = this._dialogRef.open(TandCUpdateDialogComponent, {
+            panelClass: 'fuse-tandc-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
+                    this.tandcList = data;
                 });
             }
         });    

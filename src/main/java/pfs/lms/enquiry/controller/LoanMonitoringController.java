@@ -3,8 +3,10 @@ package pfs.lms.enquiry.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.resource.*;
 
@@ -18,7 +20,6 @@ import java.util.List;
 @Slf4j
 @RepositoryRestController
 @RequiredArgsConstructor
-
 public class LoanMonitoringController {
 
    // private final ILIEService lieService;
@@ -223,6 +224,13 @@ public class LoanMonitoringController {
         List<TermsAndConditionsResource> termsAndConditions = loanMonitoringService.getTermsAndConditions(loanApplicationId,
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(termsAndConditions);
+    }
+
+    /*File upload*/
+    @PostMapping("/loanApplications/{id}/files")
+    public ResponseEntity<?> upload(@PathVariable("id") String loanApplicationId, @RequestParam("file")MultipartFile file){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new FileUploadResponse("File uploaded successfully"));
     }
 
 

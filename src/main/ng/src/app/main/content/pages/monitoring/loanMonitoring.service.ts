@@ -13,6 +13,7 @@ export class LoanMonitoringService {
     selectedLFAReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRA: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRAStatement: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedTandC: BehaviorSubject<any> = new BehaviorSubject({});
 
     /**
      *
@@ -117,6 +118,22 @@ export class LoanMonitoringService {
     public updateTRAStatement(traStatement: any): Observable<any> {
         const url = "enquiry/api/loanApplications/trastatement/" + traStatement.id;
         return this._http.put(url, { 'trustRetentionAccountId': '', 'trustRetentionAccountStatement': traStatement });
+    }
+
+    // All about Terms & Conditions
+
+    public getTermsAndConditions(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/termsandconditions');
+    }
+
+    public saveTandC(tandc: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/termsandconditions/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'termsAndConditionsModification':tandc });
+    }
+
+    public updateTandC(tandc: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/termsandconditions/" + tandc.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'termsAndConditionsModification':tandc });
     }
 
     // Others

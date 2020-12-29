@@ -24,6 +24,8 @@ import { TRAUpdateDialogComponent } from './trustRetentionAccount/traUpdate/traU
 import { TRAListComponent } from './trustRetentionAccount/traList/traList.component';
 import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traStatementUpdate/traStatementUpdate.component';
 import { TRAStatementListComponent } from './trustRetentionAccount/traStatementList/traStatementList.component';
+import { TandCUpdateDialogComponent } from './termsAndConditions/tandcUpdate/tandcUpdate.component';
+import { TandCListComponent } from './termsAndConditions/tandcList/tandcList.component';
 
 const routes = [
     {
@@ -66,7 +68,9 @@ const routes = [
         TRAListComponent,
         TRAUpdateDialogComponent,
         TRAStatementUpdateDialogComponent,
-        TRAStatementListComponent
+        TRAStatementListComponent,
+        TandCListComponent,
+        TandCUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -89,7 +93,9 @@ const routes = [
         TRAListComponent,
         TRAUpdateDialogComponent,
         TRAStatementUpdateDialogComponent,
-        TRAStatementListComponent
+        TRAStatementListComponent,
+        TandCListComponent,
+        TandCUpdateDialogComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -103,7 +109,9 @@ const routes = [
         TRAListComponent,
         TRAUpdateDialogComponent,
         TRAStatementUpdateDialogComponent,
-        TRAStatementListComponent
+        TRAStatementListComponent,
+        TandCListComponent,
+        TandCUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {
