@@ -40,12 +40,17 @@ public interface ILoanMonitoringService {
     TrustRetentionAccountStatement updateTRAStatement(TRAStatementResource resource, String username);
     List<TRAStatementResource> getTrustRetentionAccountStatements(String loanApplicationId, String name);
 
-    //Terms and Conditions
 
-    // Trust Retention Account
+    //Terms and Conditions
     TermsAndConditionsModification saveTermsAndConditions(TermsAndConditionsResource resource, String username);
     TermsAndConditionsModification updateTermsAndConditions(TermsAndConditionsResource resource, String username);
     List<TermsAndConditionsResource> getTermsAndConditions(String loanApplicationId, String name);
+
+    // Security Compliance
+    SecurityCompliance saveSecurityCompliance(SecurityComplianceResource resource, String username);
+    SecurityCompliance updateSecurityCompliance(SecurityComplianceResource resource, String username);
+    List<SecurityComplianceResource> getSecurityCompliance(String loanApplicationId, String name);
+
 
 
 }

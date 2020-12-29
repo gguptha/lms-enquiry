@@ -234,4 +234,31 @@ public class LoanMonitoringController {
     }
 
 
+    // Create update and list (Security Compliance)
+
+    @PostMapping("/loanApplications/securitycompliance/create")
+    public ResponseEntity createSecurityCompliance(@RequestBody SecurityComplianceResource resource, HttpServletRequest request) {
+        SecurityCompliance securityCompliance =
+                loanMonitoringService.saveSecurityCompliance(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(securityCompliance);
+    }
+
+    @PutMapping("/loanApplications/securitycompliance/{id}")
+    public ResponseEntity updateSecurityCompliance(@PathVariable("id") String securityComplianceId, @RequestBody SecurityComplianceResource resource, HttpServletRequest request) {
+        SecurityCompliance securityCompliance =
+                loanMonitoringService.updateSecurityCompliance(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(securityCompliance);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/securitycompliance")
+    public ResponseEntity getSecurityCompliance(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                HttpServletRequest request)
+    {
+        List<SecurityComplianceResource> securityCompliances = loanMonitoringService.getSecurityCompliance(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(securityCompliances);
+    }
+
 }

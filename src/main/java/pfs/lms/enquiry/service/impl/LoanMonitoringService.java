@@ -34,6 +34,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final TermsAndConditionsRepository termsAndConditionsRepository;
 
+    private final SecurityComplianceRepository securityComplianceRepository;
+
 
     @Override
     @Transactional
@@ -474,6 +476,100 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
 
     }
+
+
+    // Security Compliance
+    @Override
+    public SecurityCompliance saveSecurityCompliance(SecurityComplianceResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        SecurityCompliance securityCompliance = resource.getSecurityCompliance();
+        securityCompliance.setLoanMonitor(loanMonitor);
+        securityCompliance.setCollateralObjectType(resource.getSecurityCompliance().getCollateralObjectType());
+        securityCompliance.setQuantity(resource.getSecurityCompliance().getQuantity());
+        securityCompliance.setApplicability(resource.getSecurityCompliance().getApplicability());
+        securityCompliance.setCollateralAgreementType(resource.getSecurityCompliance().getCollateralAgreementType());
+        securityCompliance.setTimelines(resource.getSecurityCompliance().getTimelines());
+        securityCompliance.setDateOfCreation(resource.getSecurityCompliance().getDateOfCreation());
+        securityCompliance.setValidityDate(resource.getSecurityCompliance().getValidityDate());
+        securityCompliance.setValue(resource.getSecurityCompliance().getValue());
+        securityCompliance.setSecurityPerfectionDate(resource.getSecurityCompliance().getSecurityPerfectionDate());
+        securityCompliance.setRemarks(resource.getSecurityCompliance().getRemarks());
+        securityCompliance.setActionPeriod(resource.getSecurityCompliance().getActionPeriod());
+        securityCompliance.setEventType(resource.getSecurityCompliance().getEventType());
+        securityCompliance.setLocation(resource.getSecurityCompliance().getLocation());
+        securityCompliance.setAdditionalText(resource.getSecurityCompliance().getAdditionalText());
+        securityCompliance.setRealEstateLandArea(resource.getSecurityCompliance().getRealEstateLandArea());
+        securityCompliance.setAreaUnitOfMeasure(resource.getSecurityCompliance().getAreaUnitOfMeasure());
+        securityCompliance.setSecurityNoOfUnits(resource.getSecurityCompliance().getSecurityNoOfUnits());
+        securityCompliance.setSecurityFaceValueAmount(resource.getSecurityCompliance().getSecurityFaceValueAmount());
+        securityCompliance.setHoldingPercentage(resource.getSecurityCompliance().getHoldingPercentage());
+
+        securityCompliance = securityComplianceRepository.save(securityCompliance);
+
+        return securityCompliance;
+
+    }
+
+    @Override
+    public SecurityCompliance updateSecurityCompliance(SecurityComplianceResource resource, String username) {
+        SecurityCompliance existingSecurityCompliance
+                = securityComplianceRepository.getOne(resource.getSecurityCompliance().getId());
+
+        existingSecurityCompliance.setCollateralObjectType(resource.getSecurityCompliance().getCollateralObjectType());
+        existingSecurityCompliance.setQuantity(resource.getSecurityCompliance().getQuantity());
+        existingSecurityCompliance.setApplicability(resource.getSecurityCompliance().getApplicability());
+        existingSecurityCompliance.setCollateralAgreementType(resource.getSecurityCompliance().getCollateralAgreementType());
+        existingSecurityCompliance.setTimelines(resource.getSecurityCompliance().getTimelines());
+        existingSecurityCompliance.setDateOfCreation(resource.getSecurityCompliance().getDateOfCreation());
+        existingSecurityCompliance.setValidityDate(resource.getSecurityCompliance().getValidityDate());
+        existingSecurityCompliance.setValue(resource.getSecurityCompliance().getValue());
+        existingSecurityCompliance.setSecurityPerfectionDate(resource.getSecurityCompliance().getSecurityPerfectionDate());
+        existingSecurityCompliance.setRemarks(resource.getSecurityCompliance().getRemarks());
+        existingSecurityCompliance.setActionPeriod(resource.getSecurityCompliance().getActionPeriod());
+        existingSecurityCompliance.setEventType(resource.getSecurityCompliance().getEventType());
+        existingSecurityCompliance.setLocation(resource.getSecurityCompliance().getLocation());
+        existingSecurityCompliance.setAdditionalText(resource.getSecurityCompliance().getAdditionalText());
+        existingSecurityCompliance.setRealEstateLandArea(resource.getSecurityCompliance().getRealEstateLandArea());
+        existingSecurityCompliance.setAreaUnitOfMeasure(resource.getSecurityCompliance().getAreaUnitOfMeasure());
+        existingSecurityCompliance.setSecurityNoOfUnits(resource.getSecurityCompliance().getSecurityNoOfUnits());
+        existingSecurityCompliance.setSecurityFaceValueAmount(resource.getSecurityCompliance().getSecurityFaceValueAmount());
+        existingSecurityCompliance.setHoldingPercentage(resource.getSecurityCompliance().getHoldingPercentage());
+
+        existingSecurityCompliance = securityComplianceRepository.save(existingSecurityCompliance);
+
+        return existingSecurityCompliance;
+
+    }
+
+    @Override
+    public List<SecurityComplianceResource> getSecurityCompliance(String loanApplicationId, String name) {
+        List<SecurityComplianceResource> securityComplianceResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<SecurityCompliance> securityCompliances
+                    = securityComplianceRepository.findByLoanMonitor(loanMonitor);
+            securityCompliances.forEach(
+                    securityCompliance -> {
+                        SecurityComplianceResource securityComplianceResource = new SecurityComplianceResource();
+                        securityComplianceResource.setLoanApplicationId(loanApplication.getId());
+                        securityComplianceResource.setSecurityCompliance(securityCompliance);
+                        securityComplianceResources.add(securityComplianceResource);
+                    }
+            );
+        }
+        return securityComplianceResources;
+
+    }
+
 
 
 }
