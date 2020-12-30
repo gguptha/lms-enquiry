@@ -51,6 +51,10 @@ public interface ILoanMonitoringService {
     SecurityCompliance updateSecurityCompliance(SecurityComplianceResource resource, String username);
     List<SecurityComplianceResource> getSecurityCompliance(String loanApplicationId, String name);
 
+    // Site Visit
+    SiteVisit saveSiteVisit(SiteVisitResource resource, String username);
+    SiteVisit updateSiteVisit(SiteVisitResource resource, String username);
+    List<SiteVisitResource> getSiteVisit(String loanApplicationId, String name);
 
 
 }
