@@ -36,6 +36,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final SecurityComplianceRepository securityComplianceRepository;
 
+    private final SiteVisitRepository siteVisitRepository;
+
 
     @Override
     @Transactional
@@ -570,6 +572,64 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     }
 
+    @Override
+    public SiteVisit saveSiteVisit(SiteVisitResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        SiteVisit siteVisit = resource.getSiteVisit();
+        siteVisit.setLoanMonitor(loanMonitor);
+        siteVisit.setSerialNumber(resource.getSiteVisit().getSerialNumber());
+        siteVisit.setActualCOD(resource.getSiteVisit().getActualCOD());
+        siteVisit.setDateOfLendersMeet(resource.getSiteVisit().getDateOfLendersMeet());
+        siteVisit.setDateOfSiteVisit(resource.getSiteVisit().getDateOfSiteVisit());
+        siteVisit = siteVisitRepository.save(siteVisit);
+
+        return siteVisit;
+
+    }
+
+    @Override
+    public SiteVisit updateSiteVisit(SiteVisitResource resource, String username) {
+        SiteVisit existingSiteVisit
+                = siteVisitRepository.getOne(resource.getSiteVisit().getId());
+
+        existingSiteVisit.setSerialNumber(resource.getSiteVisit().getSerialNumber());
+        existingSiteVisit.setActualCOD(resource.getSiteVisit().getActualCOD());
+        existingSiteVisit.setDateOfSiteVisit(resource.getSiteVisit().getDateOfSiteVisit());
+        existingSiteVisit.setDateOfLendersMeet(resource.getSiteVisit().getDateOfLendersMeet());
+        existingSiteVisit = siteVisitRepository.save(existingSiteVisit);
+
+        return existingSiteVisit;
+
+    }
+
+    @Override
+    public List<SiteVisitResource> getSiteVisit(String loanApplicationId, String name) {
+        List<SiteVisitResource> siteVisitResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<SiteVisit> siteVisits
+                    = siteVisitRepository.findByLoanMonitor(loanMonitor);
+            siteVisits.forEach(
+                    siteVisit -> {
+                        SiteVisitResource siteVisitResource = new SiteVisitResource();
+                        siteVisitResource.setLoanApplicationId(loanApplication.getId());
+                        siteVisitResource.setSiteVisit(siteVisit);
+                        siteVisitResources.add(siteVisitResource);
+                    }
+            );
+        }
+        return siteVisitResources;
+
+    }
 
 
 }

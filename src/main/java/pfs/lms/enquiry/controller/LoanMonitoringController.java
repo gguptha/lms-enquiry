@@ -261,4 +261,31 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(securityCompliances);
     }
 
+    // Create update and list (Site Cisit)
+
+    @PostMapping("/loanApplications/sitevisit/create")
+    public ResponseEntity createSiteVisit(@RequestBody SiteVisitResource resource, HttpServletRequest request) {
+        SiteVisit siteVisit =
+                loanMonitoringService.saveSiteVisit(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(siteVisit);
+    }
+
+    @PutMapping("/loanApplications/sitevisit/{id}")
+    public ResponseEntity updateSiteVisit(@PathVariable("id") String siteVisiteId, @RequestBody SiteVisitResource resource, HttpServletRequest request) {
+        SiteVisit siteVisit =
+                loanMonitoringService.updateSiteVisit(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(siteVisit);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/sitevisit")
+    public ResponseEntity getSiteVisit(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                HttpServletRequest request)
+    {
+        List<SiteVisitResource> siteVisits = loanMonitoringService.getSiteVisit(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(siteVisits);
+    }
+
 }
