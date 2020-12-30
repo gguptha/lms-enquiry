@@ -1,0 +1,44 @@
+<div class="mat-table-container" style="width: 100%">
+
+    <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+        <!-- serialNumber Column -->
+        <ng-container matColumnDef="serialNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.siteVisit.serialNumber }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- actualCOD Column -->
+        <ng-container matColumnDef="actualCOD">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Actual COD</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.siteVisit.actualCOD | date: 'dd/MM/yyyy' }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- dateOfSiteVisit Column -->
+        <ng-container matColumnDef="dateOfSiteVisit">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Date of Site Visit</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.siteVisit.dateOfSiteVisit | date: 'dd/MM/yyyy' }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- dateOfLendersMeet Column -->
+        <ng-container matColumnDef="dateOfLendersMeet">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Date of Lenders Meet</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.siteVisit.dateOfLendersMeet | date: 'dd/MM/yyyy' }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.siteVisit)"
+            [ngClass]="{'highlight':obj.siteVisit === selectedSiteVisit}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+</div>

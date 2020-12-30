@@ -22,6 +22,8 @@ import { TandCModel } from '../../model/tandc.model';
 import { TandCUpdateDialogComponent } from './termsAndConditions/tandcUpdate/tandcUpdate.component';
 import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
 import { SecurityComplianceModel } from '../../model/securityCompliance.model';
+import { SiteVisitModel } from '../../model/siteVisit.model';
+import { SiteVisitUpdateDialogComponent } from './siteVisit/siteVisitUpdate/siteVisitUpdate.component';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -41,7 +43,8 @@ export class LoanMonitoringComponent {
     selectedTRAStatement: TRAStatementModel = new TRAStatementModel({});
     selectedTandC: TandCModel = new TandCModel({});
     selectedSecurityCompliance: SecurityComplianceModel;
-
+    selectedSiteVisit: SiteVisitModel;
+    
     lieList: any;
     lieReportAndFeeList: any;
     lfaList: any;
@@ -50,6 +53,7 @@ export class LoanMonitoringComponent {
     traStatementList: any;
     tandcList: any;
     securityComplianceList: any;
+    siteVisitList: any;
 
     /**
      * constructor()
@@ -83,6 +87,10 @@ export class LoanMonitoringComponent {
             _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                 this.securityComplianceList = data;
             })
+            // getSiteVisits
+            _loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
+                this.siteVisitList = data;
+            })            
         });
         
         // All about LIE
@@ -147,6 +155,12 @@ export class LoanMonitoringComponent {
         _loanMonitoringService.selectedSecurityCompliance.subscribe(data => {
             this.selectedSecurityCompliance = new SecurityComplianceModel(data);
         })
+
+        // All about Site Visit
+
+        _loanMonitoringService.selectedSiteVisit.subscribe(data => {
+            this.selectedSiteVisit = new SiteVisitModel(data);
+        })    
     }
 
     /**
@@ -361,6 +375,10 @@ export class LoanMonitoringComponent {
         });    
     }
 
+    /**
+     * updateTRAStatement()
+     * @param operation 
+     */
     updateTRAStatement(operation: string): void {
         // Open the dialog.
         var data: any;
@@ -393,6 +411,10 @@ export class LoanMonitoringComponent {
         });    
     }
 
+    /**
+     * updateTermsAndConditions()
+     * @param operation 
+     */
     updateTermsAndConditions(operation: string): void {
         // Open the dialog.
         var data = {
@@ -418,6 +440,10 @@ export class LoanMonitoringComponent {
         });    
     }
 
+    /**
+     * updateSecurityCompliance()
+     * @param operation 
+     */
     updateSecurityCompliance(operation: string): void {
         // Open the dialog.
         var data = {
@@ -438,6 +464,35 @@ export class LoanMonitoringComponent {
             if (result.refresh) {
                 this._loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                     this.securityComplianceList = data;
+                });
+            }
+        });    
+    }
+
+    /**
+     * updatSiteVisit()
+     * @param operation 
+     */
+    updateSiteVisit(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectediteVisit': undefined
+        };
+        if (operation === 'updateSiteVisit') {
+            data.selectediteVisit = this.selectedSiteVisit;
+        }
+        const dialogRef = this._dialogRef.open(SiteVisitUpdateDialogComponent, {
+            panelClass: 'fuse-site-visit-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
+                    this.siteVisitList = data;
                 });
             }
         });    

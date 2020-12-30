@@ -28,6 +28,8 @@ import { TandCUpdateDialogComponent } from './termsAndConditions/tandcUpdate/tan
 import { TandCListComponent } from './termsAndConditions/tandcList/tandcList.component';
 import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
 import { SecurityComplianceListComponent } from './securityCompliance/securityComplianceList/securityComplianceList.component';
+import { SiteVisitUpdateDialogComponent } from './siteVisit/siteVisitUpdate/siteVisitUpdate.component';
+import { SiteVisitListComponent } from './siteVisit/siteVisitList/siteVisitList.component';
 
 const routes = [
     {
@@ -74,7 +76,9 @@ const routes = [
         TandCListComponent,
         TandCUpdateDialogComponent,
         SecurityComplianceListComponent,
-        SecurityComplianceUpdateDialogComponent
+        SecurityComplianceUpdateDialogComponent,
+        SiteVisitListComponent,
+        SiteVisitUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -101,7 +105,9 @@ const routes = [
         TandCListComponent,
         TandCUpdateDialogComponent,
         SecurityComplianceListComponent,
-        SecurityComplianceUpdateDialogComponent
+        SecurityComplianceUpdateDialogComponent,
+        SiteVisitListComponent,
+        SiteVisitUpdateDialogComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -119,7 +125,9 @@ const routes = [
         TandCListComponent,
         TandCUpdateDialogComponent,
         SecurityComplianceListComponent,
-        SecurityComplianceUpdateDialogComponent
+        SecurityComplianceUpdateDialogComponent,
+        SiteVisitListComponent,
+        SiteVisitUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {

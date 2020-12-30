@@ -15,6 +15,7 @@ export class LoanMonitoringService {
     selectedTRAStatement: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTandC: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedSiteVisit: BehaviorSubject<any> = new BehaviorSubject({});
 
     /**
      *
@@ -153,6 +154,22 @@ export class LoanMonitoringService {
         return this._http.put(url, { 'loanApplicationId':'', 'securityCompliance':securityCompliance });
     }    
     
+    // All about Site Visit
+
+    public getSiteVisits(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/sitevisits');
+    }
+
+    public saveSiteVisit(siteVisit: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/sitevisit/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'siteVisit':siteVisit });
+    }
+
+    public updateSiteVisit(siteVisit: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/sitevisit/" + siteVisit.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'siteVisit':siteVisit });
+    }    
+
     // Others
 
     public searchLoanEnquiries(request: any): Observable<any> {

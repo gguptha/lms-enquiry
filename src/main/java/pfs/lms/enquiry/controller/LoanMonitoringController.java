@@ -261,7 +261,7 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(securityCompliances);
     }
 
-    // Create update and list (Site Cisit)
+    // Create update and list (Site Visit)
 
     @PostMapping("/loanApplications/sitevisit/create")
     public ResponseEntity createSiteVisit(@RequestBody SiteVisitResource resource, HttpServletRequest request) {
@@ -279,7 +279,7 @@ public class LoanMonitoringController {
 
     }
 
-    @GetMapping("/loanApplications/{loanapplicationid}/sitevisit")
+    @GetMapping("/loanApplications/{loanapplicationid}/sitevisits")
     public ResponseEntity getSiteVisit(@PathVariable("loanapplicationid") String loanApplicationId,
                                                 HttpServletRequest request)
     {
