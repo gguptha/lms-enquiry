@@ -14,6 +14,7 @@ export class LoanMonitoringService {
     selectedTRA: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRAStatement: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTandC: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
 
     /**
      *
@@ -136,6 +137,22 @@ export class LoanMonitoringService {
         return this._http.put(url, { 'loanApplicationId':'', 'termsAndConditionsModification':tandc });
     }
 
+    // All about Security Compliance
+
+    public getSecurityCompliances(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/securitycompliances');
+    }
+
+    public saveSecurityCompliance(securityCompliance: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/securitycompliance/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'securityCompliance':securityCompliance });
+    }
+
+    public updateSecurityCompliance(securityCompliance: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/securitycompliance/" + securityCompliance.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'securityCompliance':securityCompliance });
+    }    
+    
     // Others
 
     public searchLoanEnquiries(request: any): Observable<any> {

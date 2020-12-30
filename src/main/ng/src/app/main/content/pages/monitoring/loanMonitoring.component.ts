@@ -20,6 +20,8 @@ import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traSt
 import { TRAStatementModel } from '../../model/traStatement.model';
 import { TandCModel } from '../../model/tandc.model';
 import { TandCUpdateDialogComponent } from './termsAndConditions/tandcUpdate/tandcUpdate.component';
+import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
+import { SecurityComplianceModel } from '../../model/securityCompliance.model';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -38,6 +40,7 @@ export class LoanMonitoringComponent {
     selectedTRA: TRAModel;
     selectedTRAStatement: TRAStatementModel = new TRAStatementModel({});
     selectedTandC: TandCModel = new TandCModel({});
+    selectedSecurityCompliance: SecurityComplianceModel;
 
     lieList: any;
     lieReportAndFeeList: any;
@@ -46,6 +49,7 @@ export class LoanMonitoringComponent {
     traList: any;
     traStatementList: any;
     tandcList: any;
+    securityComplianceList: any;
 
     /**
      * constructor()
@@ -74,6 +78,10 @@ export class LoanMonitoringComponent {
             // getTermsAndConditions
             _loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
                 this.tandcList = data;
+            })
+            // getSecurityCompliances
+            _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
+                this.securityComplianceList = data;
             })
         });
         
@@ -132,6 +140,12 @@ export class LoanMonitoringComponent {
 
         _loanMonitoringService.selectedTandC.subscribe(data => {
             this.selectedTandC = new TandCModel(data);
+        })
+
+        // All about Security Compliance
+
+        _loanMonitoringService.selectedSecurityCompliance.subscribe(data => {
+            this.selectedSecurityCompliance = new SecurityComplianceModel(data);
         })
     }
 
@@ -399,6 +413,31 @@ export class LoanMonitoringComponent {
             if (result.refresh) {
                 this._loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
                     this.tandcList = data;
+                });
+            }
+        });    
+    }
+
+    updateSecurityCompliance(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedSecurityCompliance': undefined
+        };
+        if (operation === 'updateSecurityCompliance') {
+            data.selectedSecurityCompliance = this.selectedSecurityCompliance;
+        }
+        const dialogRef = this._dialogRef.open(SecurityComplianceUpdateDialogComponent, {
+            panelClass: 'fuse-security-compliance-update-dialog',
+            width: '1000px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
+                    this.securityComplianceList = data;
                 });
             }
         });    

@@ -252,7 +252,7 @@ public class LoanMonitoringController {
 
     }
 
-    @GetMapping("/loanApplications/{loanapplicationid}/securitycompliance")
+    @GetMapping("/loanApplications/{loanapplicationid}/securitycompliances")
     public ResponseEntity getSecurityCompliance(@PathVariable("loanapplicationid") String loanApplicationId,
                                                 HttpServletRequest request)
     {

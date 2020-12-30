@@ -1,0 +1,52 @@
+<div class="mat-table-container" style="width: 100%">
+
+    <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+        <!-- particulars Column -->
+        <ng-container matColumnDef="particulars">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Particulars</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.securityCompliance.collateralObjectType }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- qty Column -->
+        <ng-container matColumnDef="qty">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Qty</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate"></p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- faceValue Column -->
+        <ng-container matColumnDef="faceValue">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Face Value</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.securityCompliance.securityFaceValueAmount }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- percentage Column -->
+        <ng-container matColumnDef="percentage">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >%</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.securityCompliance.holdingPercentage }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- applicability Column -->
+        <ng-container matColumnDef="applicability">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Applicability</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.securityCompliance.applicability }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.securityCompliance)"
+            [ngClass]="{'highlight':obj.securityCompliance === selectedSecurityCompliance}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+</div>

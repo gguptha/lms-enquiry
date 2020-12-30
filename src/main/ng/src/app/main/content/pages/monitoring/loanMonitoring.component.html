@@ -116,6 +116,23 @@
                 </div>
             </mat-tab>
             <!-- Terms & Conditions Modification Tab - Ends Here -->
+
+            <!-- Security Compliance Tab - Starts Here -->
+            <mat-tab label="Security Compliance">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateSecurityCompliance('addSecurityCompliance')"> 
+                        Add New Security
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateSecurityCompliance('updateSecurityCompliance')" 
+                            [disabled]="selectedSecurityCompliance.id == ''"> 
+                        Modify Security
+                    </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-security-compliance-list [securityComplianceList]="securityComplianceList"></fuse-security-compliance-list>
+                </div>
+            </mat-tab>
+            <!-- Security Compliance Tab - Ends Here -->            
         </mat-tab-group>
         <!-- / CONTENT -->
     </div>
