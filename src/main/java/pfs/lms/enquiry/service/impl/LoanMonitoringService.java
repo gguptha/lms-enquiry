@@ -38,6 +38,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final SiteVisitRepository siteVisitRepository;
 
+    private final OperatingParameterRepository operatingParameterRepository;
+
 
     @Override
     @Transactional
@@ -628,6 +630,97 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             );
         }
         return siteVisitResources;
+
+    }
+
+    //Operating Parameter
+    @Override
+    public OperatingParameter saveOperatingParameter(OperatingParameterResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        OperatingParameter operatingParameter = resource.getOperatingParameter();
+        operatingParameter.setLoanMonitor(loanMonitor);
+        operatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
+        operatingParameter.setMonth(resource.getOperatingParameter().getMonth());
+        operatingParameter.setYear(resource.getOperatingParameter().getYear());
+        operatingParameter.setExportNetGeneration(resource.getOperatingParameter().getExportNetGeneration());
+        operatingParameter.setPlfCufActual(resource.getOperatingParameter().getPlfCufActual());
+        operatingParameter.setApplicableTariff(resource.getOperatingParameter().getApplicableTariff());
+        operatingParameter.setRevenue(resource.getOperatingParameter().getRevenue());
+        operatingParameter.setDateOfInvoice(resource.getOperatingParameter().getDateOfInvoice());
+        operatingParameter.setDateOfPaymentReceipt(resource.getOperatingParameter().getDateOfPaymentReceipt());
+        operatingParameter.setCarbonDioxideEmission(resource.getOperatingParameter().getCarbonDioxideEmission());
+        operatingParameter.setWaterSaved(resource.getOperatingParameter().getWaterSaved());
+        operatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
+        operatingParameter.setDesignPlfCuf(resource.getOperatingParameter().getDesignPlfCuf());
+        operatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
+
+        operatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
+        operatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
+
+        operatingParameter.setDocumentContent(resource.getOperatingParameter().getDocumentContent());
+        operatingParameter = operatingParameterRepository.save(operatingParameter);
+
+        return operatingParameter;
+
+    }
+
+    @Override
+    public OperatingParameter updateOperatingParameter(OperatingParameterResource resource, String username) {
+        OperatingParameter existingOperatingParameter
+                = operatingParameterRepository.getOne(resource.getOperatingParameter().getId());
+
+        existingOperatingParameter = operatingParameterRepository.save(existingOperatingParameter);
+        existingOperatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
+        existingOperatingParameter.setMonth(resource.getOperatingParameter().getMonth());
+        existingOperatingParameter.setYear(resource.getOperatingParameter().getYear());
+        existingOperatingParameter.setExportNetGeneration(resource.getOperatingParameter().getExportNetGeneration());
+        existingOperatingParameter.setPlfCufActual(resource.getOperatingParameter().getPlfCufActual());
+        existingOperatingParameter.setApplicableTariff(resource.getOperatingParameter().getApplicableTariff());
+        existingOperatingParameter.setRevenue(resource.getOperatingParameter().getRevenue());
+        existingOperatingParameter.setDateOfInvoice(resource.getOperatingParameter().getDateOfInvoice());
+        existingOperatingParameter.setDateOfPaymentReceipt(resource.getOperatingParameter().getDateOfPaymentReceipt());
+        existingOperatingParameter.setCarbonDioxideEmission(resource.getOperatingParameter().getCarbonDioxideEmission());
+        existingOperatingParameter.setWaterSaved(resource.getOperatingParameter().getWaterSaved());
+        existingOperatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
+        existingOperatingParameter.setDesignPlfCuf(resource.getOperatingParameter().getDesignPlfCuf());
+        existingOperatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
+
+        existingOperatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
+        existingOperatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
+
+        existingOperatingParameter.setDocumentContent(resource.getOperatingParameter().getDocumentContent());
+
+        return existingOperatingParameter;
+
+
+    }
+
+    @Override
+    public List<OperatingParameterResource> getOperatingParameter(String loanApplicationId, String name) {
+        List<OperatingParameterResource> operatingParameterResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<OperatingParameter> operatingParameters
+                    = operatingParameterRepository.findByLoanMonitor(loanMonitor);
+            operatingParameters.forEach(
+                    operatingParameter -> {
+                        OperatingParameterResource operatingParameterResource = new OperatingParameterResource();
+                        operatingParameterResource.setLoanApplicationId(loanApplication.getId());
+                        operatingParameterResource.setOperatingParameter(operatingParameter);
+                        operatingParameterResources.add(operatingParameterResource);
+                    }
+            );
+        }
+        return operatingParameterResources;
 
     }
 

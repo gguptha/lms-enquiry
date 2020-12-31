@@ -288,4 +288,32 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(siteVisits);
     }
 
+
+    // Create update and list (Operating Parameters)
+
+    @PostMapping("/loanApplications/operatingparameter/create")
+    public ResponseEntity createOperatingParameter(@RequestBody OperatingParameterResource resource, HttpServletRequest request) {
+        OperatingParameter operatingParameter =
+                loanMonitoringService.saveOperatingParameter(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(operatingParameter);
+    }
+
+    @PutMapping("/loanApplications/operatingparameter/{id}")
+    public ResponseEntity updateOperatingParameter(@PathVariable("id") String opratingParameterId, @RequestBody OperatingParameterResource resource, HttpServletRequest request) {
+        OperatingParameter operatingParameter =
+                loanMonitoringService.updateOperatingParameter(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(operatingParameter);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/operatingparameters")
+    public ResponseEntity getOperatingParameter(@PathVariable("loanapplicationid") String loanApplicationId,
+                                       HttpServletRequest request)
+    {
+        List<OperatingParameterResource> operatingParameters = loanMonitoringService.getOperatingParameter(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(operatingParameters);
+    }
+
 }

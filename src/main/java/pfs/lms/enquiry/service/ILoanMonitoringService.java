@@ -56,5 +56,9 @@ public interface ILoanMonitoringService {
     SiteVisit updateSiteVisit(SiteVisitResource resource, String username);
     List<SiteVisitResource> getSiteVisit(String loanApplicationId, String name);
 
+    // Operating Parameter
+    OperatingParameter saveOperatingParameter(OperatingParameterResource resource, String username);
+    OperatingParameter updateOperatingParameter(OperatingParameterResource resource, String username);
+    List<OperatingParameterResource> getOperatingParameter(String loanApplicationId, String name);
 
 }
