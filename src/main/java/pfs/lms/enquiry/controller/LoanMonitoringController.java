@@ -299,7 +299,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/operatingparameter/{id}")
-    public ResponseEntity updateOperatingParameter(@PathVariable("id") String opratingParameterId, @RequestBody OperatingParameterResource resource, HttpServletRequest request) {
+    public ResponseEntity updateOperatingParameter(@PathVariable("id") String operatingParameterId, @RequestBody OperatingParameterResource resource, HttpServletRequest request) {
         OperatingParameter operatingParameter =
                 loanMonitoringService.updateOperatingParameter(resource, request.getUserPrincipal().getName());
 
@@ -314,6 +314,33 @@ public class LoanMonitoringController {
         List<OperatingParameterResource> operatingParameters = loanMonitoringService.getOperatingParameter(loanApplicationId,
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(operatingParameters);
+    }
+
+    // Create update and list (Rate Of Interest)
+
+    @PostMapping("/loanApplications/rateofinterest/create")
+    public ResponseEntity createRateOfInterest(@RequestBody RateOfInterestResource resource, HttpServletRequest request) {
+        RateOfInterest rateOfInterest =
+                loanMonitoringService.saveRateOfInterest(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(rateOfInterest);
+    }
+
+    @PutMapping("/loanApplications/rateofinterest/{id}")
+    public ResponseEntity updateRateOfInterest(@PathVariable("id") String rateOfInterestId, @RequestBody RateOfInterestResource resource, HttpServletRequest request) {
+        RateOfInterest rateOfInterest =
+                loanMonitoringService.updateRateOfInterest(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(rateOfInterest);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/rateofinterest")
+    public ResponseEntity getRateOfInterest(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                HttpServletRequest request)
+    {
+        List<RateOfInterestResource> rateOfInterest = loanMonitoringService.getRateOfInterest(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(rateOfInterest);
     }
 
 }

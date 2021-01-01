@@ -40,6 +40,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final OperatingParameterRepository operatingParameterRepository;
 
+    private final RateOfInterestRepository rateOfInterestRepository;
+
 
     @Override
     @Transactional
@@ -724,5 +726,68 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     }
 
+    //Rate Of Interest
 
+
+    @Override
+    public RateOfInterest saveRateOfInterest(RateOfInterestResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        RateOfInterest rateOfInterest = resource.getRateOfInterest();
+        rateOfInterest.setLoanMonitor(loanMonitor);
+        rateOfInterest.setParticulars(resource.getRateOfInterest().getParticulars());
+        rateOfInterest.setScheduledIfAny(resource.getRateOfInterest().getScheduledIfAny());
+        rateOfInterest.setSanctionPreCod(resource.getRateOfInterest().getSanctionPreCod());
+        rateOfInterest.setSanctionPostCod(resource.getRateOfInterest().getSanctionPostCod());
+        rateOfInterest.setPresentRoi(resource.getRateOfInterest().getPresentRoi());
+        rateOfInterest.setFreeText(resource.getRateOfInterest().getFreeText());
+        rateOfInterest = rateOfInterestRepository.save(rateOfInterest);
+
+        return rateOfInterest;
+
+    }
+
+    @Override
+    public RateOfInterest updateRateOfInterest(RateOfInterestResource resource, String username) {
+        RateOfInterest existingRateOfInterest
+                = rateOfInterestRepository.getOne(resource.getRateOfInterest().getId());
+
+        existingRateOfInterest.setParticulars(resource.getRateOfInterest().getParticulars());
+        existingRateOfInterest.setScheduledIfAny(resource.getRateOfInterest().getScheduledIfAny());
+        existingRateOfInterest.setSanctionPreCod(resource.getRateOfInterest().getSanctionPreCod());
+        existingRateOfInterest.setSanctionPostCod(resource.getRateOfInterest().getSanctionPostCod());
+        existingRateOfInterest.setPresentRoi(resource.getRateOfInterest().getPresentRoi());
+        existingRateOfInterest.setFreeText(resource.getRateOfInterest().getFreeText());
+        existingRateOfInterest = rateOfInterestRepository.save(existingRateOfInterest);
+
+        return existingRateOfInterest;
+    }
+
+    @Override
+    public List<RateOfInterestResource> getRateOfInterest(String loanApplicationId, String name) {
+        List<RateOfInterestResource> rateOfInterestResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<RateOfInterest> rateOfInterests
+                    = rateOfInterestRepository.findByLoanMonitor(loanMonitor);
+            rateOfInterests.forEach(
+                    rateOfInterest -> {
+                        RateOfInterestResource rateOfInterestResource = new RateOfInterestResource();
+                        rateOfInterestResource.setLoanApplicationId(loanApplication.getId());
+                        rateOfInterestResource.setRateOfInterest(rateOfInterest);
+                        rateOfInterestResources.add(rateOfInterestResource);
+                    }
+            );
+        }
+        return rateOfInterestResources;
+
+    }
 }

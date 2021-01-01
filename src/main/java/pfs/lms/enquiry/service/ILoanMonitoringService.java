@@ -61,4 +61,8 @@ public interface ILoanMonitoringService {
     OperatingParameter updateOperatingParameter(OperatingParameterResource resource, String username);
     List<OperatingParameterResource> getOperatingParameter(String loanApplicationId, String name);
 
+    // Rate Of Interest
+    RateOfInterest saveRateOfInterest(RateOfInterestResource resource, String username);
+    RateOfInterest updateRateOfInterest(RateOfInterestResource resource, String username);
+    List<RateOfInterestResource> getRateOfInterest(String loanApplicationId, String name);
 }
