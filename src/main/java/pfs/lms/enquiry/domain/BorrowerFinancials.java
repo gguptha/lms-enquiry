@@ -1,17 +1,14 @@
 package pfs.lms.enquiry.domain;
 
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.sql.Blob;
+import java.time.LocalDate;
 
 @Entity
 @Setter
+@Getter
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -19,4 +16,19 @@ public class BorrowerFinancials extends AbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
+
+    @ManyToOne(cascade={CascadeType.ALL})
+    @JoinColumn(name="borrowerFinancialsId")
+    private BorrowerFinancials borrowerFinancialsId;//(Fkey)
+
+    private Integer fiscalYear;
+    private Double turnover;
+    private Double pat;
+    private Double netWorth;
+    private LocalDate dateOfExternalRating;
+    private LocalDate nextDueDateOfExternalRating;
+
+    private String overAllRating;
+    private Blob documentContentAnnualReturn;
+    private Blob documentContentRating;
 }

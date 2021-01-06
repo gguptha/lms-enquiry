@@ -42,6 +42,9 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final RateOfInterestRepository rateOfInterestRepository;
 
+    private final BorrowerFinancialsRepository borrowerFinancialsRepository;
+
+    private final PromoterFinancialsRepository promoterFinancialsRepository;
 
     @Override
     @Transactional
@@ -790,4 +793,145 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         return rateOfInterestResources;
 
     }
+
+    // Borrower Financials
+
+    @Override
+    public BorrowerFinancials saveBorrowerFinancials(BorrowerFinancialsResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        BorrowerFinancials borrowerFinancials = resource.getBorrowerFinancials();
+        borrowerFinancials.setLoanMonitor(loanMonitor);
+        borrowerFinancials.setBorrowerFinancialsId(resource.getBorrowerFinancials().getBorrowerFinancialsId());
+        borrowerFinancials.setFiscalYear(resource.getBorrowerFinancials().getFiscalYear());
+        borrowerFinancials.setTurnover(resource.getBorrowerFinancials().getTurnover());
+        borrowerFinancials.setPat(resource.getBorrowerFinancials().getPat());
+        borrowerFinancials.setNetWorth(resource.getBorrowerFinancials().getNetWorth());
+        borrowerFinancials.setDateOfExternalRating(resource.getBorrowerFinancials().getDateOfExternalRating());
+        borrowerFinancials.setNextDueDateOfExternalRating(resource.getBorrowerFinancials().getNextDueDateOfExternalRating());
+        borrowerFinancials.setOverAllRating(resource.getBorrowerFinancials().getOverAllRating());
+        borrowerFinancials.setDocumentContentAnnualReturn(resource.getBorrowerFinancials().getDocumentContentAnnualReturn());
+        borrowerFinancials.setDocumentContentRating(resource.getBorrowerFinancials().getDocumentContentRating());
+        borrowerFinancials = borrowerFinancialsRepository.save(borrowerFinancials);
+        return borrowerFinancials;
+
+    }
+
+    @Override
+    public BorrowerFinancials updateBorrowerFinancials(BorrowerFinancialsResource resource, String username) {
+        BorrowerFinancials existingBorrowerFinancials
+                = borrowerFinancialsRepository.getOne(resource.getBorrowerFinancials().getId());
+
+        existingBorrowerFinancials.setFiscalYear(resource.getBorrowerFinancials().getFiscalYear());
+        existingBorrowerFinancials.setTurnover(resource.getBorrowerFinancials().getTurnover());
+        existingBorrowerFinancials.setPat(resource.getBorrowerFinancials().getPat());
+        existingBorrowerFinancials.setNetWorth(resource.getBorrowerFinancials().getNetWorth());
+        existingBorrowerFinancials.setDateOfExternalRating(resource.getBorrowerFinancials().getDateOfExternalRating());
+        existingBorrowerFinancials.setNextDueDateOfExternalRating(resource.getBorrowerFinancials().getNextDueDateOfExternalRating());
+        existingBorrowerFinancials.setOverAllRating(resource.getBorrowerFinancials().getOverAllRating());
+        existingBorrowerFinancials.setDocumentContentAnnualReturn(resource.getBorrowerFinancials().getDocumentContentAnnualReturn());
+        existingBorrowerFinancials.setDocumentContentRating(resource.getBorrowerFinancials().getDocumentContentRating());
+        existingBorrowerFinancials = borrowerFinancialsRepository.save(existingBorrowerFinancials);
+        return existingBorrowerFinancials;
+
+
+    }
+
+    @Override
+    public List<BorrowerFinancialsResource> getBorrowerFinancials(String loanApplicationId, String name) {
+        List<BorrowerFinancialsResource> borrowerFinancialsResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<BorrowerFinancials> borrowerFinancials
+                    = borrowerFinancialsRepository.findByLoanMonitor(loanMonitor);
+            borrowerFinancials.forEach(
+                    borrowerFinancial -> {
+                        BorrowerFinancialsResource borrowerFinancialsResource = new BorrowerFinancialsResource();
+                        borrowerFinancialsResource.setLoanApplicationId(loanApplication.getId());
+                        borrowerFinancialsResource.setBorrowerFinancials(borrowerFinancial);
+                        borrowerFinancialsResources.add(borrowerFinancialsResource);
+                    }
+            );
+        }
+        return borrowerFinancialsResources;
+    }
+
+    // Promoter Financials
+
+    @Override
+    public PromoterFinancials savePromoterFinancials(PromoterFinancialsResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        PromoterFinancials promoterFinancials = resource.getPromoterFinancials();
+        promoterFinancials.setLoanMonitor(loanMonitor);
+        promoterFinancials.setBorrowerFinancialsId(resource.getPromoterFinancials().getBorrowerFinancialsId());
+        promoterFinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
+        promoterFinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
+        promoterFinancials.setPat(resource.getPromoterFinancials().getPat());
+        promoterFinancials.setNetWorth(resource.getPromoterFinancials().getNetWorth());
+        promoterFinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
+        promoterFinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
+        promoterFinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
+        promoterFinancials.setDocumentContentAnnualReturn(resource.getPromoterFinancials().getDocumentContentAnnualReturn());
+        promoterFinancials.setDocumentContentRating(resource.getPromoterFinancials().getDocumentContentRating());
+        promoterFinancials = promoterFinancialsRepository.save(promoterFinancials);
+        return promoterFinancials;
+
+    }
+
+    @Override
+    public PromoterFinancials updatePromoterFinancials(PromoterFinancialsResource resource, String username) {
+        PromoterFinancials existingPromoterFinancials
+                = promoterFinancialsRepository.getOne(resource.getPromoterFinancials().getId());
+
+        existingPromoterFinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
+        existingPromoterFinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
+        existingPromoterFinancials.setPat(resource.getPromoterFinancials().getPat());
+        existingPromoterFinancials.setNetWorth(resource.getPromoterFinancials().getNetWorth());
+        existingPromoterFinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
+        existingPromoterFinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
+        existingPromoterFinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
+        existingPromoterFinancials.setDocumentContentAnnualReturn(resource.getPromoterFinancials().getDocumentContentAnnualReturn());
+        existingPromoterFinancials.setDocumentContentRating(resource.getPromoterFinancials().getDocumentContentRating());
+        existingPromoterFinancials = promoterFinancialsRepository.save(existingPromoterFinancials);
+        return existingPromoterFinancials;
+
+
+    }
+
+    @Override
+    public List<PromoterFinancialsResource> getPromoterFinancials(String loanApplicationId, String name) {
+        List<PromoterFinancialsResource> promoterFinancialsResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<PromoterFinancials> promoterFinancials
+                    = promoterFinancialsRepository.findByLoanMonitor(loanMonitor);
+            promoterFinancials.forEach(
+                    promoterFinancial -> {
+                        PromoterFinancialsResource promoterFinancialsResource = new PromoterFinancialsResource();
+                        promoterFinancialsResource.setLoanApplicationId(loanApplication.getId());
+                        promoterFinancialsResource.setPromoterFinancials(promoterFinancial);
+                        promoterFinancialsResources.add(promoterFinancialsResource);
+                    }
+            );
+        }
+        return promoterFinancialsResources;
+    }
+
 }

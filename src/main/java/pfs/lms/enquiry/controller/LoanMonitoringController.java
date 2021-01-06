@@ -343,4 +343,59 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(rateOfInterest);
     }
 
+
+    // Create update and list (Borrower Financials)
+
+    @PostMapping("/loanApplications/borrowerfinancials/create")
+    public ResponseEntity createBorrowerFinancials(@RequestBody BorrowerFinancialsResource resource, HttpServletRequest request) {
+        BorrowerFinancials borrowerFinancials =
+                loanMonitoringService.saveBorrowerFinancials(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(borrowerFinancials);
+    }
+
+    @PutMapping("/loanApplications/borrowerfinancials/{id}")
+    public ResponseEntity updateBorrowerFinancials(@PathVariable("id") String borrowerFinancialsId, @RequestBody BorrowerFinancialsResource resource, HttpServletRequest request) {
+        BorrowerFinancials borrowerFinancials =
+                loanMonitoringService.updateBorrowerFinancials(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(borrowerFinancials);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/borrowerfinancials")
+    public ResponseEntity getBorrowerFinancials(@PathVariable("loanapplicationid") String loanApplicationId,
+                                            HttpServletRequest request)
+    {
+        List<BorrowerFinancialsResource> borrowerFinancials = loanMonitoringService.getBorrowerFinancials(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(borrowerFinancials);
+    }
+
+    // Create update and list (Promoter Financials)
+
+    @PostMapping("/loanApplications/promoterfinancials/create")
+    public ResponseEntity createPromoterFinancials(@RequestBody PromoterFinancialsResource resource, HttpServletRequest request) {
+        PromoterFinancials promoterFinancials =
+                loanMonitoringService.savePromoterFinancials(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(promoterFinancials);
+    }
+
+    @PutMapping("/loanApplications/promoterfinancials/{id}")
+    public ResponseEntity updatePromoterFinancials(@PathVariable("id") String promoterFinancialsId, @RequestBody PromoterFinancialsResource resource, HttpServletRequest request) {
+        PromoterFinancials promoterFinancials =
+                loanMonitoringService.updatePromoterFinancials(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(promoterFinancials);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/promoterfinancials")
+    public ResponseEntity getPromoterFinancials(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                HttpServletRequest request)
+    {
+        List<PromoterFinancialsResource> promoterFinancials = loanMonitoringService.getPromoterFinancials(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(promoterFinancials);
+    }
+
 }

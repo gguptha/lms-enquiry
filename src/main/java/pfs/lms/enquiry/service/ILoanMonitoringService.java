@@ -65,4 +65,15 @@ public interface ILoanMonitoringService {
     RateOfInterest saveRateOfInterest(RateOfInterestResource resource, String username);
     RateOfInterest updateRateOfInterest(RateOfInterestResource resource, String username);
     List<RateOfInterestResource> getRateOfInterest(String loanApplicationId, String name);
+
+    // Borrower Financials
+    BorrowerFinancials saveBorrowerFinancials(BorrowerFinancialsResource resource, String username);
+    BorrowerFinancials updateBorrowerFinancials(BorrowerFinancialsResource resource, String username);
+    List<BorrowerFinancialsResource> getBorrowerFinancials(String loanApplicationId, String name);
+
+    // Promoter Financials
+    PromoterFinancials savePromoterFinancials(PromoterFinancialsResource resource, String username);
+    PromoterFinancials updatePromoterFinancials(PromoterFinancialsResource resource, String username);
+    List<PromoterFinancialsResource> getPromoterFinancials(String loanApplicationId, String name);
+
 }
