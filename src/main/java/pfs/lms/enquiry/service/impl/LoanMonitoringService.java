@@ -46,6 +46,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final PromoterFinancialsRepository promoterFinancialsRepository;
 
+    private final FinancialCovenantsRepository financialCovenantsRepository;
+
     @Override
     @Transactional
     public LendersIndependentEngineer saveLIE(LIEResource resource, String username) {
@@ -932,6 +934,68 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             );
         }
         return promoterFinancialsResources;
+    }
+
+    // Financial Covenants
+    @Override
+    public FinancialCovenants saveFinancialCovenants(FinancialCovenantsResource resource, String username) {
+        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
+
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor == null)
+        {
+            loanMonitor = new LoanMonitor();
+            loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor = loanMonitorRepository.save(loanMonitor);
+        }
+        FinancialCovenants financialCovenants = resource.getFinancialCovenants();
+        financialCovenants.setLoanMonitor(loanMonitor);
+        financialCovenants.setFinancialCovenantType(resource.getFinancialCovenants().getFinancialCovenantType());
+        financialCovenants.setFinancialYear(resource.getFinancialCovenants().getFinancialYear());
+        financialCovenants.setDebtEquityRatio(resource.getFinancialCovenants().getDebtEquityRatio());
+        financialCovenants.setDscr(resource.getFinancialCovenants().getDscr());
+        financialCovenants.setTolTnw(resource.getFinancialCovenants().getTolTnw());
+        financialCovenants.setRemarksForDeviation(resource.getFinancialCovenants().getRemarksForDeviation());
+        financialCovenants = financialCovenantsRepository.save(financialCovenants);
+        return financialCovenants;
+
+    }
+
+    @Override
+    public FinancialCovenants updateFinancialCovenants(FinancialCovenantsResource resource, String username) {
+        FinancialCovenants existingFinancialCovenants
+                = financialCovenantsRepository.getOne(resource.getFinancialCovenants().getId());
+
+        existingFinancialCovenants.setFinancialCovenantType(resource.getFinancialCovenants().getFinancialCovenantType());
+        existingFinancialCovenants.setFinancialYear(resource.getFinancialCovenants().getFinancialYear());
+        existingFinancialCovenants.setDebtEquityRatio(resource.getFinancialCovenants().getDebtEquityRatio());
+        existingFinancialCovenants.setDscr(resource.getFinancialCovenants().getDscr());
+        existingFinancialCovenants.setTolTnw(resource.getFinancialCovenants().getTolTnw());
+        existingFinancialCovenants.setRemarksForDeviation(resource.getFinancialCovenants().getRemarksForDeviation());
+        existingFinancialCovenants = financialCovenantsRepository.save(existingFinancialCovenants);
+        return existingFinancialCovenants;
+
+    }
+
+    @Override
+    public List<FinancialCovenantsResource> getFinancialCovenants(String loanApplicationId, String name) {
+        List<FinancialCovenantsResource> financialCovenantsResources = new ArrayList<>();
+        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+        if(loanMonitor != null) {
+            List<FinancialCovenants> financialCovenants
+                    = financialCovenantsRepository.findByLoanMonitor(loanMonitor);
+            financialCovenants.forEach(
+                    financialCovenant -> {
+                        FinancialCovenantsResource financialCovenantsResource = new FinancialCovenantsResource();
+                        financialCovenantsResource.setLoanApplicationId(loanApplication.getId());
+                        financialCovenantsResource.setFinancialCovenants(financialCovenant);
+                        financialCovenantsResources.add(financialCovenantsResource);
+                    }
+            );
+        }
+        return financialCovenantsResources;
+
     }
 
 }

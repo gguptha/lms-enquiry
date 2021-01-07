@@ -16,11 +16,14 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class PromoterDetails extends AbstractEntity {
+public class PromoterDetailsItem extends AbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private LoanMonitor loanMonitor;
+    private PromoterDetails promoterDetails;
 
-    private LocalDate dateOfChange;
-    private Double groupExposure;
+    private String shareHoldingCompany;
+    private Double paidupCapitalEquitySanction;
+    private Double paidupCapitalEquityCurrent;
+    private Double equityLinkInstrumentSanction; // (CCD/ CCPS/ Unsecured loan) - Sanction
+    private Double equityLinkInstrumentCurrent; // (CCD/ CCPS/ Unsecured loan) - Current
 }

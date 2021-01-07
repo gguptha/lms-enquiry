@@ -76,4 +76,9 @@ public interface ILoanMonitoringService {
     PromoterFinancials updatePromoterFinancials(PromoterFinancialsResource resource, String username);
     List<PromoterFinancialsResource> getPromoterFinancials(String loanApplicationId, String name);
 
+    //  Financial Covenants
+    FinancialCovenants saveFinancialCovenants(FinancialCovenantsResource resource, String username);
+    FinancialCovenants updateFinancialCovenants(FinancialCovenantsResource resource, String username);
+    List<FinancialCovenantsResource> getFinancialCovenants(String loanApplicationId, String name);
+
 }

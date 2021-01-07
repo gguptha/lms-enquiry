@@ -398,4 +398,32 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(promoterFinancials);
     }
 
+
+    // Create update and list (Financial Covenants)
+
+    @PostMapping("/loanApplications/financialcovenants/create")
+    public ResponseEntity createFinancialCovenants(@RequestBody FinancialCovenantsResource resource, HttpServletRequest request) {
+        FinancialCovenants financialCovenants =
+                loanMonitoringService.saveFinancialCovenants(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(financialCovenants);
+    }
+
+    @PutMapping("/loanApplications/financialcovenants/{id}")
+    public ResponseEntity updateFinancialCovenants(@PathVariable("id") String financialCovenantsId, @RequestBody FinancialCovenantsResource resource, HttpServletRequest request) {
+        FinancialCovenants financialCovenants =
+                loanMonitoringService.updateFinancialCovenants(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(financialCovenants);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/financialcovenants")
+    public ResponseEntity getFinancialCovenants(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                HttpServletRequest request)
+    {
+        List<FinancialCovenantsResource> financialCovenants = loanMonitoringService.getFinancialCovenants(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(financialCovenants);
+    }
+
 }
