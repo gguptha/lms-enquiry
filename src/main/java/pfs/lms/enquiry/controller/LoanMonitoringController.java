@@ -426,4 +426,58 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(financialCovenants);
     }
 
+
+    // Create update and list (Promoter Details)
+
+    @PostMapping("/loanApplications/promoterdetails/create")
+    public ResponseEntity createPromoterDetails(@RequestBody PromoterDetailsResource resource, HttpServletRequest request) {
+        PromoterDetails promoterDetails =
+                loanMonitoringService.savePromoterDetails(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(promoterDetails);
+    }
+
+    @PutMapping("/loanApplications/promoterdetails/{id}")
+    public ResponseEntity updatePromoterDetails(@PathVariable("id") String promoterDetailsId, @RequestBody PromoterDetailsResource resource, HttpServletRequest request) {
+        PromoterDetails promoterDetails =
+                loanMonitoringService.updatePromoterDetails(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(promoterDetails);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/promoterdetails")
+    public ResponseEntity getPromoterDetails(@PathVariable("loanapplicationid") String loanApplicationId,
+                                                HttpServletRequest request)
+    {
+        List<PromoterDetailsResource> promoterDetails = loanMonitoringService.getPromoterDetails(loanApplicationId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(promoterDetails);
+    }
+
+    // Create update and list (Promoter Details Item)
+
+    @PostMapping("/loanApplications/promoterdetailsitem/create")
+    public ResponseEntity createPromoterDetailsItem(@RequestBody PromoterDetailsItemResource resource, HttpServletRequest request) {
+        PromoterDetailsItem promoterDetailsItem =
+                loanMonitoringService.savePromoterDetailsItem(resource, request.getUserPrincipal().getName());
+        return ResponseEntity.ok(promoterDetailsItem);
+    }
+
+    @PutMapping("/loanApplications/promoterdetailsitem/{id}")
+    public ResponseEntity updatePromoterDetailsItem(@PathVariable("id") String promoterDetailsItemId, @RequestBody PromoterDetailsItemResource resource, HttpServletRequest request) {
+        PromoterDetailsItem promoterDetailsItem =
+                loanMonitoringService.updatePromoterDetailsItem(resource, request.getUserPrincipal().getName());
+
+        return ResponseEntity.ok(promoterDetailsItem);
+
+    }
+
+    @GetMapping("/loanApplications/{loanapplicationid}/promoterdetailsitem")
+    public ResponseEntity getPromoterDetailsItem(@PathVariable("promoterdetailsid") String promoterDetailsId,
+                                             HttpServletRequest request)
+    {
+        List<PromoterDetailsItemResource> promoterDetailsItems = loanMonitoringService.getPromoterDetailsItem(promoterDetailsId,
+                request.getUserPrincipal().getName());
+        return ResponseEntity.ok(promoterDetailsItems);
+    }
 }

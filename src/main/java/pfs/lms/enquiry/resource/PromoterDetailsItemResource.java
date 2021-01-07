@@ -17,6 +17,6 @@ import java.util.UUID;
 
 public class PromoterDetailsItemResource {
 
-    private UUID loanApplicationId;
+    private String promoterDetailsId;
     private PromoterDetailsItem promoterDetailsItem;
 }
