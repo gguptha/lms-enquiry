@@ -24,6 +24,12 @@ import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/se
 import { SecurityComplianceModel } from '../../model/securityCompliance.model';
 import { SiteVisitModel } from '../../model/siteVisit.model';
 import { SiteVisitUpdateDialogComponent } from './siteVisit/siteVisitUpdate/siteVisitUpdate.component';
+import { RateOfInterestUpdateDialogComponent } from './rateOfInterest/rateOfInterestUpdate/rateOfInterestUpdate.component';
+import { RateOfInterestModel } from '../../model/rateOfInterest.model';
+import { BorrowerFinancialsModel } from '../../model/borrowerFinancials.model';
+import { BorrowerFinancialsUpdateDialogComponent } from './borrowerFinancials/borrowerFinancialsUpdate/borrowerFinancialsUpdate.component';
+import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/promoterFinancialsUpdate/promoterFinancialsUpdate.component';
+import { PromoterFinancialsModel } from '../../model/promoterFinancials.model';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -44,7 +50,10 @@ export class LoanMonitoringComponent {
     selectedTandC: TandCModel = new TandCModel({});
     selectedSecurityCompliance: SecurityComplianceModel;
     selectedSiteVisit: SiteVisitModel;
-    
+    selectedRateOfInterest: RateOfInterestModel;
+    selectedBorrowerFinancials: BorrowerFinancialsModel;
+    selectedPromoterFinancials: PromoterFinancialsModel;
+
     lieList: any;
     lieReportAndFeeList: any;
     lfaList: any;
@@ -54,6 +63,9 @@ export class LoanMonitoringComponent {
     tandcList: any;
     securityComplianceList: any;
     siteVisitList: any;
+    rateOfInterestList: any;
+    borrowerFinancialsList: any;
+    promoterFinancialsList: any;
 
     /**
      * constructor()
@@ -91,6 +103,18 @@ export class LoanMonitoringComponent {
             _loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
                 this.siteVisitList = data;
             })            
+            // getRateOfInterests
+            _loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
+                this.rateOfInterestList = data;
+            })         
+            // getBorrowerFinancials
+            _loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
+                this.borrowerFinancialsList = data;
+            })
+            // getPromoterFinancials
+            _loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
+                this.promoterFinancialsList = data;
+            })
         });
         
         // All about LIE
@@ -160,7 +184,25 @@ export class LoanMonitoringComponent {
 
         _loanMonitoringService.selectedSiteVisit.subscribe(data => {
             this.selectedSiteVisit = new SiteVisitModel(data);
-        })    
+        })
+
+        // All about Rate of Interest
+
+        _loanMonitoringService.selectedRateOfInterest.subscribe(data => {
+            this.selectedRateOfInterest = new RateOfInterestModel(data);
+        })
+
+        // All about Borrower Financials
+
+        _loanMonitoringService.selectedBorrowerFinancials.subscribe(data => {
+            this.selectedBorrowerFinancials = new BorrowerFinancialsModel(data);
+        })        
+
+        // All about Promoter Financials
+
+        _loanMonitoringService.selectedPromoterFinancials.subscribe(data => {
+            this.selectedPromoterFinancials = new PromoterFinancialsModel(data);
+        })
     }
 
     /**
@@ -497,4 +539,91 @@ export class LoanMonitoringComponent {
             }
         });    
     }
+
+    /**
+     * updateRateOfInterest()
+     * @param operation 
+     */
+    updateRateOfInterest(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedRateOfInterest': undefined
+        };
+        if (operation === 'updateRateOfInterest') {
+            data.selectedRateOfInterest = this.selectedRateOfInterest;
+        }
+        const dialogRef = this._dialogRef.open(RateOfInterestUpdateDialogComponent, {
+            panelClass: 'fuse-rate-of-interest-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
+                    this.rateOfInterestList = data;
+                });
+            }
+        });    
+    }
+
+    /**
+     * updateBorrowerFinancials()
+     * @param operation 
+     */
+    updateBorrowerFinancials(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedFinancials': undefined
+        };
+        if (operation === 'updateFinancials') {
+            data.selectedFinancials = this.selectedBorrowerFinancials;
+        }
+        const dialogRef = this._dialogRef.open(BorrowerFinancialsUpdateDialogComponent, {
+            panelClass: 'fuse-borrower-financials-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
+                    this.borrowerFinancialsList = data;
+                });
+            }
+        });    
+    }
+
+    /**
+     * updatePromoterFinancials()
+     * @param operation 
+     */
+    updatePromoterFinancials(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedFinancials': undefined
+        };
+        if (operation === 'updateFinancials') {
+            data.selectedFinancials = this.selectedPromoterFinancials;
+        }
+        const dialogRef = this._dialogRef.open(PromoterFinancialsUpdateDialogComponent, {
+            panelClass: 'fuse-promoter-financials-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
+                    this.promoterFinancialsList = data;
+                });
+            }
+        });    
+    }    
 }

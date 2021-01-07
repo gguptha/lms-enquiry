@@ -135,7 +135,7 @@
             <!-- Security Compliance Tab - Ends Here -->            
 
             <!-- Site Visit Tab - Starts Here -->
-            <mat-tab label="Security Compliance">
+            <mat-tab label="Site Visit">
                 <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
                     <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateSiteVisit('addSiteVisit')"> 
                         Add New Site Visit
@@ -150,6 +150,57 @@
                 </div>
             </mat-tab>
             <!-- Site Visit Tab - Ends Here -->
+
+            <!-- Rate of Interest Tab - Starts Here -->
+            <mat-tab label="Rate of Interest">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateRateOfInterest('addRateOfInterest')"> 
+                        Add New Rate of Interest
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateRateOfInterest('updateRateOfInterest')" 
+                            [disabled]="selectedRateOfInterest.id == ''"> 
+                        Modify Rate of Interest
+                    </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-rate-of-interest-list [rateOfInterestList]="rateOfInterestList"></fuse-rate-of-interest-list>
+                </div>
+            </mat-tab>
+            <!-- Rate Of Interest Tab - Ends Here -->
+
+            <!-- Borrower Financials Tab - Starts Here -->
+            <mat-tab label="Borrower Financials">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateBorrowerFinancials('addFinancials')"> 
+                        Add New Financial Details
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateBorrowerFinancials('updateFinancials')" 
+                            [disabled]="selectedBorrowerFinancials.id == ''"> 
+                        Modify Financial Details
+                    </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-borrower-financials-list [borrowerFinancialsList]="borrowerFinancialsList"></fuse-borrower-financials-list>
+                </div>
+            </mat-tab>
+            <!-- Borrower Financials Tab - Ends Here -->
+
+            <!-- Promoter Financials Tab - Starts Here -->
+            <mat-tab label="Promoter Financials">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updatePromoterFinancials('addFinancials')"> 
+                        Add New Financial Details
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updatePromoterFinancials('updateFinancials')" 
+                            [disabled]="selectedPromoterFinancials.id == ''"> 
+                        Modify Financial Details
+                    </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-promoter-financials-list [promoterFinancialsList]="promoterFinancialsList"></fuse-promoter-financials-list>
+                </div>
+            </mat-tab>
+            <!-- Promoter Financials Tab - Ends Here -->
         </mat-tab-group>
         <!-- / CONTENT -->
     </div>

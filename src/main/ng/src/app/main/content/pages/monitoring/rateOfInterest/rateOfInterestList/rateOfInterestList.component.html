@@ -1,0 +1,60 @@
+<div class="mat-table-container" style="width: 100%">
+
+    <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+        <!-- particulars Column -->
+        <ng-container matColumnDef="particulars">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Particulars</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.rateOfInterest.particulars }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- scheduledIfAny Column -->
+        <ng-container matColumnDef="scheduledIfAny">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Schedule If Any</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.rateOfInterest.scheduledIfAny }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- sanctionPreCod Column -->
+        <ng-container matColumnDef="sanctionPreCod">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Sanction (Pre COD)</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.rateOfInterest.sanctionPreCod }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- sanctionPostCod Column -->
+        <ng-container matColumnDef="sanctionPostCod">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Sanction (POST COD)</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.rateOfInterest.sanctionPostCod }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- presentRoi Column -->
+        <ng-container matColumnDef="presentRoi">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Present ROI</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.rateOfInterest.presentRoi }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- freeText Column -->
+        <ng-container matColumnDef="freeText">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Free Text</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.rateOfInterest.freeText }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.rateOfInterest)"
+            [ngClass]="{'highlight':obj.rateOfInterest === selectedRateOfInterest}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+</div>

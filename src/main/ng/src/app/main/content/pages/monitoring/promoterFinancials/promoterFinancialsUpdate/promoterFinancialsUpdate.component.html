@@ -8,28 +8,35 @@
         </mat-toolbar-row>
     </mat-toolbar>
     <div mat-dialog-content fusePerfectScrollbar>
-        <form [formGroup]="siteVisitUpdateForm">
+        <form [formGroup]="financialsUpdateForm">
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Serial Number" formControlName="serialNumber" readonly>          
+                    <input matInput placeholder="Fiscal Year" formControlName="fiscalYear">          
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker1" placeholder="Actual COD" formControlName="actualCOD">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker> 
+                    <input matInput [matDatepicker]="picker2" placeholder="Date of External Rating" formControlName="dateOfExternalRating">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker> 
                 </mat-form-field>
             </div>
 
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker2" placeholder="Date of Site Visit" formControlName="dateOfSiteVisit">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker> 
+                    <input matInput placeholder="Turnover" formControlName="turnover">          
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker3" placeholder="Date of Lenders Meet" formControlName="dateOfLendersMeet">
+                    <input matInput [matDatepicker]="picker3" placeholder="Next Due Date of External Rating" formControlName="nextDueDateOfExternalRating">
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3></mat-datepicker> 
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="PAT" formControlName="pat">          
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Overall Rating" formControlName="overAllRating">          
                 </mat-form-field>
             </div>
 

@@ -8,28 +8,39 @@
         </mat-toolbar-row>
     </mat-toolbar>
     <div mat-dialog-content fusePerfectScrollbar>
-        <form [formGroup]="siteVisitUpdateForm">
+        <form [formGroup]="rateOfInterestUpdateForm">
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Serial Number" formControlName="serialNumber" readonly>          
-                </mat-form-field>
+                    <mat-select placeholder="Particulars" formControlName="particulars" required>
+                      <mat-option> </mat-option>
+                      <mat-option *ngFor="let obj of particulars" [value]="obj.code">
+                        {{ obj.value }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field> 
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker1" placeholder="Actual COD" formControlName="actualCOD">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker> 
+                    <input matInput placeholder="Sanction (Pre COD)" formControlName="sanctionPreCod">          
                 </mat-form-field>
             </div>
 
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker2" placeholder="Date of Site Visit" formControlName="dateOfSiteVisit">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker> 
+                    <input matInput placeholder="Scheduled If Any" formControlName="scheduledIfAny">          
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker3" placeholder="Date of Lenders Meet" formControlName="dateOfLendersMeet">
-                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                    <mat-datepicker #picker3></mat-datepicker> 
+                    <input matInput placeholder="Sanction (Post COD)" formControlName="sanctionPostCod">          
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Present ROI" formControlName="presentRoi">          
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+                <mat-form-field fxFlex="100">
+                    <input matInput placeholder="Free Text" formControlName="freeText">          
                 </mat-form-field>
             </div>
 

@@ -90,4 +90,15 @@ export class LoanMonitoringConstants {
         {code: "0" , value:"Unit of Measure 1"},
         {code: "1" , value:"Unit of Measure 2"}
     ];
+
+    // particulars
+    static particulars = [
+        {code: "1" , value:"Reference  Base Rate %"},
+        {code: "2" , value:"Base Rate %"},
+        {code: "3" , value:"Spread Reset"},
+        {code: "4" , value:"Spread %"},
+        {code: "5" , value:"Effective Rate of Interest %"},
+        {code: "6" , value:"Reset period"},
+        {code: "7" , value:"Next Reset Date (Month,Year)"}
+    ]
 }

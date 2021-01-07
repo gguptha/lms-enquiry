@@ -16,6 +16,9 @@ export class LoanMonitoringService {
     selectedTandC: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSiteVisit: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedRateOfInterest: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedPromoterFinancials: BehaviorSubject<any> = new BehaviorSubject({});
 
     /**
      *
@@ -170,6 +173,55 @@ export class LoanMonitoringService {
         return this._http.put(url, { 'loanApplicationId':'', 'siteVisit':siteVisit });
     }    
 
+    // All about Rate of Interest
+    
+    public getRateOfInterests(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/rateofinterest');
+    }
+
+    public saveRateOfInterest(rateOfInterest: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/rateofinterest/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'rateOfInterest':rateOfInterest });
+    }
+
+    public updateRateOfInterest(rateOfInterest: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/rateofinterest/" + rateOfInterest.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'rateOfInterest':rateOfInterest });
+    }  
+
+    // All about Borrower Financials
+    
+    public getBorrowerFinancials(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/borrowerfinancials');
+    }
+
+    public saveBorrowerFinancials(borrowerfinancials: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/borrowerfinancials/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'borrowerFinancials':borrowerfinancials });
+    }
+
+    public updateBorrowerFinancials(borrowerfinancials: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/borrowerfinancials/" + borrowerfinancials.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'borrowerFinancials':borrowerfinancials });
+    }  
+
+
+    // All about Promoter Financials
+    
+    public getPromoterFinancials(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/promoterfinancials');
+    }
+
+    public savePromoterFinancials(promoterfinancials: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/promoterfinancials/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'promoterFinancials':promoterfinancials });
+    }
+
+    public updatePromoterFinancials(promoterfinancials: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/promoterfinancials/" + promoterfinancials.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'promoterFinancials':promoterfinancials });
+    }      
+    
     // Others
 
     public searchLoanEnquiries(request: any): Observable<any> {

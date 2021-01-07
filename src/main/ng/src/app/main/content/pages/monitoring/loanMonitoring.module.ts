@@ -30,6 +30,12 @@ import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/se
 import { SecurityComplianceListComponent } from './securityCompliance/securityComplianceList/securityComplianceList.component';
 import { SiteVisitUpdateDialogComponent } from './siteVisit/siteVisitUpdate/siteVisitUpdate.component';
 import { SiteVisitListComponent } from './siteVisit/siteVisitList/siteVisitList.component';
+import { RateOfInterestListComponent } from './rateOfInterest/rateOfInterestList/rateOfInterestList.component';
+import { RateOfInterestUpdateDialogComponent } from './rateOfInterest/rateOfInterestUpdate/rateOfInterestUpdate.component';
+import { BorrowerFinancialsUpdateDialogComponent } from './borrowerFinancials/borrowerFinancialsUpdate/borrowerFinancialsUpdate.component';
+import { BorrowerFinancialsListComponent } from './borrowerFinancials/borrowerFinancialsList/borrowerFinancialsList.component';
+import { PromoterFinancialsListComponent } from './promoterFinancials/promoterFinancialsList/promoterFinancialsList.component';
+import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/promoterFinancialsUpdate/promoterFinancialsUpdate.component';
 
 const routes = [
     {
@@ -78,7 +84,13 @@ const routes = [
         SecurityComplianceListComponent,
         SecurityComplianceUpdateDialogComponent,
         SiteVisitListComponent,
-        SiteVisitUpdateDialogComponent
+        SiteVisitUpdateDialogComponent,
+        RateOfInterestListComponent,
+        RateOfInterestUpdateDialogComponent,
+        BorrowerFinancialsListComponent,
+        BorrowerFinancialsUpdateDialogComponent,
+        PromoterFinancialsListComponent,
+        PromoterFinancialsUpdateDialogComponent,
     ],
     providers: [
         LoanEnquiryService,
@@ -107,7 +119,13 @@ const routes = [
         SecurityComplianceListComponent,
         SecurityComplianceUpdateDialogComponent,
         SiteVisitListComponent,
-        SiteVisitUpdateDialogComponent
+        SiteVisitUpdateDialogComponent,
+        RateOfInterestListComponent,
+        RateOfInterestUpdateDialogComponent,
+        BorrowerFinancialsListComponent,
+        BorrowerFinancialsUpdateDialogComponent,
+        PromoterFinancialsListComponent,
+        PromoterFinancialsUpdateDialogComponent,
     ],  
     entryComponents: [
         LIEListComponent,
@@ -127,7 +145,13 @@ const routes = [
         SecurityComplianceListComponent,
         SecurityComplianceUpdateDialogComponent,
         SiteVisitListComponent,
-        SiteVisitUpdateDialogComponent
+        SiteVisitUpdateDialogComponent,
+        RateOfInterestListComponent,
+        RateOfInterestUpdateDialogComponent,
+        BorrowerFinancialsListComponent,
+        BorrowerFinancialsUpdateDialogComponent,
+        PromoterFinancialsListComponent,
+        PromoterFinancialsUpdateDialogComponent,
     ]
 })
 export class LoanMonitoringModule {

@@ -17,10 +17,6 @@ public class BorrowerFinancials extends AbstractEntity {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name="borrowerFinancialsId")
-    private BorrowerFinancials borrowerFinancialsId;//(Fkey)
-
     private Integer fiscalYear;
     private Double turnover;
     private Double pat;

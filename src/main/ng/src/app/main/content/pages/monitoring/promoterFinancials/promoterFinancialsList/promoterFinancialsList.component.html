@@ -1,0 +1,52 @@
+<div class="mat-table-container" style="width: 100%">
+
+    <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+        <!-- fiscalYear Column -->
+        <ng-container matColumnDef="fiscalYear">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Fiscal Year</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.promoterFinancials.fiscalYear }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- turnover Column -->
+        <ng-container matColumnDef="turnover">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Turn Over</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.promoterFinancials.turnover }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- pat Column -->
+        <ng-container matColumnDef="pat">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >PAT</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.promoterFinancials.pat }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- netWorth Column -->
+        <ng-container matColumnDef="netWorth">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Net Worth</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.promoterFinancials.netWorth }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- overAllRating Column -->
+        <ng-container matColumnDef="overAllRating">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Rating</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.promoterFinancials.overAllRating }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.promoterFinancials)"
+            [ngClass]="{'highlight':obj.promoterFinancials === selectedFinancials}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+</div>

@@ -815,7 +815,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         BorrowerFinancials borrowerFinancials = resource.getBorrowerFinancials();
         borrowerFinancials.setLoanMonitor(loanMonitor);
-        borrowerFinancials.setBorrowerFinancialsId(resource.getBorrowerFinancials().getBorrowerFinancialsId());
+        // borrowerFinancials.setBorrowerFinancialsId(resource.getBorrowerFinancials().getBorrowerFinancialsId());
         borrowerFinancials.setFiscalYear(resource.getBorrowerFinancials().getFiscalYear());
         borrowerFinancials.setTurnover(resource.getBorrowerFinancials().getTurnover());
         borrowerFinancials.setPat(resource.getBorrowerFinancials().getPat());
