@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { Router} from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
@@ -30,6 +30,8 @@ import { BorrowerFinancialsModel } from '../../model/borrowerFinancials.model';
 import { BorrowerFinancialsUpdateDialogComponent } from './borrowerFinancials/borrowerFinancialsUpdate/borrowerFinancialsUpdate.component';
 import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/promoterFinancialsUpdate/promoterFinancialsUpdate.component';
 import { PromoterFinancialsModel } from '../../model/promoterFinancials.model';
+import { FinancialCovenantsModel } from '../../model/financialCovenants.model';
+import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/financialCovenantsUpdate/financialCovenantsUpdate.component';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -37,9 +39,10 @@ import { PromoterFinancialsModel } from '../../model/promoterFinancials.model';
     styleUrls: ['./loanMonitoring.component.scss'],
     animations: fuseAnimations
 })
-export class LoanMonitoringComponent {
+export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
     loanApplicationId: string;
+    selectedEnquiry: any;
 
     selectedLIE: LIEModel;
     selectedLIEReportAndFee: LIEReportAndFeeModel;
@@ -53,6 +56,7 @@ export class LoanMonitoringComponent {
     selectedRateOfInterest: RateOfInterestModel;
     selectedBorrowerFinancials: BorrowerFinancialsModel;
     selectedPromoterFinancials: PromoterFinancialsModel;
+    selectedFinancialCovenants: FinancialCovenantsModel;
 
     lieList: any;
     lieReportAndFeeList: any;
@@ -66,6 +70,15 @@ export class LoanMonitoringComponent {
     rateOfInterestList: any;
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
+    financialCovenantsList: any;
+
+    selectedEnquiryForm: FormGroup;
+    boardApprovalDetailsForm: FormGroup;
+
+    subscriptions = new Subscription()
+
+    expandPanel1 = true;
+    expandPanel2 = true;
 
     /**
      * constructor()
@@ -74,48 +87,59 @@ export class LoanMonitoringComponent {
      * @param _router 
      * @param _dialogRef 
      */
-    constructor(_formBuilder: FormBuilder, public _loanEnquiryService: LoanEnquiryService, private _router: Router, private _dialogRef: MatDialog,
-            private _loanMonitoringService: LoanMonitoringService) {
+    constructor(private _formBuilder: FormBuilder, public _loanEnquiryService: LoanEnquiryService, private _router: Router, private _dialogRef: MatDialog,
+                private _loanMonitoringService: LoanMonitoringService) {
         
-        _loanEnquiryService.selectedLoanApplicationId.subscribe(data => {
-            this.loanApplicationId = data;
-            // getLendersIndependentEngineers
-            _loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
-                this.lieList = data;
-            });
-            // getLendersFinancialAdvisors
-            _loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
-                this.lfaList = data;
-            });
-            // getTrustRetentionAccounts
-            _loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
-                this.traList = data;
-            });
-            // getTermsAndConditions
-            _loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
-                this.tandcList = data;
+        this.subscriptions.add(this._loanEnquiryService.selectedEnquiry.subscribe(data => {
+            this.selectedEnquiry = data;
+            console.log('this.selectedEnquiry', this.selectedEnquiry);
+        }));          
+        
+        this.subscriptions.add(
+            _loanEnquiryService.selectedLoanApplicationId.subscribe(data => {
+                this.loanApplicationId = data;
+                // getLendersIndependentEngineers
+                _loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
+                    this.lieList = data;
+                });
+                // getLendersFinancialAdvisors
+                _loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
+                    this.lfaList = data;
+                });
+                // getTrustRetentionAccounts
+                _loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
+                    this.traList = data;
+                });
+                // getTermsAndConditions
+                _loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
+                    this.tandcList = data;
+                })
+                // getSecurityCompliances
+                _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
+                    this.securityComplianceList = data;
+                })
+                // getSiteVisits
+                _loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
+                    this.siteVisitList = data;
+                })            
+                // getRateOfInterests
+                _loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
+                    this.rateOfInterestList = data;
+                })         
+                // getBorrowerFinancials
+                _loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
+                    this.borrowerFinancialsList = data;
+                })
+                // getPromoterFinancials
+                _loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
+                    this.promoterFinancialsList = data;
+                })
+                // getFinancialCovenants
+                _loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
+                    this.financialCovenantsList = data;
+                })
             })
-            // getSecurityCompliances
-            _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
-                this.securityComplianceList = data;
-            })
-            // getSiteVisits
-            _loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
-                this.siteVisitList = data;
-            })            
-            // getRateOfInterests
-            _loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
-                this.rateOfInterestList = data;
-            })         
-            // getBorrowerFinancials
-            _loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
-                this.borrowerFinancialsList = data;
-            })
-            // getPromoterFinancials
-            _loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
-                this.promoterFinancialsList = data;
-            })
-        });
+        );
         
         // All about LIE
 
@@ -203,6 +227,50 @@ export class LoanMonitoringComponent {
         _loanMonitoringService.selectedPromoterFinancials.subscribe(data => {
             this.selectedPromoterFinancials = new PromoterFinancialsModel(data);
         })
+
+        // All about Financial Covenants
+
+        _loanMonitoringService.selectedFinancialCovenants.subscribe(data => {
+            this.selectedFinancialCovenants = new FinancialCovenantsModel(data);
+        })
+    }
+
+    /**
+     * ngOnDestroy()
+     */
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
+    }
+
+    /**
+     * ngOnInit()
+     */
+    ngOnInit(): void {
+        this.selectedEnquiryForm = this._formBuilder.group({
+            busPartnerNumber: [this.selectedEnquiry.busPartnerNumber || ''],
+            projectLocationState: [this.selectedEnquiry.projectLocationState || ''],
+            projectType: [this.selectedEnquiry.projectType || ''],
+            loanClassDescription: [this.selectedEnquiry.loanClassDescription || ''],
+            projectCapacity: [this.selectedEnquiry.projectCapacity || ''],
+            assistanceTypeDescription: [this.selectedEnquiry.assistanceTypeDescription || ''],
+            projectCost: [this.selectedEnquiry.projectCost || ''],
+            loanAmount: [this.selectedEnquiry.loanAmount || ''],
+            financingTypeDescription: [this.selectedEnquiry.financingTypeDescription || ''],
+            leadFI: [this.selectedEnquiry.leadFI || ''],
+            stage: [this.selectedEnquiry.stage || '']
+        });
+
+        this.boardApprovalDetailsForm = this._formBuilder.group({
+            boardMeetingNumber: [''],
+            boardApprovalDate: [''],
+            loanNumber: [''],
+            sanctionLetterDate: [''],
+            loanDocumentationDate: [''],
+            firstDistributionDate: [''],
+            sanctionAmount: [''],
+            discributionStatus: [''],
+            scheduledCOD: ['']
+        });
     }
 
     /**
@@ -622,6 +690,35 @@ export class LoanMonitoringComponent {
             if (result.refresh) {
                 this._loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
                     this.promoterFinancialsList = data;
+                });
+            }
+        });    
+    }    
+
+    /**
+     * updateFinancialCovenants()
+     * @param operation 
+     */
+    updateFinancialCovenants(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedFinancialCovenants': undefined
+        };
+        if (operation === 'updateFinancialCovenants') {
+            data.selectedFinancialCovenants = this.selectedFinancialCovenants;
+        }
+        const dialogRef = this._dialogRef.open(FinancialCovenantsUpdateDialogComponent, {
+            panelClass: 'fuse-financial-covenants-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
+                    this.financialCovenantsList = data;
                 });
             }
         });    

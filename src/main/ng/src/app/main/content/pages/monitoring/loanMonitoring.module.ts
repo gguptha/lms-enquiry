@@ -36,6 +36,8 @@ import { BorrowerFinancialsUpdateDialogComponent } from './borrowerFinancials/bo
 import { BorrowerFinancialsListComponent } from './borrowerFinancials/borrowerFinancialsList/borrowerFinancialsList.component';
 import { PromoterFinancialsListComponent } from './promoterFinancials/promoterFinancialsList/promoterFinancialsList.component';
 import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/promoterFinancialsUpdate/promoterFinancialsUpdate.component';
+import { FinancialCovenantsListComponent } from './financialCovenants/financialCovenantsList/financialCovenantsList.component';
+import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/financialCovenantsUpdate/financialCovenantsUpdate.component';
 
 const routes = [
     {
@@ -91,6 +93,8 @@ const routes = [
         BorrowerFinancialsUpdateDialogComponent,
         PromoterFinancialsListComponent,
         PromoterFinancialsUpdateDialogComponent,
+        FinancialCovenantsListComponent,
+        FinancialCovenantsUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -126,6 +130,8 @@ const routes = [
         BorrowerFinancialsUpdateDialogComponent,
         PromoterFinancialsListComponent,
         PromoterFinancialsUpdateDialogComponent,
+        FinancialCovenantsListComponent,
+        FinancialCovenantsUpdateDialogComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -152,6 +158,8 @@ const routes = [
         BorrowerFinancialsUpdateDialogComponent,
         PromoterFinancialsListComponent,
         PromoterFinancialsUpdateDialogComponent,
+        FinancialCovenantsListComponent,
+        FinancialCovenantsUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {

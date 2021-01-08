@@ -101,4 +101,10 @@ export class LoanMonitoringConstants {
         {code: "6" , value:"Reset period"},
         {code: "7" , value:"Next Reset Date (Month,Year)"}
     ]
+
+    // financialCovenantsType
+    static financialCovenantsType = [
+        {code: "1" , value:"Permissible Limit"},
+        {code: "2" , value:"Financial Year"}
+    ];
 }

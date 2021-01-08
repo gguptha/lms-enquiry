@@ -61,6 +61,6 @@ export class LoanContractListComponent implements OnInit {
         this.selectedEnquiry = enquiry;
         this._service.selectedLoanApplicationId = new BehaviorSubject(enquiry.id);
         this._service.selectedLoanApplicationPartyNumber = new BehaviorSubject(enquiry.busPartnerNumber);
-
+        this._service.selectedEnquiry.next(enquiry);
     }
 }

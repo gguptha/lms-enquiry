@@ -13,6 +13,8 @@ export class LoanEnquiryService implements Resolve<any> {
     selectedLoanApplicationId: BehaviorSubject<string>;
     selectedLoanApplicationPartyNumber: BehaviorSubject<string>;
 
+    selectedEnquiry: BehaviorSubject<any> = new BehaviorSubject({});
+    
     /**
      *
      * @param _http
