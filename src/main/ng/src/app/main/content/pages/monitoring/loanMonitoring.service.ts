@@ -20,6 +20,7 @@ export class LoanMonitoringService {
     selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedPromoterFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedFinancialCovenants: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedPromoterDetailsItem: BehaviorSubject<any> = new BehaviorSubject({});
     
     /**
      *
@@ -238,6 +239,22 @@ export class LoanMonitoringService {
         const url = "enquiry/api/loanApplications/financialcovenants/" + financialCovenants.id;
         return this._http.put(url, { 'loanApplicationId':'', 'financialCovenants':financialCovenants });
     }      
+
+    // All about Promoter Details
+
+    public getPromoterDetails(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/promoterdetails');
+    }
+
+    public savePromoterDetails(promoterDetails: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/promoterdetails/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'promoterDetails':promoterDetails });
+    }
+
+    public updatePromoterDetails(promoterDetails: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/promoterdetails/" + promoterDetails.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'promoterDetails':promoterDetails });
+    }    
 
     // Others
 

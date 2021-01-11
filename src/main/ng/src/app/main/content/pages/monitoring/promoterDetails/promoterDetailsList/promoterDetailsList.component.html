@@ -1,0 +1,52 @@
+<div class="mat-table-container" style="width: 100%">
+
+    <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+        <!-- shareHoldingCompany Column -->
+        <ng-container matColumnDef="shareHoldingCompany">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Shareholding Company</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.shareHoldingCompany }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- paidupCapitalEquitySanction Column -->
+        <ng-container matColumnDef="paidupCapitalEquitySanction">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Paid up Capital (Sanction)</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.paidupCapitalEquitySanction }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- paidupCapitalEquityCurrent Column -->
+        <ng-container matColumnDef="paidupCapitalEquityCurrent">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Paid up Capital (Current)</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.paidupCapitalEquityCurrent }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- equityLinkInstrumentSanction Column -->
+        <ng-container matColumnDef="equityLinkInstrumentSanction">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Equity Link Instrument (Sanction)</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.equityLinkInstrumentSanction }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- equityLinkInstrumentCurrent Column -->
+        <ng-container matColumnDef="equityLinkInstrumentCurrent">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Equity Link Instrument (Current)</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.equityLinkInstrumentCurrent }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+        <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj)"
+            [ngClass]="{'highlight':obj === selectedPromoterDetailsItem}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+    </mat-table>
+</div>

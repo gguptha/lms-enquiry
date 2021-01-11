@@ -2,11 +2,9 @@ package pfs.lms.enquiry.domain;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -16,9 +14,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PromoterDetails extends AbstractEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
     private LocalDate dateOfChange;
     private Double groupExposure;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<PromoterDetailsItem> promoterDetailsItemSet;
 }

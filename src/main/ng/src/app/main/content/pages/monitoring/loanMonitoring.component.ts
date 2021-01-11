@@ -32,6 +32,9 @@ import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/pr
 import { PromoterFinancialsModel } from '../../model/promoterFinancials.model';
 import { FinancialCovenantsModel } from '../../model/financialCovenants.model';
 import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/financialCovenantsUpdate/financialCovenantsUpdate.component';
+import { PromoterDetailsModel } from '../../model/promoterDetails.model';
+import { PromoterDetailsItemModel } from '../../model/promoterDetailsItem.model';
+import { PromoterDetailsUpdateDialogComponent } from './promoterDetails/promoterDetailsUpdate/promoterDetailsUpdate.component';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -57,6 +60,8 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedBorrowerFinancials: BorrowerFinancialsModel;
     selectedPromoterFinancials: PromoterFinancialsModel;
     selectedFinancialCovenants: FinancialCovenantsModel;
+    selectedPromoterDetails: PromoterDetailsModel;
+    selectedPromoterDetailsItem: PromoterDetailsItemModel = new PromoterDetailsItemModel({});
 
     lieList: any;
     lieReportAndFeeList: any;
@@ -71,6 +76,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
     financialCovenantsList: any;
+    promoterDetailsItemSet: any;
 
     selectedEnquiryForm: FormGroup;
     boardApprovalDetailsForm: FormGroup;
@@ -137,6 +143,13 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 // getFinancialCovenants
                 _loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
                     this.financialCovenantsList = data;
+                })
+                // getPromoterDetails
+                _loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
+                    if (data.length > 0) {
+                        this.selectedPromoterDetails = data[0].promoterDetails;
+                        this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
+                    }
                 })
             })
         );
@@ -232,6 +245,12 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         _loanMonitoringService.selectedFinancialCovenants.subscribe(data => {
             this.selectedFinancialCovenants = new FinancialCovenantsModel(data);
+        })
+
+        // All about Promoter Details
+
+        _loanMonitoringService.selectedPromoterDetailsItem.subscribe(data => {
+            this.selectedPromoterDetailsItem = new PromoterDetailsItemModel(data);
         })
     }
 
@@ -722,5 +741,39 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 });
             }
         });    
-    }    
+    }
+
+    /**
+     * updatePromoterDetails()
+     * @param operation 
+     */
+    updatePromoterDetails(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedPromoterDetails': this.selectedPromoterDetails,
+            'selectedPromoterDetailsItem': undefined
+        };
+        if (operation === 'updatePromoterDetails') {
+            data.selectedPromoterDetailsItem = this.selectedPromoterDetailsItem;
+        }
+        const dialogRef = this._dialogRef.open(PromoterDetailsUpdateDialogComponent, {
+            panelClass: 'fuse-promoter-details-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
+                    console.log('promoter details list', data);
+                    if (data.length > 0) {
+                        this.selectedPromoterDetails = data[0].promoterDetails;
+                        this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
+                    }
+                });
+            }
+        });    
+    }
 }

@@ -38,6 +38,8 @@ import { PromoterFinancialsListComponent } from './promoterFinancials/promoterFi
 import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/promoterFinancialsUpdate/promoterFinancialsUpdate.component';
 import { FinancialCovenantsListComponent } from './financialCovenants/financialCovenantsList/financialCovenantsList.component';
 import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/financialCovenantsUpdate/financialCovenantsUpdate.component';
+import { PromoterDetailsUpdateDialogComponent } from './promoterDetails/promoterDetailsUpdate/promoterDetailsUpdate.component';
+import { PromoterDetailsItemListComponent } from './promoterDetails/promoterDetailsList/promoterDetailsList.component';
 
 const routes = [
     {
@@ -94,7 +96,9 @@ const routes = [
         PromoterFinancialsListComponent,
         PromoterFinancialsUpdateDialogComponent,
         FinancialCovenantsListComponent,
-        FinancialCovenantsUpdateDialogComponent
+        FinancialCovenantsUpdateDialogComponent,
+        PromoterDetailsItemListComponent,
+        PromoterDetailsUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -131,7 +135,9 @@ const routes = [
         PromoterFinancialsListComponent,
         PromoterFinancialsUpdateDialogComponent,
         FinancialCovenantsListComponent,
-        FinancialCovenantsUpdateDialogComponent
+        FinancialCovenantsUpdateDialogComponent,
+        PromoterDetailsItemListComponent,
+        PromoterDetailsUpdateDialogComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -159,7 +165,9 @@ const routes = [
         PromoterFinancialsListComponent,
         PromoterFinancialsUpdateDialogComponent,
         FinancialCovenantsListComponent,
-        FinancialCovenantsUpdateDialogComponent
+        FinancialCovenantsUpdateDialogComponent,
+        PromoterDetailsItemListComponent,
+        PromoterDetailsUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {

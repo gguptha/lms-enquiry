@@ -88,9 +88,9 @@ public interface ILoanMonitoringService {
     List<PromoterDetailsResource> getPromoterDetails(String loanApplicationId, String name);
 
     //  Promoter Details Item
-    PromoterDetailsItem savePromoterDetailsItem(PromoterDetailsItemResource resource, String username);
-    PromoterDetailsItem updatePromoterDetailsItem(PromoterDetailsItemResource resource, String username);
-    List<PromoterDetailsItemResource> getPromoterDetailsItem(String loanApplicationId, String name);
+    // PromoterDetailsItem savePromoterDetailsItem(PromoterDetailsItemResource resource, String username);
+    // PromoterDetailsItem updatePromoterDetailsItem(PromoterDetailsItemResource resource, String username);
+    // List<PromoterDetailsItemResource> getPromoterDetailsItem(String loanApplicationId, String name);
 
 
 }

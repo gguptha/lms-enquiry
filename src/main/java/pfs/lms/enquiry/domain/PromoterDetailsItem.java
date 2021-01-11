@@ -16,9 +16,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PromoterDetailsItem extends AbstractEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private PromoterDetails promoterDetails;
-
     private String shareHoldingCompany;
     private Double paidupCapitalEquitySanction;
     private Double paidupCapitalEquityCurrent;

@@ -1,0 +1,46 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button mat-button class="mat-icon-button" (click)="_dialogRef.close()" aria-label="Close Dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content fusePerfectScrollbar>
+        <form [formGroup]="promoterDetailsUpdateForm">
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Promoter Company Name" formControlName="shareHoldingCompany">          
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Paid up Capital/ Equity - Sanction" formControlName="paidupCapitalEquitySanction">          
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Equity Link Instrument (CCD/CCPS/Unsecured Loan) - Sanction" formControlName="equityLinkInstrumentSanction">          
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Paid up Capital/ Equity - Current" formControlName="paidupCapitalEquityCurrent">          
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Equity Link Instrument (CCD/CCPS/Unsecured Loan) - Current" formControlName="equityLinkInstrumentCurrent">          
+                </mat-form-field>
+            </div>
+
+            <div mat-dialog-actions fxLayout="row">
+                <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
+                    Submit
+                </button>
+                <button class="mr-8" mat-raised-button type="button" color="accent" (click)="closeClick()">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -50,8 +50,6 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final PromoterDetailsRepository promoterDetailsRepository;
 
-    private final PromoterDetailsItemRepository promoterDetailsItemRepository;
-
     @Override
     @Transactional
     public LendersIndependentEngineer saveLIE(LIEResource resource, String username) {
@@ -1018,6 +1016,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         promoterDetails.setLoanMonitor(loanMonitor);
         promoterDetails.setDateOfChange(resource.getPromoterDetails().getDateOfChange());
         promoterDetails.setGroupExposure(resource.getPromoterDetails().getGroupExposure());
+        promoterDetails.setPromoterDetailsItemSet(resource.getPromoterDetails().getPromoterDetailsItemSet());
         promoterDetails = promoterDetailsRepository.save(promoterDetails);
         return promoterDetails;
 
@@ -1025,14 +1024,31 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     @Override
     public PromoterDetails updatePromoterDetails(PromoterDetailsResource resource, String username) {
-        PromoterDetails existingPromoterDetails
+        final PromoterDetails existingPromoterDetails
                 = promoterDetailsRepository.getOne(resource.getPromoterDetails().getId());
 
         existingPromoterDetails.setDateOfChange(resource.getPromoterDetails().getDateOfChange());
         existingPromoterDetails.setGroupExposure(resource.getPromoterDetails().getGroupExposure());
-        existingPromoterDetails = promoterDetailsRepository.save(existingPromoterDetails);
-        return existingPromoterDetails;
 
+        resource.getPromoterDetails().getPromoterDetailsItemSet().forEach(resourceItem -> {
+            existingPromoterDetails.getPromoterDetailsItemSet().forEach(promoterDetailsItem -> {
+                if (resourceItem.getId().equals(promoterDetailsItem.getId())) {
+                    promoterDetailsItem.setShareHoldingCompany(resourceItem.getShareHoldingCompany());
+                    promoterDetailsItem.setPaidupCapitalEquitySanction(resourceItem.getPaidupCapitalEquitySanction());
+                    promoterDetailsItem.setEquityLinkInstrumentSanction(resourceItem.getEquityLinkInstrumentSanction());
+                    promoterDetailsItem.setPaidupCapitalEquityCurrent(resourceItem.getPaidupCapitalEquityCurrent());
+                    promoterDetailsItem.setEquityLinkInstrumentCurrent(resourceItem.getEquityLinkInstrumentCurrent());
+                }
+            });
+        });
+        resource.getPromoterDetails().getPromoterDetailsItemSet().forEach(resourceItem -> {
+            if (resourceItem.getId().equals("")) {
+                existingPromoterDetails.getPromoterDetailsItemSet().add(resourceItem);
+            }
+        });
+
+        PromoterDetails promoterDetails = promoterDetailsRepository.save(existingPromoterDetails);
+        return promoterDetails;
     }
 
     @Override
@@ -1055,69 +1071,4 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         return promoterDetailsResources;
 
     }
-
-
-    //Promoter Details Item
-    @Override
-    public PromoterDetailsItem savePromoterDetailsItem(PromoterDetailsItemResource resource, String username) {
-
-        PromoterDetails promoterDetails = promoterDetailsRepository.getOne(resource.getPromoterDetailsItem().getPromoterDetails().getId());
-
-
-       /* LoanMonitor loanMonitor = loanMonitorRepository.getOne(promoterDetails.getLoanMonitor().getId());
-
-        LoanApplication loanApplication = loanApplicationRepository.getOne(loanMonitor.getLoanApplication().getId());
-        if(loanMonitor == null)
-        {
-            loanMonitor = new LoanMonitor();
-               loanMonitor.setLoanApplication(loanApplication);
-            loanMonitor = loanMonitorRepository.save(loanMonitor);
-        }*/
-        PromoterDetailsItem promoterDetailsItem = resource.getPromoterDetailsItem();
-        promoterDetailsItem.setPromoterDetails(promoterDetails);
-        promoterDetailsItem.setShareHoldingCompany(resource.getPromoterDetailsItem().getShareHoldingCompany());
-        promoterDetailsItem.setPaidupCapitalEquitySanction(resource.getPromoterDetailsItem().getPaidupCapitalEquitySanction());
-        promoterDetailsItem.setPaidupCapitalEquityCurrent(resource.getPromoterDetailsItem().getPaidupCapitalEquityCurrent());
-        promoterDetailsItem.setEquityLinkInstrumentSanction(resource.getPromoterDetailsItem().getEquityLinkInstrumentSanction());
-        promoterDetailsItem.setEquityLinkInstrumentCurrent(resource.getPromoterDetailsItem().getEquityLinkInstrumentCurrent());
-        promoterDetailsItem = promoterDetailsItemRepository.save(promoterDetailsItem);
-        return promoterDetailsItem;
-    }
-
-    @Override
-    public PromoterDetailsItem updatePromoterDetailsItem(PromoterDetailsItemResource resource, String username) {
-        PromoterDetailsItem existingPromoterDetailsItem
-                = promoterDetailsItemRepository.getOne(resource.getPromoterDetailsItem().getId());
-
-        existingPromoterDetailsItem.setShareHoldingCompany(resource.getPromoterDetailsItem().getShareHoldingCompany());
-        existingPromoterDetailsItem.setPaidupCapitalEquitySanction(resource.getPromoterDetailsItem().getPaidupCapitalEquitySanction());
-        existingPromoterDetailsItem.setPaidupCapitalEquityCurrent(resource.getPromoterDetailsItem().getPaidupCapitalEquityCurrent());
-        existingPromoterDetailsItem.setEquityLinkInstrumentSanction(resource.getPromoterDetailsItem().getEquityLinkInstrumentSanction());
-        existingPromoterDetailsItem.setEquityLinkInstrumentCurrent(resource.getPromoterDetailsItem().getEquityLinkInstrumentCurrent());
-        existingPromoterDetailsItem = promoterDetailsItemRepository.save(existingPromoterDetailsItem);
-        return existingPromoterDetailsItem;
-    }
-
-    @Override
-    public List<PromoterDetailsItemResource> getPromoterDetailsItem(String promoterDetailsId, String name) {
-        List<PromoterDetailsItemResource>  promoterDetailsItemResources  = new ArrayList<>();
-        PromoterDetails promoterDetails = promoterDetailsRepository.getOne(promoterDetailsId);
-        //LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
-        if(promoterDetails != null) {
-            List<PromoterDetailsItem> promoterDetailsItems
-                    = promoterDetailsItemRepository.findByPromoterDetails(promoterDetails);
-            promoterDetailsItems.forEach(
-                    promoterDetailsItem -> {
-                        PromoterDetailsItemResource promoterDetailsItemResource = new PromoterDetailsItemResource();
-                        //lieResource.setLoanApplicationId(loanApplication.getId());
-                        promoterDetailsItemResource.setPromoterDetailsId(promoterDetails.getId());
-                        promoterDetailsItemResource.setPromoterDetailsItem(promoterDetailsItem);
-                        promoterDetailsItemResources.add(promoterDetailsItemResource);
-                    }
-            );
-        }
-        return promoterDetailsItemResources;
-
-    }
-
 }
