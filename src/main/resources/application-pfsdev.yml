@@ -3,7 +3,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: dn47gh3y
+    password: Pfsltd@12345
     maximum-pool-size: 40
     url: jdbc:mysql://localhost:3306/pfsenquiry?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true
     validation-query: select 1
@@ -35,7 +35,7 @@ spring:
         starttls.enable: true
         ssl.trust: smtp.gmail.com
 oauth:
-  baseUrl: http://192.168.1.246:9999/auth
+  baseUrl: http://192.168.1.205:9999/auth
 sap:
   postUrl: http://192.168.1.205:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300
   baseUrl: http://192.168.1.205:8000
@@ -48,10 +48,10 @@ security:
     client:
       client-id: pfs-client
       client-secret: pfs-secret
-      access-token-uri: http://192.168.1.246:9999/auth/oauth/token
-      user-authorization-uri: http://192.168.1.246:9999/auth/oauth/authorize
+      access-token-uri: http://192.168.1.205:9999/auth/oauth/token
+      user-authorization-uri: http://192.168.1.205:9999/auth/oauth/authorize
     resource:
-      user-info-uri: http://192.168.1.246:9999/time
+      user-info-uri: http://192.168.1.205:9999/time
       jwt:
         keyValue: PfS$$$98567
 server:
