@@ -22,9 +22,13 @@ export class SecurityComplianceUpdateDialogComponent {
     securityComplianceUpdateForm: FormGroup;
 
     collateralObjectTypes = LoanMonitoringConstants.collateralObjectTypes;
-    collateralAgreementTypes = LoanMonitoringConstants.collateralAgreementTypes;
+    collateralAgreementTypes: any;
     applicability = LoanMonitoringConstants.applicability;
-    
+    actionPeriods = LoanMonitoringConstants.actionPeriods;
+    actionPeriodSuffixes = LoanMonitoringConstants.actionPeriodSuffixes;
+    eventTypes = LoanMonitoringConstants.eventTypes;
+    unitOfMeasures = LoanMonitoringConstants.unitOfMeasures;
+
     /**
      * constructor()
      * @param _formBuilder 
@@ -123,6 +127,16 @@ export class SecurityComplianceUpdateDialogComponent {
                 });            
             }
         }
+    }
+
+    /**
+     * getCollateralAgreementTypes()
+     * @param event 
+     */
+    getCollateralAgreementTypes(event) {
+        this.collateralAgreementTypes = LoanMonitoringConstants.collateralAgreementTypes.filter(obj => {
+            return obj.objectType === event.value;
+        });
     }
 
     /**
