@@ -20,7 +20,7 @@
                 </mat-form-field> 
 
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Invoice Number" formControlName="invoiceNo" readonly>
+                    <input matInput placeholder="Invoice Number" formControlName="invoiceNo" required>
                 </mat-form-field>
             </div>
             <div fxLayout="row" class="mt-16">
@@ -47,7 +47,7 @@
                 </mat-form-field>
 
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Fee Amount" formControlName="feeAmount" readonly>
+                    <input matInput placeholder="Fee Amount" formControlName="feeAmount">
                 </mat-form-field>            
             </div>
             <div fxLayout="row">
@@ -64,8 +64,19 @@
                     </mat-select>
                 </mat-form-field>                   
             </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Document Type" formControlName="documentType" required>
+                      <mat-option> </mat-option>
+                      <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.code">
+                        {{ documentType.value }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field> 
+                <input type="file" name="file" (change)="onFileSelect($event)" accept="application/pdf"/>
+            </div>
 
-            <div mat-dialog-actions fxLayout="row">
+            <div class="mt-32" mat-dialog-actions fxLayout="row">
                 <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
                     Submit
                 </button>

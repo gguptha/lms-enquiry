@@ -1,13 +1,10 @@
-package pfs.lms.enquiry.repository;
+package pfs.lms.enquiry.monitoring.lfa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pfs.lms.enquiry.domain.LFAReportAndFee;
-import pfs.lms.enquiry.domain.LIEReportAndFee;
-import pfs.lms.enquiry.domain.LendersFinancialAdvisor;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
+import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
+import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface LFAReportAndFeeRepository extends JpaRepository<LFAReportAndFee, String> {
 

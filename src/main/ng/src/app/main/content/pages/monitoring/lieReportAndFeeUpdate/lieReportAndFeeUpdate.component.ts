@@ -23,6 +23,11 @@ export class LIEReportAndFeeUpdateDialogComponent {
 
     lieUpdateForm: FormGroup;
 
+    reportTypes = LoanMonitoringConstants.reportTypes;
+    feePaidStatuses = LoanMonitoringConstants.feePaidStatuses;
+    feeReceiptStatuses = LoanMonitoringConstants.feeReceiptStatuses;
+    documentTypes = LoanMonitoringConstants.documentTypes;
+
     /**
      * constructor()
      * @param _formBuilder 
@@ -55,7 +60,20 @@ export class LIEReportAndFeeUpdateDialogComponent {
             statusOfFeePaid: [this.selectedLIEReportAndFee.statusOfFeePaid],
             documentTitle: [this.selectedLIEReportAndFee.documentTitle],
             nextReportDate: [this.selectedLIEReportAndFee.nextReportDate || ''],
+            documentType: [this.selectedLIEReportAndFee.documentType || ''],
+            file: ['']
         });
+    }
+
+    /**
+     * onFileSelect()
+     * @param event 
+     */
+    onFileSelect(event) {
+        if (event.target.files.length > 0) {
+            const file = event.target.files[0];
+            this.lieUpdateForm.get('file').setValue(file);
+        }
     }
 
     /**
@@ -73,26 +91,76 @@ export class LIEReportAndFeeUpdateDialogComponent {
             lieReportAndFee.nextReportDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
 
             if (this._dialogData.operation === 'addLIEReportAndFee') {
-                this._loanMonitoringService.saveLIEReportAndFee(lieReportAndFee, this.selectedLIE.id).subscribe(() => {
-                    this._matSnackBar.open('LIE report added successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
-                });
+                if (this.lieUpdateForm.get('file').value !== '') {
+                    var formData = new FormData();
+                    formData.append('file', this.lieUpdateForm.get('file').value);      
+                    this._loanMonitoringService.uploadVaultDocument(formData).subscribe(
+                        (response) => {
+                            lieReportAndFee.fileReference = response.fileReference;
+                            this._loanMonitoringService.saveLIEReportAndFee(lieReportAndFee, this.selectedLIE.id).subscribe((data) => {
+                                this._matSnackBar.open('LIE report added successfully.', 'OK', { duration: 7000 });
+                                this._dialogRef.close({ 'refresh': true });
+                            });
+                        },
+                        (error) => {
+                            this._matSnackBar.open('Unable to upload the file. Pls try again after sometime or contact your system administrator', 
+                                'OK', { duration: 7000 });
+                        }
+                    );
+                }
+                else
+                {
+                    this._loanMonitoringService.saveLIEReportAndFee(lieReportAndFee, this.selectedLIE.id).subscribe((data) => {
+                        this._matSnackBar.open('LIE report added successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });
+                }
             }
             else {
-                this.selectedLIEReportAndFee.reportType = lieReportAndFee.reportType;
-                this.selectedLIEReportAndFee.dateOfReceipt = lieReportAndFee.dateOfReceipt;
-                this.selectedLIEReportAndFee.invoiceDate = lieReportAndFee.invoiceDate;
-                this.selectedLIEReportAndFee.invoiceNo = lieReportAndFee.invoiceNo;
-                this.selectedLIEReportAndFee.feeAmount = lieReportAndFee.feeAmount;
-                this.selectedLIEReportAndFee.statusOfFeeReceipt = lieReportAndFee.statusOfFeeReceipt;
-                this.selectedLIEReportAndFee.statusOfFeePaid = lieReportAndFee.statusOfFeePaid;
-                this.selectedLIEReportAndFee.documentTitle = lieReportAndFee.documentTitle;
-                this.selectedLIEReportAndFee.nextReportDate = lieReportAndFee.nextReportDate;
-
-                this._loanMonitoringService.updateLIEReportAndFee(this.selectedLIEReportAndFee).subscribe(() => {
-                    this._matSnackBar.open('LIE report updated successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
-                });
+                if (this.lieUpdateForm.get('file').value !== '') {
+                    var formData = new FormData();
+                    formData.append('file', this.lieUpdateForm.get('file').value);      
+                    this._loanMonitoringService.uploadVaultDocument(formData).subscribe(
+                        (response) => {
+                            this.selectedLIEReportAndFee.reportType = lieReportAndFee.reportType;
+                            this.selectedLIEReportAndFee.dateOfReceipt = lieReportAndFee.dateOfReceipt;
+                            this.selectedLIEReportAndFee.invoiceDate = lieReportAndFee.invoiceDate;
+                            this.selectedLIEReportAndFee.invoiceNo = lieReportAndFee.invoiceNo;
+                            this.selectedLIEReportAndFee.feeAmount = lieReportAndFee.feeAmount;
+                            this.selectedLIEReportAndFee.statusOfFeeReceipt = lieReportAndFee.statusOfFeeReceipt;
+                            this.selectedLIEReportAndFee.statusOfFeePaid = lieReportAndFee.statusOfFeePaid;
+                            this.selectedLIEReportAndFee.documentTitle = lieReportAndFee.documentTitle;
+                            this.selectedLIEReportAndFee.documentType = lieReportAndFee.documentType;
+                            this.selectedLIEReportAndFee.nextReportDate = lieReportAndFee.nextReportDate;
+                            this.selectedLIEReportAndFee.fileReference = response.fileReference;
+                            this._loanMonitoringService.updateLIEReportAndFee(this.selectedLIEReportAndFee).subscribe(() => {
+                                this._matSnackBar.open('LIE report updated successfully.', 'OK', { duration: 7000 });
+                                this._dialogRef.close({ 'refresh': true });
+                            });
+                        },
+                        (error) => {
+                            this._matSnackBar.open('Unable to upload the file. Pls try again after sometime or contact your system administrator', 
+                                'OK', { duration: 7000 });
+                        }
+                    );
+                }
+                else
+                {
+                    this.selectedLIEReportAndFee.reportType = lieReportAndFee.reportType;
+                    this.selectedLIEReportAndFee.dateOfReceipt = lieReportAndFee.dateOfReceipt;
+                    this.selectedLIEReportAndFee.invoiceDate = lieReportAndFee.invoiceDate;
+                    this.selectedLIEReportAndFee.invoiceNo = lieReportAndFee.invoiceNo;
+                    this.selectedLIEReportAndFee.feeAmount = lieReportAndFee.feeAmount;
+                    this.selectedLIEReportAndFee.statusOfFeeReceipt = lieReportAndFee.statusOfFeeReceipt;
+                    this.selectedLIEReportAndFee.statusOfFeePaid = lieReportAndFee.statusOfFeePaid;
+                    this.selectedLIEReportAndFee.documentTitle = lieReportAndFee.documentTitle;
+                    this.selectedLIEReportAndFee.documentType = lieReportAndFee.documentType;
+                    this.selectedLIEReportAndFee.nextReportDate = lieReportAndFee.nextReportDate;
+                    this._loanMonitoringService.updateLIEReportAndFee(this.selectedLIEReportAndFee).subscribe(() => {
+                        this._matSnackBar.open('LIE report updated successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });
+                }
             }
         }
     }

@@ -3,23 +3,18 @@ package pfs.lms.enquiry.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pfs.lms.enquiry.domain.LIEReportAndFee;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
-import pfs.lms.enquiry.domain.LoanApplication;
-import pfs.lms.enquiry.domain.LoanMonitor;
-import pfs.lms.enquiry.repository.LIEReportAndFeeRepository;
-import pfs.lms.enquiry.repository.LIERepository;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
+import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeRepository;
+import pfs.lms.enquiry.monitoring.lie.LIERepository;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
-import pfs.lms.enquiry.resource.LIEReportAndFeeResource;
-import pfs.lms.enquiry.resource.LIEResource;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeResource;
 import pfs.lms.enquiry.service.ILIEReportAndFeeService;
-import pfs.lms.enquiry.service.ILIEService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -57,7 +52,6 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
         existinglieReportAndFee.setStatusOfFeeReceipt(resource.getLieReportAndFee().getStatusOfFeeReceipt());
         existinglieReportAndFee.setStatusOfFeePaid(resource.getLieReportAndFee().getStatusOfFeePaid());
         existinglieReportAndFee.setDocumentTitle(resource.getLieReportAndFee().getDocumentTitle());
-        existinglieReportAndFee.setDocumentContent(resource.getLieReportAndFee().getDocumentContent());
         existinglieReportAndFee.setNextReportDate(resource.getLieReportAndFee().getNextReportDate());
         existinglieReportAndFee = lieReportAndFeeRepository.save(existinglieReportAndFee);
 

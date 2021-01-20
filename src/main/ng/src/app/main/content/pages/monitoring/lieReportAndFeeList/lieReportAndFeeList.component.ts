@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { LIEReportAndFeeModel } from 'app/main/content/model/lieReportAndFee.model';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { BehaviorSubject } from 'rxjs';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 
@@ -24,7 +25,7 @@ export class LIEReportAndFeeListComponent implements OnInit {
 
     displayedColumns = [
         'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
-            'nextReportDate'
+            'nextReportDate', 'download'
     ];
 
     selectedLIEReportAndFee: any;
@@ -54,5 +55,22 @@ export class LIEReportAndFeeListComponent implements OnInit {
     onSelect(lieReportAndFee: any): void {
         this.selectedLIEReportAndFee = lieReportAndFee;
         this._service.selectedLIEReportAndFee.next(this.selectedLIEReportAndFee);
+    }
+
+    /**
+     * getFileURL()
+     * @param fileReference 
+     */
+    getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
+    }
+
+    /**
+     * getReportType()
+     * @param reportType 
+     */
+    getReportType(reportType: string): string {
+        const filtered = LoanMonitoringConstants.reportTypes.filter(obj => obj.code === reportType);
+        return filtered[0].value;
     }
 }

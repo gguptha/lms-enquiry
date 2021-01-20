@@ -6,7 +6,7 @@
         <ng-container matColumnDef="reportType">
             <mat-header-cell *matHeaderCellDef mat-sort-header >ReportType</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.lieReportAndFee.reportType }}</p>
+                <p class="text-truncate">{{ getReportType(obj.lieReportAndFee.reportType) }}</p>
             </mat-cell>
         </ng-container>
 
@@ -73,6 +73,15 @@
                 <p class="text-truncate">{{ obj.lieReportAndFee.nextReportDate }}</p>
             </mat-cell>
         </ng-container>
+
+        <!-- download Column -->
+        <ng-container matColumnDef="download">
+            <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <a [href]="getFileURL(obj.lieReportAndFee.fileReference)" *ngIf="obj.lieReportAndFee.fileReference !== ''">Download</a>
+            </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
         <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.lieReportAndFee)"

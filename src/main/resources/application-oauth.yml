@@ -1,5 +1,10 @@
 spring:
   profiles: oauth
+  rest:
+    basePath: /api
+  content:
+    fs:
+      filesystem-root: ${user.home}/loans/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root

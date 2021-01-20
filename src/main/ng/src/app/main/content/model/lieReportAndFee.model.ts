@@ -10,7 +10,9 @@ export class LIEReportAndFeeModel
     statusOfFeePaid: string;
     documentTitle: string;
     nextReportDate: Date;
-    
+    fileReference: string;
+    documentType: string;
+
     /**
      * constructor();
      * @param _lieReportAndFee 
@@ -27,5 +29,7 @@ export class LIEReportAndFeeModel
         this.statusOfFeePaid = _lieReportAndFee.statusOfFeePaid || '';
         this.documentTitle = _lieReportAndFee.documentTitle || '';
         this.nextReportDate = _lieReportAndFee.nextReportDate || undefined;
+        this.documentType = _lieReportAndFee.documentType || '';
+        this.fileReference = _lieReportAndFee.fileReference || '';
     }
 }

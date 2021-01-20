@@ -3,7 +3,6 @@ package pfs.lms.enquiry.resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
 import pfs.lms.enquiry.domain.SecurityCompliance;
 
 import java.util.UUID;

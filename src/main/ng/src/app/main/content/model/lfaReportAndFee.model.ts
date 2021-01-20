@@ -10,7 +10,9 @@ export class LFAReportAndFeeModel
     statusOfFeePaid: string;
     documentTitle: string;
     nextReportDate: Date;
-    
+    fileReference: string;
+    documentType: string;
+
     /**
      * constructor();
      * @param _lfaReportAndFee 
@@ -27,5 +29,7 @@ export class LFAReportAndFeeModel
         this.statusOfFeePaid = _lfaReportAndFee.statusOfFeePaid || '';
         this.documentTitle = _lfaReportAndFee.documentTitle || '';
         this.nextReportDate = _lfaReportAndFee.nextReportDate || undefined;
+        this.documentType = _lfaReportAndFee.documentType || '';
+        this.fileReference = _lfaReportAndFee.fileReference || '';
     }
 }

@@ -1,10 +1,9 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.lfa;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.LendersFinancialAdvisor;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
+import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
 
 import java.util.UUID;
 

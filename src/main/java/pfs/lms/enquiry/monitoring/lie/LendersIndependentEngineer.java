@@ -1,6 +1,8 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.lie;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
+import pfs.lms.enquiry.domain.LoanMonitor;
 
 import javax.persistence.*;
 import java.time.LocalDate;

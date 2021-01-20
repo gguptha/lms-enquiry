@@ -261,4 +261,8 @@ export class LoanMonitoringService {
     public searchLoanEnquiries(request: any): Observable<any> {
         return this._http.put<any>('enquiry/api/loanApplications/search', request);
     }
+
+    public uploadVaultDocument(file: FormData): Observable<any> {
+        return this._http.post('enquiry/api/upload', file);
+    }
 }

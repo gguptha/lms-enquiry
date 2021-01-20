@@ -1,11 +1,8 @@
-package pfs.lms.enquiry.repository;
+package pfs.lms.enquiry.monitoring.lie;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pfs.lms.enquiry.domain.LIEReportAndFee;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface LIEReportAndFeeRepository extends JpaRepository<LIEReportAndFee, String> {
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class LFAReportAndFeeListComponent implements OnInit {
 
     displayedColumns = [
         'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
-            'nextReportDate'
+            'nextReportDate', 'download'
     ];
 
     selectedLFAReportAndFee: any;
@@ -52,5 +53,22 @@ export class LFAReportAndFeeListComponent implements OnInit {
     onSelect(lfaReportAndFee: any): void {
         this.selectedLFAReportAndFee = lfaReportAndFee;
         this._service.selectedLFAReportAndFee.next(this.selectedLFAReportAndFee);
+    }
+
+    /**
+     * getFileURL()
+     * @param fileReference 
+     */
+    getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
+    }
+    
+    /**
+     * getReportType()
+     * @param reportType 
+     */
+    getReportType(reportType: string): string {
+        const filtered = LoanMonitoringConstants.reportTypes.filter(obj => obj.code === reportType);
+        return filtered[0].value;
     }
 }

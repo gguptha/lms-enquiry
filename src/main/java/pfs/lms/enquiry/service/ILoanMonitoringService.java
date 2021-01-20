@@ -1,6 +1,11 @@
 package pfs.lms.enquiry.service;
 
 import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
+import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeResource;
+import pfs.lms.enquiry.monitoring.lfa.LFAResource;
+import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
+import pfs.lms.enquiry.monitoring.lie.*;
 import pfs.lms.enquiry.resource.*;
 
 import java.util.List;

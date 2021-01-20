@@ -1,6 +1,7 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.lfa;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,28 +16,21 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class LIEReportAndFee extends AbstractEntity {
+public class LFAReportAndFee extends AbstractEntity {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private LendersIndependentEngineer lendersIndependentEngineer;
+    private LendersFinancialAdvisor lendersFinancialAdvisor;
 
     private String reportType;
-
+    private LocalDate quarterOrYear;
     private LocalDate dateOfReceipt;
-
     private LocalDate invoiceDate;
-
     private String invoiceNo;
-
     private Double feeAmount;
-
     private String statusOfFeeReceipt;
-
     private String statusOfFeePaid;
-
+    private String documentType;
     private String documentTitle;
-
-    private Blob documentContent;
-
+    private String fileReference;
     private LocalDate nextReportDate;
 }

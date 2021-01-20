@@ -1,10 +1,9 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.lfa;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.LFAReportAndFee;
-import pfs.lms.enquiry.domain.LIEReportAndFee;
+import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
 
 @Data
 @Setter

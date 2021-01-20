@@ -3,7 +3,6 @@ package pfs.lms.enquiry.resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.LFAReportAndFee;
 import pfs.lms.enquiry.domain.TrustRetentionAccountStatement;
 
 @Data

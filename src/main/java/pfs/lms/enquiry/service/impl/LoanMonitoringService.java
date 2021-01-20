@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.monitoring.lfa.*;
+import pfs.lms.enquiry.monitoring.lie.*;
 import pfs.lms.enquiry.repository.*;
 import pfs.lms.enquiry.resource.*;
 import pfs.lms.enquiry.service.ILoanMonitoringService;
@@ -145,8 +147,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existinglieReportAndFee.setStatusOfFeeReceipt(resource.getLieReportAndFee().getStatusOfFeeReceipt());
         existinglieReportAndFee.setStatusOfFeePaid(resource.getLieReportAndFee().getStatusOfFeePaid());
         existinglieReportAndFee.setDocumentTitle(resource.getLieReportAndFee().getDocumentTitle());
-        existinglieReportAndFee.setDocumentContent(resource.getLieReportAndFee().getDocumentContent());
         existinglieReportAndFee.setNextReportDate(resource.getLieReportAndFee().getNextReportDate());
+        existinglieReportAndFee.setFileReference(resource.getLieReportAndFee().getFileReference());
         existinglieReportAndFee = lieReportAndFeeRepository.save(existinglieReportAndFee);
 
         return existinglieReportAndFee;
@@ -267,7 +269,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existinglfaReportAndFee.setStatusOfFeeReceipt(resource.getLfaReportAndFee().getStatusOfFeeReceipt());
         existinglfaReportAndFee.setStatusOfFeePaid(resource.getLfaReportAndFee().getStatusOfFeePaid());
         existinglfaReportAndFee.setDocumentTitle(resource.getLfaReportAndFee().getDocumentTitle());
-        existinglfaReportAndFee.setDocumentContent(resource.getLfaReportAndFee().getDocumentContent());
+        existinglfaReportAndFee.setDocumentType(resource.getLfaReportAndFee().getDocumentType());
+        existinglfaReportAndFee.setFileReference(resource.getLfaReportAndFee().getFileReference());
         existinglfaReportAndFee.setNextReportDate(resource.getLfaReportAndFee().getNextReportDate());
         existinglfaReportAndFee = lfaReportAndFeeRepository.save(existinglfaReportAndFee);
 

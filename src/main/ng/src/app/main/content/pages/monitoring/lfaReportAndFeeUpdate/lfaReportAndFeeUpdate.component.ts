@@ -26,7 +26,8 @@ export class LFAReportAndFeeUpdateDialogComponent {
     reportTypes = LoanMonitoringConstants.reportTypes;
     feePaidStatuses = LoanMonitoringConstants.feePaidStatuses;
     feeReceiptStatuses = LoanMonitoringConstants.feeReceiptStatuses;
-    
+    documentTypes = LoanMonitoringConstants.documentTypes;
+
     /**
      * constructor()
      * @param _formBuilder 
@@ -59,7 +60,20 @@ export class LFAReportAndFeeUpdateDialogComponent {
             statusOfFeePaid: [this.selectedLFAReportAndFee.statusOfFeePaid],
             documentTitle: [this.selectedLFAReportAndFee.documentTitle],
             nextReportDate: [this.selectedLFAReportAndFee.nextReportDate || ''],
+            documentType: [this.selectedLFAReportAndFee.documentType || ''],
+            file: ['']
         });
+    }
+
+    /**
+     * onFileSelect()
+     * @param event 
+     */
+    onFileSelect(event) {
+        if (event.target.files.length > 0) {
+            const file = event.target.files[0];
+            this.lfaUpdateForm.get('file').setValue(file);
+        }
     }
 
     /**
@@ -77,25 +91,75 @@ export class LFAReportAndFeeUpdateDialogComponent {
             lfaReportAndFee.nextReportDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
 
             if (this._dialogData.operation === 'addLFAReportAndFee') {
-                this._loanMonitoringService.saveLFAReportAndFee(lfaReportAndFee, this.selectedLFA.id).subscribe(() => {
-                    this._matSnackBar.open('LFA report added successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
-                });
+                if (this.lfaUpdateForm.get('file').value !== '') {
+                    var formData = new FormData();
+                    formData.append('file', this.lfaUpdateForm.get('file').value);      
+                    this._loanMonitoringService.uploadVaultDocument(formData).subscribe(
+                        (response) => {
+                            lfaReportAndFee.fileReference = response.fileReference;
+                            this._loanMonitoringService.saveLFAReportAndFee(lfaReportAndFee, this.selectedLFA.id).subscribe(() => {
+                                this._matSnackBar.open('LFA report added successfully.', 'OK', { duration: 7000 });
+                                this._dialogRef.close({ 'refresh': true });
+                            });
+                        },
+                        (error) => {
+                            this._matSnackBar.open('Unable to upload the file. Pls try again after sometime or contact your system administrator', 
+                                'OK', { duration: 7000 });
+                        }
+                    );
+                }
+                else
+                {
+                    this._loanMonitoringService.saveLFAReportAndFee(lfaReportAndFee, this.selectedLFA.id).subscribe(() => {
+                        this._matSnackBar.open('LFA report added successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });
+                }
             }
             else {
-                this.selectedLFAReportAndFee.reportType = lfaReportAndFee.reportType;
-                this.selectedLFAReportAndFee.dateOfReceipt = lfaReportAndFee.dateOfReceipt;
-                this.selectedLFAReportAndFee.invoiceDate = lfaReportAndFee.invoiceDate;
-                this.selectedLFAReportAndFee.invoiceNo = lfaReportAndFee.invoiceNo;
-                this.selectedLFAReportAndFee.feeAmount = lfaReportAndFee.feeAmount;
-                this.selectedLFAReportAndFee.statusOfFeeReceipt = lfaReportAndFee.statusOfFeeReceipt;
-                this.selectedLFAReportAndFee.statusOfFeePaid = lfaReportAndFee.statusOfFeePaid;
-                this.selectedLFAReportAndFee.documentTitle = lfaReportAndFee.documentTitle;
-                this.selectedLFAReportAndFee.nextReportDate = lfaReportAndFee.nextReportDate;
-                this._loanMonitoringService.updateLFAReportAndFee(this.selectedLFAReportAndFee).subscribe(() => {
-                    this._matSnackBar.open('LFA report updated successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
-                });
+                if (this.lfaUpdateForm.get('file').value !== '') {
+                    var formData = new FormData();
+                    formData.append('file', this.lfaUpdateForm.get('file').value);      
+                    this._loanMonitoringService.uploadVaultDocument(formData).subscribe(
+                        (response) => {
+                            this.selectedLFAReportAndFee.reportType = lfaReportAndFee.reportType;
+                            this.selectedLFAReportAndFee.dateOfReceipt = lfaReportAndFee.dateOfReceipt;
+                            this.selectedLFAReportAndFee.invoiceDate = lfaReportAndFee.invoiceDate;
+                            this.selectedLFAReportAndFee.invoiceNo = lfaReportAndFee.invoiceNo;
+                            this.selectedLFAReportAndFee.feeAmount = lfaReportAndFee.feeAmount;
+                            this.selectedLFAReportAndFee.statusOfFeeReceipt = lfaReportAndFee.statusOfFeeReceipt;
+                            this.selectedLFAReportAndFee.statusOfFeePaid = lfaReportAndFee.statusOfFeePaid;
+                            this.selectedLFAReportAndFee.documentTitle = lfaReportAndFee.documentTitle;
+                            this.selectedLFAReportAndFee.nextReportDate = lfaReportAndFee.nextReportDate;
+                            this.selectedLFAReportAndFee.documentType = lfaReportAndFee.documentType;
+                            this.selectedLFAReportAndFee.fileReference = response.fileReference;
+                            this._loanMonitoringService.updateLFAReportAndFee(this.selectedLFAReportAndFee).subscribe(() => {
+                                this._matSnackBar.open('LFA report updated successfully.', 'OK', { duration: 7000 });
+                                this._dialogRef.close({ 'refresh': true });
+                            });
+                        },
+                        (error) => {
+                            this._matSnackBar.open('Unable to upload the file. Pls try again after sometime or contact your system administrator', 
+                                'OK', { duration: 7000 });
+                        }
+                    );
+                }
+                else
+                {
+                    this.selectedLFAReportAndFee.reportType = lfaReportAndFee.reportType;
+                    this.selectedLFAReportAndFee.dateOfReceipt = lfaReportAndFee.dateOfReceipt;
+                    this.selectedLFAReportAndFee.invoiceDate = lfaReportAndFee.invoiceDate;
+                    this.selectedLFAReportAndFee.invoiceNo = lfaReportAndFee.invoiceNo;
+                    this.selectedLFAReportAndFee.feeAmount = lfaReportAndFee.feeAmount;
+                    this.selectedLFAReportAndFee.statusOfFeeReceipt = lfaReportAndFee.statusOfFeeReceipt;
+                    this.selectedLFAReportAndFee.statusOfFeePaid = lfaReportAndFee.statusOfFeePaid;
+                    this.selectedLFAReportAndFee.documentTitle = lfaReportAndFee.documentTitle;
+                    this.selectedLFAReportAndFee.nextReportDate = lfaReportAndFee.nextReportDate;
+                    this._loanMonitoringService.updateLFAReportAndFee(this.selectedLFAReportAndFee).subscribe(() => {
+                        this._matSnackBar.open('LFA report updated successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });
+                }
             }
         }
     }

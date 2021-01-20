@@ -1,12 +1,9 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.lie;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.LIEReportAndFee;
-import pfs.lms.enquiry.domain.LendersIndependentEngineer;
-
-import java.util.UUID;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
 
 @Data
 @Setter
