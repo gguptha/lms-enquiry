@@ -14,7 +14,7 @@
         <ng-container matColumnDef="documentType">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Document Type</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.termsAndConditionsModification.documentType }}</p>
+                <p class="text-truncate">{{ getDocumentType(obj.termsAndConditionsModification.documentType) }}</p>
             </mat-cell>
         </ng-container>
 
@@ -39,6 +39,15 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header >Date of Issue of Amen. Sanction Letter</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
                 <p class="text-truncate">{{ obj.termsAndConditionsModification.dateofIssueofAmendedSanctionLetter | date: 'dd/MM/yyyy' }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- download Column -->
+        <ng-container matColumnDef="download">
+            <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <a [href]="getFileURL(obj.termsAndConditionsModification.fileReference)" 
+                        *ngIf="obj.termsAndConditionsModification.fileReference !== ''">Download</a>
             </mat-cell>
         </ng-container>
 

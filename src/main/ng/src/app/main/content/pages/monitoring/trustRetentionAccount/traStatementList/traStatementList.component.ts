@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class TRAStatementListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'documentType', 'periodQuarter','periodYear', 'remarks', 'document'
+        'documentType', 'periodQuarter','periodYear', 'remarks', 'download'
     ];
 
     selectedTRAStatement: any;
@@ -45,11 +46,27 @@ export class TRAStatementListComponent implements OnInit {
     }
 
     /**
-     *
      * @param enquiry
      */
     onSelect(traStatement: any): void {
         this.selectedTRAStatement = traStatement;
         this._service.selectedTRAStatement.next(this.selectedTRAStatement);
+    }
+
+    /**
+     * getFileURL()
+     * @param fileReference 
+     */
+    getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
+    }
+
+    /**
+     * getDocumentType()
+     * @param documentType 
+     */
+    getDocumentType(documentType: string): string {
+        const filtered = LoanMonitoringConstants.documentTypes.filter(obj => obj.code === documentType);
+        return filtered[0].value;    
     }
 }

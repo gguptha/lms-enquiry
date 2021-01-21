@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.monitoring.lfa.*;
 import pfs.lms.enquiry.monitoring.lie.*;
+import pfs.lms.enquiry.monitoring.tra.*;
 import pfs.lms.enquiry.repository.*;
 import pfs.lms.enquiry.resource.*;
 import pfs.lms.enquiry.service.ILoanMonitoringService;
@@ -396,7 +397,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingTrustRetentionAccountStatement.setPeriodQuarter(resource.getTrustRetentionAccountStatement().getPeriodQuarter());
         existingTrustRetentionAccountStatement.setPeriodYear(resource.getTrustRetentionAccountStatement().getPeriodYear());
         existingTrustRetentionAccountStatement.setDocumentType(resource.getTrustRetentionAccountStatement().getDocumentType());
-        existingTrustRetentionAccountStatement.setDocumentContent(resource.getTrustRetentionAccountStatement().getDocumentContent());
+        existingTrustRetentionAccountStatement.setFileReference(resource.getTrustRetentionAccountStatement().getFileReference());
         existingTrustRetentionAccountStatement = traStatementRepository.save(existingTrustRetentionAccountStatement);
 
         return existingTrustRetentionAccountStatement;
@@ -445,7 +446,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         termsAndConditions.setBorrowerRequestLetterDate(resource.getTermsAndConditionsModification().getBorrowerRequestLetterDate());
         termsAndConditions.setDateofIssueofAmendedSanctionLetter(resource.getTermsAndConditionsModification().getDateofIssueofAmendedSanctionLetter());
         termsAndConditions.setRemarks(resource.getTermsAndConditionsModification().getRemarks());
-        termsAndConditions.setDocumentContent(resource.getTermsAndConditionsModification().getDocumentContent());
+        termsAndConditions.setFileReference(resource.getTermsAndConditionsModification().getFileReference());
         termsAndConditions = termsAndConditionsRepository.save(termsAndConditions);
 
         return termsAndConditions;
@@ -463,7 +464,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingTermsAndConditionsModification.setBorrowerRequestLetterDate(resource.getTermsAndConditionsModification().getBorrowerRequestLetterDate());
         existingTermsAndConditionsModification.setDateofIssueofAmendedSanctionLetter(resource.getTermsAndConditionsModification().getDateofIssueofAmendedSanctionLetter());
         existingTermsAndConditionsModification.setRemarks(resource.getTermsAndConditionsModification().getRemarks());
-        existingTermsAndConditionsModification.setDocumentContent(resource.getTermsAndConditionsModification().getDocumentContent());
+        existingTermsAndConditionsModification.setFileReference(resource.getTermsAndConditionsModification().getFileReference());
         existingTermsAndConditionsModification = termsAndConditionsRepository.save(existingTermsAndConditionsModification);
 
         return existingTermsAndConditionsModification;

@@ -6,7 +6,7 @@ export class TRAStatementModel
     periodQuarter: string;
     periodYear: string;
     documentType: string;
-
+    fileReference: string;
     /**
      * constructor();
      * @param _traStatement 
@@ -19,5 +19,6 @@ export class TRAStatementModel
         this.periodQuarter = _traStatement.periodQuarter || '';
         this.periodYear = _traStatement.periodYear || '';
         this.documentType = _traStatement.documentType || '';
+        this.fileReference = _traStatement.fileReference || '';
     }
 }

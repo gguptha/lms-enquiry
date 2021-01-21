@@ -21,16 +21,10 @@ public class TermsAndConditionsModification extends AbstractEntity {
     private LoanMonitor loanMonitor;
 
     private String documentType;
-
     private String documentTitle;
-
     private String communication;
-
     private LocalDate borrowerRequestLetterDate;
-
     private LocalDate dateofIssueofAmendedSanctionLetter;
-
     private String remarks;
-
-    private Blob documentContent;
+    private String fileReference;
 }

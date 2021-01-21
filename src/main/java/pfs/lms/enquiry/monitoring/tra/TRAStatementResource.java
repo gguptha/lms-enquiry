@@ -1,9 +1,8 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.tra;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.TrustRetentionAccountStatement;
 
 @Data
 @Setter

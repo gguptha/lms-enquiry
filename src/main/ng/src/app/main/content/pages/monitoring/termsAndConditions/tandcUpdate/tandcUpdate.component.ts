@@ -51,7 +51,19 @@ export class TandCUpdateDialogComponent {
             remarks: [this.selectedTandC.remarks || ''],
             borrowerRequestLetterDate: [this.selectedTandC.borrowerRequestLetterDate || ''],
             dateofIssueofAmendedSanctionLetter: [this.selectedTandC.dateofIssueofAmendedSanctionLetter || ''],
+            file: ['']
         });
+    }
+
+    /**
+     * onFileSelect()
+     * @param event 
+     */
+    onFileSelect(event) {
+        if (event.target.files.length > 0) {
+            const file = event.target.files[0];
+            this.tandcUpdateForm.get('file').setValue(file);
+        }
     }
 
     /**
@@ -65,22 +77,68 @@ export class TandCUpdateDialogComponent {
             dt = new Date(tandc.dateofIssueofAmendedSanctionLetter);
             tandc.dateofIssueofAmendedSanctionLetter = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
             if (this._dialogData.operation === 'addT&C') {
-                this._loanMonitoringService.saveTandC(tandc, this._dialogData.loanApplicationId).subscribe(() => {
-                    this._matSnackBar.open('T&C added successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
-                });
+                if (this.tandcUpdateForm.get('file').value !== '') {
+                    var formData = new FormData();
+                    formData.append('file', this.tandcUpdateForm.get('file').value);      
+                    this._loanMonitoringService.uploadVaultDocument(formData).subscribe(
+                        (response) => {
+                            tandc.fileReference = response.fileReference;
+                            this._loanMonitoringService.saveTandC(tandc, this._dialogData.loanApplicationId).subscribe(() => {
+                                this._matSnackBar.open('T&C added successfully.', 'OK', { duration: 7000 });
+                                this._dialogRef.close({ 'refresh': true });
+                            });
+                        },
+                        (error) => {
+                            this._matSnackBar.open('Unable to upload the file. Pls try again after sometime or contact your system administrator', 
+                                'OK', { duration: 7000 });
+                        }
+                    );
+                }
+                else
+                {
+                    this._loanMonitoringService.saveTandC(tandc, this._dialogData.loanApplicationId).subscribe(() => {
+                        this._matSnackBar.open('T&C added successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });
+                }
             }
             else {
-                this.selectedTandC.documentType  = tandc.documentType;
-                this.selectedTandC.documentTitle  = tandc.documentTitle;
-                this.selectedTandC.communication  = tandc.communication;
-                this.selectedTandC.borrowerRequestLetterDate  = tandc.borrowerRequestLetterDate;
-                this.selectedTandC.dateofIssueofAmendedSanctionLetter  = tandc.dateofIssueofAmendedSanctionLetter;
-                this.selectedTandC.remarks  = tandc.remarks;
-                this._loanMonitoringService.updateTandC(this.selectedTandC).subscribe(() => {
-                    this._matSnackBar.open('T&C updated successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
-                });            
+                if (this.tandcUpdateForm.get('file').value !== '') {
+                    var formData = new FormData();
+                    formData.append('file', this.tandcUpdateForm.get('file').value);      
+                    this._loanMonitoringService.uploadVaultDocument(formData).subscribe(
+                        (response) => {
+                            this.selectedTandC.documentType  = tandc.documentType;
+                            this.selectedTandC.documentTitle  = tandc.documentTitle;
+                            this.selectedTandC.communication  = tandc.communication;
+                            this.selectedTandC.borrowerRequestLetterDate  = tandc.borrowerRequestLetterDate;
+                            this.selectedTandC.dateofIssueofAmendedSanctionLetter  = tandc.dateofIssueofAmendedSanctionLetter;
+                            this.selectedTandC.remarks  = tandc.remarks;
+                            this.selectedTandC.fileReference = response.fileReference;
+                            this._loanMonitoringService.updateTandC(this.selectedTandC).subscribe(() => {
+                                this._matSnackBar.open('T&C updated successfully.', 'OK', { duration: 7000 });
+                                this._dialogRef.close({ 'refresh': true });
+                            });            
+                        },
+                        (error) => {
+                            this._matSnackBar.open('Unable to upload the file. Pls try again after sometime or contact your system administrator', 
+                                'OK', { duration: 7000 });
+                        }
+                    );
+                }
+                else
+                {
+                    this.selectedTandC.documentType  = tandc.documentType;
+                    this.selectedTandC.documentTitle  = tandc.documentTitle;
+                    this.selectedTandC.communication  = tandc.communication;
+                    this.selectedTandC.borrowerRequestLetterDate  = tandc.borrowerRequestLetterDate;
+                    this.selectedTandC.dateofIssueofAmendedSanctionLetter  = tandc.dateofIssueofAmendedSanctionLetter;
+                    this.selectedTandC.remarks  = tandc.remarks;
+                    this._loanMonitoringService.updateTandC(this.selectedTandC).subscribe(() => {
+                        this._matSnackBar.open('T&C updated successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });            
+                }
             }
         }
     }

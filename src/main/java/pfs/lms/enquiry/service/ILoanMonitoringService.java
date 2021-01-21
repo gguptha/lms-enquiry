@@ -6,6 +6,10 @@ import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAResource;
 import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
 import pfs.lms.enquiry.monitoring.lie.*;
+import pfs.lms.enquiry.monitoring.tra.TRAResource;
+import pfs.lms.enquiry.monitoring.tra.TRAStatementResource;
+import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccount;
+import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccountStatement;
 import pfs.lms.enquiry.resource.*;
 
 import java.util.List;

@@ -1,9 +1,6 @@
-package pfs.lms.enquiry.repository;
+package pfs.lms.enquiry.monitoring.tra;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pfs.lms.enquiry.domain.LoanMonitor;
-import pfs.lms.enquiry.domain.TrustRetentionAccount;
-import pfs.lms.enquiry.domain.TrustRetentionAccountStatement;
 
 import java.util.List;
 

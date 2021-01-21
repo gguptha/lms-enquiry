@@ -7,6 +7,7 @@ export class TandCModel
     borrowerRequestLetterDate: Date;
     dateofIssueofAmendedSanctionLetter: Date;
     remarks: string;
+    fileReference: string;
 
     /**
      * constructor();
@@ -21,6 +22,6 @@ export class TandCModel
         this.borrowerRequestLetterDate = _tandc.borrowerRequestLetterDate || undefined;
         this.dateofIssueofAmendedSanctionLetter = _tandc.dateofIssueofAmendedSanctionLetter || undefined;
         this.remarks = _tandc.remarks || '';
+        this.fileReference = _tandc.fileReference || '';
     }
 }
- 

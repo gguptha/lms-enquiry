@@ -6,7 +6,7 @@
         <ng-container matColumnDef="documentType">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Document Type</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.trustRetentionAccountStatement.documentType }}</p>
+                <p class="text-truncate">{{ getDocumentType(obj.trustRetentionAccountStatement.documentType) }}</p>
             </mat-cell>
         </ng-container>
 
@@ -34,11 +34,12 @@
             </mat-cell>
         </ng-container>
 
-        <!-- document Column -->
-        <ng-container matColumnDef="document">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >Document</mat-header-cell>
+        <!-- download Column -->
+        <ng-container matColumnDef="download">
+            <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate"></p>
+                <a [href]="getFileURL(obj.trustRetentionAccountStatement.fileReference)" 
+                        *ngIf="obj.trustRetentionAccountStatement.fileReference !== ''">Download</a>
             </mat-cell>
         </ng-container>
               

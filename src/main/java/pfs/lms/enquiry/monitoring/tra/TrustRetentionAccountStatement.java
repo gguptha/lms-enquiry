@@ -1,6 +1,7 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.tra;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,14 +21,9 @@ public class    TrustRetentionAccountStatement extends AbstractEntity {
     private TrustRetentionAccount trustRetentionAccount;
 
     private String viewRights;
-
     private String remarks;
-
     private String periodQuarter;
-
     private String periodYear;
-
     private String documentType;
-
-    private Blob documentContent;
+    private String fileReference;
 }
