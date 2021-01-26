@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAResource;

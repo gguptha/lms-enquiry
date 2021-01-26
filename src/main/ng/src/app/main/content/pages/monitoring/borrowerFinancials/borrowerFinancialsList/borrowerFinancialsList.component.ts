@@ -21,7 +21,7 @@ export class BorrowerFinancialsListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'fiscalYear', 'turnover', 'pat','netWorth', 'overAllRating'
+        'fiscalYear', 'turnover', 'pat','netWorth', 'overAllRating', 'pdfAnnualReport', 'pdfRating'
     ];
 
     selectedFinancials: any;
@@ -42,6 +42,14 @@ export class BorrowerFinancialsListComponent implements OnInit {
          * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
          */
         this.dataSource.sort = this.sort;
+    }
+
+    /**
+     * getFileURL()
+     * @param fileReference 
+     */
+    getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
     }
 
     /**

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { BorrowerFinancialsModel } from 'app/main/content/model/borrowerFinancials.model';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
     selector: 'fuse-borrower-financials-update-dialog',
@@ -48,9 +49,31 @@ export class BorrowerFinancialsUpdateDialogComponent {
             dateOfExternalRating: [this.selectedFinancials.dateOfExternalRating || ''],
             nextDueDateOfExternalRating: [this.selectedFinancials.nextDueDateOfExternalRating || ''],
             overAllRating: [this.selectedFinancials.overAllRating || ''],
-            // documentContentAnnualReturn: [this.selectedFinancials.documentContentAnnualReturn || ''],
-            // documentContentRating: [this.selectedFinancials.documentContentRating || '']
+            annualReturnFile: [''],
+            ratingFile: ['']
         });
+    }
+
+    /**
+     * onAnnualReturnDocument()
+     * @param event 
+     */
+    onAnnualReturnDocument(event) {
+        if (event.target.files.length > 0) {
+            const file = event.target.files[0];
+            this.financialsUpdateForm.get('annualReturnFile').setValue(file);
+        }
+    }
+    
+    /**
+     * onRatingDocument()
+     * @param event 
+     */
+    onRatingDocument(event) {
+        if (event.target.files.length > 0) {
+            const file = event.target.files[0];
+            this.financialsUpdateForm.get('ratingFile').setValue(file);
+        }
     }
 
     /**
@@ -60,25 +83,45 @@ export class BorrowerFinancialsUpdateDialogComponent {
         if (this.financialsUpdateForm.valid) {
             var financials: BorrowerFinancialsModel = new BorrowerFinancialsModel(this.financialsUpdateForm.value);
             if (this._dialogData.operation === 'addFinancials') {
-                this._loanMonitoringService.saveBorrowerFinancials(financials, this._dialogData.loanApplicationId).subscribe(() => {
-                    this._matSnackBar.open('Borrower Financial details added successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
+                const uploads = Observable.forkJoin(
+                    this._loanMonitoringService.uploadDocument(this.financialsUpdateForm.get('annualReturnFile').value),
+                    this._loanMonitoringService.uploadDocument(this.financialsUpdateForm.get('ratingFile').value)
+                );
+                uploads.subscribe(([res1, res2]) => {
+                    console.log(res1, res2);
+                    financials.annualReturnFileReference = res1.fileReference;
+                    financials.ratingFileReference = res2.fileReference;
+                    this._loanMonitoringService.saveBorrowerFinancials(financials, this._dialogData.loanApplicationId).subscribe(() => {
+                        this._matSnackBar.open('Borrower Financial details added successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });
                 });
             }
             else {
-                this.selectedFinancials.fiscalYear = financials.fiscalYear;
-                this.selectedFinancials.turnover = financials.turnover;
-                this.selectedFinancials.pat = financials.pat;
-                this.selectedFinancials.netWorth = financials.netWorth;
-                this.selectedFinancials.dateOfExternalRating = financials.dateOfExternalRating;
-                this.selectedFinancials.nextDueDateOfExternalRating = financials.nextDueDateOfExternalRating;
-                this.selectedFinancials.overAllRating = financials.overAllRating;
-                // this.selectedFinancials.documentContentAnnualReturn = financials.documentContentAnnualReturn;
-                // this.selectedFinancials.documentContentRating = financials.documentContentRating;
-                this._loanMonitoringService.updateBorrowerFinancials(this.selectedFinancials).subscribe(() => {
-                    this._matSnackBar.open('Borrower Financial details updated successfully.', 'OK', { duration: 7000 });
-                    this._dialogRef.close({ 'refresh': true });
-                });            
+                const uploads = Observable.forkJoin(
+                    this._loanMonitoringService.uploadDocument(this.financialsUpdateForm.get('annualReturnFile').value),
+                    this._loanMonitoringService.uploadDocument(this.financialsUpdateForm.get('ratingFile').value)
+                );
+                uploads.subscribe(([res1, res2]) => {
+                    console.log(res1, res2);
+                    if (res1.fileReference !== '') {
+                        this.selectedFinancials.annualReturnFileReference = res1.fileReference;
+                    }
+                    if (res2.fileReference !== '') {
+                        this.selectedFinancials.ratingFileReference = res2.fileReference;
+                    }
+                    this.selectedFinancials.fiscalYear = financials.fiscalYear;
+                    this.selectedFinancials.turnover = financials.turnover;
+                    this.selectedFinancials.pat = financials.pat;
+                    this.selectedFinancials.netWorth = financials.netWorth;
+                    this.selectedFinancials.dateOfExternalRating = financials.dateOfExternalRating;
+                    this.selectedFinancials.nextDueDateOfExternalRating = financials.nextDueDateOfExternalRating;
+                    this.selectedFinancials.overAllRating = financials.overAllRating;
+                    this._loanMonitoringService.updateBorrowerFinancials(this.selectedFinancials).subscribe(() => {
+                        this._matSnackBar.open('Borrower Financial details updated successfully.', 'OK', { duration: 7000 });
+                        this._dialogRef.close({ 'refresh': true });
+                    });            
+                });
             }
         }
     }

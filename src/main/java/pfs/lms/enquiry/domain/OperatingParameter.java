@@ -21,36 +21,20 @@ public class OperatingParameter extends AbstractEntity {
     private LoanMonitor loanMonitor;
 
     private Integer serialNumber;
-
     private String month;
-
     private Integer year;
-
     private Double exportNetGeneration; //(Million Units)
-
     private Double plfCufActual; // (%age)
-
     private Double applicableTariff; // (Rs / Unit)
-
     private Double revenue; // (Rs in Lakhs)
-
     private LocalDate dateOfInvoice;
-
     private LocalDate dateOfPaymentReceipt;
-
     private Double carbonDioxideEmission; // (Tonnes)
-
     private Double waterSaved;
-
     private String remarks;
-
     private String designPlfCuf;
-
     private String actualYearlyAveragePlfCuf;
-
     private String documentType;
-
     private String documentTitle;
-
-    private Blob documentContent;
+    private String fileReference;
 }

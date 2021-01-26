@@ -42,6 +42,22 @@
             </mat-cell>
         </ng-container>
 
+        <!-- pdfAnnualReport Column -->
+        <ng-container matColumnDef="pdfAnnualReport">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >PDF Annual Report</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <a [href]="getFileURL(obj.borrowerFinancials.annualReturnFileReference)" *ngIf="obj.borrowerFinancials.annualReturnFileReference !== ''">Download</a>
+            </mat-cell>
+        </ng-container>
+        
+        <!-- pdfRating Column -->
+        <ng-container matColumnDef="pdfRating">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >PDF Rating</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <a [href]="getFileURL(obj.borrowerFinancials.ratingFileReference)" *ngIf="obj.borrowerFinancials.ratingFileReference !== ''">Download</a>
+            </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         
         <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.borrowerFinancials)"

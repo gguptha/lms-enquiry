@@ -1,6 +1,7 @@
 package pfs.lms.enquiry.domain;
 
 import lombok.*;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
 
 import javax.persistence.*;
 import java.sql.Blob;

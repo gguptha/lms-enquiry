@@ -1,6 +1,8 @@
 package pfs.lms.enquiry.service;
 
 import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAResource;

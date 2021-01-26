@@ -5,6 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.*;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsRepository;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsResource;
 import pfs.lms.enquiry.monitoring.lfa.*;
 import pfs.lms.enquiry.monitoring.lie.*;
 import pfs.lms.enquiry.monitoring.tra.*;
@@ -660,25 +663,25 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         OperatingParameter operatingParameter = resource.getOperatingParameter();
         operatingParameter.setLoanMonitor(loanMonitor);
-        operatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
-        operatingParameter.setMonth(resource.getOperatingParameter().getMonth());
-        operatingParameter.setYear(resource.getOperatingParameter().getYear());
-        operatingParameter.setExportNetGeneration(resource.getOperatingParameter().getExportNetGeneration());
-        operatingParameter.setPlfCufActual(resource.getOperatingParameter().getPlfCufActual());
-        operatingParameter.setApplicableTariff(resource.getOperatingParameter().getApplicableTariff());
-        operatingParameter.setRevenue(resource.getOperatingParameter().getRevenue());
-        operatingParameter.setDateOfInvoice(resource.getOperatingParameter().getDateOfInvoice());
-        operatingParameter.setDateOfPaymentReceipt(resource.getOperatingParameter().getDateOfPaymentReceipt());
-        operatingParameter.setCarbonDioxideEmission(resource.getOperatingParameter().getCarbonDioxideEmission());
-        operatingParameter.setWaterSaved(resource.getOperatingParameter().getWaterSaved());
-        operatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
-        operatingParameter.setDesignPlfCuf(resource.getOperatingParameter().getDesignPlfCuf());
-        operatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
-
-        operatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
-        operatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
-
-        operatingParameter.setDocumentContent(resource.getOperatingParameter().getDocumentContent());
+//        operatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
+//        operatingParameter.setMonth(resource.getOperatingParameter().getMonth());
+//        operatingParameter.setYear(resource.getOperatingParameter().getYear());
+//        operatingParameter.setExportNetGeneration(resource.getOperatingParameter().getExportNetGeneration());
+//        operatingParameter.setPlfCufActual(resource.getOperatingParameter().getPlfCufActual());
+//        operatingParameter.setApplicableTariff(resource.getOperatingParameter().getApplicableTariff());
+//        operatingParameter.setRevenue(resource.getOperatingParameter().getRevenue());
+//        operatingParameter.setDateOfInvoice(resource.getOperatingParameter().getDateOfInvoice());
+//        operatingParameter.setDateOfPaymentReceipt(resource.getOperatingParameter().getDateOfPaymentReceipt());
+//        operatingParameter.setCarbonDioxideEmission(resource.getOperatingParameter().getCarbonDioxideEmission());
+//        operatingParameter.setWaterSaved(resource.getOperatingParameter().getWaterSaved());
+//        operatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
+//        operatingParameter.setDesignPlfCuf(resource.getOperatingParameter().getDesignPlfCuf());
+//        operatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
+//
+//        operatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
+//        operatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
+//
+//        operatingParameter.setDocumentContent(resource.getOperatingParameter().getDocumentContent());
         operatingParameter = operatingParameterRepository.save(operatingParameter);
 
         return operatingParameter;
@@ -709,7 +712,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingOperatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
         existingOperatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
 
-        existingOperatingParameter.setDocumentContent(resource.getOperatingParameter().getDocumentContent());
+        existingOperatingParameter.setFileReference(resource.getOperatingParameter().getFileReference());
 
         return existingOperatingParameter;
 
@@ -825,8 +828,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         borrowerFinancials.setDateOfExternalRating(resource.getBorrowerFinancials().getDateOfExternalRating());
         borrowerFinancials.setNextDueDateOfExternalRating(resource.getBorrowerFinancials().getNextDueDateOfExternalRating());
         borrowerFinancials.setOverAllRating(resource.getBorrowerFinancials().getOverAllRating());
-        borrowerFinancials.setDocumentContentAnnualReturn(resource.getBorrowerFinancials().getDocumentContentAnnualReturn());
-        borrowerFinancials.setDocumentContentRating(resource.getBorrowerFinancials().getDocumentContentRating());
+        borrowerFinancials.setAnnualReturnFileReference(resource.getBorrowerFinancials().getAnnualReturnFileReference());
+        borrowerFinancials.setRatingFileReference(resource.getBorrowerFinancials().getRatingFileReference());
         borrowerFinancials = borrowerFinancialsRepository.save(borrowerFinancials);
         return borrowerFinancials;
 
@@ -844,8 +847,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingBorrowerFinancials.setDateOfExternalRating(resource.getBorrowerFinancials().getDateOfExternalRating());
         existingBorrowerFinancials.setNextDueDateOfExternalRating(resource.getBorrowerFinancials().getNextDueDateOfExternalRating());
         existingBorrowerFinancials.setOverAllRating(resource.getBorrowerFinancials().getOverAllRating());
-        existingBorrowerFinancials.setDocumentContentAnnualReturn(resource.getBorrowerFinancials().getDocumentContentAnnualReturn());
-        existingBorrowerFinancials.setDocumentContentRating(resource.getBorrowerFinancials().getDocumentContentRating());
+        existingBorrowerFinancials.setAnnualReturnFileReference(resource.getBorrowerFinancials().getAnnualReturnFileReference());
+        existingBorrowerFinancials.setRatingFileReference(resource.getBorrowerFinancials().getRatingFileReference());
         existingBorrowerFinancials = borrowerFinancialsRepository.save(existingBorrowerFinancials);
         return existingBorrowerFinancials;
 

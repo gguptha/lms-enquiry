@@ -265,4 +265,18 @@ export class LoanMonitoringService {
     public uploadVaultDocument(file: FormData): Observable<any> {
         return this._http.post('enquiry/api/upload', file);
     }
+
+    public uploadDocument(file: any): Observable<any> {
+        if (file !== '') {
+            var formData = new FormData();
+            formData.append('file', file);
+            return this._http.post('enquiry/api/upload', formData);
+        }
+        else {
+            return new Observable((observer) => {
+                observer.next({'fileReference': ''});
+                observer.complete();
+            })
+        }
+    }
 }

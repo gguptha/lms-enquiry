@@ -1,9 +1,8 @@
-package pfs.lms.enquiry.repository;
+package pfs.lms.enquiry.monitoring.borrowerfinancials;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pfs.lms.enquiry.domain.BorrowerFinancials;
+import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
 import pfs.lms.enquiry.domain.LoanMonitor;
-import pfs.lms.enquiry.domain.SiteVisit;
 
 import java.util.List;
 
