@@ -3,7 +3,6 @@ package pfs.lms.enquiry.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.domain.PromoterDetails;
-import pfs.lms.enquiry.domain.PromoterFinancials;
 
 import java.util.List;
 

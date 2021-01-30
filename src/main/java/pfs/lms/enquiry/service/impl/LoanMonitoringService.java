@@ -10,6 +10,12 @@ import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsRepositor
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsResource;
 import pfs.lms.enquiry.monitoring.lfa.*;
 import pfs.lms.enquiry.monitoring.lie.*;
+import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameter;
+import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterRepository;
+import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterResource;
+import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancials;
+import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsRepository;
+import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsResource;
 import pfs.lms.enquiry.monitoring.tra.*;
 import pfs.lms.enquiry.repository.*;
 import pfs.lms.enquiry.resource.*;
@@ -898,8 +904,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         promoterFinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
         promoterFinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
         promoterFinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
-        promoterFinancials.setDocumentContentAnnualReturn(resource.getPromoterFinancials().getDocumentContentAnnualReturn());
-        promoterFinancials.setDocumentContentRating(resource.getPromoterFinancials().getDocumentContentRating());
+        promoterFinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
+        promoterFinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
         promoterFinancials = promoterFinancialsRepository.save(promoterFinancials);
         return promoterFinancials;
 
@@ -917,8 +923,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingPromoterFinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
         existingPromoterFinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
         existingPromoterFinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
-        existingPromoterFinancials.setDocumentContentAnnualReturn(resource.getPromoterFinancials().getDocumentContentAnnualReturn());
-        existingPromoterFinancials.setDocumentContentRating(resource.getPromoterFinancials().getDocumentContentRating());
+        existingPromoterFinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
+        existingPromoterFinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
         existingPromoterFinancials = promoterFinancialsRepository.save(existingPromoterFinancials);
         return existingPromoterFinancials;
 

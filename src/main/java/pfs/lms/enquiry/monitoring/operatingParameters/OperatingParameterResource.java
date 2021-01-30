@@ -1,9 +1,8 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.operatingParameters;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.PromoterFinancials;
 
 import java.util.UUID;
 
@@ -14,8 +13,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
-public class PromoterFinancialsResource {
+public class OperatingParameterResource {
 
     private UUID loanApplicationId;
-    private PromoterFinancials promoterFinancials;
+    private OperatingParameter operatingParameter;
 }

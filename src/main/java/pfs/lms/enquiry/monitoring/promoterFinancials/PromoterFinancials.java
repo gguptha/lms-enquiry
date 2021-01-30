@@ -1,6 +1,8 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.promoterFinancials;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
+import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
 
 import javax.persistence.*;
@@ -28,9 +30,7 @@ public class PromoterFinancials extends AbstractEntity {
     private Double netWorth;
     private LocalDate dateOfExternalRating;
     private LocalDate nextDueDateOfExternalRating;
-
     private String overAllRating;
-    private Blob documentContentAnnualReturn;
-    private Blob documentContentRating;
-
+    private String annualReturnFileReference;
+    private String ratingFileReference;
 }

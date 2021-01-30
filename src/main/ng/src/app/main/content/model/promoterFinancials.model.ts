@@ -8,6 +8,8 @@ export class PromoterFinancialsModel {
     dateOfExternalRating: Date;
     nextDueDateOfExternalRating: Date;
     overAllRating: string;
+    annualReturnFileReference: string;
+    ratingFileReference: string;
 
     /**
      * constructor()
@@ -23,5 +25,7 @@ export class PromoterFinancialsModel {
         this.dateOfExternalRating = _promoterFinancialsDetails.dateOfExternalRating || undefined;
         this.nextDueDateOfExternalRating = _promoterFinancialsDetails.nextDueDateOfExternalRating || undefined;
         this.overAllRating = _promoterFinancialsDetails.overAllRating || '';
+        this.annualReturnFileReference = _promoterFinancialsDetails.annualReturnFileReference || '';
+        this.ratingFileReference = _promoterFinancialsDetails.ratingFileReference || '';
     }
 }

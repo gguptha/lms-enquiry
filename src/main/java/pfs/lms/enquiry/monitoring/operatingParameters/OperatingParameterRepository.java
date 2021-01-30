@@ -1,9 +1,7 @@
-package pfs.lms.enquiry.repository;
+package pfs.lms.enquiry.monitoring.operatingParameters;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pfs.lms.enquiry.domain.LoanMonitor;
-import pfs.lms.enquiry.domain.OperatingParameter;
-import pfs.lms.enquiry.domain.SiteVisit;
 
 import java.util.List;
 

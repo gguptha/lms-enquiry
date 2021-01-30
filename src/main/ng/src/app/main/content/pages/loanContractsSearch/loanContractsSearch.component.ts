@@ -24,6 +24,7 @@ export class LoanContractsSearchComponent {
 
     expandPanel = true;
 
+    accountStatuses: Array<any>;
     loanClasses: Array<any>;
     financingTypes: Array<any>;
     projectTypes: Array<any>;
