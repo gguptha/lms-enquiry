@@ -36,7 +36,7 @@
 
         <!-- contractPeriodFrom Column -->
         <ng-container matColumnDef="contractPeriodFrom">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >Contract Period From</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Contract Period - From</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
                 <p class="text-truncate">{{ obj.lendersIndependentEngineer.contractPeriodFrom | date: 'dd/MM/yyyy' }}</p>
             </mat-cell>
@@ -44,7 +44,7 @@
 
         <!-- contractPeriodTo Column -->
         <ng-container matColumnDef="contractPeriodTo">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >Contract Period To</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Contract Period - To</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
                 <p class="text-truncate">{{ obj.lendersIndependentEngineer.contractPeriodTo | date: 'dd/MM/yyyy' }}</p>
             </mat-cell>
