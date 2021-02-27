@@ -6,6 +6,7 @@ import { LIEModel } from 'app/main/content/model/lie.model';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 import { LIEReportAndFeeModel } from 'app/main/content/model/lieReportAndFee.model';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-lie-report-fee-update-dialog',
@@ -52,10 +53,10 @@ export class LIEReportAndFeeUpdateDialogComponent {
 
         this.lieUpdateForm = _formBuilder.group({
             reportType: [this.selectedLIEReportAndFee.reportType],
-            dateOfReceipt: [this.selectedLIEReportAndFee.dateOfReceipt || ''],
+            dateOfReceipt: [this.selectedLIEReportAndFee.dateOfReceipt || ''], 
             invoiceDate: [this.selectedLIEReportAndFee.invoiceDate || ''],
             invoiceNo: [this.selectedLIEReportAndFee.invoiceNo],
-            feeAmount: [this.selectedLIEReportAndFee.feeAmount],
+            feeAmount: [this.selectedLIEReportAndFee.feeAmount, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             statusOfFeeReceipt: [this.selectedLIEReportAndFee.statusOfFeeReceipt],
             statusOfFeePaid: [this.selectedLIEReportAndFee.statusOfFeePaid],
             documentTitle: [this.selectedLIEReportAndFee.documentTitle],

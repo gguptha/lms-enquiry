@@ -46,12 +46,21 @@ export class LIEListComponent implements OnInit {
     }
 
     /**
-     *
+     * onSelect()
      * @param enquiry
      */
     onSelect(lie: any): void {
         console.log(lie);
         this.selectedLIE = lie;
         this._service.selectedLIE.next(this.selectedLIE);
+    }
+
+    /**
+     * getAdvisor()
+     * @param lie 
+     */
+    getAdvisor(lie: any): string {
+        // if lie.advisor == xxxx
+        return 'LIE';
     }
 }

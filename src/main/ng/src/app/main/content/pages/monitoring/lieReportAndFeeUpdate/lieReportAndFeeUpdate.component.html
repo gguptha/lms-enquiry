@@ -20,7 +20,7 @@
                 </mat-form-field> 
 
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Invoice Number" formControlName="invoiceNo" required>
+                    <input matInput placeholder="Invoice Number" formControlName="invoiceNo" maxlength="20" required>
                 </mat-form-field>
             </div>
             <div fxLayout="row" class="mt-16">
@@ -52,7 +52,7 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Document Title" formControlName="documentTitle">          
+                    <input matInput placeholder="Document Title" maxlength="20" formControlName="documentTitle">          
                 </mat-form-field>
 
                 <mat-form-field fxFlex="50">

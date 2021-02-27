@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 import { LFAModel } from 'app/main/content/model/lfa.model';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
 
 @Component({
     selector: 'fuse-lfa-update-dialog',
@@ -19,6 +21,8 @@ export class LFAUpdateDialogComponent {
     selectedLFA: LFAModel;
 
     lfaUpdateForm: FormGroup;
+
+    businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
 
     /**
      * constructor()
@@ -47,7 +51,7 @@ export class LFAUpdateDialogComponent {
             contactPerson: [this.selectedLFA.contactPerson],
             contractPeriodFrom: [this.selectedLFA.contractPeriodFrom || ''],
             contractPeriodTo: [this.selectedLFA.contractPeriodTo || ''],
-            email: [this.selectedLFA.email]
+            email: [this.selectedLFA.email, [Validators.pattern(EnquiryApplicationRegEx.email)]]
         });
     }
 
@@ -87,6 +91,15 @@ export class LFAUpdateDialogComponent {
         }
     }
 
+
+    /**
+     * getBPDescription()
+     * @param bpCode 
+     */
+    getBPDescription(bpCode: any): string {
+        return bpCode.RoleCode + ' - ' + bpCode.RoleDescription;
+    }
+    
     /**
      * closeClick()
      */

@@ -6,7 +6,8 @@ import {
   MatExpansionModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatTableModule, MatSortModule,
   MatPaginatorModule, MatToolbarModule, MatIconModule, MatSelectModule, MatProgressSpinnerModule, MatDatepickerModule,
   MatTabsModule,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  DateAdapter
 } from '@angular/material';
 import { LoanMonitoringComponent } from './loanMonitoring.component';
 import { EnquiryApplicationRouteGuard } from 'app/enquiryApplication.guard';
@@ -40,6 +41,8 @@ import { FinancialCovenantsListComponent } from './financialCovenants/financialC
 import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/financialCovenantsUpdate/financialCovenantsUpdate.component';
 import { PromoterDetailsUpdateDialogComponent } from './promoterDetails/promoterDetailsUpdate/promoterDetailsUpdate.component';
 import { PromoterDetailsItemListComponent } from './promoterDetails/promoterDetailsList/promoterDetailsList.component';
+import { MAT_DATE_FORMATS } from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 const routes = [
     {
@@ -49,6 +52,18 @@ const routes = [
         ]
     }
 ];
+
+const MY_FORMATS = {
+    parse: {
+        dateInput: ['DD/MM/YYYY'],
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 @NgModule({
     imports: [
@@ -106,7 +121,9 @@ const routes = [
         {
             provide: MAT_DATE_LOCALE,
             useValue: 'en-in'
-        }
+        },
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}
     ],
     exports: [
         LoanMonitoringComponent,

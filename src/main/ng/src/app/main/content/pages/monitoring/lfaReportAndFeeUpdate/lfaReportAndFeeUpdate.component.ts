@@ -6,6 +6,7 @@ import { LoanMonitoringService } from '../loanMonitoring.service';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { LFAModel } from 'app/main/content/model/lfa.model';
 import { LFAReportAndFeeModel } from 'app/main/content/model/lfaReportAndFee.model';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-lfa-report-fee-update-dialog',
@@ -55,7 +56,7 @@ export class LFAReportAndFeeUpdateDialogComponent {
             dateOfReceipt: [this.selectedLFAReportAndFee.dateOfReceipt || ''],
             invoiceDate: [this.selectedLFAReportAndFee.invoiceDate || ''],
             invoiceNo: [this.selectedLFAReportAndFee.invoiceNo],
-            feeAmount: [this.selectedLFAReportAndFee.feeAmount],
+            feeAmount: [this.selectedLFAReportAndFee.feeAmount, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             statusOfFeeReceipt: [this.selectedLFAReportAndFee.statusOfFeeReceipt],
             statusOfFeePaid: [this.selectedLFAReportAndFee.statusOfFeePaid],
             documentTitle: [this.selectedLFAReportAndFee.documentTitle],

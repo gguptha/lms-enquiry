@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LIEModel } from 'app/main/content/model/lie.model';
 import { LoanMonitoringService } from '../loanMonitoring.service';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
 
 @Component({
     selector: 'fuse-lie-update-dialog',
@@ -20,6 +22,8 @@ export class LIEUpdateDialogComponent {
 
     lieUpdateForm: FormGroup;
 
+    businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
+    
     /**
      * constructor()
      * @param _formBuilder 
@@ -47,8 +51,8 @@ export class LIEUpdateDialogComponent {
             contactPerson: [this.selectedLIE.contactPerson],
             contractPeriodFrom: [this.selectedLIE.contractPeriodFrom || ''],
             contractPeriodTo: [this.selectedLIE.contractPeriodTo || ''],
-            email: [this.selectedLIE.email]
-        });
+            email: [this.selectedLIE.email || '', [Validators.pattern(EnquiryApplicationRegEx.email)]]
+        }); 
     }
 
     /**
@@ -86,6 +90,14 @@ export class LIEUpdateDialogComponent {
                 });            
             }
         }
+    }
+
+    /**
+     * getBPDescription()
+     * @param bpCode 
+     */
+    getBPDescription(bpCode: any): string {
+        return bpCode.RoleCode + ' - ' + bpCode.RoleDescription;
     }
 
     /**

@@ -211,4 +211,379 @@ export class LoanMonitoringConstants {
         {code: "1" , value:"Permissible Limit"},
         {code: "2" , value:"Financial Year"}
     ];
+
+    static businessPartnerRoles = [
+        {
+            "RoleCode": "ZLM001",
+            "RoleDescription": "Promoter"
+        },
+        {
+            "RoleCode": "ZLM002",
+            "RoleDescription": "Lenders Financial Advisor"
+        },
+        {
+            "RoleCode": "ZLM003",
+            "RoleDescription": "Lenders Engineer"
+        },
+        {
+            "RoleCode": "ZLM004",
+            "RoleDescription": "Lenders Insurance Advisor"
+        },
+        {
+            "RoleCode": "ZLM005",
+            "RoleDescription": "Security Trustee"
+        },
+        {
+            "RoleCode": "ZLM006",
+            "RoleDescription": "Legal Counsel"
+        },
+        {
+            "RoleCode": "ZLM007",
+            "RoleDescription": "Loan underwriter"
+        },
+        {
+            "RoleCode": "ZLM008",
+            "RoleDescription": "Syndicate Partner"
+        },
+        {
+            "RoleCode": "ZLM009",
+            "RoleDescription": "Co-Security Trustee"
+        },
+        {
+            "RoleCode": "ZLM010",
+            "RoleDescription": "Co-Appraisal Officer"
+        },
+        {
+            "RoleCode": "ZLM011",
+            "RoleDescription": "TRA Banker"
+        },
+        {
+            "RoleCode": "ZLM012",
+            "RoleDescription": "Consultant"
+        },
+        {
+            "RoleCode": "ZLM013",
+            "RoleDescription": "Appraisal Officer"
+        },
+        {
+            "RoleCode": "ZLM014",
+            "RoleDescription": "PFS Relationship officer"
+        },
+        {
+            "RoleCode": "ZLM015",
+            "RoleDescription": "EPC contractor"
+        },
+        {
+            "RoleCode": "ZLM016",
+            "RoleDescription": "Co-Lender"
+        },
+        {
+            "RoleCode": "ZLM017",
+            "RoleDescription": "Customer-Empl(Supp&3rd Pa"
+        },
+        {
+            "RoleCode": "ZLM018",
+            "RoleDescription": "Nodal Officer-Legal"
+        },
+        {
+            "RoleCode": "ZLM019",
+            "RoleDescription": "Nodal Officer-Disb&Recov"
+        },
+        {
+            "RoleCode": "ZLM020",
+            "RoleDescription": "Lead Bank"
+        },
+        {
+            "RoleCode": "ZLM021",
+            "RoleDescription": "Employee(SuppServ&3rd pa)"
+        },
+        {
+            "RoleCode": "ZLM022",
+            "RoleDescription": "Loan DocumentationOfficer"
+        },
+        {
+            "RoleCode": "ZLM023",
+            "RoleDescription": "PFS IT Team"
+        },
+        {
+            "RoleCode": "ZLM024",
+            "RoleDescription": "Nodal Officer-Monitoring"
+        },
+        {
+            "RoleCode": "TR0100",
+            "RoleDescription": "Main Loan Partner"
+        },
+        {
+            "RoleCode": "TR0101",
+            "RoleDescription": "Co-Borrower"
+        },
+        {
+            "RoleCode": "TR0110",
+            "RoleDescription": "Prospect"
+        },
+        {
+            "RoleCode": "TR0113",
+            "RoleDescription": "Credit Standing Check"
+        },
+        {
+            "RoleCode": "TR0115",
+            "RoleDescription": "Special Arrangement"
+        },
+        {
+            "RoleCode": "TR0120",
+            "RoleDescription": "Cust. Authorized Drawer"
+        },
+        {
+            "RoleCode": "TR0121",
+            "RoleDescription": "Other Loan Partner"
+        },
+        {
+            "RoleCode": "TR0150",
+            "RoleDescription": "Issuer"
+        },
+        {
+            "RoleCode": "TR0151",
+            "RoleDescription": "Counterparty"
+        },
+        {
+            "RoleCode": "TR0152",
+            "RoleDescription": "Depository Bank"
+        },
+        {
+            "RoleCode": "TR0153",
+            "RoleDescription": "Paying Bank"
+        },
+        {
+            "RoleCode": "TR0154",
+            "RoleDescription": "Beneficiary"
+        },
+        {
+            "RoleCode": "TR0160",
+            "RoleDescription": "Ultimate Borrower"
+        },
+        {
+            "RoleCode": "TR0200",
+            "RoleDescription": "Guarantor"
+        },
+        {
+            "RoleCode": "TR0202",
+            "RoleDescription": "Alternative Payer"
+        },
+        {
+            "RoleCode": "TR0203",
+            "RoleDescription": "Collector"
+        },
+        {
+            "RoleCode": "TR0600",
+            "RoleDescription": "Master Tenant w.Cust.Acct"
+        },
+        {
+            "RoleCode": "TR0601",
+            "RoleDescription": "Tenant (w/o Cust.Account)"
+        },
+        {
+            "RoleCode": "TR0602",
+            "RoleDescription": "Landlord w.Vendor Account"
+        },
+        {
+            "RoleCode": "TR0603",
+            "RoleDescription": "Partner w. Customer Acct"
+        },
+        {
+            "RoleCode": "TR0604",
+            "RoleDescription": "Partner w. Vendor Account"
+        },
+        {
+            "RoleCode": "TR0605",
+            "RoleDescription": "Owner (Customer)"
+        },
+        {
+            "RoleCode": "TR0606",
+            "RoleDescription": "Manager w. Vendor Acct"
+        },
+        {
+            "RoleCode": "TR0610",
+            "RoleDescription": "Tenant Ext.Compar.Apartmt"
+        },
+        {
+            "RoleCode": "TR0622",
+            "RoleDescription": "Subsidizer"
+        },
+        {
+            "RoleCode": "TR0624",
+            "RoleDescription": "Subsidizer (w.Cust.Acct)"
+        },
+        {
+            "RoleCode": "TR0630",
+            "RoleDescription": "Court"
+        },
+        {
+            "RoleCode": "TR0635",
+            "RoleDescription": "State Central Bank"
+        },
+        {
+            "RoleCode": "TR0636",
+            "RoleDescription": "Bank for Rent Deposit"
+        },
+        {
+            "RoleCode": "TR0640",
+            "RoleDescription": "Applicant"
+        },
+        {
+            "RoleCode": "TR0641",
+            "RoleDescription": "Co-Applicant"
+        },
+        {
+            "RoleCode": "TR0645",
+            "RoleDescription": "Authorized Occupant"
+        },
+        {
+            "RoleCode": "TR0646",
+            "RoleDescription": "Auth. to Suggest Tenant"
+        },
+        {
+            "RoleCode": "TR0655",
+            "RoleDescription": "Guarantor"
+        },
+        {
+            "RoleCode": "TR0700",
+            "RoleDescription": "Policyholder"
+        },
+        {
+            "RoleCode": "TR0701",
+            "RoleDescription": "Insurer"
+        },
+        {
+            "RoleCode": "TR0702",
+            "RoleDescription": "Person Insured"
+        },
+        {
+            "RoleCode": "TR0703",
+            "RoleDescription": "Bank"
+        },
+        {
+            "RoleCode": "TR0704",
+            "RoleDescription": "Insurance Tracking Vendor"
+        },
+        {
+            "RoleCode": "TR0705",
+            "RoleDescription": "Payer"
+        },
+        {
+            "RoleCode": "TR0706",
+            "RoleDescription": "Insurance Company Agent"
+        },
+        {
+            "RoleCode": "TR0800",
+            "RoleDescription": "Owner"
+        },
+        {
+            "RoleCode": "TR0801",
+            "RoleDescription": "Broker"
+        },
+        {
+            "RoleCode": "TR0802",
+            "RoleDescription": "Notary"
+        },
+        {
+            "RoleCode": "TR0803",
+            "RoleDescription": "Property Developer"
+        },
+        {
+            "RoleCode": "TR0804",
+            "RoleDescription": "Primary Contractor"
+        },
+        {
+            "RoleCode": "TR0805",
+            "RoleDescription": "Primary Receiver"
+        },
+        {
+            "RoleCode": "TR0806",
+            "RoleDescription": "Administrator"
+        },
+        {
+            "RoleCode": "TR0807",
+            "RoleDescription": "Technology"
+        },
+        {
+            "RoleCode": "TR0808",
+            "RoleDescription": "Janitor"
+        },
+        {
+            "RoleCode": "TR0809",
+            "RoleDescription": "Architect"
+        },
+        {
+            "RoleCode": "TR0810",
+            "RoleDescription": "Land Registry"
+        },
+        {
+            "RoleCode": "TR0811",
+            "RoleDescription": "Legal Owner"
+        },
+        {
+            "RoleCode": "TR0812",
+            "RoleDescription": "Land Lease Right Holder"
+        },
+        {
+            "RoleCode": "TR0815",
+            "RoleDescription": "Appraiser"
+        },
+        {
+            "RoleCode": "TR0820",
+            "RoleDescription": "Survey Office"
+        },
+        {
+            "RoleCode": "TR0821",
+            "RoleDescription": "Tax Office"
+        },
+        {
+            "RoleCode": "TR0822",
+            "RoleDescription": "Creditor"
+        },
+        {
+            "RoleCode": "TR0823",
+            "RoleDescription": "Holder"
+        },
+        {
+            "RoleCode": "TR0824",
+            "RoleDescription": "Obligated Party"
+        },
+        {
+            "RoleCode": "TR0825",
+            "RoleDescription": "Special Role"
+        },
+        {
+            "RoleCode": "TR0850",
+            "RoleDescription": "Corresp. Partner (priv.)"
+        },
+        {
+            "RoleCode": "TR0860",
+            "RoleDescription": "Corresp. Partner (Bus.)"
+        },
+        {
+            "RoleCode": "TR0990",
+            "RoleDescription": "Loan Contract Officer"
+        },
+        {
+            "RoleCode": "TR0991",
+            "RoleDescription": "Loan Rollover Officer"
+        },
+        {
+            "RoleCode": "TR0992",
+            "RoleDescription": "Loan Accounting Officer"
+        },
+        {
+            "RoleCode": "TR0995",
+            "RoleDescription": "Loans Officer"
+        },
+        {
+            "RoleCode": "TR0997",
+            "RoleDescription": "SCS Clerk"
+        },
+        {
+            "RoleCode": "TR0998",
+            "RoleDescription": "Loans Administrator"
+        }
+    ]
 }
