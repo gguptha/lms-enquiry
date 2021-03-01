@@ -57,7 +57,7 @@ export class SecurityComplianceUpdateDialogComponent {
             timelines: [this.selectedSecurityCompliance.timelines],
             applicability: [this.selectedSecurityCompliance.applicability],
             dateOfCreation: [this.selectedSecurityCompliance.dateOfCreation || ''],
-            value: [this.selectedSecurityCompliance.value],
+            value: [this.selectedSecurityCompliance.value, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             validityDate: [this.selectedSecurityCompliance.validityDate || ''],
             securityPerfectionDate: [this.selectedSecurityCompliance.securityPerfectionDate || ''],
             actionPeriod: [this.selectedSecurityCompliance.actionPeriod],
@@ -69,10 +69,10 @@ export class SecurityComplianceUpdateDialogComponent {
             remarks: [this.selectedSecurityCompliance.remarks],
             location: [this.selectedSecurityCompliance.location],
             additionalText: [this.selectedSecurityCompliance.additionalText],
-            realEstateLandArea: [this.selectedSecurityCompliance.realEstateLandArea, , [Validators.pattern(MonitoringRegEx.digitsOnly)]],
+            realEstateLandArea: [this.selectedSecurityCompliance.realEstateLandArea, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             areaUnitOfMeasure: [this.selectedSecurityCompliance.areaUnitOfMeasure],
             securityNoOfUnits: [this.selectedSecurityCompliance.securityNoOfUnits, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
-            securityFaceValueAmount: [this.selectedSecurityCompliance.securityFaceValueAmount],
+            securityFaceValueAmount: [this.selectedSecurityCompliance.securityFaceValueAmount, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             holdingPercentage: [this.selectedSecurityCompliance.holdingPercentage, [Validators.pattern(MonitoringRegEx.holdingPercentage)]]
         });
     }

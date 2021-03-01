@@ -44,9 +44,9 @@ export class BorrowerFinancialsUpdateDialogComponent {
 
         this.financialsUpdateForm = _formBuilder.group({
             fiscalYear: [this.selectedFinancials.fiscalYear || '', [Validators.pattern(MonitoringRegEx.digitsOnly)]],
-            turnover: [this.selectedFinancials.turnover || 0],
-            pat: [this.selectedFinancials.pat || 0],
-            netWorth: [this.selectedFinancials.netWorth || 0],
+            turnover: [this.selectedFinancials.turnover || 0, [Validators.pattern(MonitoringRegEx.genericAmount)]],
+            pat: [this.selectedFinancials.pat || 0, [Validators.pattern(MonitoringRegEx.genericAmount)]],
+            netWorth: [this.selectedFinancials.netWorth || 0, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             dateOfExternalRating: [this.selectedFinancials.dateOfExternalRating || ''],
             nextDueDateOfExternalRating: [this.selectedFinancials.nextDueDateOfExternalRating || ''],
             overAllRating: [this.selectedFinancials.overAllRating || ''],

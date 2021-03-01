@@ -53,7 +53,7 @@
 
             <div fxLayout="row">
                 <mat-form-field fxFlex="33">
-                    <input matInput placeholder="Value (if any)" formControlName="value">          
+                    <input matInput placeholder="Value (if any)" formControlName="value" maxlength="20">          
                 </mat-form-field>
                 <mat-form-field fxFlex="34">
                     <input matInput [matDatepicker]="picker2" placeholder="Validity Date" formControlName="validityDate">
@@ -145,7 +145,7 @@
                     <input matInput placeholder="No. Of Units of Security" formControlName="securityNoOfUnits" maxlength="10">          
                 </mat-form-field>
                 <mat-form-field fxFlex="34">
-                    <input matInput placeholder="Face Value" formControlName="securityFaceValueAmount">          
+                    <input matInput placeholder="Face Value" formControlName="securityFaceValueAmount" maxlength="20">          
                 </mat-form-field>
                 <mat-form-field fxFlex="33">
                     <input matInput placeholder="Holding &" formControlName="holdingPercentage" maxlength="6">          

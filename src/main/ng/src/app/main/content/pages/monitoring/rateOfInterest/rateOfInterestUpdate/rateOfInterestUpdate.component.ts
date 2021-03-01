@@ -46,9 +46,9 @@ export class RateOfInterestUpdateDialogComponent {
 
         this.rateOfInterestUpdateForm = _formBuilder.group({
             particulars: [this.selectedRateOfInterest.particulars],
-            sanctionPreCod: [this.selectedRateOfInterest.sanctionPreCod],
+            sanctionPreCod: [this.selectedRateOfInterest.sanctionPreCod, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             scheduledIfAny: [this.selectedRateOfInterest.scheduledIfAny],
-            sanctionPostCod: [this.selectedRateOfInterest.sanctionPostCod],
+            sanctionPostCod: [this.selectedRateOfInterest.sanctionPostCod, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             presentRoi: [this.selectedRateOfInterest.presentRoi, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
             freeText: [this.selectedRateOfInterest.freeText],
         });

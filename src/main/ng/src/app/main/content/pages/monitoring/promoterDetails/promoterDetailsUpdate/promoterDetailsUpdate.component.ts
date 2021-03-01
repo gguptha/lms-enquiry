@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { PromoterDetailsModel } from 'app/main/content/model/promoterDetails.model';
 import { PromoterDetailsItemModel } from 'app/main/content/model/promoterDetailsItem.model';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-promoter-details-update-dialog',
@@ -47,10 +48,10 @@ export class PromoterDetailsUpdateDialogComponent {
 
         this.promoterDetailsUpdateForm = _formBuilder.group({
             shareHoldingCompany: [this.selectedPromoterDetailsItem.shareHoldingCompany],
-            paidupCapitalEquitySanction: [this.selectedPromoterDetailsItem.paidupCapitalEquitySanction],
-            paidupCapitalEquityCurrent: [this.selectedPromoterDetailsItem.paidupCapitalEquityCurrent],
-            equityLinkInstrumentSanction: [this.selectedPromoterDetailsItem.equityLinkInstrumentSanction],
-            equityLinkInstrumentCurrent: [this.selectedPromoterDetailsItem.equityLinkInstrumentCurrent]
+            paidupCapitalEquitySanction: [this.selectedPromoterDetailsItem.paidupCapitalEquitySanction, [Validators.pattern(MonitoringRegEx.genericAmount)]],
+            paidupCapitalEquityCurrent: [this.selectedPromoterDetailsItem.paidupCapitalEquityCurrent, [Validators.pattern(MonitoringRegEx.genericAmount)]],
+            equityLinkInstrumentSanction: [this.selectedPromoterDetailsItem.equityLinkInstrumentSanction, [Validators.pattern(MonitoringRegEx.genericAmount)]],
+            equityLinkInstrumentCurrent: [this.selectedPromoterDetailsItem.equityLinkInstrumentCurrent, [Validators.pattern(MonitoringRegEx.genericAmount)]]
         });
     }
 
