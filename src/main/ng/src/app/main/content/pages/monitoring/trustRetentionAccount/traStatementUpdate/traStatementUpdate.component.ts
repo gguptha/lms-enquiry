@@ -6,6 +6,7 @@ import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringCo
 import { TRAModel } from 'app/main/content/model/tra.model';
 import { TRAStatementModel } from 'app/main/content/model/traStatement.model';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-tra-statement-update-dialog',
@@ -52,7 +53,7 @@ export class TRAStatementUpdateDialogComponent {
             viewRights: [this.selectedTRAStatement.viewRights],
             remarks: [this.selectedTRAStatement.remarks],
             periodQuarter: [this.selectedTRAStatement.periodQuarter],
-            periodYear: [this.selectedTRAStatement.periodYear],
+            periodYear: [this.selectedTRAStatement.periodYear, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             documentType: [this.selectedTRAStatement.documentType],
             file: ['']
         });

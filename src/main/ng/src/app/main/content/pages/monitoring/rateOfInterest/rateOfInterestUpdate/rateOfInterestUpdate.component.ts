@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { RateOfInterestModel } from 'app/main/content/model/rateOfInterest.model';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-rate-of-interest-update-dialog',
@@ -48,7 +49,7 @@ export class RateOfInterestUpdateDialogComponent {
             sanctionPreCod: [this.selectedRateOfInterest.sanctionPreCod],
             scheduledIfAny: [this.selectedRateOfInterest.scheduledIfAny],
             sanctionPostCod: [this.selectedRateOfInterest.sanctionPostCod],
-            presentRoi: [this.selectedRateOfInterest.presentRoi],
+            presentRoi: [this.selectedRateOfInterest.presentRoi, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
             freeText: [this.selectedRateOfInterest.freeText],
         });
     }

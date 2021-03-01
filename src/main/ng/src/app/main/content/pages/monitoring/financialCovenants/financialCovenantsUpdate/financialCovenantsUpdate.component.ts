@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { FinancialCovenantsModel } from 'app/main/content/model/financialCovenants.model';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-financial-covenants-update-dialog',
@@ -45,10 +46,10 @@ export class FinancialCovenantsUpdateDialogComponent {
 
         this.financialCovenantsUpdateForm = _formBuilder.group({
             financialCovenantType: [this.selectedFinancialCovenants.financialCovenantType],
-            financialYear: [this.selectedFinancialCovenants.financialYear],
-            debtEquityRatio: [this.selectedFinancialCovenants.debtEquityRatio],
-            dscr: [this.selectedFinancialCovenants.dscr],
-            tolTnw: [this.selectedFinancialCovenants.tolTnw],
+            financialYear: [this.selectedFinancialCovenants.financialYear, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
+            debtEquityRatio: [this.selectedFinancialCovenants.debtEquityRatio, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
+            dscr: [this.selectedFinancialCovenants.dscr, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
+            tolTnw: [this.selectedFinancialCovenants.tolTnw, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
             remarksForDeviation: [this.selectedFinancialCovenants.remarksForDeviation],
         });
     }

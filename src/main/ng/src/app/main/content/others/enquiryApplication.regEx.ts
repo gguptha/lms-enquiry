@@ -27,6 +27,5 @@ export class EnquiryApplicationRegEx {
 
     public static pan =   /[A-Za-z]{5}\d{4}[A-Za-z]{1}?$/; // /^[A-Z0-9]*$/;
 
-   public  static email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
+    public  static email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 }

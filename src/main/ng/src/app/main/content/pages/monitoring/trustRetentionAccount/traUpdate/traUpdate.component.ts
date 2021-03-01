@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TRAModel } from 'app/main/content/model/tra.model';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
+import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
 
 @Component({
     selector: 'fuse-tra-update-dialog',
@@ -50,7 +51,7 @@ export class TRAUpdateDialogComponent {
             contactName: [this.selectedTRA.contactName || ''],
             contactNumber: [this.selectedTRA.contactNumber || ''],
             typeOfAccount: [this.selectedTRA.typeOfAccount || ''],
-            email: [this.selectedTRA.email || ''],
+            email: [this.selectedTRA.email || '', [Validators.pattern(EnquiryApplicationRegEx.email)]],
             pfsAuthorisedPersonBPCode: [this.selectedTRA.pfsAuthorisedPersonBPCode || ''],
             pfsAuthorisedPerson: [this.selectedTRA.pfsAuthorisedPerson || ''],
             beneficiaryName: [this.selectedTRA.beneficiaryName || '']

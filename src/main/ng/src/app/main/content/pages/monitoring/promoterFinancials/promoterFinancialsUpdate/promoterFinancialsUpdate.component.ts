@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { PromoterFinancialsModel } from 'app/main/content/model/promoterFinancials.model';
 import { Observable } from 'rxjs';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-promoter-financials-update-dialog',
@@ -42,7 +43,7 @@ export class PromoterFinancialsUpdateDialogComponent {
         }
 
         this.financialsUpdateForm = _formBuilder.group({
-            fiscalYear: [this.selectedFinancials.fiscalYear || ''],
+            fiscalYear: [this.selectedFinancials.fiscalYear || '', [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             turnover: [this.selectedFinancials.turnover || 0],
             pat: [this.selectedFinancials.pat || 0],
             netWorth: [this.selectedFinancials.netWorth || 0],

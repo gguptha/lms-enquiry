@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { SecurityComplianceModel } from 'app/main/content/model/securityCompliance.model';
+import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-security-compliance-update-dialog',
@@ -68,11 +69,11 @@ export class SecurityComplianceUpdateDialogComponent {
             remarks: [this.selectedSecurityCompliance.remarks],
             location: [this.selectedSecurityCompliance.location],
             additionalText: [this.selectedSecurityCompliance.additionalText],
-            realEstateLandArea: [this.selectedSecurityCompliance.realEstateLandArea],
+            realEstateLandArea: [this.selectedSecurityCompliance.realEstateLandArea, , [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             areaUnitOfMeasure: [this.selectedSecurityCompliance.areaUnitOfMeasure],
-            securityNoOfUnits: [this.selectedSecurityCompliance.securityNoOfUnits],
+            securityNoOfUnits: [this.selectedSecurityCompliance.securityNoOfUnits, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             securityFaceValueAmount: [this.selectedSecurityCompliance.securityFaceValueAmount],
-            holdingPercentage: [this.selectedSecurityCompliance.holdingPercentage]
+            holdingPercentage: [this.selectedSecurityCompliance.holdingPercentage, [Validators.pattern(MonitoringRegEx.holdingPercentage)]]
         });
     }
 

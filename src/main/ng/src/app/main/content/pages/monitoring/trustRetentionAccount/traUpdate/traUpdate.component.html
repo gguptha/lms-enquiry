@@ -17,33 +17,33 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Contact Name" formControlName="contactName">
+                    <input matInput placeholder="Contact Name" formControlName="contactName" maxlength="60">
                 </mat-form-field>
             </div>
             <div fxLayout="row" class="mt-16">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Bank Key" formControlName="bankKey">
+                    <input matInput placeholder="Bank Key" formControlName="bankKey" maxlength="20">
                 </mat-form-field>
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="TRA Bank Name" formControlName="traBankName">
+                    <input matInput placeholder="TRA Bank Name" formControlName="traBankName" maxlength="60">
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Contact Number" formControlName="contactNumber">
-                </mat-form-field>
-            </div>
-            <div fxLayout="row">
-                <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Branch" formControlName="branch">
-                </mat-form-field>
-                <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Email" formControlName="email">
+                    <input matInput placeholder="Contact Number" formControlName="contactNumber" maxlength="15">
                 </mat-form-field>
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Address" formControlName="address">
+                    <input matInput placeholder="Branch" formControlName="branch" maxlength="40">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Email" formControlName="email" maxlength="200">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Address" formControlName="address" maxlength="100">
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="PFS Authorised Person-BP Code" formControlName="pfsAuthorisedPersonBPCode">
@@ -51,18 +51,18 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Beneficiary Name" formControlName="beneficiaryName">
+                    <input matInput placeholder="Beneficiary Name" formControlName="beneficiaryName" maxlength="60">
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="PFS Authorised Person" formControlName="pfsAuthorisedPerson">
+                    <input matInput placeholder="PFS Authorised Person" formControlName="pfsAuthorisedPerson" readonly>
                 </mat-form-field>
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="IFSC Code" formControlName="ifscCode">
+                    <input matInput placeholder="IFSC Code" formControlName="ifscCode" maxlength="15">
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Account Number" formControlName="accountNumber" required>
+                    <input matInput placeholder="Account Number" formControlName="accountNumber" maxlength="15" required>
                     <mat-error>
                         Provide valid input for Account Number
                     </mat-error>

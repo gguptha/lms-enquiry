@@ -11,7 +11,7 @@
         <form [formGroup]="financialsUpdateForm">
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Fiscal Year" formControlName="fiscalYear">          
+                    <input matInput placeholder="Fiscal Year" formControlName="fiscalYear" maxlength="4">          
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput [matDatepicker]="picker2" placeholder="Date of External Rating" formControlName="dateOfExternalRating">
@@ -36,7 +36,7 @@
                     <input matInput placeholder="PAT" formControlName="pat">          
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Overall Rating" formControlName="overAllRating">          
+                    <input matInput placeholder="Overall Rating" formControlName="overAllRating" maxlength="50">          
                 </mat-form-field>
             </div>
 
