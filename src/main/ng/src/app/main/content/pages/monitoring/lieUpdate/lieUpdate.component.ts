@@ -6,6 +6,7 @@ import { LIEModel } from 'app/main/content/model/lie.model';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
+import { PartnerModel } from 'app/main/content/model/partner.model';
 
 @Component({
     selector: 'fuse-lie-update-dialog',
@@ -22,8 +23,10 @@ export class LIEUpdateDialogComponent {
 
     lieUpdateForm: FormGroup;
 
-    businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
-    
+    // businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
+    partners: PartnerModel[] = new Array();
+    selectedPartnerName: string;
+
     /**
      * constructor()
      * @param _formBuilder 
@@ -53,6 +56,12 @@ export class LIEUpdateDialogComponent {
             contractPeriodTo: [this.selectedLIE.contractPeriodTo || ''],
             email: [this.selectedLIE.email || '', [Validators.pattern(EnquiryApplicationRegEx.email)]]
         }); 
+
+        _loanMonitoringService.getLIEs().subscribe(response => {
+            response.forEach(element => {
+                this.partners.push(new PartnerModel(element));
+            });
+        })
     }
 
     /**
@@ -93,11 +102,19 @@ export class LIEUpdateDialogComponent {
     }
 
     /**
-     * getBPDescription()
-     * @param bpCode 
+     * getPartnerName()
+     * @param partner 
      */
-    getBPDescription(bpCode: any): string {
-        return bpCode.RoleCode + ' - ' + bpCode.RoleDescription;
+    getPartnerName(partner: PartnerModel): string {
+        return partner.partyNumber + ' - ' + partner.partyName1 + ' ' + partner.partyName2;
+    }
+
+    /**
+     * onPartnerSelect()
+     * @param event 
+     */
+    onPartnerSelect(partner: PartnerModel): void {
+        this.selectedPartnerName = partner.partyName1 + ' ' + partner.partyName2;
     }
 
     /**

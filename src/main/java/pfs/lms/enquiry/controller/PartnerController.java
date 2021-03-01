@@ -119,4 +119,28 @@ public class PartnerController {
         }
 
     }
+
+    @GetMapping("partner/lies")
+    public ResponseEntity getLendersIndependentEngineers(HttpServletRequest httpServletRequest) {
+
+        List<Partner> partners = partnerService.getLendersIndependentEngineers();
+        if (partners != null) {
+            return ResponseEntity.ok(partners);
+        }
+        else {
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+    @GetMapping("partner/lfas")
+    public ResponseEntity getLendersFinancialAdvisors(HttpServletRequest httpServletRequest) {
+
+        List<Partner> partners = partnerService.getLendersFinancialAdvisors();
+        if (partners != null) {
+            return ResponseEntity.ok(partners);
+        }
+        else {
+            return ResponseEntity.noContent().build();
+        }
+    }
 }

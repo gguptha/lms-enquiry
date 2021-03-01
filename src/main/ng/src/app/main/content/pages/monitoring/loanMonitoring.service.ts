@@ -1,6 +1,7 @@
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PartnerModel } from '../../model/partner.model';
 
 @Injectable()
 export class LoanMonitoringService {
@@ -278,5 +279,13 @@ export class LoanMonitoringService {
                 observer.complete();
             })
         }
+    }
+
+    public getLIEs(): Observable<any> {
+        return this._http.get<any>('enquiry/api/partner/lies');
+    }
+
+    public getLFAs(): Observable<any> {
+        return this._http.get<any>('enquiry/api/partner/lfas');
     }
 }

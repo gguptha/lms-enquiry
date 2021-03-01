@@ -13,8 +13,8 @@
                 <mat-form-field fxFlex="50">
                     <mat-select placeholder="BP Code" formControlName="bpCode" required>
                         <mat-option> </mat-option>
-                        <mat-option *ngFor="let bpCode of businessPartnerRoles" [value]="bpCode.RoleCode">
-                          {{ getBPDescription(bpCode) }}
+                        <mat-option *ngFor="let partner of partners" [value]="partner.partyNumber" (click)="onPartnerSelect(partner)">
+                          {{ partner.partyNumber }}
                         </mat-option>
                     </mat-select>
                     <mat-error>
@@ -22,7 +22,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="BP Name" formControlName="name">
+                    <input matInput placeholder="BP Name" [(ngModel)]="selectedPartnerName" formControlName="name">
                 </mat-form-field>
             </div>
             <div fxLayout="row" class="mt-16">

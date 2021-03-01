@@ -6,6 +6,7 @@ import { LoanMonitoringService } from '../loanMonitoring.service';
 import { LFAModel } from 'app/main/content/model/lfa.model';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
+import { PartnerModel } from 'app/main/content/model/partner.model';
 
 @Component({
     selector: 'fuse-lfa-update-dialog',
@@ -22,8 +23,10 @@ export class LFAUpdateDialogComponent {
 
     lfaUpdateForm: FormGroup;
 
-    businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
-
+    //businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
+    partners: PartnerModel[] = new Array();
+    selectedPartnerName: string;
+    
     /**
      * constructor()
      * @param _formBuilder 
@@ -53,6 +56,12 @@ export class LFAUpdateDialogComponent {
             contractPeriodTo: [this.selectedLFA.contractPeriodTo || ''],
             email: [this.selectedLFA.email, [Validators.pattern(EnquiryApplicationRegEx.email)]]
         });
+
+        _loanMonitoringService.getLFAs().subscribe(response => {
+            response.forEach(element => {
+                this.partners.push(new PartnerModel(element));
+            });
+        })    
     }
 
     /**
@@ -99,7 +108,15 @@ export class LFAUpdateDialogComponent {
     getBPDescription(bpCode: any): string {
         return bpCode.RoleCode + ' - ' + bpCode.RoleDescription;
     }
-    
+
+    /**
+     * onPartnerSelect()
+     * @param event 
+     */
+    onPartnerSelect(partner: PartnerModel): void {
+        this.selectedPartnerName = partner.partyName1 + ' ' + partner.partyName2;
+    }
+
     /**
      * closeClick()
      */

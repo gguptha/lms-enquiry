@@ -296,4 +296,18 @@ public class PartnerService implements IPartnerService {
         return partnersString;
 
     }
+
+    @Override
+    public List<Partner> getLendersIndependentEngineers() {
+        List<Partner> partners = new ArrayList<>();
+        partners = partnerRepository.findByPartyRole("ZLM003");
+        return partners;
+    }
+
+    @Override
+    public List<Partner> getLendersFinancialAdvisors() {
+        List<Partner> partners = new ArrayList<>();
+        partners = partnerRepository.findByPartyRole("ZLM002");
+        return partners;
+    }
 }

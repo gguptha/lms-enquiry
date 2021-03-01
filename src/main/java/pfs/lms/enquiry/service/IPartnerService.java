@@ -15,6 +15,8 @@ public interface IPartnerService {
     PartnerResourcesOrderByAlphabet getPartnersOrderedByAlphabets();
 
     List<PartnerResourceByEmail> getPartnerByEmail();
+    Partner   getPartnerByEmail(String email);
 
-     Partner   getPartnerByEmail(String email);
+    List<Partner> getLendersIndependentEngineers();
+    List<Partner> getLendersFinancialAdvisors();
 }
