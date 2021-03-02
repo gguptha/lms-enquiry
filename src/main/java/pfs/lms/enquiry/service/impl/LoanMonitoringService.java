@@ -609,7 +609,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         SiteVisit siteVisit = resource.getSiteVisit();
         siteVisit.setLoanMonitor(loanMonitor);
-        siteVisit.setSerialNumber(resource.getSiteVisit().getSerialNumber());
+
+        siteVisit.setSerialNumber(siteVisitRepository.findByLoanMonitor(loanMonitor).size() + 1);
         siteVisit.setActualCOD(resource.getSiteVisit().getActualCOD());
         siteVisit.setDateOfLendersMeet(resource.getSiteVisit().getDateOfLendersMeet());
         siteVisit.setDateOfSiteVisit(resource.getSiteVisit().getDateOfSiteVisit());

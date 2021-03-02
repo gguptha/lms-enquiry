@@ -62,7 +62,10 @@ export class LIEReportAndFeeUpdateDialogComponent {
             documentTitle: [this.selectedLIEReportAndFee.documentTitle],
             nextReportDate: [this.selectedLIEReportAndFee.nextReportDate || ''],
             documentType: [this.selectedLIEReportAndFee.documentType || ''],
-            file: ['']
+            file: [''],
+            sapFIInvoiceDate: [this.selectedLIEReportAndFee.sapFIInvoiceDate || ''],
+            sapFIInvoiceNumber: [this.selectedLIEReportAndFee.sapFIInvoiceNumber],
+            feeAmountRaisedOnCustomer: [this.selectedLIEReportAndFee.feeAmountRaisedOnCustomer]
         });
     }
 

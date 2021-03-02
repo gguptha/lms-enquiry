@@ -9,7 +9,7 @@ export class LFAModel
     contractPeriodFrom: Date;
     contractPeriodTo: Date;
     email: string;
-    
+
     /**
      * constructor();
      * @param _lie 

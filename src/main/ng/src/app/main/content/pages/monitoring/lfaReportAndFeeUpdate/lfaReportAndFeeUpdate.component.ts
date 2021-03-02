@@ -62,7 +62,10 @@ export class LFAReportAndFeeUpdateDialogComponent {
             documentTitle: [this.selectedLFAReportAndFee.documentTitle],
             nextReportDate: [this.selectedLFAReportAndFee.nextReportDate || ''],
             documentType: [this.selectedLFAReportAndFee.documentType || ''],
-            file: ['']
+            file: [''],
+            sapFIInvoiceDate: [this.selectedLFAReportAndFee.sapFIInvoiceDate || ''],
+            sapFIInvoiceNumber: [this.selectedLFAReportAndFee.sapFIInvoiceNumber],
+            feeAmountRaisedOnCustomer: [this.selectedLFAReportAndFee.feeAmountRaisedOnCustomer]
         });
     }
 

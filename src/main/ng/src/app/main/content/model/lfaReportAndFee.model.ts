@@ -12,6 +12,9 @@ export class LFAReportAndFeeModel
     nextReportDate: Date;
     fileReference: string;
     documentType: string;
+    sapFIInvoiceDate: Date;
+    sapFIInvoiceNumber: string;
+    feeAmountRaisedOnCustomer: number;
 
     /**
      * constructor();
@@ -31,5 +34,8 @@ export class LFAReportAndFeeModel
         this.nextReportDate = _lfaReportAndFee.nextReportDate || undefined;
         this.documentType = _lfaReportAndFee.documentType || '';
         this.fileReference = _lfaReportAndFee.fileReference || '';
+        this.sapFIInvoiceDate = _lfaReportAndFee.sapFIInvoiceDate || undefined;
+        this.sapFIInvoiceNumber = _lfaReportAndFee.sapFIInvoiceNumber || '';
+        this.feeAmountRaisedOnCustomer = _lfaReportAndFee.feeAmountRaisedOnCustomer;
     }
 }

@@ -12,6 +12,9 @@ export class LIEReportAndFeeModel
     nextReportDate: Date;
     fileReference: string;
     documentType: string;
+    sapFIInvoiceDate: Date;
+    sapFIInvoiceNumber: string;
+    feeAmountRaisedOnCustomer: number;
 
     /**
      * constructor();
@@ -31,5 +34,8 @@ export class LIEReportAndFeeModel
         this.nextReportDate = _lieReportAndFee.nextReportDate || undefined;
         this.documentType = _lieReportAndFee.documentType || '';
         this.fileReference = _lieReportAndFee.fileReference || '';
+        this.sapFIInvoiceDate = _lieReportAndFee.sapFIInvoiceDate || undefined;
+        this.sapFIInvoiceNumber = _lieReportAndFee.sapFIInvoiceNumber || '';
+        this.feeAmountRaisedOnCustomer = _lieReportAndFee.feeAmountRaisedOnCustomer;
     }
 }

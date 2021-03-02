@@ -10,7 +10,7 @@
     <div mat-dialog-content fusePerfectScrollbar>
         <form [formGroup]="lieUpdateForm">
             <div fxLayout="row">
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex="33">
                     <mat-select placeholder="Report Type" formControlName="reportType" required>
                       <mat-option> </mat-option>
                       <mat-option *ngFor="let reportType of reportTypes" [value]="reportType.code">
@@ -19,25 +19,30 @@
                     </mat-select>
                 </mat-form-field> 
 
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex="34">
                     <input matInput placeholder="Invoice Number" formControlName="invoiceNo" maxlength="20" required>
+                </mat-form-field>
+                <mat-form-field fxFlex="33">
+                    <input matInput placeholder="SAP FI Invoice Date" formControlName="sapFIInvoiceDate" readonly>
                 </mat-form-field>
             </div>
             <div fxLayout="row" class="mt-16">
-                <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker1" placeholder="Date of Receipt" formControlName="dateOfReceipt" type="date" required>
+                <mat-form-field fxFlex="33">
+                    <input matInput [matDatepicker]="picker1" placeholder="Date of Receipt" formControlName="dateOfReceipt" readonly required>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker> 
                 </mat-form-field>
-
-                <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker2" placeholder="Invoice Date" formControlName="invoiceDate" type="date">
+                <mat-form-field fxFlex="34">
+                    <input matInput readonly [matDatepicker]="picker2" placeholder="Invoice Date" formControlName="invoiceDate">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker> 
                 </mat-form-field>
+                <mat-form-field fxFlex="33">
+                    <input matInput placeholder="SAP FI Invoice Number" formControlName="sapFIInvoiceNumber" readonly>
+                </mat-form-field>            
             </div>
             <div fxLayout="row">
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex="33">
                     <mat-select placeholder="Status of Fee Paid" formControlName="statusOfFeePaid">
                       <mat-option> </mat-option>
                       <mat-option *ngFor="let feePaidStatus of feePaidStatuses" [value]="feePaidStatus.code">
@@ -46,22 +51,29 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex="34">
                     <input matInput placeholder="Fee Amount" formControlName="feeAmount" maxlength="20">
-                </mat-form-field>            
+                </mat-form-field>
+                <mat-form-field fxFlex="33">
+                    <input matInput placeholder="Fee Amount Raised On Customer" formControlName="feeAmountRaisedOnCustomer" readonly>
+                </mat-form-field>         
             </div>
             <div fxLayout="row">
-                <mat-form-field fxFlex="50">
+                <mat-form-field fxFlex="33">
                     <input matInput placeholder="Document Title" maxlength="20" formControlName="documentTitle">          
                 </mat-form-field>
-
-                <mat-form-field fxFlex="50">
-                    <mat-select placeholder="Status of Fee Receipt" formControlName="statusOfFeeReceipt">
-                        <mat-option> </mat-option>
+                <mat-form-field fxFlex="34">
+                    <input matInput [matDatepicker]="picker3" placeholder="Next Report Date" formControlName="nextReportDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker> 
+                </mat-form-field>                
+                <mat-form-field fxFlex="33">
+                    <input matInput placeholder="Status of Fee Receipt" maxlength="20" formControlName="statusOfFeeReceipt" readonly>          
+                    <!-- <mat-select placeholder="Status of Fee Receipt" formControlName="statusOfFeeReceipt" readonly>
                         <mat-option *ngFor="let feeReceiptStatus of feeReceiptStatuses" [value]="feeReceiptStatus.code">
                         {{ feeReceiptStatus.value }}
                         </mat-option>
-                    </mat-select>
+                    </mat-select> -->
                 </mat-form-field>                   
             </div>
             <div fxLayout="row">

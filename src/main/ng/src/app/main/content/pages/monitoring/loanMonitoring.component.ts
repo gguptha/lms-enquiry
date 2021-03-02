@@ -344,7 +344,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         // Open the dialog.
         const dialogRef = this._dialogRef.open(LIEReportAndFeeUpdateDialogComponent, {
             panelClass: 'fuse-lie-report-fee-update-dialog',
-            width: '750px',
+            width: '1126px',
             data: {
                 operation: 'addLIEReportAndFee',
                 selectedLIE: this.selectedLIE
@@ -364,7 +364,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         // Open the dialog.
         const dialogRef = this._dialogRef.open(LIEReportAndFeeUpdateDialogComponent, {
             panelClass: 'fuse-lie-report-fee-update-dialog',
-            width: '750px',
+            width: '1126px',
             data: {
                 operation: 'updateLIEReportAndFee',
                 selectedLIE: this.selectedLIE,
@@ -426,7 +426,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         // Open the dialog.
         const dialogRef = this._dialogRef.open(LFAReportAndFeeUpdateDialogComponent, {
             panelClass: 'fuse-lfa-report-fee-update-dialog',
-            width: '750px',
+            width: '1126px',
             data: {
                 operation: 'addLFAReportAndFee',
                 selectedLFA: this.selectedLFA
@@ -446,7 +446,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         // Open the dialog.
         const dialogRef = this._dialogRef.open(LFAReportAndFeeUpdateDialogComponent, {
             panelClass: 'fuse-lfa-report-fee-update-dialog',
-            width: '750px',
+            width: '1126px',
             data: {
                 operation: 'updateLFAReportAndFee',
                 selectedLFA: this.selectedLFA,
