@@ -10,12 +10,19 @@
     <div mat-dialog-content fusePerfectScrollbar>
         <form [formGroup]="traUpdateForm">
             <div fxLayout="row">
-                <mat-form-field fxFlex="50">
+                <!-- <mat-form-field fxFlex="50">
                     <input matInput placeholder="Type Of Account" formControlName="typeOfAccount" required>
                     <mat-error>
                         Provide valid input for Type Of Account
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Type Of Account" formControlName="typeOfAccount" required>
+                        <mat-option *ngFor="let accountType of accountTypes" [value]="accountType.code">
+                        {{ accountType.value }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> 
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="Contact Name" formControlName="contactName" maxlength="60">
                 </mat-form-field>

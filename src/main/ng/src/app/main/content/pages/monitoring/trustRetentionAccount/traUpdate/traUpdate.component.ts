@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TRAModel } from 'app/main/content/model/tra.model';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 
 @Component({
     selector: 'fuse-tra-update-dialog',
@@ -13,13 +14,15 @@ import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplicat
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None
 })
-export class TRAUpdateDialogComponent {
+export class TRAUpdateDialogComponent implements OnInit {
 
     dialogTitle = 'Add New TRA Account';
 
     selectedTRA: TRAModel;
 
     traUpdateForm: FormGroup;
+
+    accountTypes = LoanMonitoringConstants.accountTypes;
 
     /**
      * constructor()
@@ -56,6 +59,13 @@ export class TRAUpdateDialogComponent {
             pfsAuthorisedPerson: [this.selectedTRA.pfsAuthorisedPerson || ''],
             beneficiaryName: [this.selectedTRA.beneficiaryName || '']
         });
+    }
+
+    /**
+     * ngOnInit()
+     */
+    ngOnInit(): void {
+        this.traUpdateForm.controls.typeOfAccount.setValue(this.accountTypes[0].code);
     }
 
     /**

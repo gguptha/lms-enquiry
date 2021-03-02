@@ -586,4 +586,9 @@ export class LoanMonitoringConstants {
             "RoleDescription": "Loans Administrator"
         }
     ]
+
+    // accountTypes
+    public static accountTypes = [
+        {code: "TRA Account" , value:"TRA Account"}
+    ];
 }
