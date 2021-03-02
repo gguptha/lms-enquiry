@@ -27,7 +27,7 @@
             </div>
             <div fxLayout="row" class="mt-16">
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker1" placeholder="Date of Appointment" formControlName="dateOfAppointment" type="date">
+                    <input matInput [matDatepicker]="picker1" placeholder="Date of Appointment" formControlName="dateOfAppointment" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker> 
                 </mat-form-field>
@@ -40,12 +40,12 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker2" placeholder="Contract Period From" formControlName="contractPeriodFrom" type="date">
+                    <input matInput [matDatepicker]="picker2" placeholder="Contract Period From" formControlName="contractPeriodFrom" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker> 
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker3" placeholder="Contract Period To" formControlName="contractPeriodTo" type="date">
+                    <input matInput [matDatepicker]="picker3" placeholder="Contract Period To" formControlName="contractPeriodTo" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3></mat-datepicker> 
                 </mat-form-field>

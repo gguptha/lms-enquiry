@@ -28,12 +28,12 @@
             </div>
             <div fxLayout="row" class="mt-16">
                 <mat-form-field fxFlex="33">
-                    <input matInput [matDatepicker]="picker1" placeholder="Date of Receipt" formControlName="dateOfReceipt" type="date" readonly required>
+                    <input matInput [matDatepicker]="picker1" placeholder="Date of Receipt" formControlName="dateOfReceipt" readonly required>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker> 
                 </mat-form-field>
                 <mat-form-field fxFlex="34">
-                    <input matInput [matDatepicker]="picker2" placeholder="Invoice Date" formControlName="invoiceDate" type="date" readonly>
+                    <input matInput [matDatepicker]="picker2" placeholder="Invoice Date" formControlName="invoiceDate" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker> 
                 </mat-form-field>
