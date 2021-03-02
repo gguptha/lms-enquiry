@@ -6,7 +6,7 @@
         <ng-container matColumnDef="advisor">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Advisor</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.lendersFinancialAdvisor.advisor }}</p>
+                <p class="text-truncate">{{ getAdvisor(obj.lendersFinancialAdvisor) }}</p>
             </mat-cell>
         </ng-container>
 

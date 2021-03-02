@@ -84,7 +84,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     subscriptions = new Subscription()
 
     expandPanel1 = true;
-    expandPanel2 = true;
+    expandPanel2 = false;
 
     /**
      * constructor()

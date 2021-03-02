@@ -54,4 +54,13 @@ export class LFAListComponent implements OnInit {
         this.selectedLFA = lfa;
         this._service.selectedLFA.next(this.selectedLFA);
     }
+
+    /**
+     * getAdvisor()
+     * @param lfa
+     */
+    getAdvisor(lfa: any): string {
+        // if lfa.advisor == xxxx
+        return 'LFA';
+    }    
 }
