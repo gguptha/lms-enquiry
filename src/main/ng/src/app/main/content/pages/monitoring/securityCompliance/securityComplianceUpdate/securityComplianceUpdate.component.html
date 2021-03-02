@@ -45,7 +45,7 @@
                     </mat-select>
                 </mat-form-field> 
                 <mat-form-field fxFlex="33">
-                    <input matInput [matDatepicker]="picker1" placeholder="Date of Creation" formControlName="dateOfCreation">
+                    <input matInput [matDatepicker]="picker1" placeholder="Date of Creation" formControlName="dateOfCreation" type="date">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker> 
                 </mat-form-field>
@@ -56,12 +56,12 @@
                     <input matInput placeholder="Value (if any)" formControlName="value" maxlength="20">          
                 </mat-form-field>
                 <mat-form-field fxFlex="34">
-                    <input matInput [matDatepicker]="picker2" placeholder="Validity Date" formControlName="validityDate">
+                    <input matInput [matDatepicker]="picker2" placeholder="Validity Date" formControlName="validityDate" type="date">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker> 
                 </mat-form-field>
                 <mat-form-field fxFlex="33">
-                    <input matInput [matDatepicker]="picker3" placeholder="Date of Sec Perfection" formControlName="securityPerfectionDate">
+                    <input matInput [matDatepicker]="picker3" placeholder="Date of Sec Perfection" formControlName="securityPerfectionDate" type="date">
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3></mat-datepicker> 
                 </mat-form-field>
@@ -99,7 +99,7 @@
                     </mat-select>
                 </mat-form-field> 
                 <mat-form-field fxFlex="34">
-                    <input matInput [matDatepicker]="picker4" placeholder="Event Date" formControlName="eventDate">
+                    <input matInput [matDatepicker]="picker4" placeholder="Event Date" formControlName="eventDate" type="date">
                     <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                     <mat-datepicker #picker4></mat-datepicker> 
                 </mat-form-field>            
