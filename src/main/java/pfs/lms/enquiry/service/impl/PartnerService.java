@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.Partner;
+import pfs.lms.enquiry.domain.PartnerRoleType;
 import pfs.lms.enquiry.repository.PartnerRepository;
+import pfs.lms.enquiry.repository.PartnerRoleTypeRepository;
 import pfs.lms.enquiry.resource.PartnerResourceByAlphabet;
 import pfs.lms.enquiry.resource.PartnerResourceByEmail;
 import pfs.lms.enquiry.resource.PartnerResourcesOrderByAlphabet;
@@ -25,6 +27,7 @@ import java.util.List;
 public class PartnerService implements IPartnerService {
 
     private final PartnerRepository partnerRepository;
+    private final PartnerRoleTypeRepository partnerRoleTypeRepository;
 
     @Override
     public Partner getOne(String username) {
@@ -300,14 +303,16 @@ public class PartnerService implements IPartnerService {
     @Override
     public List<Partner> getLendersIndependentEngineers() {
         List<Partner> partners = new ArrayList<>();
-        partners = partnerRepository.findByPartyRole("ZLM003");
+        PartnerRoleType partnerRoleType = partnerRoleTypeRepository.findByRoleCode("ZLM003");
+        partners = partnerRepository.findByPartnerRoleTypes(partnerRoleType);
         return partners;
     }
 
     @Override
     public List<Partner> getLendersFinancialAdvisors() {
         List<Partner> partners = new ArrayList<>();
-        partners = partnerRepository.findByPartyRole("ZLM002");
+        PartnerRoleType partnerRoleType = partnerRoleTypeRepository.findByRoleCode("ZLM002");
+        partners = partnerRepository.findByPartnerRoleTypes(partnerRoleType);
         return partners;
     }
 }

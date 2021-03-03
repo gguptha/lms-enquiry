@@ -13,7 +13,7 @@
                 <mat-form-field fxFlex="50">
                     <mat-select placeholder="BP Code" formControlName="bpCode" required>
                         <mat-option *ngFor="let partner of partners" [value]="partner.partyNumber" (click)="onPartnerSelect(partner)">
-                          {{ partner.partyNumber }}
+                          {{ getPartyNumberAndName(partner) }}
                         </mat-option>
                     </mat-select>
                     <mat-error>

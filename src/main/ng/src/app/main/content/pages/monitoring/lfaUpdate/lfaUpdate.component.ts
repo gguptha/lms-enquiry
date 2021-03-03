@@ -123,4 +123,12 @@ export class LFAUpdateDialogComponent {
     closeClick(): void {
         this._dialogRef.close({ 'refresh': false });
     }
+
+    /**
+     * getPartyNumberAndName()
+     * @param party 
+     */
+    getPartyNumberAndName(party: any): string {
+        return party.partyNumber + " - " + party.partyName1 + ' ' + party.partyName2;
+    }
 }

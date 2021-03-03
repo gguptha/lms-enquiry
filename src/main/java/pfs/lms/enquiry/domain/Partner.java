@@ -2,9 +2,9 @@ package pfs.lms.enquiry.domain;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Getter
@@ -77,6 +77,9 @@ public class Partner extends AggregateRoot<Partner>{
 
     private String industrySector;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<PartnerRoleType> partnerRoleTypes;
+
     public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String addressLine1, String addressLine2, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, String userName, @Size(max = 100) String password, String pan, String industrySector) {
         this.partyNumber = partyNumber;
         this.partyCategory = partyCategory;
@@ -121,5 +124,4 @@ public class Partner extends AggregateRoot<Partner>{
     public static class PartnerCreated {
         final Partner partner;
     }
-
 }
