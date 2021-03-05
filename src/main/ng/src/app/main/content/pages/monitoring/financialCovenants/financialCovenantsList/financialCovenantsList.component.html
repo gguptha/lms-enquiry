@@ -6,7 +6,7 @@
         <ng-container matColumnDef="financialCovenantType">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Type</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.financialCovenants.financialCovenantType }}</p>
+                <p class="text-truncate">{{ getFinancialCovenantType(obj.financialCovenants.financialCovenantType) }}</p>
             </mat-cell>
         </ng-container>
 
@@ -22,7 +22,7 @@
         <ng-container matColumnDef="debtEquityRatio">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Debt Equity Ratio</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.financialCovenants.debtEquityRatio }}</p>
+                <p class="text-truncate">{{ (obj.financialCovenants.debtEquityRatio | number: '1.0-2') + '%' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -30,7 +30,7 @@
         <ng-container matColumnDef="dscr">
             <mat-header-cell *matHeaderCellDef mat-sort-header >DSCR</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.financialCovenants.dscr }}</p>
+                <p class="text-truncate">{{ (obj.financialCovenants.dscr | number: '1.0-2') + '%' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -38,7 +38,7 @@
         <ng-container matColumnDef="tolTnw">
             <mat-header-cell *matHeaderCellDef mat-sort-header >TOL/ TNW</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.financialCovenants.tolTnw }}</p>
+                <p class="text-truncate">{{ (obj.financialCovenants.tolTnw | number: '1.0-2') + '%' }}</p>
             </mat-cell>
         </ng-container>
 

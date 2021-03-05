@@ -14,7 +14,7 @@
         <ng-container matColumnDef="turnover">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Turn Over</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.promoterFinancials.turnover }}</p>
+                <p class="text-truncate">{{ obj.promoterFinancials.turnover | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -22,7 +22,7 @@
         <ng-container matColumnDef="pat">
             <mat-header-cell *matHeaderCellDef mat-sort-header >PAT</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.promoterFinancials.pat }}</p>
+                <p class="text-truncate">{{ obj.promoterFinancials.pat | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -30,7 +30,7 @@
         <ng-container matColumnDef="netWorth">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Net Worth</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.promoterFinancials.netWorth }}</p>
+                <p class="text-truncate">{{ obj.promoterFinancials.netWorth | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 

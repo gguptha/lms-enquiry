@@ -14,7 +14,7 @@
         <ng-container matColumnDef="paidupCapitalEquitySanction">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Paid up Capital (Sanction)</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.paidupCapitalEquitySanction }}</p>
+                <p class="text-truncate">{{ obj.paidupCapitalEquitySanction | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -22,7 +22,7 @@
         <ng-container matColumnDef="paidupCapitalEquityCurrent">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Paid up Capital (Current)</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.paidupCapitalEquityCurrent }}</p>
+                <p class="text-truncate">{{ obj.paidupCapitalEquityCurrent | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -30,7 +30,7 @@
         <ng-container matColumnDef="equityLinkInstrumentSanction">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Equity Link Instrument (Sanction)</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.equityLinkInstrumentSanction }}</p>
+                <p class="text-truncate">{{ obj.equityLinkInstrumentSanction | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -38,7 +38,7 @@
         <ng-container matColumnDef="equityLinkInstrumentCurrent">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Equity Link Instrument (Current)</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.equityLinkInstrumentCurrent }}</p>
+                <p class="text-truncate">{{ obj.equityLinkInstrumentCurrent | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 
 @Component({
@@ -51,5 +52,13 @@ export class FinancialCovenantsListComponent implements OnInit {
     onSelect(selectedFinancialCovenants: any): void {
         this.selectedFinancialCovenants = selectedFinancialCovenants;
         this._service.selectedFinancialCovenants.next(this.selectedFinancialCovenants);
+    }
+
+    /**
+     * getFinancialCovenantType()
+     * @param financialCovenantType 
+     */
+    getFinancialCovenantType(financialCovenantType: any): string {
+        return LoanMonitoringConstants.financialCovenantsType.filter(f => f.code === financialCovenantType)[0].value;
     }
 }
