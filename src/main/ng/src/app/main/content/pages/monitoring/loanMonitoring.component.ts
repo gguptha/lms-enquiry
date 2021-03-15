@@ -607,11 +607,12 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         var data = {
             'operation': operation,
             'loanApplicationId': this.loanApplicationId,
-            'selectediteVisit': undefined
+            'selectedSiteVisit': undefined
         };
         if (operation === 'updateSiteVisit') {
-            data.selectediteVisit = this.selectedSiteVisit;
+            data.selectedSiteVisit = this.selectedSiteVisit;
         }
+        console.log('opening modify site visit with data', data);
         const dialogRef = this._dialogRef.open(SiteVisitUpdateDialogComponent, {
             panelClass: 'fuse-site-visit-update-dialog',
             width: '750px',

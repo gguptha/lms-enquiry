@@ -33,7 +33,9 @@ export class SiteVisitUpdateDialogComponent {
         private _matSnackBar: MatSnackBar) {
 
         // Fetch selected user details from the dialog's data attribute.
+        console.log('_dialogData.selectedSiteVisit', _dialogData.selectedSiteVisit);
         if (_dialogData.selectedSiteVisit !== undefined) {
+            console.log('selected site visit in modify', _dialogData.selectedSiteVisit);
             this.selectedSiteVisit = _dialogData.selectedSiteVisit;
         }
         else {
