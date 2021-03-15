@@ -6,7 +6,7 @@
         <ng-container matColumnDef="particulars">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Particulars</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.rateOfInterest.particulars }}</p>
+                <p class="text-truncate">{{ getParticularsDescription(obj.rateOfInterest.particulars) }}</p>
             </mat-cell>
         </ng-container>
 
@@ -22,7 +22,7 @@
         <ng-container matColumnDef="sanctionPreCod">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Sanction (Pre COD)</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.rateOfInterest.sanctionPreCod }}</p>
+                <p class="text-truncate">{{ obj.rateOfInterest.sanctionPreCod | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -30,7 +30,7 @@
         <ng-container matColumnDef="sanctionPostCod">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Sanction (POST COD)</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.rateOfInterest.sanctionPostCod }}</p>
+                <p class="text-truncate">{{ obj.rateOfInterest.sanctionPostCod | number: '1.2-2' }}</p>
             </mat-cell>
         </ng-container>
 
@@ -38,7 +38,7 @@
         <ng-container matColumnDef="presentRoi">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Present ROI</mat-header-cell>
             <mat-cell *matCellDef="let obj" >
-                <p class="text-truncate">{{ obj.rateOfInterest.presentRoi }}</p>
+                <p class="text-truncate">{{ (obj.rateOfInterest.presentRoi | number: '1.0-2') + '%' }}</p>
             </mat-cell>
         </ng-container>
 

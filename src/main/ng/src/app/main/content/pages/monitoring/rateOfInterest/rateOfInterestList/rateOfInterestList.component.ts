@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 
 @Component({
@@ -51,5 +52,13 @@ export class RateOfInterestListComponent implements OnInit {
     onSelect(selectedRateOfInterest: any): void {
         this.selectedRateOfInterest = selectedRateOfInterest;
         this._service.selectedRateOfInterest.next(this.selectedRateOfInterest);
+    }
+
+    /**
+     * getParticularsDescription()
+     * @param particularsCode
+     */
+    getParticularsDescription(particularsCode: any): string {
+        return LoanMonitoringConstants.particulars.filter(p => p.code === particularsCode)[0].value;
     }
 }

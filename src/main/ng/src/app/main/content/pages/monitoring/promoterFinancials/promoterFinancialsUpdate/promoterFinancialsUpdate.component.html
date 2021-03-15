@@ -47,10 +47,16 @@
             </div>
 
             <div fxLayout="row">
-                <input type="file" name="annualReturnDocument" (change)="onAnnualReturnDocument($event)" 
-                        placeholder="Annual Return Document" accept="application/pdf" fxFlex="50"/>
-                <input type="file" name="ratingDocument" (change)="onRatingDocument($event)" placeholder="Rating Document" accept="application/pdf" 
-                        fxFlex="50"/>
+                <div fxLayout="column" fxFlex="50">
+                    <label for="annualReturnDocument">Annual Report (PDF)</label>
+                    <input type="file" name="annualReturnDocument" (change)="onAnnualReturnDocument($event)" id="annualReturnDocument"
+                            placeholder="Annual Return Document" accept="application/pdf"/>
+                </div>
+                <div fxLayout="column" fxFlex="50">
+                    <label for="ratingDocument">Rating (PDF)</label>
+                    <input type="file" name="ratingDocument" (change)="onRatingDocument($event)" placeholder="Rating Document" accept="application/pdf" 
+                            id="ratingDocument"/>
+                </div>
             </div>
 
             <div class="mt-32" mat-dialog-actions fxLayout="row">
