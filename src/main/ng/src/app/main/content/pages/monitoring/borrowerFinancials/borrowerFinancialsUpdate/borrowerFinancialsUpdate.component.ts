@@ -136,7 +136,7 @@ export class BorrowerFinancialsUpdateDialogComponent {
     
     /**
      * getFileURL()
-     * @param fileReference 
+     * @param fileReference
      */
     getFileURL(fileReference: string): string {
         return 'enquiry/api/download/' + fileReference;

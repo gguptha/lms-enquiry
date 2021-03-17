@@ -60,7 +60,11 @@ export class SecurityComplianceListComponent implements OnInit {
      * @param collateralObjectTypeCode 
      */
     getParticulars(collateralObjectTypeCode: any): string {
-        return LoanMonitoringConstants.collateralObjectTypes.filter(f => f.code === collateralObjectTypeCode)[0].value;
+        const collateralObjectType = LoanMonitoringConstants.collateralObjectTypes.filter(f => f.code === collateralObjectTypeCode)[0];
+        if (collateralObjectType !== undefined)
+            return collateralObjectType.value;
+        else
+            return '';
     }
 
     /**
