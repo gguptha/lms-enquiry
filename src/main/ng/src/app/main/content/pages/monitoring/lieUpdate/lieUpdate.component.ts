@@ -42,6 +42,7 @@ export class LIEUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedLIE !== undefined) {
             this.selectedLIE = _dialogData.selectedLIE;
+            this.dialogTitle = 'Modify LIE';
         }
         else {
             this.selectedLIE = new LIEModel({});

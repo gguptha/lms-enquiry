@@ -39,6 +39,7 @@ export class TRAUpdateDialogComponent implements OnInit {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedTRA !== undefined) {
             this.selectedTRA = _dialogData.selectedTRA;
+            this.dialogTitle = 'Modify TRA Account';
         }
         else {
             this.selectedTRA = new TRAModel({});

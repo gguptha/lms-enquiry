@@ -16,7 +16,7 @@ import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 })
 export class PromoterFinancialsUpdateDialogComponent {
 
-    dialogTitle = 'Promoter Financials';
+    dialogTitle = 'Add New Promoter Financials';
 
     selectedFinancials: PromoterFinancialsModel ;
 
@@ -37,6 +37,7 @@ export class PromoterFinancialsUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedFinancials !== undefined) {
             this.selectedFinancials = _dialogData.selectedFinancials;
+            this.dialogTitle = 'Modify Promoter Financials';
         }
         else {
             this.selectedFinancials = new PromoterFinancialsModel({});

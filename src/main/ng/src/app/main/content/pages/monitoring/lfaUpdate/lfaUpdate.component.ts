@@ -42,6 +42,7 @@ export class LFAUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedLFA !== undefined) {
             this.selectedLFA = _dialogData.selectedLFA;
+            this.dialogTitle = 'Modify LFA';
         }
         else {
             this.selectedLFA = new LFAModel({});

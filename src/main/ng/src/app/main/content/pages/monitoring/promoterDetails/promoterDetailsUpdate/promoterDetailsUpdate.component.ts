@@ -16,7 +16,7 @@ import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 })
 export class PromoterDetailsUpdateDialogComponent {
 
-    dialogTitle = 'Promoter Details';
+    dialogTitle = 'Add New Promoter Details';
 
     selectedPromoterDetails: PromoterDetailsModel;
     selectedPromoterDetailsItem: PromoterDetailsItemModel;
@@ -38,6 +38,7 @@ export class PromoterDetailsUpdateDialogComponent {
         // Fetch selected promoter details from the dialog's data attribute.
         if (_dialogData.selectedPromoterDetails !== undefined) {
             this.selectedPromoterDetails = _dialogData.selectedPromoterDetails;
+            this.dialogTitle = 'Modify Promoter Details';
         }
         if (_dialogData.selectedPromoterDetailsItem !== undefined) {
             this.selectedPromoterDetailsItem = _dialogData.selectedPromoterDetailsItem;

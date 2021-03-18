@@ -16,7 +16,7 @@ import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 })
 export class FinancialCovenantsUpdateDialogComponent {
 
-    dialogTitle = 'Financial Covenants';
+    dialogTitle: string;
 
     selectedFinancialCovenants: FinancialCovenantsModel ;
 
@@ -39,9 +39,11 @@ export class FinancialCovenantsUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedFinancialCovenants !== undefined) {
             this.selectedFinancialCovenants = _dialogData.selectedFinancialCovenants;
+            this.dialogTitle = 'Add New Financial Covenants';
         }
         else {
             this.selectedFinancialCovenants = new FinancialCovenantsModel({});
+            this.dialogTitle = 'Modify Financial Covenants';
         }
 
         this.financialCovenantsUpdateForm = _formBuilder.group({

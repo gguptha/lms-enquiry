@@ -39,6 +39,7 @@ export class TandCUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedTandC !== undefined) {
             this.selectedTandC = _dialogData.selectedTandC;
+            this.dialogTitle = 'Modify T&C';
         }
         else {
             this.selectedTandC = new TandCModel({});

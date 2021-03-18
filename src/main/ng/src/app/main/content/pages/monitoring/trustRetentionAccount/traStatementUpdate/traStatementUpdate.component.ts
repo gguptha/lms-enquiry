@@ -44,6 +44,7 @@ export class TRAStatementUpdateDialogComponent {
         this.selectedTRA = _dialogData.selectedTRA;
         if (_dialogData.selectedTRAStatement !== undefined) {
             this.selectedTRAStatement = _dialogData.selectedTRAStatement;
+            this.dialogTitle = 'Modify TRA Statement';
         }
         else {
             this.selectedTRAStatement = new TRAStatementModel({});

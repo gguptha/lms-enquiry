@@ -16,7 +16,7 @@ import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 })
 export class SecurityComplianceUpdateDialogComponent {
 
-    dialogTitle = 'Security Compliance Maintenance';
+    dialogTitle = 'Add New Security Compliance Maintenance';
 
     selectedSecurityCompliance: SecurityComplianceModel;
 
@@ -45,6 +45,7 @@ export class SecurityComplianceUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedSecurityCompliance !== undefined) {
             this.selectedSecurityCompliance = _dialogData.selectedSecurityCompliance;
+            this.dialogTitle = 'Modify Security Compliance Maintenance';
         }
         else {
             this.selectedSecurityCompliance = new SecurityComplianceModel({});
