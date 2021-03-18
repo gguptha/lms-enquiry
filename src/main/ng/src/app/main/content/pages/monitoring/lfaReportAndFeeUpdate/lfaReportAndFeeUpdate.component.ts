@@ -174,4 +174,12 @@ export class LFAReportAndFeeUpdateDialogComponent {
     closeClick(): void {
         this._dialogRef.close({ 'refresh': false });
     }
+
+    /**
+     * getFileURL()
+     * @param fileReference
+     */
+     getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
+    }  
 }
