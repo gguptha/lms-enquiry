@@ -1,10 +1,10 @@
 spring:
   profiles: pfsdev
-    rest:
-      basePath: /api
-    content:
-      fs:
-        filesystem-root: ${user.home}/loans/
+  rest:
+    basePath: /api
+  content:
+    fs:
+      filesystem-root: ${user.home}/loans/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
@@ -26,9 +26,9 @@ spring:
   data:
     rest:
       basePath: /api
-      jackson:
-        serialization:
-          fail-on-empty-beans: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   mail:
     host: smtp.gmail.com
     port: 587
