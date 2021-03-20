@@ -46,6 +46,7 @@ export class LIEReportAndFeeUpdateDialogComponent {
         if (_dialogData.selectedLIEReportAndFee !== undefined) {
             console.log('_dialogData.selectedLIEReportAndFee', _dialogData.selectedLIEReportAndFee);
             this.selectedLIEReportAndFee = _dialogData.selectedLIEReportAndFee;
+            this.dialogTitle = 'Modify LIE Report Submission';
         }
         else {
             this.selectedLIEReportAndFee = new LIEReportAndFeeModel({});
@@ -175,4 +176,12 @@ export class LIEReportAndFeeUpdateDialogComponent {
     closeClick(): void {
         this._dialogRef.close({ 'refresh': false });
     }
+
+    /**
+     * getFileURL()
+     * @param fileReference
+     */
+     getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
+    }  
 }

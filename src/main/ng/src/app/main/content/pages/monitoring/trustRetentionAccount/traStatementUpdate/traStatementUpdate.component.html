@@ -2,7 +2,7 @@
     <mat-toolbar matDialogTitle class="mat-accent m-0">
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <span class="title dialog-title">{{ dialogTitle }}</span>
-            <button mat-button class="mat-icon-button" (click)="_dialogRef.close()" aria-label="Close Dialog">
+            <button mat-button class="mat-icon-button" (click)="closeClick()" aria-label="Close Dialog">
                 <mat-icon>close</mat-icon>
             </button>
         </mat-toolbar-row>
@@ -42,9 +42,22 @@
                       </mat-option>
                     </mat-select>
                 </mat-form-field> 
-                <input type="file" name="file" (change)="onFileSelect($event)" accept="application/pdf"/>
+                <div fxLayout="column" fxFlex="50">
+                    <label for="document">Upload Document (PDF)</label>
+                    <input type="file" name="file" (change)="onFileSelect($event)" accept="application/pdf" id="document"/>
+                </div>
+                <!-- <input type="file" name="file" (change)="onFileSelect($event)" accept="application/pdf"/> -->
             </div>
 
+            <div fxLayout="row">
+                <div fxLayout="column" fxFlex="50" class="mt-16"></div>
+                <div fxLayout="column" fxFlex="50">
+                    <a [href]="getFileURL(selectedTRAStatement.fileReference)" *ngIf="selectedTRAStatement.fileReference !== ''">
+                        <mat-icon>cloud_download</mat-icon>
+                    </a>
+                </div>
+            </div>
+            
             <div class="mt-32" mat-dialog-actions fxLayout="row">
                 <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
                     Submit

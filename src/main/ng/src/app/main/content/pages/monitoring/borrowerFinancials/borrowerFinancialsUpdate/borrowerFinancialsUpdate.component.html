@@ -59,6 +59,19 @@
                 </div>
             </div>
 
+            <div fxLayout="row">
+                <div fxLayout="column" fxFlex="50" class="mt-16">
+                    <a [href]="getFileURL(selectedFinancials.annualReturnFileReference)" *ngIf="selectedFinancials.annualReturnFileReference !== ''">
+                        <mat-icon>cloud_download</mat-icon>
+                    </a>
+                </div>
+                <div fxLayout="column" fxFlex="50" class="mt-16">
+                    <a [href]="getFileURL(selectedFinancials.ratingFileReference)" *ngIf="selectedFinancials.ratingFileReference !== ''">
+                        <mat-icon>cloud_download</mat-icon>
+                    </a>
+                </div>
+            </div>
+
             <div class="mt-32" mat-dialog-actions fxLayout="row">
                 <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
                     Submit

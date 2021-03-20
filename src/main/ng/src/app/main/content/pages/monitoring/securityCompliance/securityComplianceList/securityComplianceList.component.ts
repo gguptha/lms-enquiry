@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class SecurityComplianceListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'particulars', 'qty', 'faceValue','percentage', 'applicability'
+        'particulars', 'qty', 'faceValue','percentage', 'applicability', 'timelines', 'dateOfCreation', 'validityDate', 'value',
+            'securityPerfectionDate', 'remarks'
     ];
 
     selectedSecurityCompliance: any;
@@ -52,4 +54,24 @@ export class SecurityComplianceListComponent implements OnInit {
         this.selectedSecurityCompliance = securityCompliance;
         this._service.selectedSecurityCompliance.next(this.selectedSecurityCompliance);
     }
+
+    /**
+     * getParticulars()
+     * @param collateralObjectTypeCode 
+     */
+    getParticulars(collateralObjectTypeCode: any): string {
+        const collateralObjectType = LoanMonitoringConstants.collateralObjectTypes.filter(f => f.code === collateralObjectTypeCode)[0];
+        if (collateralObjectType !== undefined)
+            return collateralObjectType.value;
+        else
+            return '';
+    }
+
+    /**
+     * getApplicability()
+     * @param applicabilityCode 
+     */
+    getApplicability(applicabilityCode: any): string {
+        return LoanMonitoringConstants.applicability.filter(f => f.code === applicabilityCode)[0].value;
+    }  
 }

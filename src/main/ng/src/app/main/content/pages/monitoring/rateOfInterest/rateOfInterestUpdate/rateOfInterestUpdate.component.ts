@@ -16,7 +16,7 @@ import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
 })
 export class RateOfInterestUpdateDialogComponent {
 
-    dialogTitle = 'Rate Of Interest';
+    dialogTitle = 'Add New Rate Of Interest';
 
     selectedRateOfInterest: RateOfInterestModel ;
 
@@ -39,6 +39,7 @@ export class RateOfInterestUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedRateOfInterest !== undefined) {
             this.selectedRateOfInterest = _dialogData.selectedRateOfInterest;
+            this.dialogTitle = 'Modify Rate Of Interest';
         }
         else {
             this.selectedRateOfInterest = new RateOfInterestModel({});

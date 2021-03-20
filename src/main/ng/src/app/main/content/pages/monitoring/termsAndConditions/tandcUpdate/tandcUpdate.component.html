@@ -51,8 +51,20 @@
                     <input matInput placeholder="Remarks" formControlName="remarks" maxlength="200">          
                 </mat-form-field>
             </div>
+            
             <div fxLayout="row">
-                <input type="file" name="file" (change)="onFileSelect($event)" accept="application/pdf"/>
+                <div fxLayout="column" fxFlex="50">
+                    <label for="document">Upload Document (PDF)</label>
+                    <input type="file" name="file" (change)="onFileSelect($event)" accept="application/pdf" id="document"/>
+                </div>
+            </div>
+
+            <div fxLayout="row">
+                <div fxLayout="column" fxFlex="50" class="mt-16">
+                    <a [href]="getFileURL(selectedTandC.fileReference)" *ngIf="selectedTandC.fileReference !== ''">
+                        <mat-icon>cloud_download</mat-icon>
+                    </a>
+                </div>
             </div>
 
             <div class="mt-32" mat-dialog-actions fxLayout="row">

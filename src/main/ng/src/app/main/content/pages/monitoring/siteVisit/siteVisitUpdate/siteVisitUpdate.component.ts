@@ -14,7 +14,7 @@ import { SiteVisitModel } from 'app/main/content/model/siteVisit.model';
 })
 export class SiteVisitUpdateDialogComponent {
 
-    dialogTitle = 'Site Visit Details';
+    dialogTitle = 'Add New Site Visit Details';
 
     selectedSiteVisit: SiteVisitModel ;
 
@@ -37,6 +37,7 @@ export class SiteVisitUpdateDialogComponent {
         if (_dialogData.selectedSiteVisit !== undefined) {
             console.log('selected site visit in modify', _dialogData.selectedSiteVisit);
             this.selectedSiteVisit = _dialogData.selectedSiteVisit;
+            this.dialogTitle = 'Modify Site Visit Details';
         }
         else {
             this.selectedSiteVisit = new SiteVisitModel({});

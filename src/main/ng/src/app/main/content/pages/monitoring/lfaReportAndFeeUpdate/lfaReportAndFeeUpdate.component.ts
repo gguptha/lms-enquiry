@@ -44,8 +44,8 @@ export class LFAReportAndFeeUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         this.selectedLFA = _dialogData.selectedLFA;
         if (_dialogData.selectedLFAReportAndFee !== undefined) {
-            console.log('_dialogData.selectedLFAReportAndFee', _dialogData.selectedLFAReportAndFee);
             this.selectedLFAReportAndFee = _dialogData.selectedLFAReportAndFee;
+            this.dialogTitle = 'Modify LFA Report Submission';
         }
         else {
             this.selectedLFAReportAndFee = new LFAReportAndFeeModel({});
@@ -174,4 +174,12 @@ export class LFAReportAndFeeUpdateDialogComponent {
     closeClick(): void {
         this._dialogRef.close({ 'refresh': false });
     }
+
+    /**
+     * getFileURL()
+     * @param fileReference
+     */
+     getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
+    }  
 }
