@@ -16,6 +16,7 @@ export class LoanMonitoringService {
     selectedTRAStatement: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTandC: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedOperatingParameter: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSiteVisit: BehaviorSubject<any> = new BehaviorSubject({});
     selectedRateOfInterest: BehaviorSubject<any> = new BehaviorSubject({});
     selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
@@ -256,6 +257,22 @@ export class LoanMonitoringService {
         const url = "enquiry/api/loanApplications/promoterdetails/" + promoterDetails.id;
         return this._http.put(url, { 'loanApplicationId':'', 'promoterDetails':promoterDetails });
     }    
+
+    // All about Operating Parameters 
+
+    public getOperatingParameters(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/operatingparameters');
+    }
+    
+    public saveOperatingParameter(operatingParameter: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/operatingparameter/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'operatingParameter':operatingParameter });
+    }
+
+    public updateOperatingParameter(operatingParameter: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/operatingparameter/" + operatingParameter.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'operatingParameter':operatingParameter });
+    }
 
     // Others
 

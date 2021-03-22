@@ -591,4 +591,20 @@ export class LoanMonitoringConstants {
     public static accountTypes = [
         {code: "TRA Account" , value:"TRA Account"}
     ];
+
+    // months
+    public static months = [
+        {code: "Jan" , value:"Jan"},
+        {code: "Feb" , value:"Feb"},
+        {code: "Mar" , value:"Mar"},
+        {code: "Apr" , value:"Apr"},
+        {code: "May" , value:"May"},
+        {code: "Jun" , value:"Jun"},
+        {code: "Jul" , value:"Jul"},
+        {code: "Aug" , value:"Aug"},
+        {code: "Sep" , value:"Sep"},
+        {code: "Oct" , value:"Oct"},
+        {code: "Nov" , value:"Nov"},
+        {code: "Dec" , value:"Dec"}
+    ];
 }

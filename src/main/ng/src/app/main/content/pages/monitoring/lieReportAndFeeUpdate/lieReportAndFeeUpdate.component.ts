@@ -181,7 +181,7 @@ export class LIEReportAndFeeUpdateDialogComponent {
      * getFileURL()
      * @param fileReference
      */
-     getFileURL(fileReference: string): string {
+    getFileURL(fileReference: string): string {
         return 'enquiry/api/download/' + fileReference;
     }  
 }

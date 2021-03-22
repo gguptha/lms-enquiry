@@ -670,25 +670,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         OperatingParameter operatingParameter = resource.getOperatingParameter();
         operatingParameter.setLoanMonitor(loanMonitor);
-//        operatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
-//        operatingParameter.setMonth(resource.getOperatingParameter().getMonth());
-//        operatingParameter.setYear(resource.getOperatingParameter().getYear());
-//        operatingParameter.setExportNetGeneration(resource.getOperatingParameter().getExportNetGeneration());
-//        operatingParameter.setPlfCufActual(resource.getOperatingParameter().getPlfCufActual());
-//        operatingParameter.setApplicableTariff(resource.getOperatingParameter().getApplicableTariff());
-//        operatingParameter.setRevenue(resource.getOperatingParameter().getRevenue());
-//        operatingParameter.setDateOfInvoice(resource.getOperatingParameter().getDateOfInvoice());
-//        operatingParameter.setDateOfPaymentReceipt(resource.getOperatingParameter().getDateOfPaymentReceipt());
-//        operatingParameter.setCarbonDioxideEmission(resource.getOperatingParameter().getCarbonDioxideEmission());
-//        operatingParameter.setWaterSaved(resource.getOperatingParameter().getWaterSaved());
-//        operatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
-//        operatingParameter.setDesignPlfCuf(resource.getOperatingParameter().getDesignPlfCuf());
-//        operatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
-//
-//        operatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
-//        operatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
-//
-//        operatingParameter.setDocumentContent(resource.getOperatingParameter().getDocumentContent());
+        operatingParameter.setSerialNumber(siteVisitRepository.findByLoanMonitor(loanMonitor).size() + 1);
         operatingParameter = operatingParameterRepository.save(operatingParameter);
 
         return operatingParameter;
@@ -699,8 +681,6 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public OperatingParameter updateOperatingParameter(OperatingParameterResource resource, String username) {
         OperatingParameter existingOperatingParameter
                 = operatingParameterRepository.getOne(resource.getOperatingParameter().getId());
-
-        existingOperatingParameter = operatingParameterRepository.save(existingOperatingParameter);
         existingOperatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
         existingOperatingParameter.setMonth(resource.getOperatingParameter().getMonth());
         existingOperatingParameter.setYear(resource.getOperatingParameter().getYear());
@@ -710,20 +690,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingOperatingParameter.setRevenue(resource.getOperatingParameter().getRevenue());
         existingOperatingParameter.setDateOfInvoice(resource.getOperatingParameter().getDateOfInvoice());
         existingOperatingParameter.setDateOfPaymentReceipt(resource.getOperatingParameter().getDateOfPaymentReceipt());
-        existingOperatingParameter.setCarbonDioxideEmission(resource.getOperatingParameter().getCarbonDioxideEmission());
+        existingOperatingParameter.setCarbonDiOxideEmission(resource.getOperatingParameter().getCarbonDiOxideEmission());
         existingOperatingParameter.setWaterSaved(resource.getOperatingParameter().getWaterSaved());
         existingOperatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
         existingOperatingParameter.setDesignPlfCuf(resource.getOperatingParameter().getDesignPlfCuf());
         existingOperatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
-
         existingOperatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
         existingOperatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
-
         existingOperatingParameter.setFileReference(resource.getOperatingParameter().getFileReference());
+        existingOperatingParameter = operatingParameterRepository.save(existingOperatingParameter);
 
         return existingOperatingParameter;
-
-
     }
 
     @Override

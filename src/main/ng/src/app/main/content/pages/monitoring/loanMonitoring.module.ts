@@ -43,6 +43,8 @@ import { PromoterDetailsUpdateDialogComponent } from './promoterDetails/promoter
 import { PromoterDetailsItemListComponent } from './promoterDetails/promoterDetailsList/promoterDetailsList.component';
 import { MAT_DATE_FORMATS } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
+import { OperatingParameterListComponent } from './operatingParameter/operatingParameterList/operatingParameterList.component';
 
 const routes = [
     {
@@ -113,7 +115,9 @@ const MY_FORMATS = {
         FinancialCovenantsListComponent,
         FinancialCovenantsUpdateDialogComponent,
         PromoterDetailsItemListComponent,
-        PromoterDetailsUpdateDialogComponent
+        PromoterDetailsUpdateDialogComponent,
+        OperatingParameterListComponent,
+        OperatingParameterUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -154,7 +158,9 @@ const MY_FORMATS = {
         FinancialCovenantsListComponent,
         FinancialCovenantsUpdateDialogComponent,
         PromoterDetailsItemListComponent,
-        PromoterDetailsUpdateDialogComponent
+        PromoterDetailsUpdateDialogComponent,
+        OperatingParameterListComponent,
+        OperatingParameterUpdateDialogComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -184,7 +190,9 @@ const MY_FORMATS = {
         FinancialCovenantsListComponent,
         FinancialCovenantsUpdateDialogComponent,
         PromoterDetailsItemListComponent,
-        PromoterDetailsUpdateDialogComponent
+        PromoterDetailsUpdateDialogComponent,
+        OperatingParameterListComponent,
+        OperatingParameterUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {

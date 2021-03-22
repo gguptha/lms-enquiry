@@ -240,6 +240,23 @@
             </mat-tab>
             <!-- Site Visit Tab - Ends Here -->
 
+            <!-- Operating Parameters Tab - Starts Here -->
+            <mat-tab label="Operating Parameters">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateOperatingParameter('addOperatingParameter')"> 
+                        Add New Operating Parameter
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateOperatingParameter('updateOperatingParameter')" 
+                            [disabled]="selectedOperatingParameter.id == ''"> 
+                        Modify Operating Parameter
+                    </button>
+                </div>            
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-operating-parameter-list [operatingParameterList]="operatingParameterList"></fuse-operating-parameter-list>
+                </div>
+            </mat-tab>
+            <!-- Operating Parameters Tab - Ends Here -->
+            
             <!-- Rate of Interest Tab - Starts Here -->
             <mat-tab label="Rate of Interest">
                 <div class="toolbar" fxLayout="row" class="mt-16 mb-16">

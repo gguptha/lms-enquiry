@@ -46,6 +46,12 @@ export class SecurityComplianceUpdateDialogComponent {
         if (_dialogData.selectedSecurityCompliance !== undefined) {
             this.selectedSecurityCompliance = _dialogData.selectedSecurityCompliance;
             this.dialogTitle = 'Modify Security Compliance Maintenance';
+            
+            // populate collateral agreement types
+            this.collateralAgreementTypes = LoanMonitoringConstants.collateralAgreementTypes.filter(obj => {
+                return obj.objectType === this.selectedSecurityCompliance.collateralObjectType;
+            });
+    
         }
         else {
             this.selectedSecurityCompliance = new SecurityComplianceModel({});
@@ -135,7 +141,7 @@ export class SecurityComplianceUpdateDialogComponent {
      * getCollateralAgreementTypes()
      * @param event 
      */
-    getCollateralAgreementTypes(event) {
+    getCollateralAgreementTypes(event: any) {
         this.collateralAgreementTypes = LoanMonitoringConstants.collateralAgreementTypes.filter(obj => {
             return obj.objectType === event.value;
         });

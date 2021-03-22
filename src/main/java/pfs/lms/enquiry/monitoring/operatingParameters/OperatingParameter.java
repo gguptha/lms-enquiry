@@ -31,7 +31,7 @@ public class OperatingParameter extends AbstractEntity {
     private Double revenue; // (Rs in Lakhs)
     private LocalDate dateOfInvoice;
     private LocalDate dateOfPaymentReceipt;
-    private Double carbonDioxideEmission; // (Tonnes)
+    private Double carbonDiOxideEmission; // (Tonnes)
     private Double waterSaved;
     private String remarks;
     private String designPlfCuf;

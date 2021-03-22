@@ -35,6 +35,8 @@ import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/fi
 import { PromoterDetailsModel } from '../../model/promoterDetails.model';
 import { PromoterDetailsItemModel } from '../../model/promoterDetailsItem.model';
 import { PromoterDetailsUpdateDialogComponent } from './promoterDetails/promoterDetailsUpdate/promoterDetailsUpdate.component';
+import { OperatingParameterModel } from '../../model/operatingParameter';
+import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -62,6 +64,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedFinancialCovenants: FinancialCovenantsModel;
     selectedPromoterDetails: PromoterDetailsModel;
     selectedPromoterDetailsItem: PromoterDetailsItemModel = new PromoterDetailsItemModel({});
+    selectedOperatingParameter: OperatingParameterModel;
 
     lieList: any;
     lieReportAndFeeList: any;
@@ -77,6 +80,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     promoterFinancialsList: any;
     financialCovenantsList: any;
     promoterDetailsItemSet: any;
+    operatingParameterList: any;
 
     selectedEnquiryForm: FormGroup;
     boardApprovalDetailsForm: FormGroup;
@@ -150,6 +154,10 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                         this.selectedPromoterDetails = data[0].promoterDetails;
                         this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
                     }
+                });
+                // getOperatingParameters
+                _loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
+                    this.operatingParameterList = data;
                 })
             })
         );
@@ -215,6 +223,12 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         _loanMonitoringService.selectedSecurityCompliance.subscribe(data => {
             this.selectedSecurityCompliance = new SecurityComplianceModel(data);
+        })
+
+        // All about Operating Parameter
+
+        _loanMonitoringService.selectedOperatingParameter.subscribe(data => {
+            this.selectedOperatingParameter = new OperatingParameterModel(data);
         })
 
         // All about Site Visit
@@ -593,6 +607,35 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             if (result.refresh) {
                 this._loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                     this.securityComplianceList = data;
+                });
+            }
+        });    
+    }
+
+    /**
+     * updateOperatingParameter()
+     * @param operation 
+     */
+    updateOperatingParameter(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedOperatingParameter': undefined
+        };
+        if (operation === 'updateOperatingParameter') {
+            data.selectedOperatingParameter = this.selectedOperatingParameter;
+        }
+        const dialogRef = this._dialogRef.open(OperatingParameterUpdateDialogComponent, {
+            panelClass: 'fuse-operating-parameter-update-dialog',
+            width: '1000px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
+                    this.operatingParameterList = data;
                 });
             }
         });    

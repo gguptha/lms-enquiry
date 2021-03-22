@@ -44,8 +44,7 @@ public class SecurityCompliance extends AbstractEntity {
     private String actionPeriod;
 
     private String eventType;
-    //private String applicability;
-    //private String remarks;
+
 
     private String location;
 
