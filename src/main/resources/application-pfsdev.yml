@@ -1,11 +1,16 @@
 spring:
   profiles: pfsdev
+  rest:
+    basePath: /api
+  content:
+    fs:
+      filesystem-root: ${user.home}/loans/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: Pfsltd@12345
     maximum-pool-size: 40
-    url: jdbc:mysql://localhost:3306/pfsenquiry?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/pfsenquiry?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&&nullCatalogMeansCurrent=true
     validation-query: select 1
     connection-test-query: select 1
     test-while-idle: true
@@ -14,15 +19,16 @@ spring:
     hikari:
       connection-timeout: 60000
       maximum-pool-size: 20
+      validation-timeout: 5000000
   jpa:
     database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
     generate-ddl: true
   data:
     rest:
       basePath: /api
-      jackson:
-        serialization:
-          fail-on-empty-beans: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   mail:
     host: smtp.gmail.com
     port: 587
@@ -34,6 +40,14 @@ spring:
         auth: true
         starttls.enable: true
         ssl.trust: smtp.gmail.com
+  activiti:
+    activiti5CompatibilityEnabled: true
+    mail-server-host: smtp.gmail.com
+    mail-server-port: 587
+    mail-server-user-name: pfsriskmodel@gmail.com
+    mail-server-password: Sapsap@123
+    mail-server-default-from: pfsriskmodel@gmail.com
+    mail-server-use-tls: true
 oauth:
   baseUrl: http://192.168.1.205:9999/auth
 sap:
