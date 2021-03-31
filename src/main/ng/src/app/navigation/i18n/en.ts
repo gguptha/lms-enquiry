@@ -10,6 +10,8 @@ export const locale = {
             'USERMANAGEMENT': 'User Management',
             'MAILREPOSITORY': 'Email Events',
             'PARTNER'       : 'Business Partners',
+            'MONITORING'    : 'Monitoring',
+            'INBOX'         : 'Inbox',
             'LOANCONTRACTSLIST': 'Loan Contracts List',
             'SAMPLE'        : {
                 'TITLE': 'Sample',

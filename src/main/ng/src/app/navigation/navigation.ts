@@ -42,7 +42,15 @@ export const officerNavigation: FuseNavigation[] = [
     translate: 'NAV.APPLICATIONS',
     type: 'group',
     children: [
-      {
+    {
+        id: 'inbox',
+        title: 'Inbox',
+        translate: 'NAV.INBOX',
+        type: 'item',
+        icon: 'create',
+        url: '/inbox',
+    },
+    {
         id: 'New loan-enquiry',
         title: 'New Loan Enquiry',
         translate: 'NAV.LOANENQUIRY',
@@ -79,7 +87,15 @@ export const officerNavigation: FuseNavigation[] = [
 ];
 
 export const adminNavigation: FuseNavigation[] = [
-  {
+    {
+        id: 'inbox',
+        title: 'Inbox',
+        translate: 'NAV.INBOX',
+        type: 'item',
+        icon: 'account_box',
+        url: '/inbox'
+    },
+    {
     id: 'administration',
     title: 'Administration',
     translate: 'NAV.ADMINISTRATION',

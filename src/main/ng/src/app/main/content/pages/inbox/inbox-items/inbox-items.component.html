@@ -1,0 +1,63 @@
+<div class="mat-table-container" fusePerfectScrollbar>
+
+    <!-- <mat-table class="enquiries-table" #table [dataSource]="dataSource" *fuseIfOnDom [@animateStagger]="{value:'50'}" fusePerfectScrollbar> -->
+    <mat-table class="inbox-table" [dataSource]="inboxItems" matSort>
+
+        <!-- dateAsString Column -->
+        <ng-container matColumnDef="dateAsString">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <p class="text-truncate">{{ item.dateAsString }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectType Column -->
+        <ng-container matColumnDef="projectType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Project Type</mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <p class="text-truncate">{{ item.projectType }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- riskLevel Column -->
+        <ng-container matColumnDef="riskLevel">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Phase</mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <p class="text-truncate">{{ item.riskLevel }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- projectName Column -->
+        <ng-container matColumnDef="projectName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Project Name</mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <p class="text-truncate">{{ item.projectName }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- riskModelId Column -->
+        <ng-container matColumnDef="riskModelId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Risk Model Id</mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <p class="text-truncate">{{ item.riskModelId }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- requestedBy Column -->
+        <ng-container matColumnDef="requestedBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Requested By</mat-header-cell>
+            <mat-cell *matCellDef="let item">
+                <p class="text-truncate">{{ item.requestedBy | uppercase }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <mat-row *matRowDef="let item; columns: displayedColumns;" matRipple (click)="onSelect(item)"
+            [ngClass]="{'light-blue-50':item === selectedItem}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+
+
+    </mat-table>
+</div>

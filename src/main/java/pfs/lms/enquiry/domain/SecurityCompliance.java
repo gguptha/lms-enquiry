@@ -25,7 +25,7 @@ public class SecurityCompliance extends AbstractEntity {
 
     private String applicability;
 
-    private String collateralAgreementType; //(TypeofSecurity)
+    private String collateralAgreementType;
 
     private String timelines;
 
@@ -39,12 +39,15 @@ public class SecurityCompliance extends AbstractEntity {
 
     private String remarks;
 
-    //private LocalDate validityDate;
+    private String actionPeriodPrefix;
 
-    private String actionPeriod;
+    private Integer periodNumber;
+
+    private String actionPeriodSuffix;
 
     private String eventType;
 
+    private LocalDate eventDate;
 
     private String location;
 

@@ -528,7 +528,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         securityCompliance.setValue(resource.getSecurityCompliance().getValue());
         securityCompliance.setSecurityPerfectionDate(resource.getSecurityCompliance().getSecurityPerfectionDate());
         securityCompliance.setRemarks(resource.getSecurityCompliance().getRemarks());
-        securityCompliance.setActionPeriod(resource.getSecurityCompliance().getActionPeriod());
+        // securityCompliance.setActionPeriod(resource.getSecurityCompliance().getActionPeriod());
         securityCompliance.setEventType(resource.getSecurityCompliance().getEventType());
         securityCompliance.setLocation(resource.getSecurityCompliance().getLocation());
         securityCompliance.setAdditionalText(resource.getSecurityCompliance().getAdditionalText());
@@ -559,7 +559,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingSecurityCompliance.setValue(resource.getSecurityCompliance().getValue());
         existingSecurityCompliance.setSecurityPerfectionDate(resource.getSecurityCompliance().getSecurityPerfectionDate());
         existingSecurityCompliance.setRemarks(resource.getSecurityCompliance().getRemarks());
-        existingSecurityCompliance.setActionPeriod(resource.getSecurityCompliance().getActionPeriod());
+        // existingSecurityCompliance.setActionPeriod(resource.getSecurityCompliance().getActionPeriod());
         existingSecurityCompliance.setEventType(resource.getSecurityCompliance().getEventType());
         existingSecurityCompliance.setLocation(resource.getSecurityCompliance().getLocation());
         existingSecurityCompliance.setAdditionalText(resource.getSecurityCompliance().getAdditionalText());

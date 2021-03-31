@@ -33,6 +33,7 @@ import {MailRepoModule} from "./main/content/pages/administration/mail-repo/mail
 import { ChangePasswordModule } from './main/content/pages/changePassword/changePassword.module';
 import { LoanContractsSearchModule } from './main/content/pages/loanContractsSearch/loanContractsSearch.module';
 import { LoanMonitoringModule } from './main/content/pages/monitoring/loanMonitoring.module';
+import { InboxModule } from './main/content/pages/inbox/inbox.module';
 
 const appRoutes: Routes = [
     {
@@ -92,7 +93,10 @@ const appRoutes: Routes = [
 
         // Monitoring
         LoanContractsSearchModule,
-        LoanMonitoringModule
+        LoanMonitoringModule,
+
+        // Workflow
+        InboxModule
     ],
     bootstrap: [
         AppComponent
