@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class RateOfInterest extends AbstractEntity {
+public class RateOfInterest extends AbstractEntity implements Cloneable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -29,5 +29,9 @@ public class RateOfInterest extends AbstractEntity {
     private Double presentRoi;
 
     private String freeText;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }

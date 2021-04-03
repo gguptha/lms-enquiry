@@ -6,8 +6,10 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by sajeev on 15-Dec-18.
@@ -26,7 +28,20 @@ public class ChangeDocument extends AuditModel  {
     private Long id;
 
     @Nullable
-    private Long riskModelTemplateId;
+    private UUID loanBusinessProcessObjectId; //Id of the Business Project Object i.e. Monitoring, Appraisal etc.
+
+    @Nullable
+    private String key1; //Semantic Key 1 of the Sub Entity
+
+    @Nullable
+    private String key2; //Semantic Key 2 of the Sub Entity
+
+
+    @Nullable
+    private String businessProcessName; //i.e Monitoring, Appraisal, etc.
+
+    @Nullable
+    private String subProcessName; // i.e. LIE, LFA etc.
 
     @Nullable
     private String userName;
@@ -39,11 +54,7 @@ public class ChangeDocument extends AuditModel  {
     private LoanApplication loanApplication;
 
     @Nullable
-    private String loanNumber;
-
-    @Nullable
-    private String loanEnquiryId;
-
+    private String loanContractId;
 
     @NotNull
     private String action;

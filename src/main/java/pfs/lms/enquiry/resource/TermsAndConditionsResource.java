@@ -13,9 +13,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
-public class TermsAndConditionsResource {
+public class TermsAndConditionsResource  implements Cloneable{
 
     private UUID loanApplicationId;
     private TermsAndConditionsModification termsAndConditionsModification;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 }

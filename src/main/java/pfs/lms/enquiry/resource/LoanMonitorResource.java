@@ -18,4 +18,6 @@ public class LoanMonitorResource {
 
     private UUID LoanMonitorId;
     private LoanApplication loanApplication;
+
+
 }

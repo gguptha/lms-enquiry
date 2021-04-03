@@ -140,7 +140,12 @@
             <version>1.4.0</version>
         </dependency>
 
-
+        <!-- https://mvnrepository.com/artifact/org.javers/javers-persistence-sql -->
+        <dependency>
+            <groupId>org.javers</groupId>
+            <artifactId>javers-persistence-sql</artifactId>
+            <version>5.1.1</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring-boot-starter -->
         <dependency>
             <groupId>org.activiti</groupId>

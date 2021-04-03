@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class TermsAndConditionsModification extends AbstractEntity {
+public class TermsAndConditionsModification extends AbstractEntity implements Cloneable{
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -27,4 +27,8 @@ public class TermsAndConditionsModification extends AbstractEntity {
     private LocalDate dateofIssueofAmendedSanctionLetter;
     private String remarks;
     private String fileReference;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class PromoterDetails extends AbstractEntity {
+public class PromoterDetails extends AbstractEntity  implements Cloneable{
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -22,4 +22,8 @@ public class PromoterDetails extends AbstractEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<PromoterDetailsItem> promoterDetailsItemSet;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

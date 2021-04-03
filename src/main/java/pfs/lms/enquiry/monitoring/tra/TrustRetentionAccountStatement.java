@@ -15,7 +15,7 @@ import java.sql.Blob;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class    TrustRetentionAccountStatement extends AbstractEntity {
+public class    TrustRetentionAccountStatement extends AbstractEntity  implements Cloneable{
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TrustRetentionAccount trustRetentionAccount;
@@ -26,4 +26,9 @@ public class    TrustRetentionAccountStatement extends AbstractEntity {
     private String periodYear;
     private String documentType;
     private String fileReference;
+
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

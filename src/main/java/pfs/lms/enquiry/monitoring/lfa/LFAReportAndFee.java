@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class LFAReportAndFee extends AbstractEntity {
+public class LFAReportAndFee extends AbstractEntity implements Cloneable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LendersFinancialAdvisor lendersFinancialAdvisor;
@@ -33,4 +33,8 @@ public class LFAReportAndFee extends AbstractEntity {
     private String documentTitle;
     private String fileReference;
     private LocalDate nextReportDate;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

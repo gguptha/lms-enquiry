@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class TrustRetentionAccount extends AbstractEntity {
+public class TrustRetentionAccount extends AbstractEntity implements  Cloneable{
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -45,4 +45,10 @@ public class TrustRetentionAccount extends AbstractEntity {
     private String pfsAuthorisedPersonBPCode;
 
     private String pfsAuthorisedPerson;
+
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
+
 }

@@ -43,14 +43,14 @@ public class LoanMonitoringController {
     // Create update and list (LIE)
 
     @PostMapping("/loanApplications/lendersindependentengineers/create")
-    public ResponseEntity createLIE(@RequestBody LIEResource resource, HttpServletRequest request) {
+    public ResponseEntity createLIE(@RequestBody LIEResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         LendersIndependentEngineer lendersIndependentEngineer =
                 loanMonitoringService.saveLIE(resource, request.getUserPrincipal().getName());
         return ResponseEntity.ok(lendersIndependentEngineer);
     }
 
     @PutMapping("/loanApplications/lendersindependentengineers/{id}")
-    public ResponseEntity updateLIE(@PathVariable("id") String lieId, @RequestBody LIEResource resource, HttpServletRequest request) {
+    public ResponseEntity updateLIE(@PathVariable("id") String lieId, @RequestBody LIEResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         LendersIndependentEngineer lendersIndependentEngineer =
                 loanMonitoringService.updateLIE(resource, request.getUserPrincipal().getName());
 
@@ -79,7 +79,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/liereportandfeesubmission/{id}")
-    public ResponseEntity updateLIEReportSubmissionAndFee(@PathVariable("id") String lieId, @RequestBody LIEReportAndFeeResource resource, HttpServletRequest request) {
+    public ResponseEntity updateLIEReportSubmissionAndFee(@PathVariable("id") String lieId, @RequestBody LIEReportAndFeeResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         LIEReportAndFee lieReportAndFee =
                 loanMonitoringService.updateLIEReportAndFee(resource, request.getUserPrincipal().getName());
 
@@ -107,7 +107,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/lendersfinancialAdvisors/{id}")
-    public ResponseEntity updateLFA(@PathVariable("id") String lieId, @RequestBody LFAResource resource, HttpServletRequest request) {
+    public ResponseEntity updateLFA(@PathVariable("id") String lieId, @RequestBody LFAResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         LendersFinancialAdvisor lendersFinancialAdvisor =
                 loanMonitoringService.updateLFA(resource, request.getUserPrincipal().getName());
 
@@ -136,7 +136,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/lfareportandfeesubmission/{id}")
-    public ResponseEntity updateLFAReportSubmissionAndFee(@PathVariable("id") String lieId, @RequestBody LFAReportAndFeeResource resource, HttpServletRequest request) {
+    public ResponseEntity updateLFAReportSubmissionAndFee(@PathVariable("id") String lieId, @RequestBody LFAReportAndFeeResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         LFAReportAndFee lfaReportAndFee =
                 loanMonitoringService.updateLFAReportAndFee(resource, request.getUserPrincipal().getName());
 
@@ -166,7 +166,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/trustretentionaccounts/{id}")
-    public ResponseEntity updateTRA(@PathVariable("id") String traId, @RequestBody TRAResource resource, HttpServletRequest request) {
+    public ResponseEntity updateTRA(@PathVariable("id") String traId, @RequestBody TRAResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         TrustRetentionAccount trustRetentionAccount =
                 loanMonitoringService.updateTRA(resource, request.getUserPrincipal().getName());
 
@@ -193,7 +193,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/trastatement/{id}")
-    public ResponseEntity updateTRAStatement(@PathVariable("id") String traId, @RequestBody TRAStatementResource resource, HttpServletRequest request) {
+    public ResponseEntity updateTRAStatement(@PathVariable("id") String traId, @RequestBody TRAStatementResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         TrustRetentionAccountStatement trustRetentionAccountStatement =
                 loanMonitoringService.updateTRAStatement(resource, request.getUserPrincipal().getName());
 
@@ -222,7 +222,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/termsandconditions/{id}")
-    public ResponseEntity updateTermsAndConditions(@PathVariable("id") String traId, @RequestBody TermsAndConditionsResource resource, HttpServletRequest request) {
+    public ResponseEntity updateTermsAndConditions(@PathVariable("id") String traId, @RequestBody TermsAndConditionsResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         TermsAndConditionsModification termsAndConditions =
                 loanMonitoringService.updateTermsAndConditions(resource, request.getUserPrincipal().getName());
 
@@ -257,7 +257,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/securitycompliance/{id}")
-    public ResponseEntity updateSecurityCompliance(@PathVariable("id") String securityComplianceId, @RequestBody SecurityComplianceResource resource, HttpServletRequest request) {
+    public ResponseEntity updateSecurityCompliance(@PathVariable("id") String securityComplianceId, @RequestBody SecurityComplianceResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         SecurityCompliance securityCompliance =
                 loanMonitoringService.updateSecurityCompliance(resource, request.getUserPrincipal().getName());
 
@@ -284,7 +284,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/sitevisit/{id}")
-    public ResponseEntity updateSiteVisit(@PathVariable("id") String siteVisiteId, @RequestBody SiteVisitResource resource, HttpServletRequest request) {
+    public ResponseEntity updateSiteVisit(@PathVariable("id") String siteVisiteId, @RequestBody SiteVisitResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         SiteVisit siteVisit =
                 loanMonitoringService.updateSiteVisit(resource, request.getUserPrincipal().getName());
 
@@ -312,7 +312,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/operatingparameter/{id}")
-    public ResponseEntity updateOperatingParameter(@PathVariable("id") String operatingParameterId, @RequestBody OperatingParameterResource resource, HttpServletRequest request) {
+    public ResponseEntity updateOperatingParameter(@PathVariable("id") String operatingParameterId, @RequestBody OperatingParameterResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         OperatingParameter operatingParameter =
                 loanMonitoringService.updateOperatingParameter(resource, request.getUserPrincipal().getName());
 
@@ -339,7 +339,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/rateofinterest/{id}")
-    public ResponseEntity updateRateOfInterest(@PathVariable("id") String rateOfInterestId, @RequestBody RateOfInterestResource resource, HttpServletRequest request) {
+    public ResponseEntity updateRateOfInterest(@PathVariable("id") String rateOfInterestId, @RequestBody RateOfInterestResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         RateOfInterest rateOfInterest =
                 loanMonitoringService.updateRateOfInterest(resource, request.getUserPrincipal().getName());
 
@@ -367,7 +367,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/borrowerfinancials/{id}")
-    public ResponseEntity updateBorrowerFinancials(@PathVariable("id") String borrowerFinancialsId, @RequestBody BorrowerFinancialsResource resource, HttpServletRequest request) {
+    public ResponseEntity updateBorrowerFinancials(@PathVariable("id") String borrowerFinancialsId, @RequestBody BorrowerFinancialsResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         BorrowerFinancials borrowerFinancials =
                 loanMonitoringService.updateBorrowerFinancials(resource, request.getUserPrincipal().getName());
 
@@ -394,7 +394,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/promoterfinancials/{id}")
-    public ResponseEntity updatePromoterFinancials(@PathVariable("id") String promoterFinancialsId, @RequestBody PromoterFinancialsResource resource, HttpServletRequest request) {
+    public ResponseEntity updatePromoterFinancials(@PathVariable("id") String promoterFinancialsId, @RequestBody PromoterFinancialsResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         PromoterFinancials promoterFinancials =
                 loanMonitoringService.updatePromoterFinancials(resource, request.getUserPrincipal().getName());
 
@@ -422,7 +422,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/financialcovenants/{id}")
-    public ResponseEntity updateFinancialCovenants(@PathVariable("id") String financialCovenantsId, @RequestBody FinancialCovenantsResource resource, HttpServletRequest request) {
+    public ResponseEntity updateFinancialCovenants(@PathVariable("id") String financialCovenantsId, @RequestBody FinancialCovenantsResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         FinancialCovenants financialCovenants =
                 loanMonitoringService.updateFinancialCovenants(resource, request.getUserPrincipal().getName());
 
@@ -450,7 +450,7 @@ public class LoanMonitoringController {
     }
 
     @PutMapping("/loanApplications/promoterdetails/{id}")
-    public ResponseEntity updatePromoterDetails(@PathVariable("id") String promoterDetailsId, @RequestBody PromoterDetailsResource resource, HttpServletRequest request) {
+    public ResponseEntity updatePromoterDetails(@PathVariable("id") String promoterDetailsId, @RequestBody PromoterDetailsResource resource, HttpServletRequest request) throws CloneNotSupportedException {
         PromoterDetails promoterDetails =
                 loanMonitoringService.updatePromoterDetails(resource, request.getUserPrincipal().getName());
 

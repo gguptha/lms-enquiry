@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class SecurityCompliance extends AbstractEntity {
+public class SecurityCompliance extends AbstractEntity implements Cloneable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -62,4 +62,9 @@ public class SecurityCompliance extends AbstractEntity {
     private Double securityFaceValueAmount;
 
     private Double holdingPercentage;
+
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

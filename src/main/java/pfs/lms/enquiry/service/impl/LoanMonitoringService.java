@@ -1,8 +1,10 @@
 package pfs.lms.enquiry.service.impl;
 
 
+import javafx.beans.binding.ObjectExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
@@ -20,6 +22,7 @@ import pfs.lms.enquiry.monitoring.tra.*;
 import pfs.lms.enquiry.repository.*;
 import pfs.lms.enquiry.resource.*;
 import pfs.lms.enquiry.service.ILoanMonitoringService;
+import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -62,6 +65,9 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final PromoterDetailsRepository promoterDetailsRepository;
 
+    @Autowired
+    private  IChangeDocumentService changeDocumentService;
+
     @Override
     @Transactional
     public LendersIndependentEngineer saveLIE(LIEResource resource, String username) {
@@ -74,6 +80,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
+
         }
         LendersIndependentEngineer lendersIndependentEngineer = resource.getLendersIndependentEngineer();
         lendersIndependentEngineer.setLoanMonitor(loanMonitor);
@@ -87,14 +104,31 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         lendersIndependentEngineer.setContactNumber(resource.getLendersIndependentEngineer().getContactNumber());
         lendersIndependentEngineer.setEmail(resource.getLendersIndependentEngineer().getEmail());
         lendersIndependentEngineer = lieRepository.save(lendersIndependentEngineer);
+
+        // Create Change Document for LIE
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                loanMonitor,
+                "Created",
+                username,
+                "Monitoring" , "Lenders Independent Engineer",
+                lendersIndependentEngineer.getBpCode(),lendersIndependentEngineer.getName());
+
+
+
         return lendersIndependentEngineer;
     }
 
     @Override
-    public LendersIndependentEngineer updateLIE(LIEResource resource, String username) {
+    public LendersIndependentEngineer updateLIE(LIEResource resource, String username) throws CloneNotSupportedException {
 
         LendersIndependentEngineer existingLendersIndependentEngineer
                 = lieRepository.getOne(resource.getLendersIndependentEngineer().getId());
+
+        //Clone the LIE Object for Change Document
+         Object oldLendersIndependentEngineer = existingLendersIndependentEngineer.clone();
 
         existingLendersIndependentEngineer.setAdvisor(resource.getLendersIndependentEngineer().getAdvisor());
         existingLendersIndependentEngineer.setBpCode(resource.getLendersIndependentEngineer().getBpCode());
@@ -106,6 +140,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingLendersIndependentEngineer.setContactNumber(resource.getLendersIndependentEngineer().getContactNumber());
         existingLendersIndependentEngineer.setEmail(resource.getLendersIndependentEngineer().getEmail());
         existingLendersIndependentEngineer = lieRepository.save(existingLendersIndependentEngineer);
+
+        //Create Change Document
+        changeDocumentService.createChangeDocument(
+                existingLendersIndependentEngineer.getLoanMonitor().getId(),
+                existingLendersIndependentEngineer.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldLendersIndependentEngineer,
+                existingLendersIndependentEngineer,
+                "Updated",
+                username,
+                "Monitoring", "Lenders Independent Engineer",
+                existingLendersIndependentEngineer.getBpCode(),existingLendersIndependentEngineer.getName());
 
         return existingLendersIndependentEngineer;
     }
@@ -140,14 +185,28 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         LIEReportAndFee lieReportAndFee = resource.getLieReportAndFee();
         lieReportAndFee.setLendersIndependentEngineer(lendersIndependentEngineer);
         lieReportAndFee = lieReportAndFeeRepository.save(lieReportAndFee);
+
+        // Create Change Document for LIE Report and Fee
+        changeDocumentService.createChangeDocument(
+                lendersIndependentEngineer.getLoanMonitor().getId(),
+                lendersIndependentEngineer.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                lieReportAndFee,
+                "Created",
+                username,
+                "Monitoring" , "LIE Report And Fee",
+                lendersIndependentEngineer.getBpCode(),lendersIndependentEngineer.getName());
+
         return lieReportAndFee;
     }
 
     @Override
-    public LIEReportAndFee updateLIEReportAndFee(LIEReportAndFeeResource resource, String username) {
+    public LIEReportAndFee updateLIEReportAndFee(LIEReportAndFeeResource resource, String username) throws CloneNotSupportedException {
 
         LIEReportAndFee existinglieReportAndFee
                 = lieReportAndFeeRepository.getOne(resource.getLieReportAndFee().getId());
+
+        Object oldLieReportAndFee = existinglieReportAndFee.clone();
 
         existinglieReportAndFee.setReportType(resource.getLieReportAndFee().getReportType());
         existinglieReportAndFee.setDateOfReceipt(resource.getLieReportAndFee().getDateOfReceipt());
@@ -160,6 +219,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existinglieReportAndFee.setNextReportDate(resource.getLieReportAndFee().getNextReportDate());
         existinglieReportAndFee.setFileReference(resource.getLieReportAndFee().getFileReference());
         existinglieReportAndFee = lieReportAndFeeRepository.save(existinglieReportAndFee);
+
+        // Create Change Document for LIE Report And Fee
+        changeDocumentService.createChangeDocument(
+                existinglieReportAndFee.getLendersIndependentEngineer().getLoanMonitor().getId(),
+                existinglieReportAndFee.getLendersIndependentEngineer().getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldLieReportAndFee,
+                existinglieReportAndFee,
+                "Updated",
+                username,
+                "Monitoring" , "LIE Report And Fee",
+                existinglieReportAndFee.getReportType(),null);
 
         return existinglieReportAndFee;
     }
@@ -201,7 +271,21 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for LFA
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
+
+
+
+
         LendersFinancialAdvisor lendersFinancialAdvisor = resource.getLendersFinancialAdvisor();
         lendersFinancialAdvisor.setLoanMonitor(loanMonitor);
         lendersFinancialAdvisor.setBpCode(resource.getLendersFinancialAdvisor().getBpCode());
@@ -213,16 +297,32 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         lendersFinancialAdvisor.setContactNumber(resource.getLendersFinancialAdvisor().getContactNumber());
         lendersFinancialAdvisor.setEmail(resource.getLendersFinancialAdvisor().getEmail());
         lendersFinancialAdvisor = lfaRepository.save(lendersFinancialAdvisor);
+
+        // Create Change Document for LFA
+        changeDocumentService.createChangeDocument(
+                lendersFinancialAdvisor.getLoanMonitor().getId(),
+                lendersFinancialAdvisor.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                lendersFinancialAdvisor,
+                "Created",
+                username,
+                "Monitoring" , "Lenders Financial Advisor",
+                lendersFinancialAdvisor.getBpCode(),lendersFinancialAdvisor.getName());
+
+
         return lendersFinancialAdvisor;
     }
 
     @Override
-    public LendersFinancialAdvisor updateLFA(LFAResource resource, String username) {
+    public LendersFinancialAdvisor updateLFA(LFAResource resource, String username) throws CloneNotSupportedException {
 
         LendersFinancialAdvisor existingLendersFinancialAdvisor
                 = lfaRepository.getOne(resource.getLendersFinancialAdvisor().getId());
 
-        existingLendersFinancialAdvisor.setBpCode(resource.getLendersFinancialAdvisor().getBpCode());
+        //Clone Object for Change Document
+        Object oldLendersFinancialAdvisor = existingLendersFinancialAdvisor.clone();
+
+                existingLendersFinancialAdvisor.setBpCode(resource.getLendersFinancialAdvisor().getBpCode());
         existingLendersFinancialAdvisor.setName(resource.getLendersFinancialAdvisor().getName());
         existingLendersFinancialAdvisor.setDateOfAppointment(resource.getLendersFinancialAdvisor().getDateOfAppointment());
         existingLendersFinancialAdvisor.setContractPeriodFrom(resource.getLendersFinancialAdvisor().getContractPeriodFrom());
@@ -231,6 +331,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingLendersFinancialAdvisor.setContactNumber(resource.getLendersFinancialAdvisor().getContactNumber());
         existingLendersFinancialAdvisor.setEmail(resource.getLendersFinancialAdvisor().getEmail());
         existingLendersFinancialAdvisor = lfaRepository.save(existingLendersFinancialAdvisor);
+
+        // Create Change Document for LFA
+        changeDocumentService.createChangeDocument(
+                existingLendersFinancialAdvisor.getLoanMonitor().getId(),
+                existingLendersFinancialAdvisor.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldLendersFinancialAdvisor,
+                existingLendersFinancialAdvisor,
+                "Updated",
+                username,
+                "Monitoring" , "Lenders Financial Advisor",
+                existingLendersFinancialAdvisor.getBpCode(),existingLendersFinancialAdvisor.getName());
 
         return existingLendersFinancialAdvisor;
     }
@@ -262,14 +373,35 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         LFAReportAndFee lfaReportAndFee = resource.getLfaReportAndFee();
         lfaReportAndFee.setLendersFinancialAdvisor(lendersFinancialAdvisor);
         lfaReportAndFee = lfaReportAndFeeRepository.save(lfaReportAndFee);
+
+        // Create Change Document for LFA Report and Fee
+        changeDocumentService.createChangeDocument(
+                lendersFinancialAdvisor.getLoanMonitor().getId(),
+                lendersFinancialAdvisor.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                lfaReportAndFee,
+                "Created",
+                username,
+                "Monitoring" , "LFA Report and Fee",
+                lfaReportAndFee.getReportType(),null);
+
+
+
         return lfaReportAndFee;
 
     }
 
     @Override
-    public LFAReportAndFee updateLFAReportAndFee(LFAReportAndFeeResource resource, String username) {
+    public LFAReportAndFee updateLFAReportAndFee(LFAReportAndFeeResource resource, String username) throws CloneNotSupportedException {
         LFAReportAndFee existinglfaReportAndFee
                 = lfaReportAndFeeRepository.getOne(resource.getLfaReportAndFee().getId());
+
+        Object oldLFAReportAndFee = new Object();
+        try {
+             oldLFAReportAndFee = existinglfaReportAndFee.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
 
         existinglfaReportAndFee.setReportType(resource.getLfaReportAndFee().getReportType());
         existinglfaReportAndFee.setDateOfReceipt(resource.getLfaReportAndFee().getDateOfReceipt());
@@ -283,6 +415,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existinglfaReportAndFee.setFileReference(resource.getLfaReportAndFee().getFileReference());
         existinglfaReportAndFee.setNextReportDate(resource.getLfaReportAndFee().getNextReportDate());
         existinglfaReportAndFee = lfaReportAndFeeRepository.save(existinglfaReportAndFee);
+
+        // Create Change Document for LFA Report and Fee
+        changeDocumentService.createChangeDocument(
+                existinglfaReportAndFee.getLendersFinancialAdvisor().getLoanMonitor().getId(),
+                existinglfaReportAndFee.getLendersFinancialAdvisor().getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldLFAReportAndFee,
+                existinglfaReportAndFee,
+                "Updated",
+                username,
+                "Monitoring" , "LFA Report and Fee",
+                existinglfaReportAndFee.getReportType(),null);
+
 
         return existinglfaReportAndFee;
 
@@ -320,6 +464,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
+
         }
         TrustRetentionAccount trustRetentionAccount = resource.getTrustRetentionAccount();
         trustRetentionAccount.setLoanMonitor(loanMonitor);
@@ -338,14 +493,27 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         trustRetentionAccount.setPfsAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPfsAuthorisedPersonBPCode());
         trustRetentionAccount = traRepository.save(trustRetentionAccount);
 
+        // Change Documents for TRA
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                trustRetentionAccount,
+                "Created",
+                username,
+                "Monitoring ", "TRA Account", null,null);
+
+
         return trustRetentionAccount;
 
     }
 
     @Override
-    public TrustRetentionAccount updateTRA(TRAResource resource, String username) {
+    public TrustRetentionAccount updateTRA(TRAResource resource, String username) throws CloneNotSupportedException {
         TrustRetentionAccount existingTrustRetentionAccount
                 = traRepository.getOne(resource.getTrustRetentionAccount().getId());
+
+        Object oldTRARetentionAccount = existingTrustRetentionAccount.clone();
 
         existingTrustRetentionAccount.setBankKey(resource.getTrustRetentionAccount().getBankKey());
         existingTrustRetentionAccount.setTraBankName(resource.getTrustRetentionAccount().getTraBankName());
@@ -361,6 +529,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingTrustRetentionAccount.setPfsAuthorisedPerson(resource.getTrustRetentionAccount().getPfsAuthorisedPerson());
         existingTrustRetentionAccount.setPfsAuthorisedPersonBPCode(resource.getTrustRetentionAccount().getPfsAuthorisedPersonBPCode());
         existingTrustRetentionAccount = traRepository.save(existingTrustRetentionAccount);
+
+        // Change Documents for TRA A/c
+        changeDocumentService.createChangeDocument(
+                existingTrustRetentionAccount.getLoanMonitor().getId(),
+                existingTrustRetentionAccount.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldTRARetentionAccount,
+                existingTrustRetentionAccount,
+                "Updated",
+                username,
+                "Monitoring ", "TRA Account", null,null);
 
         return existingTrustRetentionAccount;
     }
@@ -392,14 +570,28 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         TrustRetentionAccountStatement trustRetentionAccountStatement = resource.getTrustRetentionAccountStatement();
         trustRetentionAccountStatement.setTrustRetentionAccount(trustRetentionAccount);
         trustRetentionAccountStatement = traStatementRepository.save(trustRetentionAccountStatement);
+
+        // Change Documents for TRA A/c Stmt
+        changeDocumentService.createChangeDocument(
+                trustRetentionAccount.getLoanMonitor().getId(),
+                trustRetentionAccount.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                trustRetentionAccount,
+                "Created",
+                username,
+                "Monitoring ", "TRA Account Statement", null,null);
+
+
         return trustRetentionAccountStatement;
 
     }
 
     @Override
-    public TrustRetentionAccountStatement updateTRAStatement(TRAStatementResource resource, String username) {
+    public TrustRetentionAccountStatement updateTRAStatement(TRAStatementResource resource, String username) throws CloneNotSupportedException {
         TrustRetentionAccountStatement existingTrustRetentionAccountStatement
                 = traStatementRepository.getOne(resource.getTrustRetentionAccountStatement().getId());
+
+        Object oldTRAAccountStatement = existingTrustRetentionAccountStatement.clone();
 
         existingTrustRetentionAccountStatement.setViewRights(resource.getTrustRetentionAccountStatement().getViewRights());
         existingTrustRetentionAccountStatement.setRemarks(resource.getTrustRetentionAccountStatement().getRemarks());
@@ -408,6 +600,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingTrustRetentionAccountStatement.setDocumentType(resource.getTrustRetentionAccountStatement().getDocumentType());
         existingTrustRetentionAccountStatement.setFileReference(resource.getTrustRetentionAccountStatement().getFileReference());
         existingTrustRetentionAccountStatement = traStatementRepository.save(existingTrustRetentionAccountStatement);
+
+
+        // Change Documents for TRA A/c Stmt
+        changeDocumentService.createChangeDocument(
+                existingTrustRetentionAccountStatement.getTrustRetentionAccount().getLoanMonitor().getId(),
+                existingTrustRetentionAccountStatement.getTrustRetentionAccount().getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldTRAAccountStatement,
+                existingTrustRetentionAccountStatement,
+                "Updated",
+                username,
+                "Monitoring ", "TRA Account Statement", existingTrustRetentionAccountStatement.getPeriodYear(),null);
+
 
         return existingTrustRetentionAccountStatement;
 
@@ -446,6 +650,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         TermsAndConditionsModification termsAndConditions = resource.getTermsAndConditionsModification();
         termsAndConditions.setLoanMonitor(loanMonitor);
@@ -458,14 +672,26 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         termsAndConditions.setFileReference(resource.getTermsAndConditionsModification().getFileReference());
         termsAndConditions = termsAndConditionsRepository.save(termsAndConditions);
 
+        // Change Documents for Terms and Conditions
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                termsAndConditions,
+                "Created",
+                username,
+                "Monitoring ", "Terms and Conditions", termsAndConditions.getCommunication(),null);
+
         return termsAndConditions;
 
     }
 
     @Override
-    public TermsAndConditionsModification updateTermsAndConditions(TermsAndConditionsResource resource, String username) {
+    public TermsAndConditionsModification updateTermsAndConditions(TermsAndConditionsResource resource, String username) throws CloneNotSupportedException {
         TermsAndConditionsModification existingTermsAndConditionsModification
                 = termsAndConditionsRepository.getOne(resource.getTermsAndConditionsModification().getId());
+
+        Object oldTermsAndConditionsMod = existingTermsAndConditionsModification.clone();
 
         existingTermsAndConditionsModification.setDocumentType(resource.getTermsAndConditionsModification().getDocumentType());
         existingTermsAndConditionsModification.setDocumentTitle(resource.getTermsAndConditionsModification().getDocumentTitle());
@@ -475,6 +701,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingTermsAndConditionsModification.setRemarks(resource.getTermsAndConditionsModification().getRemarks());
         existingTermsAndConditionsModification.setFileReference(resource.getTermsAndConditionsModification().getFileReference());
         existingTermsAndConditionsModification = termsAndConditionsRepository.save(existingTermsAndConditionsModification);
+
+        // Change Documents for T&C Mod.
+        changeDocumentService.createChangeDocument(
+                existingTermsAndConditionsModification.getLoanMonitor().getId(),
+                existingTermsAndConditionsModification.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldTermsAndConditionsMod,
+                existingTermsAndConditionsModification,
+                "Updated",
+                username,
+                "Monitoring ", "Terms and Conditions", existingTermsAndConditionsModification.getCommunication(),null);
+
 
         return existingTermsAndConditionsModification;
 
@@ -515,6 +752,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         SecurityCompliance securityCompliance = resource.getSecurityCompliance();
         securityCompliance.setLoanMonitor(loanMonitor);
@@ -540,14 +787,27 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         securityCompliance = securityComplianceRepository.save(securityCompliance);
 
+        // Change Documents for Sec. Compliance
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                securityCompliance,
+                "Created",
+                username,
+                "Monitoring ", "Security Compliance", securityCompliance.getCollateralObjectType(),null);
+
+
         return securityCompliance;
 
     }
 
     @Override
-    public SecurityCompliance updateSecurityCompliance(SecurityComplianceResource resource, String username) {
+    public SecurityCompliance updateSecurityCompliance(SecurityComplianceResource resource, String username) throws CloneNotSupportedException {
         SecurityCompliance existingSecurityCompliance
                 = securityComplianceRepository.getOne(resource.getSecurityCompliance().getId());
+
+        Object oldSecurityCompliance = existingSecurityCompliance.clone();
 
         existingSecurityCompliance.setCollateralObjectType(resource.getSecurityCompliance().getCollateralObjectType());
         existingSecurityCompliance.setQuantity(resource.getSecurityCompliance().getQuantity());
@@ -570,6 +830,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingSecurityCompliance.setHoldingPercentage(resource.getSecurityCompliance().getHoldingPercentage());
 
         existingSecurityCompliance = securityComplianceRepository.save(existingSecurityCompliance);
+
+
+        // Change Documents for T&C Mod.
+        changeDocumentService.createChangeDocument(
+                existingSecurityCompliance.getLoanMonitor().getId(),
+                existingSecurityCompliance.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldSecurityCompliance,
+                existingSecurityCompliance,
+                "Updated",
+                username,
+                "Monitoring ", "Security Compliance", existingSecurityCompliance.getCollateralObjectType(),null);
+
 
         return existingSecurityCompliance;
 
@@ -606,6 +878,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         SiteVisit siteVisit = resource.getSiteVisit();
         siteVisit.setLoanMonitor(loanMonitor);
@@ -616,20 +898,44 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         siteVisit.setDateOfSiteVisit(resource.getSiteVisit().getDateOfSiteVisit());
         siteVisit = siteVisitRepository.save(siteVisit);
 
+        // Change Documents for Site Visit
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                siteVisit,
+                "Created",
+                username,
+                "Monitoring ", "Site Visit", siteVisit.getSerialNumber().toString(),null);
+
         return siteVisit;
 
     }
 
     @Override
-    public SiteVisit updateSiteVisit(SiteVisitResource resource, String username) {
+    public SiteVisit updateSiteVisit(SiteVisitResource resource, String username) throws CloneNotSupportedException {
         SiteVisit existingSiteVisit
                 = siteVisitRepository.getOne(resource.getSiteVisit().getId());
+
+        Object oldSiteVisit = existingSiteVisit.clone();
 
         existingSiteVisit.setSerialNumber(resource.getSiteVisit().getSerialNumber());
         existingSiteVisit.setActualCOD(resource.getSiteVisit().getActualCOD());
         existingSiteVisit.setDateOfSiteVisit(resource.getSiteVisit().getDateOfSiteVisit());
         existingSiteVisit.setDateOfLendersMeet(resource.getSiteVisit().getDateOfLendersMeet());
         existingSiteVisit = siteVisitRepository.save(existingSiteVisit);
+
+        // Change Documents for T&C Mod.
+        changeDocumentService.createChangeDocument(
+                existingSiteVisit.getLoanMonitor().getId(),
+                existingSiteVisit.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldSiteVisit,
+                existingSiteVisit,
+                "Updated",
+                username,
+                "Monitoring ", "Security Compliance", existingSiteVisit.getSerialNumber().toString(),null);
+
+
 
         return existingSiteVisit;
 
@@ -667,20 +973,43 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         OperatingParameter operatingParameter = resource.getOperatingParameter();
         operatingParameter.setLoanMonitor(loanMonitor);
         operatingParameter.setSerialNumber(siteVisitRepository.findByLoanMonitor(loanMonitor).size() + 1);
         operatingParameter = operatingParameterRepository.save(operatingParameter);
 
+        // Change Documents for Operating Parameter
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                operatingParameter,
+                "Created",
+                username,
+                "Monitoring ", "Operating Parameter", null,null);
+
         return operatingParameter;
 
     }
 
     @Override
-    public OperatingParameter updateOperatingParameter(OperatingParameterResource resource, String username) {
+    public OperatingParameter updateOperatingParameter(OperatingParameterResource resource, String username) throws CloneNotSupportedException {
         OperatingParameter existingOperatingParameter
                 = operatingParameterRepository.getOne(resource.getOperatingParameter().getId());
+
+        Object oldExistingOperatingParameter = existingOperatingParameter.clone();
+
         existingOperatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
         existingOperatingParameter.setMonth(resource.getOperatingParameter().getMonth());
         existingOperatingParameter.setYear(resource.getOperatingParameter().getYear());
@@ -699,6 +1028,17 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingOperatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
         existingOperatingParameter.setFileReference(resource.getOperatingParameter().getFileReference());
         existingOperatingParameter = operatingParameterRepository.save(existingOperatingParameter);
+
+
+        // Change Documents for Operating Parameter
+        changeDocumentService.createChangeDocument(
+                existingOperatingParameter.getLoanMonitor().getId(),
+                existingOperatingParameter.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                existingOperatingParameter,
+                "Updated",
+                username,
+                "Monitoring ", "Operating Parameter", null,null);
 
         return existingOperatingParameter;
     }
@@ -737,6 +1077,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         RateOfInterest rateOfInterest = resource.getRateOfInterest();
         rateOfInterest.setLoanMonitor(loanMonitor);
@@ -748,14 +1098,26 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         rateOfInterest.setFreeText(resource.getRateOfInterest().getFreeText());
         rateOfInterest = rateOfInterestRepository.save(rateOfInterest);
 
+        // Change Documents for Operating Parameter
+        changeDocumentService.createChangeDocument(
+                rateOfInterest.getLoanMonitor().getId(),
+                rateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                rateOfInterest,
+                "Updated",
+                username,
+                "Monitoring ", "Rate of Interest", null,null);
+
         return rateOfInterest;
 
     }
 
     @Override
-    public RateOfInterest updateRateOfInterest(RateOfInterestResource resource, String username) {
+    public RateOfInterest updateRateOfInterest(RateOfInterestResource resource, String username) throws CloneNotSupportedException {
         RateOfInterest existingRateOfInterest
                 = rateOfInterestRepository.getOne(resource.getRateOfInterest().getId());
+
+        Object oldExistingRateOfInterest = existingRateOfInterest.clone();
 
         existingRateOfInterest.setParticulars(resource.getRateOfInterest().getParticulars());
         existingRateOfInterest.setScheduledIfAny(resource.getRateOfInterest().getScheduledIfAny());
@@ -764,6 +1126,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingRateOfInterest.setPresentRoi(resource.getRateOfInterest().getPresentRoi());
         existingRateOfInterest.setFreeText(resource.getRateOfInterest().getFreeText());
         existingRateOfInterest = rateOfInterestRepository.save(existingRateOfInterest);
+
+
+        // Change Documents for Rate of Interest
+        changeDocumentService.createChangeDocument(
+                existingRateOfInterest.getLoanMonitor().getId(),
+                existingRateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldExistingRateOfInterest,
+                existingRateOfInterest,
+                "Updated",
+                username,
+                "Monitoring ", "Rate of Interest", null,null);
+
 
         return existingRateOfInterest;
     }
@@ -801,6 +1175,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         BorrowerFinancials borrowerFinancials = resource.getBorrowerFinancials();
         borrowerFinancials.setLoanMonitor(loanMonitor);
@@ -815,14 +1199,29 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         borrowerFinancials.setAnnualReturnFileReference(resource.getBorrowerFinancials().getAnnualReturnFileReference());
         borrowerFinancials.setRatingFileReference(resource.getBorrowerFinancials().getRatingFileReference());
         borrowerFinancials = borrowerFinancialsRepository.save(borrowerFinancials);
+
+
+        // Change Documents for Operating Parameter
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                borrowerFinancials,
+                "Created",
+                username,
+                "Monitoring ", "Borrower Financials", null,null);
+
+
         return borrowerFinancials;
 
     }
 
     @Override
-    public BorrowerFinancials updateBorrowerFinancials(BorrowerFinancialsResource resource, String username) {
+    public BorrowerFinancials updateBorrowerFinancials(BorrowerFinancialsResource resource, String username) throws CloneNotSupportedException {
         BorrowerFinancials existingBorrowerFinancials
                 = borrowerFinancialsRepository.getOne(resource.getBorrowerFinancials().getId());
+
+        Object oldBorrowerFinancials = existingBorrowerFinancials.clone();
 
         existingBorrowerFinancials.setFiscalYear(resource.getBorrowerFinancials().getFiscalYear());
         existingBorrowerFinancials.setTurnover(resource.getBorrowerFinancials().getTurnover());
@@ -834,6 +1233,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingBorrowerFinancials.setAnnualReturnFileReference(resource.getBorrowerFinancials().getAnnualReturnFileReference());
         existingBorrowerFinancials.setRatingFileReference(resource.getBorrowerFinancials().getRatingFileReference());
         existingBorrowerFinancials = borrowerFinancialsRepository.save(existingBorrowerFinancials);
+
+        // Change Documents for Borrower Financials
+        changeDocumentService.createChangeDocument(
+                existingBorrowerFinancials.getLoanMonitor().getId(),
+                existingBorrowerFinancials.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                oldBorrowerFinancials,
+                "Updated",
+                username,
+                "Monitoring ", "Borrower Financials", null,null);
+
+
         return existingBorrowerFinancials;
 
 
@@ -871,6 +1282,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         PromoterFinancials promoterFinancials = resource.getPromoterFinancials();
         promoterFinancials.setLoanMonitor(loanMonitor);
@@ -885,14 +1306,27 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         promoterFinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
         promoterFinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
         promoterFinancials = promoterFinancialsRepository.save(promoterFinancials);
+
+        // Change Documents for Promoter Financials
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                promoterFinancials,
+                "Created",
+                username,
+                "Monitoring ", "Promoter Financials", null,null);
+
         return promoterFinancials;
 
     }
 
     @Override
-    public PromoterFinancials updatePromoterFinancials(PromoterFinancialsResource resource, String username) {
+    public PromoterFinancials updatePromoterFinancials(PromoterFinancialsResource resource, String username) throws CloneNotSupportedException {
         PromoterFinancials existingPromoterFinancials
                 = promoterFinancialsRepository.getOne(resource.getPromoterFinancials().getId());
+
+        Object oldPromoterDetails = existingPromoterFinancials.clone();
 
         existingPromoterFinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
         existingPromoterFinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
@@ -904,6 +1338,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingPromoterFinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
         existingPromoterFinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
         existingPromoterFinancials = promoterFinancialsRepository.save(existingPromoterFinancials);
+
+        // Change Documents fooldPromoterDetailsr Promoter Financials
+        changeDocumentService.createChangeDocument(
+                existingPromoterFinancials.getLoanMonitor().getId(),
+                existingPromoterFinancials.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldPromoterDetails,
+                existingPromoterFinancials,
+                "Updated",
+                username,
+                "Monitoring ", "Promoter Financials", null,null);
+
+
         return existingPromoterFinancials;
 
 
@@ -940,6 +1386,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         FinancialCovenants financialCovenants = resource.getFinancialCovenants();
         financialCovenants.setLoanMonitor(loanMonitor);
@@ -950,14 +1406,28 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         financialCovenants.setTolTnw(resource.getFinancialCovenants().getTolTnw());
         financialCovenants.setRemarksForDeviation(resource.getFinancialCovenants().getRemarksForDeviation());
         financialCovenants = financialCovenantsRepository.save(financialCovenants);
+
+        // Change Documents for Fin. Covenants
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanApplication.getLoanContractId(),
+                null,
+                financialCovenants,
+                "Created",
+                username,
+                "Monitoring ", "Financial Covenants", null,null);
+
+
         return financialCovenants;
 
     }
 
     @Override
-    public FinancialCovenants updateFinancialCovenants(FinancialCovenantsResource resource, String username) {
+    public FinancialCovenants updateFinancialCovenants(FinancialCovenantsResource resource, String username) throws CloneNotSupportedException {
         FinancialCovenants existingFinancialCovenants
                 = financialCovenantsRepository.getOne(resource.getFinancialCovenants().getId());
+
+        Object oldFinancialCovenants = existingFinancialCovenants.clone();
 
         existingFinancialCovenants.setFinancialCovenantType(resource.getFinancialCovenants().getFinancialCovenantType());
         existingFinancialCovenants.setFinancialYear(resource.getFinancialCovenants().getFinancialYear());
@@ -966,6 +1436,18 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingFinancialCovenants.setTolTnw(resource.getFinancialCovenants().getTolTnw());
         existingFinancialCovenants.setRemarksForDeviation(resource.getFinancialCovenants().getRemarksForDeviation());
         existingFinancialCovenants = financialCovenantsRepository.save(existingFinancialCovenants);
+
+
+        // Change Documents for Promoter Details
+        changeDocumentService.createChangeDocument(
+                existingFinancialCovenants.getLoanMonitor().getId(),
+                existingFinancialCovenants.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                oldFinancialCovenants,
+                "Updated",
+                username,
+                "Monitoring ", "Financial Covenants", null,null);
+
         return existingFinancialCovenants;
 
     }
@@ -1002,6 +1484,16 @@ public class LoanMonitoringService implements ILoanMonitoringService {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            // Change Documents for Monitoring Header
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(),
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    username,
+                    "Monitoring ", "Header", null,null);
         }
         PromoterDetails promoterDetails = resource.getPromoterDetails();
         promoterDetails.setLoanMonitor(loanMonitor);
@@ -1009,14 +1501,19 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         promoterDetails.setGroupExposure(resource.getPromoterDetails().getGroupExposure());
         promoterDetails.setPromoterDetailsItemSet(resource.getPromoterDetails().getPromoterDetailsItemSet());
         promoterDetails = promoterDetailsRepository.save(promoterDetails);
+
+
+
         return promoterDetails;
 
     }
 
     @Override
-    public PromoterDetails updatePromoterDetails(PromoterDetailsResource resource, String username) {
+    public PromoterDetails updatePromoterDetails(PromoterDetailsResource resource, String username) throws CloneNotSupportedException {
         final PromoterDetails existingPromoterDetails
                 = promoterDetailsRepository.getOne(resource.getPromoterDetails().getId());
+
+        Object oldPromoterDetails = existingPromoterDetails.clone();
 
         existingPromoterDetails.setDateOfChange(resource.getPromoterDetails().getDateOfChange());
         existingPromoterDetails.setGroupExposure(resource.getPromoterDetails().getGroupExposure());
@@ -1039,6 +1536,19 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         });
 
         PromoterDetails promoterDetails = promoterDetailsRepository.save(existingPromoterDetails);
+
+
+        // Change Documents for Promoter Details
+        changeDocumentService.createChangeDocument(
+                promoterDetails.getLoanMonitor().getId(),
+                promoterDetails.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                oldPromoterDetails,
+                "Updated",
+                username,
+                "Monitoring ", "Promoter Details", null,null);
+
+
         return promoterDetails;
     }
 

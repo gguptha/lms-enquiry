@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class BorrowerFinancials extends AbstractEntity {
+public class BorrowerFinancials extends AbstractEntity implements Cloneable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -28,4 +28,8 @@ public class BorrowerFinancials extends AbstractEntity {
     private String overAllRating;
     private String annualReturnFileReference;
     private String ratingFileReference;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

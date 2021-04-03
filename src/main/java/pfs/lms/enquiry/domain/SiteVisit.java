@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class SiteVisit extends AbstractEntity {
+public class SiteVisit extends AbstractEntity implements  Cloneable{
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -26,4 +26,8 @@ public class SiteVisit extends AbstractEntity {
     private LocalDate dateOfSiteVisit;
 
     private LocalDate dateOfLendersMeet;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
