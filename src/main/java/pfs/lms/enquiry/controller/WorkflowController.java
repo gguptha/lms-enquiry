@@ -12,12 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.dto.WorkflowTaskDTO;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
+import pfs.lms.enquiry.resource.WorkflowRequestResource;
 import pfs.lms.enquiry.service.workflow.IWorkflowService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,21 +65,22 @@ public class WorkflowController {
     }
 
 
-    @PutMapping("/start-process")
-    public ResponseEntity<String> startProcess(UUID businessProcessId,
-                                               String requestorName,
-                                               String requestorEmail,
-                                               String processName,
+    @PutMapping("/startprocess")
+    public ResponseEntity<String> startProcess(@RequestBody WorkflowRequestResource workflowRequestResource,
                                                HttpServletRequest httpServletRequest) {
 
 
         //Fetch the Entity
-        LoanMonitor loanMonitor = loanMonitorRepository.getOne(businessProcessId);
+        LoanMonitor loanMonitor = loanMonitorRepository.getOne(workflowRequestResource.getBusinessProcessId());
 
         String loanContractId =  loanMonitor.getLoanApplication().getLoanContractId();
 
-        String processInstanceId = workflowService.startWorkflowProcessInstance(businessProcessId,
-                loanContractId,httpServletRequest.getUserPrincipal().getName(),requestorEmail,processName);
+        String processInstanceId = workflowService.startWorkflowProcessInstance(
+                                    workflowRequestResource.getBusinessProcessId(),
+                                    loanContractId,
+                                    httpServletRequest.getUserPrincipal().getName(),
+                                    workflowRequestResource.getRequestorEmail(),
+                                    workflowRequestResource.getProcessName());
 
         // Set the Work Flow Status Code "02" - Sent for Approval
 
@@ -97,7 +100,7 @@ public class WorkflowController {
     }
 
 
-    @PutMapping("/approve-task")
+    @PutMapping("/approvetask")
     public ResponseEntity<String> approveTask(String processInstanceId, String loanContractId, HttpServletRequest httpServletRequest) {
 
         // Fetch the Entity
@@ -115,7 +118,7 @@ public class WorkflowController {
 
     }
 
-    @PutMapping("/reject-task")
+    @PutMapping("/rejecttask")
     public ResponseEntity<String> rejectTask(String processInstanceId, String loanContractId, HttpServletRequest httpServletRequest) {
 
         // Fetch the Entity
