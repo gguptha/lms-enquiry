@@ -13,18 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import pfs.lms.enquiry.config.ApiController;
+import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.dto.WorkflowTaskDTO;
+import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.service.workflow.IWorkflowService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 //
 //import org.activiti.engine.RuntimeService;
@@ -49,6 +48,9 @@ public class WorkflowController {
     @Autowired
     private LoanMonitorRepository loanMonitorRepository;
 
+    @Autowired
+    private LoanApplicationRepository loanApplicationRepository;
+
     @GetMapping("/tasklist")
     public ResponseEntity<List<WorkflowTaskDTO>> getTasks(HttpServletRequest httpServletRequest) {
 
@@ -67,6 +69,8 @@ public class WorkflowController {
                                                String requestorEmail,
                                                String processName,
                                                HttpServletRequest httpServletRequest) {
+
+
         //Fetch the Entity
         LoanMonitor loanMonitor = loanMonitorRepository.getOne(businessProcessId);
 

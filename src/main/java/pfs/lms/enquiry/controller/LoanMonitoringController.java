@@ -466,4 +466,11 @@ public class LoanMonitoringController {
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(promoterDetails);
     }
+
+    @GetMapping("/loanApplications/{loanContractId}")
+    public ResponseEntity getLoanMonitorByLoanContractId(@PathVariable("loanContractId") String loanContractId){
+
+        LoanMonitor loanMonitor = loanMonitoringService.getByLoanContractId(loanContractId);
+        return ResponseEntity.ok(loanMonitor);
+    }
 }

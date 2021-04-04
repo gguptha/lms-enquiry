@@ -107,5 +107,8 @@ public interface ILoanMonitoringService {
     // PromoterDetailsItem updatePromoterDetailsItem(PromoterDetailsItemResource resource, String username);
     // List<PromoterDetailsItemResource> getPromoterDetailsItem(String loanApplicationId, String name);
 
+    //Find By Loan Contract Id
+    public LoanMonitor getByLoanContractId (String loanContractId);
+
 
 }

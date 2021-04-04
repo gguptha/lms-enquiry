@@ -1573,4 +1573,13 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         return promoterDetailsResources;
 
     }
+
+    @Override
+    public LoanMonitor getByLoanContractId(String loanContractId) {
+
+        LoanApplication  loanApplication =  loanApplicationRepository.findByLoanContractId(loanContractId);
+        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
+
+        return loanMonitor;
+    }
 }
