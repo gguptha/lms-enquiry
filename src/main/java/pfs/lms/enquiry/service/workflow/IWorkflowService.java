@@ -5,6 +5,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.dto.WorkflowTaskDTO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,16 +21,15 @@ import java.util.UUID;
  */
 public interface IWorkflowService {
 
-    public String startWorkflowProcessInstance (UUID businessProcessId,
-                                                String loanContractId,
-                                                         String requestorName,
-                                                         String requestorEmail,
-                                                         String processName);
+    public Object startWorkflowProcessInstance (UUID businessProcessId,
+                                                     String requestorName,
+                                                     String requestorEmail,
+                                                     String processName);
 
 
-    public String approveTask(String processInstanceId, String loanContractId);
+    public Object approveTask(String processInstanceId, UUID businessProcessId, String processName);
 
-    public String rejectTask(String processInstanceId, String loanContractId);
+    public Object rejectTask(String processInstanceId, UUID businessProcessId, String processName, String rejectionReason);
 
 
     // Workflow Tasks for an User
