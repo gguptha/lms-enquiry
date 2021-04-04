@@ -26,10 +26,7 @@ import pfs.lms.enquiry.vault.FileSystemStorage;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by sajeev on 09-Mar-21.
@@ -58,7 +55,7 @@ public class WorkflowService implements IWorkflowService {
 
 
     @Override
-    public String startWorkflowProcessInstance(String loanProcessId,
+    public String startWorkflowProcessInstance(UUID businessProcessId,
                                                String loanContractId,
                                                String requestorName,
                                                String requestorEmail,
@@ -70,8 +67,8 @@ public class WorkflowService implements IWorkflowService {
 
         if (processName == null)
             processName = "Monitoring";
-        if (loanProcessId == null)
-            loanProcessId = "12112121211";
+        //if (loanProcessId == null)
+           // loanProcessId = "12112121211";
         if (requestorName == null)
             requestorName = "Req. Name";
         if (requestorEmail == null)
@@ -87,7 +84,7 @@ public class WorkflowService implements IWorkflowService {
         WorkflowApprover workflowApprover = workflowApproverRepository.findByProcessName(processName);
 
         //Fill the process Variables
-        variables.put("LoanProcessId",loanProcessId);
+        variables.put("LoanProcessId",businessProcessId);
         variables.put("approverEmail", workflowApprover.getApproverEmail());
         variables.put("approverName", workflowApprover.getApproverName());
         variables.put("requestorName", requestorName);

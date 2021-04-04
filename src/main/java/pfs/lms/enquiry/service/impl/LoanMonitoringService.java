@@ -79,6 +79,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         {
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
+            loanMonitor.setWorkFlowStatusCode(01); loanMonitor.setWorkFlowStatusDescription("Created");
             loanMonitor = loanMonitorRepository.save(loanMonitor);
 
             // Change Documents for Monitoring Header
@@ -1034,7 +1035,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         changeDocumentService.createChangeDocument(
                 existingOperatingParameter.getLoanMonitor().getId(),
                 existingOperatingParameter.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
+                oldExistingOperatingParameter,
                 existingOperatingParameter,
                 "Updated",
                 username,
@@ -1104,7 +1105,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 rateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
                 null,
                 rateOfInterest,
-                "Updated",
+                "Created",
                 username,
                 "Monitoring ", "Rate of Interest", null,null);
 

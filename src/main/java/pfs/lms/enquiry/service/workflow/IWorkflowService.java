@@ -13,13 +13,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by sajeev on 09-Mar-21.
  */
 public interface IWorkflowService {
 
-    public String startWorkflowProcessInstance (String businessProcessId,
+    public String startWorkflowProcessInstance (UUID businessProcessId,
                                                 String loanContractId,
                                                          String requestorName,
                                                          String requestorEmail,
