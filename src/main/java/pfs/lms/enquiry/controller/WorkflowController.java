@@ -66,7 +66,7 @@ public class WorkflowController {
 
 
     @PutMapping("/startprocess")
-    public ResponseEntity<String> startProcess(@RequestBody WorkflowRequestResource workflowRequestResource,
+    public ResponseEntity<LoanMonitor> startProcess(@RequestBody WorkflowRequestResource workflowRequestResource,
                                                HttpServletRequest httpServletRequest) {
 
 
@@ -92,10 +92,10 @@ public class WorkflowController {
         }
 
         // Save the Entity
-        loanMonitorRepository.save(loanMonitor);
+        loanMonitor = loanMonitorRepository.save(loanMonitor);
 
 
-        return ResponseEntity.ok(processInstanceId);
+        return ResponseEntity.ok(loanMonitor);
 
     }
 
