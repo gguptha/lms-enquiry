@@ -9,6 +9,13 @@
             Loan Monitoring : {{ selectedEnquiry.enquiryNumber }} / {{ selectedEnquiry.createdOn }} / {{ selectedEnquiry.borrowerName }}
         </div>
         <!-- / BREADCRUMB -->
+        <!-- TOOLBAR -->
+        <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
+            <button mat-raised-button class="mr-8 mb-8" (click)="sendMonitoringForApproval()" [disabled]="loanMonitor == undefined || loanMonitor == null">
+                <mat-icon matSuffix class="mr-8">check</mat-icon>Send for Approval
+            </button>
+        </div>
+        <!-- / TOOLBAR -->
     </div>
     <!-- / HEADER -->
 

@@ -27,6 +27,4 @@ public interface LoanApplicationRepository extends JpaRepository<LoanApplication
 
     List<LoanApplication> findByTechnicalStatusAndPostedInSAPLessThan(Integer technicalStatus, Integer postedInSAP);
 
-
-
 }

@@ -1575,11 +1575,10 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     }
 
     @Override
-    public LoanMonitor getByLoanContractId(String loanContractId) {
+    public LoanMonitor getByLoanContractId(UUID loanContractId) {
 
-        LoanApplication  loanApplication =  loanApplicationRepository.findByLoanContractId(loanContractId);
+        LoanApplication  loanApplication =  loanApplicationRepository.getOne(loanContractId);
         LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
-
         return loanMonitor;
     }
 }

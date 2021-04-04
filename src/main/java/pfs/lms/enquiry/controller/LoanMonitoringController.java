@@ -29,6 +29,7 @@ import pfs.lms.enquiry.service.ILoanMonitoringService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RepositoryRestController
@@ -467,8 +468,8 @@ public class LoanMonitoringController {
         return ResponseEntity.ok(promoterDetails);
     }
 
-    @GetMapping("/loanApplications/{loanContractId}")
-    public ResponseEntity getLoanMonitorByLoanContractId(@PathVariable("loanContractId") String loanContractId){
+    @GetMapping("/loanApplications/{loanContractId}/loanMonitor")
+    public ResponseEntity getLoanMonitorByLoanContractId(@PathVariable("loanContractId") UUID loanContractId){
 
         LoanMonitor loanMonitor = loanMonitoringService.getByLoanContractId(loanContractId);
         return ResponseEntity.ok(loanMonitor);

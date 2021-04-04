@@ -207,7 +207,7 @@ export class LoanMonitoringService {
     public updateBorrowerFinancials(borrowerfinancials: any): Observable<any> {
         const url = "enquiry/api/loanApplications/borrowerfinancials/" + borrowerfinancials.id;
         return this._http.put(url, { 'loanApplicationId':'', 'borrowerFinancials':borrowerfinancials });
-    }  
+    }
 
 
     // All about Promoter Financials
@@ -224,7 +224,7 @@ export class LoanMonitoringService {
     public updatePromoterFinancials(promoterfinancials: any): Observable<any> {
         const url = "enquiry/api/loanApplications/promoterfinancials/" + promoterfinancials.id;
         return this._http.put(url, { 'loanApplicationId':'', 'promoterFinancials':promoterfinancials });
-    }      
+    }
     
     // All about Financial Covenants
     
@@ -240,7 +240,7 @@ export class LoanMonitoringService {
     public updateFinancialCovenants(financialCovenants: any): Observable<any> {
         const url = "enquiry/api/loanApplications/financialcovenants/" + financialCovenants.id;
         return this._http.put(url, { 'loanApplicationId':'', 'financialCovenants':financialCovenants });
-    }      
+    }
 
     // All about Promoter Details
 
@@ -256,7 +256,7 @@ export class LoanMonitoringService {
     public updatePromoterDetails(promoterDetails: any): Observable<any> {
         const url = "enquiry/api/loanApplications/promoterdetails/" + promoterDetails.id;
         return this._http.put(url, { 'loanApplicationId':'', 'promoterDetails':promoterDetails });
-    }    
+    }
 
     // All about Operating Parameters 
 
@@ -304,5 +304,28 @@ export class LoanMonitoringService {
 
     public getLFAs(): Observable<any> {
         return this._http.get<any>('enquiry/api/partner/lfas');
+    }
+
+    /**
+     * getLoanMonitor()
+     * @param loanApplicationId 
+     */
+    public getLoanMonitor(loanApplicationId: any): Observable<any>
+    {
+        return this._http.get<any>('enquiry/api/loanApplications/' + loanApplicationId + '/loanMonitor');
+    }
+
+    /**
+     * sendMonitoringForApproval()
+     */
+    public sendMonitoringForApproval(businessProcessId: string, requestorName: string, requestorEmail: string): Observable<any> {
+        let requestObj = {
+            'businessProcessId': businessProcessId,
+            'requestorName': requestorName,
+            'requestorEmail': requestorName,
+            'processName': 'Monitoring'
+        }
+        console.log('requestObj', requestObj);
+        return this._http.put<any>('enquiry/api/start-process', requestObj);
     }
 }

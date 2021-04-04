@@ -19,6 +19,7 @@ import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccountStatement;
 import pfs.lms.enquiry.resource.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ILoanMonitoringService {
 
@@ -108,7 +109,7 @@ public interface ILoanMonitoringService {
     // List<PromoterDetailsItemResource> getPromoterDetailsItem(String loanApplicationId, String name);
 
     //Find By Loan Contract Id
-    public LoanMonitor getByLoanContractId (String loanContractId);
+    public LoanMonitor getByLoanContractId (UUID loanContractId);
 
 
 }

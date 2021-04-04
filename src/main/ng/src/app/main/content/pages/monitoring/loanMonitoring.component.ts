@@ -37,6 +37,7 @@ import { PromoterDetailsItemModel } from '../../model/promoterDetailsItem.model'
 import { PromoterDetailsUpdateDialogComponent } from './promoterDetails/promoterDetailsUpdate/promoterDetailsUpdate.component';
 import { OperatingParameterModel } from '../../model/operatingParameter';
 import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
+import { AppService } from 'app/app.service';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -45,6 +46,8 @@ import { OperatingParameterUpdateDialogComponent } from './operatingParameter/op
     animations: fuseAnimations
 })
 export class LoanMonitoringComponent implements OnInit, OnDestroy {
+
+    loanMonitor: any;
 
     loanApplicationId: string;
     selectedEnquiry: any;
@@ -98,7 +101,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      * @param _dialogRef 
      */
     constructor(private _formBuilder: FormBuilder, public _loanEnquiryService: LoanEnquiryService, private _router: Router, private _dialogRef: MatDialog,
-                private _loanMonitoringService: LoanMonitoringService) {
+                private _loanMonitoringService: LoanMonitoringService, public _appService: AppService) {
         
         this.subscriptions.add(this._loanEnquiryService.selectedEnquiry.subscribe(data => {
             this.selectedEnquiry = data;
@@ -107,7 +110,13 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         
         this.subscriptions.add(
             _loanEnquiryService.selectedLoanApplicationId.subscribe(data => {
+                // set loanApplicationId
                 this.loanApplicationId = data;
+                // getLoanMonitor
+                _loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
+                    this.loanMonitor = data;
+                    console.log('loanMonitor', this.loanMonitor);
+                })
                 // getLendersIndependentEngineers
                 _loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
                     this.lieList = data;
@@ -819,5 +828,16 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 });
             }
         });    
+    }
+
+    /**
+     * sendMonitoringForApproval()
+     */
+     sendMonitoringForApproval(): void {
+        console.log('in sendMonitoringForApproval');
+        let name = this._appService.currentUser.firstName + ' ' + this._appService.currentUser.lastName;
+        let email = this._appService.currentUser.email;
+        this._loanMonitoringService.sendMonitoringForApproval(this.loanMonitor.id, name, email);
+        console.log('finishing sendMonitoringForApproval');
     }
 }
