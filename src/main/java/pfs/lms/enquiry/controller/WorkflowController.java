@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.dto.WorkflowTaskDTO;
@@ -60,7 +61,7 @@ public class WorkflowController {
     }
 
 
-    @GetMapping("/start-process")
+    @PutMapping("/start-process")
     public ResponseEntity<String> startProcess(UUID businessProcessId,
                                                String requestorName,
                                                String requestorEmail,
@@ -92,7 +93,7 @@ public class WorkflowController {
     }
 
 
-    @GetMapping("/approve-task")
+    @PutMapping("/approve-task")
     public ResponseEntity<String> approveTask(String processInstanceId, String loanContractId, HttpServletRequest httpServletRequest) {
 
         // Fetch the Entity
@@ -110,7 +111,7 @@ public class WorkflowController {
 
     }
 
-    @GetMapping("/reject-task")
+    @PutMapping("/reject-task")
     public ResponseEntity<String> rejectTask(String processInstanceId, String loanContractId, HttpServletRequest httpServletRequest) {
 
         // Fetch the Entity
