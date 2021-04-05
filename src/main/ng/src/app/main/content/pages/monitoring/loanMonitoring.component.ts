@@ -338,6 +338,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
                     this.lieList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -420,6 +421,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
                     this.lfaList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -502,6 +504,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
                     this.traList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -588,6 +591,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
                     this.tandcList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -617,6 +621,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                     this.securityComplianceList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -646,6 +651,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -676,6 +682,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
                     this.siteVisitList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -705,6 +712,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
                     this.rateOfInterestList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -734,6 +742,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
                     this.borrowerFinancialsList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -763,6 +772,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
                     this.promoterFinancialsList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }    
@@ -792,6 +802,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
                     this.financialCovenantsList = data;
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -826,6 +837,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                         this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
                     }
                 });
+                this.getLoanMonitor();
             }
         });    
     }
@@ -834,10 +846,19 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      * sendMonitoringForApproval()
      */
      sendMonitoringForApproval(): void {
-        console.log('in sendMonitoringForApproval');
         let name = this._appService.currentUser.firstName + ' ' + this._appService.currentUser.lastName;
         let email = this._appService.currentUser.email;
-        this._loanMonitoringService.sendMonitoringForApproval(this.loanMonitor.id, name, email);
-        console.log('finishing sendMonitoringForApproval');
+        this._loanMonitoringService.sendMonitoringForApproval(this.loanMonitor.id, name, email).subscribe(response => {
+            this.loanMonitor = response;
+        });
+    }
+
+    /**
+     * getLoanMonitor()
+     */
+    getLoanMonitor(): void {
+        this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
+            this.loanMonitor = data;
+        })
     }
 }

@@ -11,7 +11,8 @@
         <!-- / BREADCRUMB -->
         <!-- TOOLBAR -->
         <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
-            <button mat-raised-button class="mr-8 mb-8" (click)="sendMonitoringForApproval()" [disabled]="loanMonitor == undefined || loanMonitor == null">
+            <button mat-raised-button class="mr-8 mb-8" (click)="sendMonitoringForApproval()" [disabled]="loanMonitor == undefined || loanMonitor == null || 
+                    loanMonitor.workFlowStatusCode === 2">
                 <mat-icon matSuffix class="mr-8">check</mat-icon>Send for Approval
             </button>
         </div>
