@@ -18,14 +18,17 @@ import java.util.List;
 @RepositoryRestResource
 public interface ChangeDocumentRepository extends JpaRepository<ChangeDocument, Long> {
 
-//    Page<ChangeDocument> findByLoanNumber(String loanNumber, Pageable pageable);
-//
-//    Page<ChangeDocument> findByLoanNumberAndDateBetween(String loanNumber, Date dateFrom, Date dateTo, Pageable pageable);
-//
-//
-//    Page<ChangeDocument> findByLoanApplication(Long id, Pageable pageable);
-//
-//    Page<ChangeDocument> findByLoanNumberAndDate(String loanNumber, Date date, Pageable pageable);
+
+
+      Page<ChangeDocument> findByBusinessProcessNameAndLoanContractIdAndDateBetween(String businessProcessName, String loanContractId, Date dateFrom, Date dateTo, Pageable pageable);
+      Page<ChangeDocument> findByBusinessProcessNameAndLoanContractIdAndDate(String businessProcessName, String loanContractId, Date date,   Pageable pageable);
+      Page<ChangeDocument> findByBusinessProcessNameAndLoanContractId(String businessProcessName, String loanContractId, Pageable pageable);
+      Page<ChangeDocument> findByBusinessProcessName(String businessProcessName, Pageable pageable);
+
+      Page<ChangeDocument> findByBusinessProcessNameAndDateBetween(String businessProcessName, Date dateFrom, Date dateTo, Pageable pageable);
+      Page<ChangeDocument> findByBusinessProcessNameAndDate(String businessProcessName, Date date,Pageable pageable);
+
+
 
 
 

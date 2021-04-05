@@ -30,17 +30,22 @@ public interface IChangeDocumentService {
 
 
 
-    Page<ChangeDocument> findByLoanNumber(String loanNumber, Pageable pageable);
+    Page<ChangeDocument> findByBusinessProcessNameAndLoanContractIdAndDateBetween(String processName,
+                                                                                  String loanContractId,
+                                                                                  Date dateFrom,
+                                                                                  Date dateTo,
+                                                                                  Pageable pageable);
+    Page<ChangeDocument> findByBusinessProcessNameAndLoanContractIdAndDate(String processName,
+                                                                           String loanContractId,
+                                                                           Date date,
+                                                                           Pageable pageable);
+    Page<ChangeDocument> findByBusinessProcessNameAndLoanContractId(String processName,
+                                                                    String loanContractId,
+                                                                    Pageable pageable);
 
-    Page<ChangeDocument> findByLoanNumberAndDateBetween(String loanNumber, Date dateFrom, Date dateTo, Pageable pageable);
+    Page<ChangeDocument> findByBusinessProcessName(String businessProcessName, Pageable pageable);
 
-
-    Page<ChangeDocument> findByLoanBusinessProcessId(Long id, Pageable pageable);
-    Page<ChangeDocument> findByLoanBusinessProcessIdAndLoanNumberAndDateBetween(Long id, String loanNumber, Date dateFrom, Date dateTo, Pageable pageable);
-    Page<ChangeDocument> findByLoanBusinessProcessIdAndDateBetween(Long id, Date dateFrom, Date dateTo, Pageable pageable);
-    List<ChangeDocument> findByLoanBusinessProcessIdAndDateBetween(Long id, Date dateFrom, Date dateTo);
-    Page<ChangeDocument> findByLoanNumberAndDate(String loanNumber, Date date, Pageable pageable);
-    Page<ChangeDocument> findByLoanBusinessProcessIdAndDate(Long id, Date date, Pageable pageable);
-    Page<ChangeDocument> findByLoanBusinessProcessIdAndLoanNumberAndDate(Long id, String loaNumber, Date date, Pageable pageable);
+    Page<ChangeDocument> findByBusinessProcessNameAndDateBetween(String businessProcessName, Date dateFrom, Date dateTo, Pageable pageable);
+    Page<ChangeDocument> findByBusinessProcessNameAndDate(String businessProcessName, Date date,Pageable pageable);
 
 }

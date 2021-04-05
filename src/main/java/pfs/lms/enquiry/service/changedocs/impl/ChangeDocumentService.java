@@ -124,19 +124,7 @@ public class ChangeDocumentService implements IChangeDocumentService {
         return changeDocument;
     }
 
-    @Override
-    public Page<ChangeDocument> findByLoanNumber(String loanNumber, Pageable pageable) {
-        return null;//changeDocumentRepository.findByLoanNumber(loanNumber, pageable);
 
-    }
-
-
-    @Override
-    public Page<ChangeDocument> findByLoanNumberAndDateBetween(String loanNumber, Date dateFrom, Date dateTo, Pageable pageable) {
-        Page<ChangeDocument> changeDocuments = null; //changeDocumentRepository.findByLoanNumberAndDateBetween(loanNumber, dateFrom, dateTo, pageable);
-        return changeDocuments;
-
-    }
 
     @Override
     public ChangeDocument updateChangeDocument(ChangeDocument changeDocument, Object object) {
@@ -144,39 +132,44 @@ public class ChangeDocumentService implements IChangeDocumentService {
     }
 
     @Override
-    public Page<ChangeDocument> findByLoanBusinessProcessId(Long id, Pageable pageable) {
+    public Page<ChangeDocument> findByBusinessProcessNameAndLoanContractIdAndDateBetween(String processName,
+                                                                                         String loanContractId,
+                                                                                         Date dateFrom,
+                                                                                         Date dateTo,
+                                                                                         Pageable pageable) {
         return null;
     }
 
     @Override
-    public Page<ChangeDocument> findByLoanBusinessProcessIdAndLoanNumberAndDateBetween(Long id, String loanNumber, Date dateFrom, Date dateTo, Pageable pageable) {
-        return null;
+    public Page<ChangeDocument> findByBusinessProcessNameAndLoanContractIdAndDate(String processName,
+                                                                                  String loanContractId,
+                                                                                  Date date,
+                                                                                  Pageable pageable) {
+        return changeDocumentRepository.findByBusinessProcessNameAndLoanContractIdAndDate(processName,loanContractId,date,pageable);
     }
 
     @Override
-    public Page<ChangeDocument> findByLoanBusinessProcessIdAndDateBetween(Long id, Date dateFrom, Date dateTo, Pageable pageable) {
-        return null;
+    public Page<ChangeDocument> findByBusinessProcessNameAndLoanContractId(String processName,
+                                                                           String loanContractId,
+                                                                           Pageable pageable) {
+        return changeDocumentRepository.findByBusinessProcessNameAndLoanContractId(processName,loanContractId,pageable);
     }
 
     @Override
-    public List<ChangeDocument> findByLoanBusinessProcessIdAndDateBetween(Long id, Date dateFrom, Date dateTo) {
-        return null;
+    public Page<ChangeDocument> findByBusinessProcessName(String businessProcessName, Pageable pageable) {
+        return changeDocumentRepository.findByBusinessProcessName(businessProcessName,pageable);
     }
 
     @Override
-    public Page<ChangeDocument> findByLoanNumberAndDate(String loanNumber, Date date, Pageable pageable) {
-        return null;
+    public Page<ChangeDocument> findByBusinessProcessNameAndDateBetween(String businessProcessName, Date dateFrom, Date dateTo, Pageable pageable) {
+         return changeDocumentRepository.findByBusinessProcessNameAndDateBetween(businessProcessName,dateFrom,dateTo,pageable);
     }
 
     @Override
-    public Page<ChangeDocument> findByLoanBusinessProcessIdAndDate(Long id, Date date, Pageable pageable) {
-        return null;
+    public Page<ChangeDocument> findByBusinessProcessNameAndDate(String businessProcessName, Date date, Pageable pageable) {
+          return changeDocumentRepository.findByBusinessProcessNameAndDate(businessProcessName,date,pageable);
     }
 
-    @Override
-    public Page<ChangeDocument> findByLoanBusinessProcessIdAndLoanNumberAndDate(Long id, String loaNumber, Date date, Pageable pageable) {
-        return null;
-    }
 
     private ChangeDocument prepareCreateChangeDocument(UUID objectId,
                                                        String loanContractId,

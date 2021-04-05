@@ -289,9 +289,11 @@ public class WorkflowService implements IWorkflowService {
         workflowTaskDTO.setApproverEmail(variables.get("approverEmail").toString());
         workflowTaskDTO.setApproverName(variables.get("approverName").toString());
         workflowTaskDTO.setRequestDate(variables.get("requestDate").toString());
-        workflowTaskDTO.setRequestorEmail(variables.get("initiatorName").toString());
-        workflowTaskDTO.setRequestorName(variables.get("initiatorName").toString());
-        workflowTaskDTO.setStatus(variables.get("initiatorName").toString());
+        workflowTaskDTO.setRequestorEmail(variables.get("requestorName").toString());
+        workflowTaskDTO.setRequestorName(variables.get("requestorEmail").toString());
+        workflowTaskDTO.setProcessName(variables.get("processName").toString());
+
+        workflowTaskDTO.setStatus(variables.get("status").toString());
 
         return workflowTaskDTO;
 
