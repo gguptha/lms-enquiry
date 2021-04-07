@@ -292,6 +292,7 @@ public class WorkflowService implements IWorkflowService {
         workflowTaskDTO.setRequestorEmail(variables.get("requestorName").toString());
         workflowTaskDTO.setRequestorName(variables.get("requestorEmail").toString());
         workflowTaskDTO.setProcessName(variables.get("processName").toString());
+        workflowTaskDTO.setBusinessProcessId(variables.get("LoanProcessId").toString());
 
         workflowTaskDTO.setStatus(variables.get("status").toString());
 

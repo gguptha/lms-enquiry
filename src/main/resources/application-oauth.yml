@@ -48,6 +48,7 @@ spring:
     mail-server-password: Sapsap@123
     mail-server-default-from: pfsriskmodel@gmail.com
     mail-server-use-tls: true
+    database-schema-update: true
 oauth:
   baseUrl:    http://localhost:9999/auth
 sap:

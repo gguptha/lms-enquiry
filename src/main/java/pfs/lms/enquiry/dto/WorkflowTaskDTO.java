@@ -3,6 +3,8 @@ package pfs.lms.enquiry.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 /**
  * Created by sajeev on 17-Dec-18.
  */
@@ -11,6 +13,7 @@ import lombok.Setter;
 public class WorkflowTaskDTO {
 
     private String id;
+    private String businessProcessId;
     private String requestDate;
     private String lanContractId;
     private String projectName;
