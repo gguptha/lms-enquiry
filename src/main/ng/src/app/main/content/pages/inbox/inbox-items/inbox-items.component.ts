@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { InboxService } from '../inbox.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { BehaviorSubject } from 'rxjs';
+import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
+import { EnquiryAlertsService } from '../../enquiry/enquiryAlerts/enquiryAlerts.service';
 
 @Component({
     selector: 'app-inbox-items',
@@ -14,11 +16,10 @@ export class InboxItemsComponent implements OnInit {
 
     inboxItems: any;
     
-    inboxItem: any;
     selectedItem: any;
 
     displayedColumns = [
-        'dateAsString', 'projectType', 'riskLevel', 'projectName', 'riskModelId', 'requestedBy'
+        'requestDate', 'lanContractId', 'projectName', 'processName', 'requestorName', 'approverName', 'status'
     ];
 
     /**
@@ -40,8 +41,21 @@ export class InboxItemsComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    /**
+     * onSelect()
+     * @param inboxItem 
+     */
     onSelect(inboxItem: any): void {
         this.selectedItem = inboxItem;
         this._service.selectedItem = new BehaviorSubject(inboxItem);
+    }
+
+    /**
+     * refreshList()
+     */
+    refreshList(): void {
+        this._service.fetchTasks().subscribe(response => {
+            this.inboxItems = response;
+        })
     }
 }

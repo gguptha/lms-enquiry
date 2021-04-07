@@ -31,23 +31,19 @@ export class InboxService implements Resolve<any> {
         return this._httpClient.get<any>('enquiry/api/tasklist');
     }
 
-
     /**
-     * approveEvaluation()
-     * @param template: any
+     * approveTask()
+     * @param workFlowProcessRequestResource: any
      */
-    approveEvaluation(id: any): Observable<any> {
-        console.log("ID for Approval :" + id);
-        return this._httpClient.put(<any>('enquiry/api/riskModel/process?action=3&id='+id), id);
+     approveTask(workFlowProcessRequestResource: any): Observable<any> {
+        return this._httpClient.put<any>('enquiry/api/approvetask', workFlowProcessRequestResource);
     }
 
-
     /**
-     * rejectEvaluation()
-     * @param template: any
+     * rejectTask()
+     * @param workFlowProcessRequestResource: any
      */
-    rejectEvaluation(id: any): Observable<any> {
-        console.log("ID for Rejection :" + id);
-        return this._httpClient.put(<any>('enquiry/api/riskModel/process?action=4&id='+id), id);
+    rejectTask(workFlowProcessRequestResource: any): Observable<any> {
+        return this._httpClient.put<any>('enquiry/api/rejecttask', workFlowProcessRequestResource);
     }
 }

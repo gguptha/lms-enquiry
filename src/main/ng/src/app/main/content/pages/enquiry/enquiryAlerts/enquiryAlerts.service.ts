@@ -85,15 +85,14 @@ export class EnquiryAlertsService implements Resolve<any> {
   //   return this._http.get<ApplicantGroup>('enquiry/api/partners/ordered'  );
   // }
 
-  /**
-   * getPartnersOrderedByEmail()
-   */
-  public getLoanApplicantsByEmail(): Observable<any> {
-    return this._http.get<ApplicantEmail>('enquiry/api/partners/byEmail'  );
-  }
+    /**
+     * getPartnersOrderedByEmail()
+     */
+    public getLoanApplicantsByEmail(): Observable<any> {
+        return this._http.get<ApplicantEmail>('enquiry/api/partners/byEmail'  );
+    }
 
-
-  /**
+    /**
      * getLoanApplication()
      * @param enquiryId
      */
@@ -110,13 +109,13 @@ export class EnquiryAlertsService implements Resolve<any> {
     }
 
 
-  /**
-   * getPartner()
-   * @param partnerId
-   */
-  public getPartnerByPartyNumber(partnerId: string): Observable<PartnerModel> {
-    return this._http.get<PartnerModel>('enquiry/api/partner/partyNumber?partyNumber=' + partnerId);
-  }
+    /**
+     * getPartner()
+     * @param partnerId
+     */
+    public getPartnerByPartyNumber(partnerId: string): Observable<PartnerModel> {
+        return this._http.get<PartnerModel>('enquiry/api/partner/partyNumber?partyNumber=' + partnerId);
+    }
 
   /**
      * updateLoanApplication()
@@ -150,13 +149,13 @@ export class EnquiryAlertsService implements Resolve<any> {
           {   rejectReason , rejectionCategory,rejectionDate });
     }
 
-  /**
-   * getRejectionCategories()
-   * returns a list of Rejection Categories
-   */
-  public getRejectionCategories(): Observable<any> {
-    return this._http.get('enquiry/api/rejectionCategories');
-  }
+    /**
+     * getRejectionCategories()
+     * returns a list of Rejection Categories
+     */
+    public getRejectionCategories(): Observable<any> {
+        return this._http.get('enquiry/api/rejectionCategories');
+    }
 
     /**
      * cancelEnquiry()
