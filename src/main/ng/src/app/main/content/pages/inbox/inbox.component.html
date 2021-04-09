@@ -11,10 +11,13 @@
 
         <!-- TOOLBAR -->
         <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
-            <button mat-raised-button class="mr-8 mb-8" (click)="approveEvaluation()">
+            <button mat-raised-button class="mr-8 mb-8" (click)="reviewTask()" [disabled]="!inboxItemsComponent.selectedItem">
+                <mat-icon matSuffix class="mr-8">rate_review</mat-icon>Review
+            </button>
+            <button mat-raised-button class="mr-8 mb-8" (click)="approveTask()">
                 <mat-icon matSuffix class="mr-8">check</mat-icon>Approve
             </button>
-            <button mat-raised-button class="mr-8 mb-8" (click)="rejectEvaluation()">
+            <button mat-raised-button class="mr-8 mb-8" (click)="rejectTask()">
                 <mat-icon matSuffix class="mr-8">clear</mat-icon>Reject
             </button>
             <!-- <button mat-raised-button class="mr-8 mb-8" (click)="reviewEvaluation()">

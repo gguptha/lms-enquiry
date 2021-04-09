@@ -330,6 +330,22 @@ public class LoanApplicationContoller {
 
     }
 
+    // Get Loan Application by Loan Contract Id
+    @GetMapping("/loanApplications/loanContractId/{loanContractId}")
+    public ResponseEntity getEnquiryByLoanContractNumber(@PathVariable("loanContractId") String loanContractId, HttpServletRequest request) {
+
+        LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
+        LoanApplication loanApplication = loanApplicationRepository.findByLoanContractId(loanContractId);
+        if (loanApplication != null) {
+            loanApplicationResource.setLoanApplication(loanApplication);
+            loanApplicationResource.setPartner(null);
+            return ResponseEntity.ok(loanApplicationResource);
+        }
+        else {
+            return (ResponseEntity) ResponseEntity.notFound();
+        }
+    }
+
     // Fetch Loan Application by Loan Number - Cross Application Call
     @RequestMapping(value = "/loanApplicationByLoanNumber", method = RequestMethod.GET,
                                      produces = "application/json; charset=utf-8")

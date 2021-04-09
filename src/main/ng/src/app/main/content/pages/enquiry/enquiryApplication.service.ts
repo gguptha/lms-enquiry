@@ -154,4 +154,12 @@ export class LoanEnquiryService implements Resolve<any> {
     public searchLoanContracts(request: any): Observable<any> {
         return this._http.put<any>('enquiry/api/loanApplications/loanContracts/search', request);
     }
+   
+    /**
+     * getLoanApplicationByLoanContractId()
+     * @param loanContractId
+     */
+     public getLoanApplicationByLoanContractId(loanContractId: string): Observable<any> {
+        return this._http.get<any>('enquiry/api/loanApplications/loanContractId/' + loanContractId);
+    }
 }
