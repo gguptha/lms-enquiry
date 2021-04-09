@@ -28,7 +28,7 @@ public class PartnerContact extends AggregateRoot<PartnerContact> {
 
     private Integer serialNumber;
 
-    private char printInDemandLetter;
+    private String printInDemandLetter;
 
     private String loanContractId;
 
