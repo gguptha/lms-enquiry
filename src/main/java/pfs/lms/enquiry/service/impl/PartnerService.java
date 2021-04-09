@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.Partner;
+import pfs.lms.enquiry.domain.PartnerContact;
 import pfs.lms.enquiry.domain.PartnerRoleType;
 import pfs.lms.enquiry.repository.PartnerRepository;
 import pfs.lms.enquiry.repository.PartnerRoleTypeRepository;
@@ -13,6 +14,7 @@ import pfs.lms.enquiry.resource.PartnerResourceByEmail;
 import pfs.lms.enquiry.resource.PartnerResourcesOrderByAlphabet;
 import pfs.lms.enquiry.service.IPartnerService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -314,5 +316,101 @@ public class PartnerService implements IPartnerService {
         PartnerRoleType partnerRoleType = partnerRoleTypeRepository.findByRoleCode("ZLM002");
         partners = partnerRepository.findByPartnerRoleTypes(partnerRoleType);
         return partners;
+    }
+
+    @Override
+    public Partner migratePartner(Partner partner, HttpServletRequest httpServletRequest) {
+
+        log.info("Starting Migration of Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
+
+
+
+        //Check if Partner Number exists
+        if (partner.getPartyNumber() == null) {
+            log.info("EXCEPTION Migration Failed: Business Partner Number is empty");
+            return null;
+        }
+
+        // Check if the Partner already exists
+          Partner existingPartner =  partnerRepository.findByPartyNumber(partner.getPartyNumber());
+          if (existingPartner == null) {
+             Partner savedPartner = partnerRepository.save(partner);
+              log.info("Finished Migration of NEW Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
+
+              return savedPartner;
+          }
+
+          existingPartner.setPartyCategory(partner.getPartyCategory());
+          existingPartner.setGroupCompany(partner.getGroupCompany());
+          existingPartner.setPartyRole(partner.getPartyRole());
+
+          existingPartner.setAddressLine1(partner.getAddressLine1());
+          existingPartner.setAddressLine2(partner.getAddressLine2());
+          existingPartner.setCity(partner.getCity());
+          existingPartner.setState(partner.getState());
+          existingPartner.setPostalCode(partner.getPostalCode());
+          existingPartner.setCountry(partner.getCountry());
+
+          existingPartner.setContactPersonName(partner.getContactPersonName());
+          existingPartner.setContactNumber(partner.getContactNumber());
+          existingPartner.setPartyRole(partner.getPartyRole());
+          existingPartner.setPartyName1(partner.getPartyName1());
+          existingPartner.setPartyName2(partner.getPartyName2());
+
+          existingPartner.setIndustrySector(partner.getIndustrySector());
+          existingPartner.setPan(partner.getPan());
+
+
+          boolean addPartnerRole = true;
+
+          for (PartnerRoleType partnerRoleType: partner.getPartnerRoleTypes()  ) {
+              addPartnerRole = true;
+              //Check if Partner Role exists
+              for (PartnerRoleType partnerRoleTypeExisting: existingPartner.getPartnerRoleTypes()) {
+                  if (partnerRoleType.getRoleCode() == partnerRoleTypeExisting.getRoleCode()){
+                      addPartnerRole = false;
+                  }
+              }
+
+              if (addPartnerRole == true) {
+                  existingPartner.addPartnerRole(partnerRoleType);
+              }
+
+          }
+
+          boolean addPartnerContact = true;
+
+
+        for (PartnerContact partnerContact: partner.getPartnerContacts()){
+             addPartnerContact = true;
+              //Check if Partner Contact exists
+              for (PartnerContact partnerContactExisting : existingPartner.getPartnerContacts()){
+
+                    if (partnerContact.getSerialNumber() == partnerContactExisting.getSerialNumber()) {
+
+                        partnerContactExisting.setPrintInDemandLetter(partnerContact.getPrintInDemandLetter());
+                        partnerContactExisting.setLoanContractId(partnerContact.getLoanContractId());
+                        partnerContactExisting.setContactName(partnerContact.getContactName());
+                        partnerContactExisting.setBranchAddress(partnerContact.getBranchAddress());
+                        partnerContactExisting.setDesignation(partnerContact.getDesignation());
+                        partnerContactExisting.setDepartment(partnerContact.getDepartment());
+                        partnerContactExisting.setMobilePhoneNumber(partnerContact.getMobilePhoneNumber());
+                        partnerContactExisting.setLandPhoneNumber(partnerContact.getLandPhoneNumber());
+                        partnerContactExisting.setEmail(partnerContact.getEmail());
+                        partnerContactExisting.setFaxNumber(partnerContact.getFaxNumber());
+                        addPartnerContact = false;
+                    }
+                    if (addPartnerContact == true){
+                        existingPartner.addPartnerContact(partnerContact);
+                    }
+              }
+        }
+
+        Partner updatedPartner = partnerRepository.save(existingPartner);
+
+        log.info("Finished Migration of EXISTING Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
+
+
+        return updatedPartner;
     }
 }

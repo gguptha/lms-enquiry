@@ -3,6 +3,8 @@ package pfs.lms.enquiry.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.Partner;
@@ -143,4 +145,13 @@ public class PartnerController {
             return ResponseEntity.noContent().build();
         }
     }
+
+    @PutMapping("partner/migrate")
+    public ResponseEntity migratePartner(@RequestBody Partner partner, HttpServletRequest httpServletRequest){
+
+        partner = partnerService.migratePartner(partner,httpServletRequest);
+
+        return  ResponseEntity.ok(partner);
+    }
+
 }
