@@ -184,6 +184,9 @@ public class LoanApplicationContoller {
 
         //System.out.println(resource);
         System.out.println("LOAN APPLICATION Extension: " + resource.getLoanContractExtension());
+        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
+        System.out.println("PARTNER : " + resource.getPartner());
+
 //        System.out .println("-----------------------------------------------------");
 //        System.out.println("PARTNER : " + resource.getPartner());
 //        System.out.println("-----------------------------------------------------");
