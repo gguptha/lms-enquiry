@@ -25,7 +25,7 @@ public class LoanContractExtension extends AggregateRoot<LoanContractExtension> 
 
     private LocalDate boardApprovalDate;
 
-    private Integer loanNumber;
+    private String loanNumber;
 
     private LocalDate sanctionLetterDate;
 
