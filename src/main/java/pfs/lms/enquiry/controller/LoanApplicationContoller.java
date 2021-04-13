@@ -9,18 +9,13 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pfs.lms.enquiry.domain.EnquiryNo;
-import pfs.lms.enquiry.domain.LoanApplication;
-import pfs.lms.enquiry.domain.Partner;
-import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.mail.service.LoanNotificationService;
 import pfs.lms.enquiry.process.LoanApplicationEngine;
-import pfs.lms.enquiry.repository.LoanApplicationRepository;
-import pfs.lms.enquiry.repository.PartnerRepository;
-import pfs.lms.enquiry.repository.StateRepository;
-import pfs.lms.enquiry.repository.UserRepository;
+import pfs.lms.enquiry.repository.*;
 import pfs.lms.enquiry.resource.*;
 import pfs.lms.enquiry.service.ILoanApplicationService;
+import pfs.lms.enquiry.service.ILoanContractExtensionService;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -52,6 +47,10 @@ public class LoanApplicationContoller {
     private final LoanNotificationService loanNotificationService;
 
     private final StateRepository stateRepository;
+
+    private final LoanContractExtensionRepository loanContractExtensionRepository;
+
+    private final ILoanContractExtensionService loanContractExtensionService;
 
     @GetMapping("/loanApplications")
     public ResponseEntity get(@RequestParam(value = "status",required = false) Integer status, HttpServletRequest request,
@@ -181,16 +180,39 @@ public class LoanApplicationContoller {
 
 
     @PostMapping("/loanApplications/migrate")
-    public ResponseEntity migrate(@RequestBody LoanApplicationResource resource, HttpServletRequest request) {
+    public ResponseEntity migrate(@RequestBody LoanMigrationResource resource, HttpServletRequest request) {
 
-//        System.out.println(resource);
-//        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
+        //System.out.println(resource);
+        System.out.println("LOAN APPLICATION Extension: " + resource.getLoanContractExtension());
+        System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
+        System.out.println("PARTNER : " + resource.getPartner());
+
 //        System.out .println("-----------------------------------------------------");
 //        System.out.println("PARTNER : " + resource.getPartner());
 //        System.out.println("-----------------------------------------------------");
 
+        LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
+        loanApplicationResource.setLoanApplication(resource.getLoanApplication());
+        loanApplicationResource.setPartner(resource.getPartner());
 
-        LoanApplication loanApplication = loanApplicationService.migrate(resource, request.getUserPrincipal().getName());
+        LoanApplication loanApplication = loanApplicationService.migrate(loanApplicationResource, request.getUserPrincipal().getName());
+
+        LoanContractExtension loanContractExtension = resource.getLoanContractExtension();
+
+        LoanContractExtensionResource loanContractExtensionResource = new LoanContractExtensionResource();
+        loanContractExtensionResource.setLoanApplicationId(loanApplication.getId());
+        loanContractExtensionResource.setLoanContractExtension(loanContractExtension);
+
+        LoanContractExtension existingLoanContractExtension =
+                loanContractExtensionRepository.getLoanContractExtensionByLoanNumber(loanApplication.getLoanContractId());
+        if ( existingLoanContractExtension == null) {
+            loanContractExtensionService.save(loanContractExtensionResource, request.getUserPrincipal().getName());
+        }
+            else {
+            loanContractExtensionService.update(loanContractExtensionResource, request.getUserPrincipal().getName());
+        }
+
+
 
         return ResponseEntity.ok(loanApplication);
     }

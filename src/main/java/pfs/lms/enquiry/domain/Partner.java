@@ -1,6 +1,8 @@
 package pfs.lms.enquiry.domain;
 
 import lombok.*;
+import org.hibernate.annotations.IndexColumn;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -80,6 +82,13 @@ public class Partner extends AggregateRoot<Partner>{
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PartnerRoleType> partnerRoleTypes;
 
+
+    @Nullable
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL )
+    @JoinColumn(name="partner__id",referencedColumnName = "id")
+    private List<PartnerContact> partnerContacts;
+
+
     public Partner(Integer partyNumber, Integer partyCategory, String partyRole, @Size(max = 100) String partyName1, @Size(max = 100) String partyName2, @Size(max = 100) String contactPersonName, String addressLine1, String addressLine2, String street, String city, String state, @Size(max = 8) String postalCode, @Size(max = 2) String country, String email, @Size(max = 15) String contactNumber, @Size(max = 100) String groupCompany, String userName, @Size(max = 100) String password, String pan, String industrySector) {
         this.partyNumber = partyNumber;
         this.partyCategory = partyCategory;
@@ -124,4 +133,13 @@ public class Partner extends AggregateRoot<Partner>{
     public static class PartnerCreated {
         final Partner partner;
     }
+
+    public void addPartnerRole (PartnerRoleType partnerRoleType) {
+        this.getPartnerRoleTypes().add(partnerRoleType);
+    }
+
+    public void addPartnerContact(PartnerContact partnerContact){
+        this.getPartnerContacts().add(partnerContact);
+    }
+
 }

@@ -6,4 +6,6 @@ import pfs.lms.enquiry.domain.LoanContractExtension;
 import java.util.UUID;
 
 public interface LoanContractExtensionRepository extends JpaRepository<LoanContractExtension, UUID> {
+
+    LoanContractExtension getLoanContractExtensionByLoanNumber(String loanNumber);
 }

@@ -4,6 +4,7 @@ import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.resource.PartnerResourceByEmail;
 import pfs.lms.enquiry.resource.PartnerResourcesOrderByAlphabet;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface IPartnerService {
@@ -19,4 +20,6 @@ public interface IPartnerService {
 
     List<Partner> getLendersIndependentEngineers();
     List<Partner> getLendersFinancialAdvisors();
+
+    Partner migratePartner(Partner partner, HttpServletRequest httpServletRequest);
 }
