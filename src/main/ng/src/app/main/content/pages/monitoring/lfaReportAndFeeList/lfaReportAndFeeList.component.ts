@@ -22,7 +22,7 @@ export class LFAReportAndFeeListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
+        'serialNumber', 'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
             'nextReportDate', 'download'
     ];
 

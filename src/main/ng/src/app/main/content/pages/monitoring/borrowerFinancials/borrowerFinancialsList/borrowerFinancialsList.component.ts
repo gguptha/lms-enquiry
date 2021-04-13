@@ -21,7 +21,7 @@ export class BorrowerFinancialsListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'fiscalYear', 'turnover', 'pat','netWorth', 'overAllRating', 'pdfAnnualReport', 'pdfRating'
+        'serialNumber', 'fiscalYear', 'turnover', 'pat','netWorth', 'overAllRating', 'pdfAnnualReport', 'pdfRating'
     ];
 
     selectedFinancials: any;

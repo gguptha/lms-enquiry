@@ -2,6 +2,14 @@
 
     <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
 
+        <!-- serialNumber Column -->
+        <ng-container matColumnDef="serialNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.rateOfInterest.serialNumber }}</p>
+            </mat-cell>
+        </ng-container>
+        
         <!-- particulars Column -->
         <ng-container matColumnDef="particulars">
             <mat-header-cell *matHeaderCellDef mat-sort-header >Particulars</mat-header-cell>

@@ -22,7 +22,7 @@ export class RateOfInterestListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'particulars', 'scheduledIfAny', 'sanctionPreCod','sanctionPostCod', 'presentRoi', 'freeText'
+        'serialNumber', 'particulars', 'scheduledIfAny', 'sanctionPreCod','sanctionPostCod', 'presentRoi', 'freeText'
     ];
 
     selectedRateOfInterest: any;

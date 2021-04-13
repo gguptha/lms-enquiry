@@ -21,7 +21,7 @@ export class PromoterDetailsItemListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'shareHoldingCompany', 'paidupCapitalEquitySanction', 'paidupCapitalEquityCurrent','equityLinkInstrumentSanction', 'equityLinkInstrumentCurrent'
+        'serialNumber', 'shareHoldingCompany', 'paidupCapitalEquitySanction', 'paidupCapitalEquityCurrent','equityLinkInstrumentSanction', 'equityLinkInstrumentCurrent'
     ];
 
     selectedPromoterDetailsItem: any;

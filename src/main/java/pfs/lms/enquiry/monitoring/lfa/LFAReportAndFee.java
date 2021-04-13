@@ -21,6 +21,7 @@ public class LFAReportAndFee extends AbstractEntity implements Cloneable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LendersFinancialAdvisor lendersFinancialAdvisor;
 
+    private Integer serialNumber;
     private String reportType;
     private LocalDate quarterOrYear;
     private LocalDate dateOfReceipt;

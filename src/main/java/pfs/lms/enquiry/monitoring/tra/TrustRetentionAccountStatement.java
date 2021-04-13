@@ -20,6 +20,7 @@ public class    TrustRetentionAccountStatement extends AbstractEntity  implement
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TrustRetentionAccount trustRetentionAccount;
 
+    private Integer serialNumber;
     private String viewRights;
     private String remarks;
     private String periodQuarter;

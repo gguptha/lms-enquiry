@@ -22,7 +22,7 @@ export class LFAListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'advisor', 'bpCode','name', 'dateOfAppointment', 'contractPeriodFrom', 'contractPeriodTo', 'contactNumber', 'email'
+        'serialNumber', 'advisor', 'bpCode','name', 'dateOfAppointment', 'contractPeriodFrom', 'contractPeriodTo', 'contactNumber', 'email'
     ];
 
     selectedLFA: any;

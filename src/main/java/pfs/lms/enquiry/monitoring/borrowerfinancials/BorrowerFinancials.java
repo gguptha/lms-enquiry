@@ -5,6 +5,7 @@ import pfs.lms.enquiry.domain.AbstractEntity;
 import pfs.lms.enquiry.domain.LoanMonitor;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Blob;
 import java.time.LocalDate;
 
@@ -19,6 +20,7 @@ public class BorrowerFinancials extends AbstractEntity implements Cloneable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
+    private Integer serialNumber;
     private Integer fiscalYear;
     private Double turnover;
     private Double pat;

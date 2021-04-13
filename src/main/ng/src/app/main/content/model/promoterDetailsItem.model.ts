@@ -1,6 +1,7 @@
 export class PromoterDetailsItemModel {
 
     id: string;
+    serialNumber: number;
     shareHoldingCompany: string;
     paidupCapitalEquitySanction: number;
     equityLinkInstrumentSanction: number;
@@ -13,6 +14,7 @@ export class PromoterDetailsItemModel {
      */
     constructor(_promoterDetailsItem: any) {
         this.id = _promoterDetailsItem.id || '';
+        this.serialNumber = _promoterDetailsItem.serialNumber || 0;
         this.shareHoldingCompany = _promoterDetailsItem.shareHoldingCompany || '';
         this.paidupCapitalEquitySanction = _promoterDetailsItem.paidupCapitalEquitySanction || 0;
         this.paidupCapitalEquityCurrent = _promoterDetailsItem.paidupCapitalEquityCurrent || 0;

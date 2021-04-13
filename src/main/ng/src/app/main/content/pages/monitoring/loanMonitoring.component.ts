@@ -161,6 +161,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
                     if (data.length > 0) {
                         this.selectedPromoterDetails = data[0].promoterDetails;
+                        this.selectedPromoterDetails.promoterDetailsItemSet.sort((a, b) => b.serialNumber - a.serialNumber);
                         this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
                     }
                 });
@@ -180,6 +181,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             if (this.selectedLIE.id !== '') {
                 _loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
                     this.lieReportAndFeeList = data;
+                    console.log('lieReportAndFeeList', this.lieReportAndFeeList);
                 });
             }
         })

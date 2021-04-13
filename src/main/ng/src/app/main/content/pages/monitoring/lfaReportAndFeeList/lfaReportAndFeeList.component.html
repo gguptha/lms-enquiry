@@ -2,6 +2,14 @@
 
     <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
 
+        <!-- serialNumber Column -->
+        <ng-container matColumnDef="serialNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.lfaReportAndFee.serialNumber }}</p>
+            </mat-cell>
+        </ng-container>
+        
         <!-- reportType Column -->
         <ng-container matColumnDef="reportType">
             <mat-header-cell *matHeaderCellDef mat-sort-header >ReportType</mat-header-cell>

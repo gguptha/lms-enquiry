@@ -18,6 +18,8 @@ public class LendersIndependentEngineer extends AbstractEntity implements Clonea
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
+    private Integer serialNumber;
+
     private String advisor;
 
     private String bpCode;

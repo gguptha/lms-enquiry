@@ -25,9 +25,7 @@ import pfs.lms.enquiry.service.ILoanMonitoringService;
 import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -94,6 +92,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         }
         LendersIndependentEngineer lendersIndependentEngineer = resource.getLendersIndependentEngineer();
+        lendersIndependentEngineer.setSerialNumber(lieRepository.findByLoanMonitor(loanMonitor).size() + 1);
         lendersIndependentEngineer.setLoanMonitor(loanMonitor);
         lendersIndependentEngineer.setAdvisor(resource.getLendersIndependentEngineer().getAdvisor());
         lendersIndependentEngineer.setBpCode(resource.getLendersIndependentEngineer().getBpCode());
@@ -174,6 +173,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(lendersIndependentEngineerResources, Comparator.comparingInt((LIEResource a) ->
+                a.getLendersIndependentEngineer().getSerialNumber()).reversed());
         return lendersIndependentEngineerResources;
     }
 
@@ -184,6 +185,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         LendersIndependentEngineer lendersIndependentEngineer = lieRepository.getOne(resource.getLendersIndependentEngineerId());
         LIEReportAndFee lieReportAndFee = resource.getLieReportAndFee();
+        lieReportAndFee.setSerialNumber(lieReportAndFeeRepository.findByLendersIndependentEngineer(lendersIndependentEngineer).size() + 1);
         lieReportAndFee.setLendersIndependentEngineer(lendersIndependentEngineer);
         lieReportAndFee = lieReportAndFeeRepository.save(lieReportAndFee);
 
@@ -254,6 +256,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(lieReportAndFeeResources, Comparator.comparingInt((LIEReportAndFeeResource a) ->
+                a.getLieReportAndFee().getSerialNumber()).reversed());
         return lieReportAndFeeResources;
     }
 
@@ -289,6 +293,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         LendersFinancialAdvisor lendersFinancialAdvisor = resource.getLendersFinancialAdvisor();
         lendersFinancialAdvisor.setLoanMonitor(loanMonitor);
+        lendersFinancialAdvisor.setSerialNumber(lfaRepository.findByLoanMonitor(loanMonitor).size() + 1);
         lendersFinancialAdvisor.setBpCode(resource.getLendersFinancialAdvisor().getBpCode());
         lendersFinancialAdvisor.setName(resource.getLendersFinancialAdvisor().getName());
         lendersFinancialAdvisor.setDateOfAppointment(resource.getLendersFinancialAdvisor().getDateOfAppointment());
@@ -365,6 +370,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(lendersFinancialAdvisorResources, Comparator.comparingInt((LFAResource a) ->
+                a.getLendersFinancialAdvisor().getSerialNumber()).reversed());
         return lendersFinancialAdvisorResources;
     }
 
@@ -372,6 +379,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public LFAReportAndFee saveLFAReportAndFee(LFAReportAndFeeResource resource, String username) {
         LendersFinancialAdvisor lendersFinancialAdvisor = lfaRepository.getOne(resource.getLendersFinancialAdvisorId());
         LFAReportAndFee lfaReportAndFee = resource.getLfaReportAndFee();
+        lfaReportAndFee.setSerialNumber(lfaReportAndFeeRepository.findByLendersFinancialAdvisor(lendersFinancialAdvisor).size() + 1);
         lfaReportAndFee.setLendersFinancialAdvisor(lendersFinancialAdvisor);
         lfaReportAndFee = lfaReportAndFeeRepository.save(lfaReportAndFee);
 
@@ -451,6 +459,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(lfaReportAndFeeResources, Comparator.comparingInt((LFAReportAndFeeResource a) ->
+                a.getLfaReportAndFee().getSerialNumber()).reversed());
         return lfaReportAndFeeResources;
 
     }
@@ -479,6 +489,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         TrustRetentionAccount trustRetentionAccount = resource.getTrustRetentionAccount();
         trustRetentionAccount.setLoanMonitor(loanMonitor);
+        trustRetentionAccount.setSerialNumber(traRepository.findByLoanMonitor(loanMonitor).size() + 1);
         trustRetentionAccount.setBankKey(resource.getTrustRetentionAccount().getBankKey());
         trustRetentionAccount.setTraBankName(resource.getTrustRetentionAccount().getTraBankName());
         trustRetentionAccount.setBranch(resource.getTrustRetentionAccount().getBranch());
@@ -561,6 +572,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(trustRetentionAccountrResources, Comparator.comparingInt((TRAResource a) ->
+                a.getTrustRetentionAccount().getSerialNumber()).reversed());
         return trustRetentionAccountrResources;
 
     }
@@ -569,6 +582,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
     public TrustRetentionAccountStatement saveTRAStatement(TRAStatementResource resource, String username) {
         TrustRetentionAccount trustRetentionAccount = traRepository.getOne(resource.getTrustRetentionAccountId());
         TrustRetentionAccountStatement trustRetentionAccountStatement = resource.getTrustRetentionAccountStatement();
+        trustRetentionAccountStatement.setSerialNumber(traStatementRepository.findByTrustRetentionAccount(trustRetentionAccount).size() + 1);
         trustRetentionAccountStatement.setTrustRetentionAccount(trustRetentionAccount);
         trustRetentionAccountStatement = traStatementRepository.save(trustRetentionAccountStatement);
 
@@ -636,6 +650,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(traStatementResources, Comparator.comparingInt((TRAStatementResource a) ->
+                a.getTrustRetentionAccountStatement().getSerialNumber()).reversed());
         return traStatementResources;
 
     }
@@ -664,6 +680,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         TermsAndConditionsModification termsAndConditions = resource.getTermsAndConditionsModification();
         termsAndConditions.setLoanMonitor(loanMonitor);
+        termsAndConditions.setSerialNumber(termsAndConditionsRepository.findByLoanMonitor(loanMonitor).size() + 1);
         termsAndConditions.setDocumentType(resource.getTermsAndConditionsModification().getDocumentType());
         termsAndConditions.setDocumentTitle(resource.getTermsAndConditionsModification().getDocumentTitle());
         termsAndConditions.setCommunication(resource.getTermsAndConditionsModification().getCommunication());
@@ -736,6 +753,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(termsAndConditionsResources, Comparator.comparingInt((TermsAndConditionsResource a) ->
+                a.getTermsAndConditionsModification().getSerialNumber()).reversed());
         return termsAndConditionsResources;
 
 
@@ -766,6 +785,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         SecurityCompliance securityCompliance = resource.getSecurityCompliance();
         securityCompliance.setLoanMonitor(loanMonitor);
+        securityCompliance.setSerialNumber(securityComplianceRepository.findByLoanMonitor(loanMonitor).size() + 1);
         securityCompliance.setCollateralObjectType(resource.getSecurityCompliance().getCollateralObjectType());
         securityCompliance.setQuantity(resource.getSecurityCompliance().getQuantity());
         securityCompliance.setApplicability(resource.getSecurityCompliance().getApplicability());
@@ -865,6 +885,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(securityComplianceResources, Comparator.comparingInt((SecurityComplianceResource a) ->
+                a.getSecurityCompliance().getSerialNumber()).reversed());
         return securityComplianceResources;
 
     }
@@ -959,6 +981,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(siteVisitResources, Comparator.comparingInt((SiteVisitResource a) ->
+                a.getSiteVisit().getSerialNumber()).reversed());
         return siteVisitResources;
 
     }
@@ -987,7 +1011,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         OperatingParameter operatingParameter = resource.getOperatingParameter();
         operatingParameter.setLoanMonitor(loanMonitor);
-        operatingParameter.setSerialNumber(siteVisitRepository.findByLoanMonitor(loanMonitor).size() + 1);
+        operatingParameter.setSerialNumber(operatingParameterRepository.findByLoanMonitor(loanMonitor).size() + 1);
         operatingParameter = operatingParameterRepository.save(operatingParameter);
 
         // Change Documents for Operating Parameter
@@ -1061,6 +1085,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(operatingParameterResources, Comparator.comparingInt((OperatingParameterResource a) ->
+                a.getOperatingParameter().getSerialNumber()).reversed());
         return operatingParameterResources;
 
     }
@@ -1091,6 +1117,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         RateOfInterest rateOfInterest = resource.getRateOfInterest();
         rateOfInterest.setLoanMonitor(loanMonitor);
+        rateOfInterest.setSerialNumber(rateOfInterestRepository.findByLoanMonitor(loanMonitor).size() + 1);
         rateOfInterest.setParticulars(resource.getRateOfInterest().getParticulars());
         rateOfInterest.setScheduledIfAny(resource.getRateOfInterest().getScheduledIfAny());
         rateOfInterest.setSanctionPreCod(resource.getRateOfInterest().getSanctionPreCod());
@@ -1160,6 +1187,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(rateOfInterestResources, Comparator.comparingInt((RateOfInterestResource a) ->
+                a.getRateOfInterest().getSerialNumber()).reversed());
         return rateOfInterestResources;
 
     }
@@ -1189,6 +1218,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         BorrowerFinancials borrowerFinancials = resource.getBorrowerFinancials();
         borrowerFinancials.setLoanMonitor(loanMonitor);
+        borrowerFinancials.setSerialNumber(borrowerFinancialsRepository.findByLoanMonitor(loanMonitor).size() + 1);
         // borrowerFinancials.setBorrowerFinancialsId(resource.getBorrowerFinancials().getBorrowerFinancialsId());
         borrowerFinancials.setFiscalYear(resource.getBorrowerFinancials().getFiscalYear());
         borrowerFinancials.setTurnover(resource.getBorrowerFinancials().getTurnover());
@@ -1268,6 +1298,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(borrowerFinancialsResources, Comparator.comparingInt((BorrowerFinancialsResource a) ->
+                a.getBorrowerFinancials().getSerialNumber()).reversed());
         return borrowerFinancialsResources;
     }
 
@@ -1296,6 +1328,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         PromoterFinancials promoterFinancials = resource.getPromoterFinancials();
         promoterFinancials.setLoanMonitor(loanMonitor);
+        promoterFinancials.setSerialNumber(promoterFinancialsRepository.findByLoanMonitor(loanMonitor).size() + 1);
         promoterFinancials.setBorrowerFinancialsId(resource.getPromoterFinancials().getBorrowerFinancialsId());
         promoterFinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
         promoterFinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
@@ -1373,6 +1406,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(promoterFinancialsResources, Comparator.comparingInt((PromoterFinancialsResource a) ->
+                a.getPromoterFinancials().getSerialNumber()).reversed());
         return promoterFinancialsResources;
     }
 
@@ -1400,6 +1435,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         }
         FinancialCovenants financialCovenants = resource.getFinancialCovenants();
         financialCovenants.setLoanMonitor(loanMonitor);
+        financialCovenants.setSerialNumber(financialCovenantsRepository.findByLoanMonitor(loanMonitor).size() + 1);
         financialCovenants.setFinancialCovenantType(resource.getFinancialCovenants().getFinancialCovenantType());
         financialCovenants.setFinancialYear(resource.getFinancialCovenants().getFinancialYear());
         financialCovenants.setDebtEquityRatio(resource.getFinancialCovenants().getDebtEquityRatio());
@@ -1470,6 +1506,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
+        Collections.sort(financialCovenantsResources, Comparator.comparingInt((FinancialCovenantsResource a) ->
+                a.getFinancialCovenants().getSerialNumber()).reversed());
         return financialCovenantsResources;
 
     }
@@ -1503,10 +1541,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         promoterDetails.setPromoterDetailsItemSet(resource.getPromoterDetails().getPromoterDetailsItemSet());
         promoterDetails = promoterDetailsRepository.save(promoterDetails);
 
-
-
         return promoterDetails;
-
     }
 
     @Override
@@ -1570,8 +1605,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     }
             );
         }
-        return promoterDetailsResources;
 
+        return promoterDetailsResources;
     }
 
     @Override

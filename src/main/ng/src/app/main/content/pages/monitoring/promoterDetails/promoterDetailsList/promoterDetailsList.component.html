@@ -1,6 +1,14 @@
 <div class="mat-table-container" style="width: 100%">
 
     <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+        
+        <!-- serialNumber Column -->
+        <ng-container matColumnDef="serialNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header >Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.serialNumber }}</p>
+            </mat-cell>
+        </ng-container>
 
         <!-- shareHoldingCompany Column -->
         <ng-container matColumnDef="shareHoldingCompany">

@@ -22,7 +22,7 @@ export class TRAStatementListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'documentType', 'periodQuarter','periodYear', 'remarks', 'download'
+        'serialNumber', 'documentType', 'periodQuarter','periodYear', 'remarks', 'download'
     ];
 
     selectedTRAStatement: any;

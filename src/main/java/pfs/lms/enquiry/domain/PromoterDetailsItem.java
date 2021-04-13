@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PromoterDetailsItem extends AbstractEntity {
 
+    private Integer serialNumber;
     private String shareHoldingCompany;
     private Double paidupCapitalEquitySanction;
     private Double paidupCapitalEquityCurrent;

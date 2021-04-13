@@ -18,6 +18,7 @@ public class FinancialCovenants extends AbstractEntity implements Cloneable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
+    private Integer serialNumber;
     private String financialCovenantType;
     private Integer financialYear;
     private Double debtEquityRatio;

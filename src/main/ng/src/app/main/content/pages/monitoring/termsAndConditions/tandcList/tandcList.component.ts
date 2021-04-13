@@ -22,7 +22,7 @@ export class TandCListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'communication', 'remarks','borrowerRequestLetterDate', 'dateofIssueofAmendedSanctionLetter', 'documentType', 'download'
+        'serialNumber', 'communication', 'remarks','borrowerRequestLetterDate', 'dateofIssueofAmendedSanctionLetter', 'documentType', 'download'
     ];
 
     selectedTandC: any;

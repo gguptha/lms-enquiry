@@ -22,7 +22,7 @@ export class SecurityComplianceListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'particulars', 'qty', 'faceValue','percentage', 'applicability', 'timelines', 'dateOfCreation', 'validityDate', 'value',
+        'serialNumber', 'particulars', 'qty', 'faceValue','percentage', 'applicability', 'timelines', 'dateOfCreation', 'validityDate', 'value',
             'securityPerfectionDate', 'remarks'
     ];
 

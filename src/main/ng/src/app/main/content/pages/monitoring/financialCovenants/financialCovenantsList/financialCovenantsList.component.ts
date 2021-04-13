@@ -22,7 +22,7 @@ export class FinancialCovenantsListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'financialCovenantType', 'financialYear', 'debtEquityRatio','dscr', 'tolTnw', 'remarksForDeviation'
+        'serialNumber', 'financialCovenantType', 'financialYear', 'debtEquityRatio','dscr', 'tolTnw', 'remarksForDeviation'
     ];
 
     selectedFinancialCovenants: any;

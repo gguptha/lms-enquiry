@@ -63,24 +63,19 @@ export class PromoterDetailsUpdateDialogComponent {
         if (this.promoterDetailsUpdateForm.valid) {
             var promoterDetailsItem: PromoterDetailsItemModel = new PromoterDetailsItemModel(this.promoterDetailsUpdateForm.value);
             if (this._dialogData.operation === 'addPromoterDetails') {
-                console.log('promoterDetails before', this.selectedPromoterDetails);
                 if (this.selectedPromoterDetails === undefined) {
                     this.selectedPromoterDetails = new PromoterDetailsModel({});
                 }
+                promoterDetailsItem.serialNumber = this.selectedPromoterDetails.promoterDetailsItemSet.length + 1;
                 this.selectedPromoterDetails.promoterDetailsItemSet.push(promoterDetailsItem);
-                console.log('promoterDetails after', this.selectedPromoterDetails);
-                console.log('promoterDetailsItem', this.selectedPromoterDetailsItem);
-
-                // If promoter details information is not available
-                if (this.selectedPromoterDetails.id === '') {
-                    console.log('in add: save');
+                
+                if (this.selectedPromoterDetails.id === '') { // If promoter details information is not available
                     this._loanMonitoringService.savePromoterDetails(this.selectedPromoterDetails, this._dialogData.loanApplicationId).subscribe(() => {
                         this._matSnackBar.open('Promoter details added successfully.', 'OK', { duration: 7000 });
                         this._dialogRef.close({ 'refresh': true });
                     });
                 }
                 else { // If promoter details information is available, but new company details are being added
-                    console.log('in add: update');
                     this._loanMonitoringService.updatePromoterDetails(this.selectedPromoterDetails).subscribe(() => {
                         this._matSnackBar.open('Promoter details added successfully.', 'OK', { duration: 7000 });
                         this._dialogRef.close({ 'refresh': true });

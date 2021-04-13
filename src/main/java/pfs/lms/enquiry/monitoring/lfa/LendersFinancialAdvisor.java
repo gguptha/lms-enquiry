@@ -21,6 +21,8 @@ public class LendersFinancialAdvisor extends AbstractEntity implements Cloneable
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
+    private Integer serialNumber;
+
     private String bpCode;
 
     private String name;

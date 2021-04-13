@@ -21,7 +21,7 @@ export class TRAListComponent implements OnInit {
     }
 
     displayedColumns = [
-        'bankKey', 'traBankName','branch', 'address', 'beneficiaryName', 'ifscCode', 'accountNumber', 'contactName', 'typeOfAccount',
+        'serialNumber', 'bankKey', 'traBankName','branch', 'address', 'beneficiaryName', 'ifscCode', 'accountNumber', 'contactName', 'typeOfAccount',
             'contactNumber', 'email', 'pfsAuthorisedPerson'
     ];
 

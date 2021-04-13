@@ -19,6 +19,8 @@ public class SecurityCompliance extends AbstractEntity implements Cloneable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
+    private Integer serialNumber;
+
     private String collateralObjectType;
 
     private Integer quantity;

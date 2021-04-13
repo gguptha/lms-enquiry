@@ -18,6 +18,8 @@ public class RateOfInterest extends AbstractEntity implements Cloneable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
+    private Integer serialNumber;
+
     private String particulars;
 
     private String scheduledIfAny;

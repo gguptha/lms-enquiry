@@ -24,6 +24,7 @@ public class PromoterFinancials extends AbstractEntity implements Cloneable {
     @JoinColumn(name="borrowerFinancialsId")
     private BorrowerFinancials borrowerFinancialsId;//(Fkey)
 
+    private Integer serialNumber;
     private Integer fiscalYear;
     private Double turnover;
     private Double pat;

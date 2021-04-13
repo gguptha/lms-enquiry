@@ -20,6 +20,7 @@ public class LIEReportAndFee extends AbstractEntity implements Cloneable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LendersIndependentEngineer lendersIndependentEngineer;
 
+    private Integer serialNumber;
     private String reportType;
     private LocalDate dateOfReceipt;
     private LocalDate invoiceDate;

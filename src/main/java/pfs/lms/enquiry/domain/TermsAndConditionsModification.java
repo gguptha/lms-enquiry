@@ -20,6 +20,7 @@ public class TermsAndConditionsModification extends AbstractEntity implements Cl
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
+    private Integer serialNumber;
     private String documentType;
     private String documentTitle;
     private String communication;
