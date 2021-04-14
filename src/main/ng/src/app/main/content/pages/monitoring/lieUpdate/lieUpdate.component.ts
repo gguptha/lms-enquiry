@@ -15,7 +15,7 @@ import { PartnerModel } from 'app/main/content/model/partner.model';
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None
 })
-export class LIEUpdateDialogComponent {
+export class LIEUpdateDialogComponent implements OnInit {
 
     dialogTitle = 'Add LIE';
 
@@ -35,7 +35,7 @@ export class LIEUpdateDialogComponent {
      * @param _dialogData 
      * @param _matSnackBar 
      */
-    constructor(_formBuilder: FormBuilder, private _loanMonitoringService: LoanMonitoringService,
+    constructor(private _formBuilder: FormBuilder, private _loanMonitoringService: LoanMonitoringService,
         public _dialogRef: MatDialogRef<LIEUpdateDialogComponent>, @Inject(MAT_DIALOG_DATA) public _dialogData: any,
         private _matSnackBar: MatSnackBar) {
 
@@ -48,7 +48,18 @@ export class LIEUpdateDialogComponent {
             this.selectedLIE = new LIEModel({});
         }
 
-        this.lieUpdateForm = _formBuilder.group({
+        _loanMonitoringService.getLIEs().subscribe(response => {
+            response.forEach(element => {
+                this.partners.push(new PartnerModel(element));
+            });
+        })
+    }
+
+    /**
+     * ngOnInit()
+     */
+    ngOnInit(): void {
+        this.lieUpdateForm = this._formBuilder.group({
             bpCode: [this.selectedLIE.bpCode],
             name: [this.selectedLIE.name || ''],
             dateOfAppointment: [this.selectedLIE.dateOfAppointment || ''],
@@ -57,12 +68,6 @@ export class LIEUpdateDialogComponent {
             contractPeriodTo: [this.selectedLIE.contractPeriodTo || ''],
             email: [this.selectedLIE.email || '', [Validators.pattern(EnquiryApplicationRegEx.email)]]
         }); 
-
-        _loanMonitoringService.getLIEs().subscribe(response => {
-            response.forEach(element => {
-                this.partners.push(new PartnerModel(element));
-            });
-        })
     }
 
     /**
@@ -103,19 +108,11 @@ export class LIEUpdateDialogComponent {
     }
 
     /**
-     * getPartnerName()
-     * @param partner 
-     */
-    getPartnerName(partner: PartnerModel): string {
-        return partner.partyNumber + ' - ' + partner.partyName1 + ' ' + partner.partyName2;
-    }
-
-    /**
      * onPartnerSelect()
      * @param event 
      */
     onPartnerSelect(partner: PartnerModel): void {
-        this.selectedPartnerName = partner.partyName1 + ' ' + partner.partyName2;
+        this.lieUpdateForm.controls.name.setValue(partner.partyName1 + ' ' + partner.partyName2);
     }
 
     /**

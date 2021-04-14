@@ -28,7 +28,7 @@ export class PartnerModel {
      * @param _partner
      */
     constructor(_partner: any) {
-        this.partyNumber = _partner && _partner.partyNumber || '';
+        this.partyNumber = _partner.partyNumber + '' || '';
         this.addressLine1 = _partner && _partner.addressLine1 || '';
         this.addressLine2 = _partner && _partner.addressLine2 || '';
         this.city = _partner && _partner.city || '';

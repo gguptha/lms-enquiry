@@ -15,7 +15,7 @@ import { PartnerModel } from 'app/main/content/model/partner.model';
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None
 })
-export class LFAUpdateDialogComponent {
+export class LFAUpdateDialogComponent implements OnInit {
 
     dialogTitle = 'Add LFA';
 
@@ -25,7 +25,6 @@ export class LFAUpdateDialogComponent {
 
     //businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
     partners: PartnerModel[] = new Array();
-    selectedPartnerName: string;
     
     /**
      * constructor()
@@ -35,21 +34,34 @@ export class LFAUpdateDialogComponent {
      * @param _dialogData 
      * @param _matSnackBar 
      */
-    constructor(_formBuilder: FormBuilder, private _loanMonitoringService: LoanMonitoringService,
+    constructor(private _formBuilder: FormBuilder, private _loanMonitoringService: LoanMonitoringService,
         public _dialogRef: MatDialogRef<LFAUpdateDialogComponent>, @Inject(MAT_DIALOG_DATA) public _dialogData: any,
         private _matSnackBar: MatSnackBar) {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedLFA !== undefined) {
-            this.selectedLFA = _dialogData.selectedLFA;
+            this.selectedLFA = new LFAModel(_dialogData.selectedLFA);
             this.dialogTitle = 'Modify LFA';
         }
         else {
             this.selectedLFA = new LFAModel({});
         }
 
-        this.lfaUpdateForm = _formBuilder.group({
-            bpCode: [this.selectedLFA.bpCode],
+        console.log(this.selectedLFA);
+
+        _loanMonitoringService.getLFAs().subscribe(response => {
+            response.forEach(element => {
+                this.partners.push(new PartnerModel(element));
+            });
+        })   
+    }
+
+    /**
+     * ngOnInit()
+     */
+    ngOnInit(): void {
+        this.lfaUpdateForm = this._formBuilder.group({
+            bpCode: [this.selectedLFA.bpCode || ''],
             name: [this.selectedLFA.name || ''],
             dateOfAppointment: [this.selectedLFA.dateOfAppointment || ''],
             contactPerson: [this.selectedLFA.contactPerson],
@@ -57,12 +69,6 @@ export class LFAUpdateDialogComponent {
             contractPeriodTo: [this.selectedLFA.contractPeriodTo || ''],
             email: [this.selectedLFA.email, [Validators.pattern(EnquiryApplicationRegEx.email)]]
         });
-
-        _loanMonitoringService.getLFAs().subscribe(response => {
-            response.forEach(element => {
-                this.partners.push(new PartnerModel(element));
-            });
-        })    
     }
 
     /**
@@ -101,21 +107,12 @@ export class LFAUpdateDialogComponent {
         }
     }
 
-
-    /**
-     * getBPDescription()
-     * @param bpCode 
-     */
-    getBPDescription(bpCode: any): string {
-        return bpCode.RoleCode + ' - ' + bpCode.RoleDescription;
-    }
-
     /**
      * onPartnerSelect()
      * @param event 
      */
     onPartnerSelect(partner: PartnerModel): void {
-        this.selectedPartnerName = partner.partyName1 + ' ' + partner.partyName2;
+        this.lfaUpdateForm.controls.name.setValue(partner.partyName1 + ' ' + partner.partyName2);
     }
 
     /**

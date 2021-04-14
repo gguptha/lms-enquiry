@@ -11,8 +11,7 @@
         <form [formGroup]="lfaUpdateForm">
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <mat-select placeholder="BP Code" formControlName="bpCode" required>
-                        <mat-option> </mat-option>
+                    <mat-select placeholder="Bus. Partner Id" formControlName="bpCode" required>
                         <mat-option *ngFor="let partner of partners" [value]="partner.partyNumber" (click)="onPartnerSelect(partner)">
                           {{ getPartyNumberAndName(partner) }}
                         </mat-option>
@@ -22,7 +21,7 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="BP Name" [(ngModel)]="selectedPartnerName" formControlName="name" readonly>
+                    <input matInput placeholder="Bus. Partner Name" formControlName="name" readonly>
                 </mat-form-field>
             </div>
             <div fxLayout="row" class="mt-16">
