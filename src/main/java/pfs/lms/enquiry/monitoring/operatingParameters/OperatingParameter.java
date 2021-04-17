@@ -24,7 +24,7 @@ public class OperatingParameter extends AbstractEntity implements Cloneable {
 
     private Integer serialNumber;
     private String month;
-    private Integer year;
+//    private Integer year;
     private Double exportNetGeneration; //(Million Units)
     private Double plfCufActual; // (%age)
     private Double applicableTariff; // (Rs / Unit)
@@ -33,9 +33,9 @@ public class OperatingParameter extends AbstractEntity implements Cloneable {
     private LocalDate dateOfPaymentReceipt;
     private Double carbonDiOxideEmission; // (Tonnes)
     private Double waterSaved;
-    private String remarks;
+//    private String remarks;
     private String designPlfCuf;
-    private String actualYearlyAveragePlfCuf;
+//    private String actualYearlyAveragePlfCuf;
     private String documentType;
     private String documentTitle;
     private String fileReference;

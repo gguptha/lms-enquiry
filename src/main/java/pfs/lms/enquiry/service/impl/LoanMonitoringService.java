@@ -1037,7 +1037,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         existingOperatingParameter.setSerialNumber(resource.getOperatingParameter().getSerialNumber());
         existingOperatingParameter.setMonth(resource.getOperatingParameter().getMonth());
-        existingOperatingParameter.setYear(resource.getOperatingParameter().getYear());
+//        existingOperatingParameter.setYear(resource.getOperatingParameter().getYear());
         existingOperatingParameter.setExportNetGeneration(resource.getOperatingParameter().getExportNetGeneration());
         existingOperatingParameter.setPlfCufActual(resource.getOperatingParameter().getPlfCufActual());
         existingOperatingParameter.setApplicableTariff(resource.getOperatingParameter().getApplicableTariff());
@@ -1046,9 +1046,9 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingOperatingParameter.setDateOfPaymentReceipt(resource.getOperatingParameter().getDateOfPaymentReceipt());
         existingOperatingParameter.setCarbonDiOxideEmission(resource.getOperatingParameter().getCarbonDiOxideEmission());
         existingOperatingParameter.setWaterSaved(resource.getOperatingParameter().getWaterSaved());
-        existingOperatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
+//        existingOperatingParameter.setRemarks(resource.getOperatingParameter().getRemarks());
         existingOperatingParameter.setDesignPlfCuf(resource.getOperatingParameter().getDesignPlfCuf());
-        existingOperatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
+//        existingOperatingParameter.setActualYearlyAveragePlfCuf(resource.getOperatingParameter().getActualYearlyAveragePlfCuf());
         existingOperatingParameter.setDocumentType(resource.getOperatingParameter().getDocumentType());
         existingOperatingParameter.setDocumentTitle(resource.getOperatingParameter().getDocumentTitle());
         existingOperatingParameter.setFileReference(resource.getOperatingParameter().getFileReference());

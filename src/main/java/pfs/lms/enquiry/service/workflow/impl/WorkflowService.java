@@ -98,7 +98,7 @@ public class WorkflowService implements IWorkflowService {
         variables.put("processName"  , processName);
         variables.put("requestDate", DateTime.now().toString());
         variables.put("projectName", loanApplication.getProjectName());
-        variables.put("status", "");
+        variables.put("workflowStatus", "In Approval");
 
 
         runtimeService = processEngine.getRuntimeService();
@@ -137,6 +137,7 @@ public class WorkflowService implements IWorkflowService {
          LoanMonitor loanMonitor = new LoanMonitor();
         String loanContractId = null;
 
+
         switch (processName) {
             case "Monitoring":
                 //Fetch the Entity
@@ -144,22 +145,28 @@ public class WorkflowService implements IWorkflowService {
                 // Set the Work Flow Status Code "03" - Approved
                 loanMonitor.setWorkFlowStatusCode(03); loanMonitor.setWorkFlowStatusDescription("Approved");
                 loanContractId =  loanMonitor.getLoanApplication().getLoanContractId();
+                processInstanceId = loanMonitor.getProcessInstanceId();
                 break;
             case "Appraisal" :
                 break;
         }
 
 
+
         // Fetch the Task
         TaskService taskService = processEngine.getTaskService();
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
 
-        if ( task == null) {
-            //Raise Exception
-        }
+//        if ( task == null) {
+//            try {
+//                throw new Exception("Workflow Task Id is NULL !");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         // Prepare Variables
-        variables.put("status", "approved");
+        variables.put("workflowStatus", "TRUE");
 
         System.out.println("--------------- Workflow Task Execution  Started @ : " + DateTime.now());
 
@@ -173,6 +180,8 @@ public class WorkflowService implements IWorkflowService {
         switch (processName) {
             case "Monitoring":
                 //Save entity with the new workflow status code
+                loanMonitor.setWorkFlowStatusDescription("Approved");
+                loanMonitor.setWorkFlowStatusCode(2);
                 loanMonitor.setProcessInstanceId(processInstanceId);
                 return loanMonitor;
             case "Appraisal" :
@@ -199,6 +208,7 @@ public class WorkflowService implements IWorkflowService {
                 // Set the Work Flow Status Code "04" - Rejected
                 loanMonitor.setWorkFlowStatusCode(04); loanMonitor.setWorkFlowStatusDescription("Rejected");
                 loanContractId =  loanMonitor.getLoanApplication().getLoanContractId();
+                processInstanceId = loanMonitor.getProcessInstanceId();
                 break;
             case "Appraisal" :
                 break;
@@ -214,7 +224,7 @@ public class WorkflowService implements IWorkflowService {
         }
 
         // Prepare Variables
-        variables.put("status", "approved");
+        variables.put("workflowStatus", "FALSE");
         variables.put("rejectionReason", rejectionReason);
 
         System.out.println("--------------- Workflow Task Execution  Started @ : " + DateTime.now());
@@ -222,13 +232,15 @@ public class WorkflowService implements IWorkflowService {
         try {
             taskService.complete(task.getId(), variables);
         } catch (Exception ex) {
-            log.info("WorkFlow Approval Exception : " +ex.getMessage());
+            log.info("WorkFlow REJECTION Exception : " +ex.getMessage());
         }
         System.out.println("--------------- Workflow Task Execution Finished @ : " + DateTime.now());
 
         switch (processName) {
             case "Monitoring":
                 //Save entity with the new workflow status code
+                loanMonitor.setWorkFlowStatusDescription("Rejected");
+                loanMonitor.setWorkFlowStatusCode(4);
                 loanMonitor = loanMonitorRepository.save(loanMonitor);
                  return loanMonitor;
             case "Appraisal" :
@@ -294,7 +306,16 @@ public class WorkflowService implements IWorkflowService {
         workflowTaskDTO.setProcessName(variables.get("processName").toString());
         workflowTaskDTO.setBusinessProcessId(variables.get("LoanProcessId").toString());
 
-        workflowTaskDTO.setStatus(variables.get("status").toString());
+        if (variables.get("workflowStatus").toString() == "TRUE")
+            workflowTaskDTO.setStatus("Approved");
+
+        if (variables.get("workflowStatus").toString() == "FALSE")
+            workflowTaskDTO.setStatus("Rejected");
+
+        if (variables.get("workflowStatus").toString() == "In Approval")
+            workflowTaskDTO.setStatus("Approved");
+        workflowTaskDTO.setStatus("In Approval");
+
 
         return workflowTaskDTO;
 

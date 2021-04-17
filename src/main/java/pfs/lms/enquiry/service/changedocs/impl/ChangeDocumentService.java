@@ -1,6 +1,7 @@
 package pfs.lms.enquiry.service.changedocs.impl;
 
 
+import com.sun.xml.internal.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.javers.core.Javers;
@@ -293,45 +294,45 @@ public class ChangeDocumentService implements IChangeDocumentService {
                     return result;
                 case "LendersIndependentEngineer":
                     LendersIndependentEngineer lendersIndependentEngineer = (LendersIndependentEngineer) object;
-                    result.put("id", lendersIndependentEngineer.getBpCode().toString());
+                    result.put("id", lendersIndependentEngineer.getSerialNumber().toString());
                     result.put("description", lendersIndependentEngineer.getName());
                     return result;
 
                 case "LIEReportAndFee":
                     LIEReportAndFee lieReportAndFee = (LIEReportAndFee) object;
-                    result.put("id", lieReportAndFee.getLendersIndependentEngineer().getBpCode().toString());
+                    result.put("id", lieReportAndFee.getLendersIndependentEngineer().getSerialNumber().toString());
                     result.put("description", lieReportAndFee.getReportType() + lieReportAndFee.getDateOfReceipt());
                     return result;
 
                 case "LendersFinancialAdvisor":
                     LendersFinancialAdvisor lendersFinancialAdvisor = (LendersFinancialAdvisor) object;
-                    result.put("id", lendersFinancialAdvisor.getBpCode().toString());
+                    result.put("id", lendersFinancialAdvisor.getSerialNumber().toString());
                     result.put("description", lendersFinancialAdvisor.getName());
                     return result;
 
                 case "LFAReportAndFee":
                     LFAReportAndFee lfaReportAndFee = (LFAReportAndFee) object;
-                    result.put("id", lfaReportAndFee.getLendersFinancialAdvisor().getBpCode().toString());
+                    result.put("id", lfaReportAndFee.getLendersFinancialAdvisor().getSerialNumber().toString());
                     result.put("description", lfaReportAndFee.getReportType() + lfaReportAndFee.getDateOfReceipt());
                     return result;
                 case "TrustRetentionAccount":
                     TrustRetentionAccount trustRetentionAccount = (TrustRetentionAccount) object;
-                    result.put("id", trustRetentionAccount.getTypeOfAccount().toString());
+                    result.put("id", trustRetentionAccount.getSerialNumber().toString());
                     result.put("description", trustRetentionAccount.getBankKey());
                     return result;
                 case "TrustRetentionAccountStatement":
                     TrustRetentionAccountStatement trustRetentionAccountStatement = (TrustRetentionAccountStatement) object;
-                    result.put("id", trustRetentionAccountStatement.getDocumentType().toString());
+                    result.put("id", trustRetentionAccountStatement.getSerialNumber().toString());
                     result.put("description", trustRetentionAccountStatement.getDocumentType());
                     return result;
                 case "TermsAndConditionsModification":
                     TermsAndConditionsModification termsAndConditionsModification = (TermsAndConditionsModification) object;
-                    result.put("id", termsAndConditionsModification.getCommunication().toString());
+                    result.put("id", termsAndConditionsModification.getSerialNumber().toString());
                     result.put("description", termsAndConditionsModification.getCommunication());
                     return result;
                 case "SecurityCompliance":
                     SecurityCompliance securityCompliance = (SecurityCompliance) object;
-                    result.put("id", securityCompliance.getCollateralObjectType().toString());
+                    result.put("id", securityCompliance.getSerialNumber().toString());
                     result.put("description", securityCompliance.getCollateralObjectType());
                     return result;
                 case "SiteVisit":
@@ -346,31 +347,30 @@ public class ChangeDocumentService implements IChangeDocumentService {
                     return result;
                 case "RateOfInterest":
                     RateOfInterest rateOfInterest = (RateOfInterest) object;
-                    result.put("id", rateOfInterest.getParticulars().toString());
+                    result.put("id", rateOfInterest.getSerialNumber().toString());
                     result.put("description", rateOfInterest.getParticulars().toString());
                     return result;
                 case "BorrowerFinancials":
                     BorrowerFinancials borrowerFinancials = (BorrowerFinancials) object;
-                    result.put("id", borrowerFinancials.getFiscalYear().toString());
+                    result.put("id", borrowerFinancials.getSerialNumber().toString());
                     result.put("description", borrowerFinancials.getFiscalYear().toString());
                     return result;
                 case "PromoterFinancials":
                     PromoterFinancials promoterFinancials = (PromoterFinancials) object;
-                    result.put("id", promoterFinancials.getFiscalYear().toString());
+                    result.put("id", promoterFinancials.getSerialNumber().toString());
                     result.put("description", promoterFinancials.getFiscalYear().toString());
                     return result;
                 case "FinancialCovenants":
                     FinancialCovenants financialCovenants = (FinancialCovenants) object;
-                    result.put("id", financialCovenants.getFinancialCovenantType().toString());
+                    result.put("id", financialCovenants.getSerialNumber().toString());
                     result.put("description", financialCovenants.getFinancialCovenantType().toString());
                     return result;
 
-//                case "PromoterDetails":
-//                    PromoterDetails promoterDetails  =   (PromoterDetails) object;
-                     //TODO
-//                    result.put("id", promoterDetails.getPromoterDetailsItemSet().toString());
-//                    // result.put("description", promoterDetails.get().toString());
-//                    return result;
+                case "PromoterDetails":
+                    PromoterDetails promoterDetails  =   (PromoterDetails) object;
+                    result.put("id", promoterDetails.getDateOfChange().toString());
+                    result.put("description", promoterDetails.getDateOfChange().toString());
+                    return result;
 
 
 

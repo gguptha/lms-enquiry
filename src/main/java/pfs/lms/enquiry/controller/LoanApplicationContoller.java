@@ -203,6 +203,8 @@ public class LoanApplicationContoller {
         loanContractExtensionResource.setLoanApplicationId(loanApplication.getId());
         loanContractExtensionResource.setLoanContractExtension(loanContractExtension);
 
+
+
         LoanContractExtension existingLoanContractExtension =
                 loanContractExtensionRepository.getLoanContractExtensionByLoanNumber(loanApplication.getLoanContractId());
         if ( existingLoanContractExtension == null) {

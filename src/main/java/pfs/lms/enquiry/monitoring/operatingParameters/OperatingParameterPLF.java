@@ -1,0 +1,31 @@
+package pfs.lms.enquiry.monitoring.operatingParameters;
+
+import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
+import pfs.lms.enquiry.domain.LoanMonitor;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+
+/**
+ * Created by sajeev on 16-Apr-21.
+ */
+@Entity
+@Setter
+@Getter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+public class OperatingParameterPLF extends AbstractEntity implements Cloneable{
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private LoanMonitor loanMonitor;
+
+    private Integer serialNumber;
+    private Integer year;
+    private String actualYearlyAveragePlfCuf;
+
+    private String remarks;
+ }
