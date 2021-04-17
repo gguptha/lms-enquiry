@@ -25,7 +25,6 @@ export class LIEUpdateDialogComponent implements OnInit {
 
     // businessPartnerRoles = LoanMonitoringConstants.businessPartnerRoles;
     partners: PartnerModel[] = new Array();
-    selectedPartnerName: string;
 
     /**
      * constructor()

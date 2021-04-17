@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { Router} from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
 import { LIEUpdateDialogComponent } from './lieUpdate/lieUpdate.component';
@@ -46,6 +46,8 @@ import { AppService } from 'app/app.service';
     animations: fuseAnimations
 })
 export class LoanMonitoringComponent implements OnInit, OnDestroy {
+
+    disableSendForApproval: boolean = false;
 
     loanMonitor: any;
 
@@ -101,7 +103,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      * @param _dialogRef 
      */
     constructor(private _formBuilder: FormBuilder, public _loanEnquiryService: LoanEnquiryService, private _router: Router, private _dialogRef: MatDialog,
-                private _loanMonitoringService: LoanMonitoringService, public _appService: AppService) {
+                private _loanMonitoringService: LoanMonitoringService, public _appService: AppService, private _matSnackBar: MatSnackBar) {
         
         this.subscriptions.add(this._loanEnquiryService.selectedEnquiry.subscribe(data => {
             this.selectedEnquiry = data;
@@ -850,9 +852,19 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      sendMonitoringForApproval(): void {
         let name = this._appService.currentUser.firstName + ' ' + this._appService.currentUser.lastName;
         let email = this._appService.currentUser.email;
-        this._loanMonitoringService.sendMonitoringForApproval(this.loanMonitor.id, name, email).subscribe(response => {
-            this.loanMonitor = response;
-        });
+        this._matSnackBar.open('Please wait while attempting to send monitoring for approval.', 'OK', { duration: 25000 });
+        this._loanMonitoringService.sendMonitoringForApproval(this.loanMonitor.id, name, email).subscribe(
+            response => {
+                this.loanMonitor = response;
+                this._matSnackBar.dismiss();
+                this._matSnackBar.open('Monitoring is sent for approval.', 'OK', { duration: 7000 });
+            },
+            error => {
+                this.disableSendForApproval = false;
+                this._matSnackBar.open('Errors occured. Pls try again after sometime or contact your system administrator', 
+                    'OK', { duration: 7000 });
+            });
+        this.disableSendForApproval = true;
     }
 
     /**
