@@ -306,15 +306,18 @@ public class WorkflowService implements IWorkflowService {
         workflowTaskDTO.setProcessName(variables.get("processName").toString());
         workflowTaskDTO.setBusinessProcessId(variables.get("LoanProcessId").toString());
 
-        if (variables.get("workflowStatus").toString() == "TRUE")
-            workflowTaskDTO.setStatus("Approved");
+        if (variables.get("workflowStatus") != null) {
+            if (variables.get("workflowStatus").toString() == "TRUE")
+                workflowTaskDTO.setStatus("Approved");
 
-        if (variables.get("workflowStatus").toString() == "FALSE")
-            workflowTaskDTO.setStatus("Rejected");
+            if (variables.get("workflowStatus").toString() == "FALSE")
+                workflowTaskDTO.setStatus("Rejected");
 
-        if (variables.get("workflowStatus").toString() == "In Approval")
-            workflowTaskDTO.setStatus("Approved");
-        workflowTaskDTO.setStatus("In Approval");
+            if (variables.get("workflowStatus").toString() == "In Approval")
+                workflowTaskDTO.setStatus("Approved");
+        }
+        else
+            workflowTaskDTO.setStatus("In Approval");
 
 
         return workflowTaskDTO;
