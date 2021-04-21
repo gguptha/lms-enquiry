@@ -78,4 +78,13 @@ export class InboxComponent implements OnInit {
             this.inboxItemsComponent.refreshList();
         });
     }
+
+    /**
+     * refreshTasks()
+     */
+    refreshTasks(): void {
+        this._inboxService.fetchTasks().subscribe(response => {
+            this.inboxItemsComponent.inboxItems = response;
+        });
+    }
 }

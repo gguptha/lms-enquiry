@@ -20,6 +20,9 @@
             <button mat-raised-button class="mr-8 mb-8" (click)="rejectTask()" [disabled]="!inboxItemsComponent.selectedItem">
                 <mat-icon matSuffix class="mr-8">clear</mat-icon>Reject
             </button>
+            <button mat-raised-button class="mr-8 mb-8" (click)="refreshTasks()">
+                <mat-icon matSuffix class="mr-8">refresh</mat-icon>Refresh
+            </button>
             <!-- <button mat-raised-button class="mr-8 mb-8" (click)="reviewEvaluation()">
                 <mat-icon matSuffix class="mr-8">rate_review</mat-icon> Review Model
             </button>
