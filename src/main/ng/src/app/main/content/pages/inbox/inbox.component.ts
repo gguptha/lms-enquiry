@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { InboxService } from './inbox.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material';
+import { MatDialog, MatSnackBar, MatSnackBarModule } from '@angular/material';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { InboxItemsComponent } from './inbox-items/inbox-items.component';
 import { EnquiryAlertsService } from '../enquiry/enquiryAlerts/enquiryAlerts.service';
 import { BehaviorSubject } from 'rxjs';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
+import { RejectMessageDialogComponent } from './rejectMessageDialog/rejectMessageDialog.component';
 
 @Component({
     selector: 'app-inbox',
@@ -20,7 +21,9 @@ export class InboxComponent implements OnInit {
     
     constructor(private _inboxService: InboxService ,
                 private _matSnackBar: MatSnackBar,
-                private _router: Router, private _loanEnquiryService: LoanEnquiryService) {
+                private _router: Router, 
+                private _loanEnquiryService: LoanEnquiryService,
+                private _dialogRef: MatDialog) {
         
     }
 
@@ -49,17 +52,27 @@ export class InboxComponent implements OnInit {
      * rejectTask()
      */
     rejectTask(): void {
-        let selectedInboxItem = this.inboxItemsComponent.selectedItem;
-        let workFlowProcessRequestResource = {
-            'businessProcessId': selectedInboxItem.businessProcessId,
-            'processName': selectedInboxItem.processName,
-            'processInstanceId': selectedInboxItem.id,
-            'rejectionReason': 'Rejected'
-        }        
-        this._inboxService.rejectTask(workFlowProcessRequestResource).subscribe(response => {
-            this._matSnackBar.open( 'Selected task is rejected and email notification was sent to requestor', 'Ok', { duration: 7000 });
-            this.inboxItemsComponent.refreshList();
+        // Open the dialog.
+        const dialogRef = this._dialogRef.open(RejectMessageDialogComponent, {
+            panelClass: 'fuse-rejection-reason-dialog',
+            width: '750px'
         });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (!result.cancel) {
+                let selectedInboxItem = this.inboxItemsComponent.selectedItem;
+                let workFlowProcessRequestResource = {
+                    'businessProcessId': selectedInboxItem.businessProcessId,
+                    'processName': selectedInboxItem.processName,
+                    'processInstanceId': selectedInboxItem.id,
+                    'rejectionReason': result.rejectionReason
+                }        
+                this._inboxService.rejectTask(workFlowProcessRequestResource).subscribe(response => {
+                    this._matSnackBar.open( 'Selected task is rejected and email notification was sent to requestor', 'Ok', { duration: 7000 });
+                    this.inboxItemsComponent.refreshList();
+                });            
+            }
+        }); 
     }
 
     /**
@@ -86,5 +99,6 @@ export class InboxComponent implements OnInit {
         this._inboxService.fetchTasks().subscribe(response => {
             this.inboxItemsComponent.inboxItems = response;
         });
+        this.inboxItemsComponent.selectedItem = undefined;   
     }
 }
