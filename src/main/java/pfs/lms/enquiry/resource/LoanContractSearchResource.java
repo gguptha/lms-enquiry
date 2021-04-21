@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class LoanContractSearchResource {
     //private LocalDate enquiryDateFrom;
     //private LocalDate enquiryDateTo;
+    private String accountStatus;
     private String partyName;
     private String loanClass;
     private String  financingType;

@@ -37,8 +37,8 @@
                     <mat-form-field fxFlex="25">
                         <mat-select placeholder="Account Status" formControlName="accountStatus"  >
                           <mat-option> </mat-option>
-                          <mat-option *ngFor="let accountStatus of accountStatuses" [value]="accountStatus.code">
-                            {{ accountStatus.description }}
+                          <mat-option *ngFor="let aS of accountStatuses" [value]="aS.code">
+                            {{ aS.value }}
                           </mat-option>
                         </mat-select>
                     </mat-form-field>

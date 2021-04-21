@@ -651,6 +651,12 @@ public class LoanApplicationContoller {
                                             == Integer.parseInt(resource.getTechnicalStatus() ))
                     .collect(Collectors.toList());
 
+        if (resource.getAccountStatus() != null)
+            loanApplications = loanApplications.stream().filter(loanApplication ->
+                    loanApplication.getFunctionalStatus() ==
+                    Integer.parseInt(resource.getAccountStatus())).
+                    collect(Collectors.toList());
+
         User user;
         if(request.getUserPrincipal().getName().equals("admin")) {
             user = userRepository.findByEmail("admin@gmail.com");

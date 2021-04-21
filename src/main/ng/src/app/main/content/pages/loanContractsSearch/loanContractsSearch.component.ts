@@ -7,6 +7,7 @@ import { EnquiryApplicationModel } from 'app/main/content/model/enquiryApplicati
 import {MatPaginator, MatSnackBar} from "@angular/material";
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { EnquiryAlertsService } from '../enquiry/enquiryAlerts/enquiryAlerts.service';
+import { LoanMonitoringConstants } from '../../model/loanMonitoringConstants';
 
 @Component({
     selector: 'fuse-loancontracts-search',
@@ -61,6 +62,7 @@ export class LoanContractsSearchComponent {
         _service.selectedLoanApplicationId = undefined;
 
         // Initialize dropdowns.
+        this.accountStatuses = LoanMonitoringConstants.functionalStatuses;
         this.loanClasses = _route.snapshot.data.routeResolvedData[0]._embedded.loanClasses;
         this.financingTypes = _route.snapshot.data.routeResolvedData[1]._embedded.financingTypes;
         this.projectTypes = _route.snapshot.data.routeResolvedData[2]._embedded.projectTypes;

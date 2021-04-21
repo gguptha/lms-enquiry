@@ -607,4 +607,15 @@ export class LoanMonitoringConstants {
         {code: "Nov" , value:"Nov"},
         {code: "Dec" , value:"Dec"}
     ];
+
+    public static functionalStatuses = [
+        {code: "01", value:"Enquiry Stage"},
+        {code: "02", value:"ICC ApprovalStage"},
+        {code: "03", value:"Appraisal Stage"},
+        {code: "04", value:"Board Approval Stage"},
+        {code: "05", value:"Loan Documentation Stage"},
+        {code: "06", value:"Loan Disbursement Stage"},
+        {code: "07", value:"Approved"},
+        {code: "08", value:"Rejected"}
+    ]
 }
