@@ -161,9 +161,9 @@ export const adminNavigation: FuseNavigation[] = [
     ]
   },
   {
-    id: 'monitoring',
-    title: 'Monitoring',
-    translate: 'NAV.MONITORING',
+    id: 'processLoans',
+    title: 'Process Loans Service',
+    translate: 'NAV.PROCESSLOANS',
     type: 'group',
     children: [
       {

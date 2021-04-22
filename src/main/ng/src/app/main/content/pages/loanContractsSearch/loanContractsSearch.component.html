@@ -12,7 +12,9 @@
 
         <!-- TOOLBAR -->
         <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
-            <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToMonitorLoan()" [disabled]="_service.selectedLoanApplicationId == undefined">
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToMonitorLoan()" 
+                    [disabled]="_service.selectedLoanApplicationId == undefined && 
+                    (_appService.currentUser.role !== 'ZLM024' || _appService.currentUser.role !== 'ZLM040' || _appService.currentUser.role !== 'ZLM023')">
                 Monitor Loan
             </button>
         </div>

@@ -8,6 +8,7 @@ import {MatPaginator, MatSnackBar} from "@angular/material";
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { EnquiryAlertsService } from '../enquiry/enquiryAlerts/enquiryAlerts.service';
 import { LoanMonitoringConstants } from '../../model/loanMonitoringConstants';
+import { AppService } from 'app/app.service';
 
 @Component({
     selector: 'fuse-loancontracts-search',
@@ -40,7 +41,7 @@ export class LoanContractsSearchComponent {
      * @param _router
      * @param _enquiryAlertsService
      */
-    constructor(_route: ActivatedRoute,_formBuilder: FormBuilder,
+    constructor(_route: ActivatedRoute, _formBuilder: FormBuilder, public _appService: AppService,
                 public _service: LoanEnquiryService, private _router: Router,
                 private _enquiryAlertsService: EnquiryAlertsService,private _matSnackBar: MatSnackBar) {
 
@@ -70,6 +71,7 @@ export class LoanContractsSearchComponent {
         this.assistanceTypes = _route.snapshot.data.routeResolvedData[4]._embedded.assistanceTypes;
         this.technicalStatuses = _route.snapshot.data.routeResolvedData[9];
 
+        console.log('_appService.currentUser', _appService.currentUser);
     }
 
     /**
