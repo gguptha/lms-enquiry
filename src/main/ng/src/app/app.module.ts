@@ -34,6 +34,7 @@ import { ChangePasswordModule } from './main/content/pages/changePassword/change
 import { LoanContractsSearchModule } from './main/content/pages/loanContractsSearch/loanContractsSearch.module';
 import { LoanMonitoringModule } from './main/content/pages/monitoring/loanMonitoring.module';
 import { InboxModule } from './main/content/pages/inbox/inbox.module';
+import { ChangeDocumentModule } from './main/content/pages/changeDocument/change-document.module';
 
 const appRoutes: Routes = [
     {
@@ -96,7 +97,8 @@ const appRoutes: Routes = [
         LoanMonitoringModule,
 
         // Workflow
-        InboxModule
+        InboxModule,
+        ChangeDocumentModule
     ],
     bootstrap: [
         AppComponent

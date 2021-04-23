@@ -96,6 +96,31 @@ export const adminNavigation: FuseNavigation[] = [
         url: '/inbox'
     },
     {
+        id: 'changeHistory',
+        title: 'Change History',
+        translate: 'NAV.CHANGEHISTORY',
+        type: 'item',
+        icon: 'view_list',
+        url: '/changeDocuments'
+    },
+    {
+        id: 'reports',
+        title: 'Reports',
+        translate: 'NAV.REPORTS',
+        type: 'collapsable',
+        icon: 'view_list',
+        children: [
+            {
+                id: 'cchangeHistory',
+                title: 'Change History',
+                translate: 'NAV.CHANGEHISTORY',
+                type: 'item',
+                icon: 'view_list',
+                url: '/changeDocuments'
+            },
+        ]
+    },
+    {
     id: 'administration',
     title: 'Administration',
     translate: 'NAV.ADMINISTRATION',

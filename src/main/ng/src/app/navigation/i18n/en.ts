@@ -13,6 +13,8 @@ export const locale = {
             'PROCESSLOANS'  : 'Process Loans Service',
             'INBOX'         : 'Inbox',
             'LOANCONTRACTSLIST': 'Loan Contracts List',
+            'REPORTS'       : 'Reports',
+            'CHANGEHISTORY' : 'Change History',
             'SAMPLE'        : {
                 'TITLE': 'Sample',
                 'BADGE': '25'
