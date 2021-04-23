@@ -48,10 +48,14 @@ import { OperatingParameterListComponent } from './operatingParameter/operatingP
 
 const routes = [
     {
-        path: 'loanMonitoring', component: LoanMonitoringComponent,
+        path: 'loanMonitoring', 
+        component: LoanMonitoringComponent,
         canActivate: [
             EnquiryApplicationRouteGuard
-        ]
+        ],
+        resolve: {
+            routeResolvedData: LoanMonitoringService
+        },
     }
 ];
 

@@ -2,9 +2,11 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PartnerModel } from '../../model/partner.model';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 
 @Injectable()
-export class LoanMonitoringService {
+export class LoanMonitoringService implements Resolve<any> {
 
     public enquirySearchList: BehaviorSubject<any>;
 
@@ -28,7 +30,14 @@ export class LoanMonitoringService {
      *
      * @param _http
      */
-    constructor(private _http: HttpClient) {
+    constructor(private _http: HttpClient, private _loanEnquiryService: LoanEnquiryService) {
+    }
+
+    /**
+     * resolve()
+     */
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+        return this.getLoanContractExtension(this._loanEnquiryService.selectedLoanApplicationId.value);
     }
 
     // All about LIE
@@ -313,6 +322,15 @@ export class LoanMonitoringService {
     public getLoanMonitor(loanApplicationId: any): Observable<any>
     {
         return this._http.get<any>('enquiry/api/loanApplications/' + loanApplicationId + '/loanMonitor');
+    }
+
+    /**
+     * getLoanContractExtension()
+     * @param loanApplicationId 
+     */
+    public getLoanContractExtension(loanApplicationId: any): Observable<any>
+    {
+        return this._http.get<any>('enquiry/api/loancontractextension/' + loanApplicationId);
     }
 
     /**

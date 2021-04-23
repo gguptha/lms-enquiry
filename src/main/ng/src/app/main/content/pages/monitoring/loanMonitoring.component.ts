@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
-import { Router} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
@@ -50,6 +50,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     disableSendForApproval: boolean = false;
 
     loanMonitor: any;
+    loanContractExtension: any = {};
 
     loanApplicationId: string;
     selectedEnquiry: any;
@@ -103,8 +104,14 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      * @param _dialogRef 
      */
     constructor(private _formBuilder: FormBuilder, public _loanEnquiryService: LoanEnquiryService, private _router: Router, private _dialogRef: MatDialog,
-                private _loanMonitoringService: LoanMonitoringService, public _appService: AppService, private _matSnackBar: MatSnackBar) {
+                private _loanMonitoringService: LoanMonitoringService, public _appService: AppService, private _matSnackBar: MatSnackBar,
+                private _activatedRoute: ActivatedRoute) {
         
+        _activatedRoute.data.subscribe((data) => {
+            console.log('route resolved data', data.routeResolvedData);
+            this.loanContractExtension = data.routeResolvedData;
+        });
+
         this.subscriptions.add(this._loanEnquiryService.selectedEnquiry.subscribe(data => {
             this.selectedEnquiry = data;
             console.log('this.selectedEnquiry', this.selectedEnquiry);
@@ -306,16 +313,17 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             stage: [this.selectedEnquiry.stage || '']
         });
 
+        console.log('this.loanContractExtension is ...', this.loanContractExtension);
         this.boardApprovalDetailsForm = this._formBuilder.group({
-            boardMeetingNumber: [''],
-            boardApprovalDate: [''],
-            loanNumber: [''],
-            sanctionLetterDate: [''],
-            loanDocumentationDate: [''],
-            firstDistributionDate: [''],
-            sanctionAmount: [''],
-            discributionStatus: [''],
-            scheduledCOD: ['']
+            boardMeetingNumber: [this.loanContractExtension.boardMeetingNumber || ''],
+            boardApprovalDate: [this.loanContractExtension.boardApprovalDate || ''],
+            loanNumber: [this.loanContractExtension.loanNumber || ''],
+            sanctionLetterDate: [this.loanContractExtension.sanctionLetterDate || ''],
+            loanDocumentationDate: [this.loanContractExtension.loanDocumentationDate || ''],
+            firstDistributionDate: [this.loanContractExtension.firstDisbursementDate || ''],
+            sanctionAmount: [this.loanContractExtension.sanctionAmount || ''],
+            discributionStatus: [this.loanContractExtension.disbursementStatus || ''],
+            scheduledCOD: [this.loanContractExtension.scheduledCOD || '']
         });
     }
 
