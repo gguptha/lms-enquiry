@@ -17,6 +17,9 @@ import { locale as navigationTurkish } from 'app/navigation/i18n/tr';
 import { AppService } from './app.service';
 import { adminNavigation } from './navigation/navigation';
 import { officerNavigation } from './navigation/navigation';
+import { Keepalive } from '@ng-idle/keepalive';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app',
@@ -51,8 +54,12 @@ export class AppComponent implements OnInit, OnDestroy {
         private _fuseTranslationLoaderService: FuseTranslationLoaderService,
         private _translateService: TranslateService,
         private _platform: Platform,
-        private _appService: AppService
+        private _appService: AppService,
+        private idle: Idle, 
+        private keepalive: Keepalive,
+        private _matSnackBar: MatSnackBar
     ) {
+
         if (_appService.currentUser === undefined) {
             _appService.me().subscribe((response) => {
                 // Set the currently logged in user.
@@ -106,6 +113,37 @@ export class AppComponent implements OnInit, OnDestroy {
 
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+
+
+        // sets an idle timeout of 5 seconds, for testing purposes.
+        idle.setIdle(970);
+        // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
+        idle.setTimeout(30);
+        // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
+        idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+        // If there is user action after the idle period.
+        idle.onIdleEnd.subscribe(() => {
+            this._matSnackBar.dismiss();
+        });
+
+        // If there is no user action even after idle time + timeout time. Perform final actions like logout
+        idle.onTimeout.subscribe(() => {
+            console.log('timed out after 30 seconds');
+            window.location.href = '/enquiry/logout';
+        });
+
+        // On stat of idle time.
+        idle.onIdleStart.subscribe(() => console.log('You are idle.'));
+        
+        // On start of timeout (after idle time).
+        idle.onTimeoutWarning.subscribe((countdown) => console.log('You will timeout in 30 seconds.'));
+    
+        // sets the ping interval to 15 seconds
+        keepalive.interval(15);
+        keepalive.onPing.subscribe(() => console.log('Ping.'));
+    
+        this.idle.watch();       
     }
 
     // -----------------------------------------------------------------------------------------------------

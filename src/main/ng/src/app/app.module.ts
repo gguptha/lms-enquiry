@@ -4,7 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
-import {DateAdapter, MatButtonModule, MatIconModule} from '@angular/material';
+import {DateAdapter, MatButtonModule, MatIconModule, MatSnackBarModule} from '@angular/material';
 import {TranslateModule} from '@ngx-translate/core';
 import 'hammerjs';
 
@@ -35,6 +35,7 @@ import { LoanContractsSearchModule } from './main/content/pages/loanContractsSea
 import { LoanMonitoringModule } from './main/content/pages/monitoring/loanMonitoring.module';
 import { InboxModule } from './main/content/pages/inbox/inbox.module';
 import { ChangeDocumentModule } from './main/content/pages/changeDocument/change-document.module';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
 const appRoutes: Routes = [
     {
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
         // Material
         MatButtonModule,
         MatIconModule,
+        MatSnackBarModule,
 
         // Fuse modules
         FuseModule.forRoot(fuseConfig),
@@ -98,7 +100,10 @@ const appRoutes: Routes = [
 
         // Workflow
         InboxModule,
-        ChangeDocumentModule
+        ChangeDocumentModule,
+
+        // Ng-idel
+        NgIdleKeepaliveModule.forRoot()
     ],
     bootstrap: [
         AppComponent
