@@ -37,7 +37,7 @@ export class LoanMonitoringService implements Resolve<any> {
      * resolve()
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        return this.getLoanContractExtension(this._loanEnquiryService.selectedLoanApplicationId.value);
+        return this.getLoanContractExtension(this._loanEnquiryService.selectedEnquiry.value.id);
     }
 
     // All about LIE

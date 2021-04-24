@@ -8,6 +8,7 @@ import { EnquiryAlertsService } from '../enquiry/enquiryAlerts/enquiryAlerts.ser
 import { BehaviorSubject } from 'rxjs';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { RejectMessageDialogComponent } from './rejectMessageDialog/rejectMessageDialog.component';
+import { EnquiryApplicationModel } from '../../model/enquiryApplication.model';
 
 @Component({
     selector: 'app-inbox',
@@ -35,7 +36,7 @@ export class InboxComponent implements OnInit {
      */
      reviewTask(): void {
         this._loanEnquiryService.getLoanApplicationByLoanContractId(this.inboxItemsComponent.selectedItem.lanContractId).subscribe(response => {
-            this._loanEnquiryService.selectedEnquiry.next(response.loanApplication);
+            this._loanEnquiryService.selectedEnquiry.next(new EnquiryApplicationModel(response));
             if (this._loanEnquiryService.selectedLoanApplicationId !== undefined) {
                 this._loanEnquiryService.selectedLoanApplicationId.next(response.loanApplication.id);
                 this._loanEnquiryService.selectedLoanApplicationPartyNumber.next(response.loanApplication.busPartnerNumber);

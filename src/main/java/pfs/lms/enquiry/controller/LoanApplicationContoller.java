@@ -361,8 +361,9 @@ public class LoanApplicationContoller {
         LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
         LoanApplication loanApplication = loanApplicationRepository.findByLoanContractId(loanContractId);
         if (loanApplication != null) {
+            Partner partner = partnerRepository.findById(loanApplication.getLoanApplicant()).get();
             loanApplicationResource.setLoanApplication(loanApplication);
-            loanApplicationResource.setPartner(null);
+            loanApplicationResource.setPartner(partner);
             return ResponseEntity.ok(loanApplicationResource);
         }
         else {

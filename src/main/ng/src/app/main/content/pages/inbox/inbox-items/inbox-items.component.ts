@@ -48,6 +48,7 @@ export class InboxItemsComponent implements OnInit {
     onSelect(inboxItem: any): void {
         this.selectedItem = inboxItem;
         this._service.selectedItem = new BehaviorSubject(inboxItem);
+        console.log('inbox selected item', this.selectedItem);
     }
 
     /**
