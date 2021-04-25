@@ -99,7 +99,15 @@ export class EnquiryApplicationComponent implements OnInit {
 
     this.validUserId = false;
 
-    const partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
+    console.log('_route.snapshot.data.routeResolvedData[5]', _route.snapshot.data.routeResolvedData[5]);
+    let partner;
+    if (_route.snapshot.data.routeResolvedData[5] === null) {
+        partner = new PartnerModel({});
+    }
+    else {
+        partner = new PartnerModel(_route.snapshot.data.routeResolvedData[5]);
+    }
+    console.log('partner', partner);
 
     // Set min value of scheduled cod to tomorrow's date.
     this.minDate.setDate(this.minDate.getDate() + 1);
