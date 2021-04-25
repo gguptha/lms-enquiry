@@ -16,6 +16,8 @@ import pfs.lms.enquiry.monitoring.lfa.LFAResource;
 import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
 import pfs.lms.enquiry.monitoring.lie.*;
 import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameter;
+import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterPLF;
+import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterPLFResource;
 import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterResource;
 import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsResource;

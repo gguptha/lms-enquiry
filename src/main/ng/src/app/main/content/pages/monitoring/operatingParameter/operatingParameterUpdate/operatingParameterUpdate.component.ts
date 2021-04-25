@@ -49,7 +49,6 @@ export class OperatingParameterUpdateDialogComponent {
         this.operatingParameterUpdateForm = _formBuilder.group({
             serialNumber: [this.selectedOperatingParameter.serialNumber],
             month: [this.selectedOperatingParameter.month],
-            year: [this.selectedOperatingParameter.year, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             exportNetGeneration: [this.selectedOperatingParameter.exportNetGeneration, [Validators.pattern(MonitoringRegEx.genericAmount)]],
             plfCufActual: [this.selectedOperatingParameter.plfCufActual, [Validators.pattern(MonitoringRegEx.environmentParameters)]],
             applicableTariff: [this.selectedOperatingParameter.applicableTariff, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
@@ -58,9 +57,7 @@ export class OperatingParameterUpdateDialogComponent {
             dateOfPaymentReceipt: [this.selectedOperatingParameter.dateOfPaymentReceipt || ''],
             carbonDiOxideEmission: [this.selectedOperatingParameter.carbonDiOxideEmission, [Validators.pattern(MonitoringRegEx.environmentParameters)]],
             waterSaved: [this.selectedOperatingParameter.waterSaved, [Validators.pattern(MonitoringRegEx.environmentParameters)]],
-            remarks: [this.selectedOperatingParameter.remarks],
             designPlfCuf: [this.selectedOperatingParameter.designPlfCuf],
-            actualYearlyAveragePlfCuf: [this.selectedOperatingParameter.actualYearlyAveragePlfCuf],
             documentType: [this.selectedOperatingParameter.documentType],
             documentTitle: [this.selectedOperatingParameter.documentTitle],
             file: ['']

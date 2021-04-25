@@ -19,6 +19,7 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedTandC: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameter: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedOperatingParameterPLF: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSiteVisit: BehaviorSubject<any> = new BehaviorSubject({});
     selectedRateOfInterest: BehaviorSubject<any> = new BehaviorSubject({});
     selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
@@ -281,6 +282,22 @@ export class LoanMonitoringService implements Resolve<any> {
     public updateOperatingParameter(operatingParameter: any): Observable<any> {
         const url = "enquiry/api/loanApplications/operatingparameter/" + operatingParameter.id;
         return this._http.put(url, { 'loanApplicationId':'', 'operatingParameter':operatingParameter });
+    }
+
+    // All about Operating Parameter PLF
+
+    public getOperatingParameterPLFs(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/operatingparameterplfs');
+    }
+    
+    public saveOperatingParameterPLF(operatingParameterPLF: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/operatingparameterplf/create";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'operatingParameterPLF':operatingParameterPLF });
+    }
+
+    public updateOperatingParameterPLF(operatingParameterPLF: any): Observable<any> {
+        const url = "enquiry/api/loanApplications/operatingparameterplf/" + operatingParameterPLF.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'operatingParameterPLF':operatingParameterPLF });
     }
 
     // Others

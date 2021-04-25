@@ -45,6 +45,8 @@ import { MAT_DATE_FORMATS } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
 import { OperatingParameterListComponent } from './operatingParameter/operatingParameterList/operatingParameterList.component';
+import { OperatingParameterPLFUpdateDialogComponent } from './operatingParameterPLF/operatingParameterPLFUpdate/operatingParameterPLFUpdate.component';
+import { OperatingParameterPLFListComponent } from './operatingParameterPLF/operatingParameterPLFList/operatingParameterPLFList.component';
 
 const routes = [
     {
@@ -121,7 +123,9 @@ const MY_FORMATS = {
         PromoterDetailsItemListComponent,
         PromoterDetailsUpdateDialogComponent,
         OperatingParameterListComponent,
-        OperatingParameterUpdateDialogComponent
+        OperatingParameterUpdateDialogComponent,
+        OperatingParameterPLFListComponent,
+        OperatingParameterPLFUpdateDialogComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -164,7 +168,9 @@ const MY_FORMATS = {
         PromoterDetailsItemListComponent,
         PromoterDetailsUpdateDialogComponent,
         OperatingParameterListComponent,
-        OperatingParameterUpdateDialogComponent
+        OperatingParameterUpdateDialogComponent,
+        OperatingParameterPLFListComponent,
+        OperatingParameterPLFUpdateDialogComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -196,7 +202,9 @@ const MY_FORMATS = {
         PromoterDetailsItemListComponent,
         PromoterDetailsUpdateDialogComponent,
         OperatingParameterListComponent,
-        OperatingParameterUpdateDialogComponent
+        OperatingParameterUpdateDialogComponent,
+        OperatingParameterPLFListComponent,
+        OperatingParameterPLFUpdateDialogComponent
     ]
 })
 export class LoanMonitoringModule {

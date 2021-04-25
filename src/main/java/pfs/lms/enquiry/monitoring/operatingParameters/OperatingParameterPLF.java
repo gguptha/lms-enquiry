@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class OperatingParameterPLF extends AbstractEntity implements Cloneable{
+public class OperatingParameterPLF extends AbstractEntity implements Cloneable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -28,4 +28,8 @@ public class OperatingParameterPLF extends AbstractEntity implements Cloneable{
     private String actualYearlyAveragePlfCuf;
 
     private String remarks;
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
  }

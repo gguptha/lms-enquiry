@@ -1091,8 +1091,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     }
 
-    //Rate Of Interest
 
+    //Rate Of Interest
 
     @Override
     public RateOfInterest saveRateOfInterest(RateOfInterestResource resource, String username) {
