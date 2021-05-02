@@ -18,6 +18,7 @@ import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
 import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
 import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameter;
+import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterPLF;
 import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccount;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccountStatement;
@@ -343,6 +344,11 @@ public class ChangeDocumentService implements IChangeDocumentService {
                     OperatingParameter operatingParameter = (OperatingParameter) object;
                     result.put("id", operatingParameter.getSerialNumber().toString());
                     result.put("description", operatingParameter.getSerialNumber().toString());
+                    return result;
+                case "OperatingParameterPLF":
+                    OperatingParameterPLF operatingParameterPLF = (OperatingParameterPLF) object;
+                    result.put("id", operatingParameterPLF.getSerialNumber().toString());
+                    result.put("description", operatingParameterPLF.getSerialNumber().toString());
                     return result;
                 case "RateOfInterest":
                     RateOfInterest rateOfInterest = (RateOfInterest) object;

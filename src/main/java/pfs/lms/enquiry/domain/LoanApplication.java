@@ -175,6 +175,7 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
 
     private String technicalStatusDescription;
 
+
     /**
      * 01-Enquiry Stage
      * 02-ICC ApprovalStage
@@ -186,7 +187,6 @@ public class LoanApplication extends AggregateRoot<LoanApplication> {
      * 08-Rejected
      */
     private Integer functionalStatus;
-
 
     /**
      * 01-Approved
