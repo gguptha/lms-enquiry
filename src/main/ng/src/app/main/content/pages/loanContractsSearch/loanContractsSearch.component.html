@@ -14,7 +14,9 @@
         <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
             <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToMonitorLoan()" 
                     [disabled]="_service.selectedLoanApplicationId == undefined && 
-                    (_appService.currentUser.role !== 'ZLM024' || _appService.currentUser.role !== 'ZLM040' || _appService.currentUser.role !== 'ZLM023')">
+                    (_appService.currentUser.role.localeCompare('ZLM024') != 0 || 
+                    _appService.currentUser.role.localeCompare('ZLM040') != 0 || 
+                    _appService.currentUser.role.localeCompare('ZLM023') != 0)">
                 Monitor Loan
             </button>
         </div>
