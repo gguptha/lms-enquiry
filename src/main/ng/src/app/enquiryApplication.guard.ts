@@ -17,12 +17,15 @@ export class EnquiryApplicationRouteGuard implements CanActivate {
         return new Observable<boolean>(observer => {
             this._httpClient.get<UserModel>('enquiry/api/me').subscribe((response) => {
                 this.currentUser = response;
+                console.log(this.currentUser);
                 if (this.currentUser.passwordReset) {
                     this._router.navigate(['forceChangePassword']);
                     observer.next(false);
                 }
                 else {
-                    if (this.currentUser.role === 'TR0100' || this.currentUser.role === 'ZLM023' || this.currentUser.role === 'ZLM013') {
+                    if (this.currentUser.role === 'TR0100' || this.currentUser.role === 'ZLM023' || this.currentUser.role === 'ZLM013' 
+                            || this.currentUser.role === 'ZLM024' || this.currentUser.role === 'ZLM040') {
+                        console.log('enquiry route guard - true');
                         observer.next(true);
                     }
                     else {

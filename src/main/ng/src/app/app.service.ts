@@ -36,13 +36,13 @@ export class AppService implements CanActivate {
                     this._router.navigate(['enquiryApplication']);
                     observer.next(false);
                 }
-                else if (this.currentUser.role === 'ZLM023') {
+                else if (this.currentUser.role === 'ZLM023' || this.currentUser.role === 'ZLM024' || this.currentUser.role === 'ZLM040') {
                     this._router.navigate(['userManagement']);
                     observer.next(false);
                 }
                 else {
-                    this._router.navigate(['enquiryAlerts']);
-                    observer.next(false);
+                    // this._router.navigate(['enquiryAlerts']);
+                    observer.next(true);
                 }
             });
         });

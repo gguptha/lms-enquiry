@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
                     // Set the main navigation as our current navigation
                     this._fuseNavigationService.setCurrentNavigation('main');
                 }
-                else if (_appService.currentUser.role === 'ZLM023') {
+                else if (_appService.currentUser.role === 'ZLM023' || _appService.currentUser.role === 'ZLM024' || _appService.currentUser.role === 'ZLM040') {
                     // Get admin navigation
                     this.navigation = adminNavigation;
                     // Register the navigation to the service
