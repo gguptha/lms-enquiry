@@ -32,10 +32,10 @@
         <modeler:editor-resource-id><![CDATA[sid-21E68AE8-23D8-4263-843B-A960EF84E95F]]></modeler:editor-resource-id>
       </extensionElements>
     </exclusiveGateway>
-    <serviceTask id="RejectionEmail" name="Rejection Email" activiti:async="true" activiti:type="mail">
+    <serviceTask id="RejectionEmail" name="Rejection Email"   activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[$(requestorEmail)]]></activiti:string>
+          <activiti:expression><![CDATA[${requestorEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[pfsriskmodel@gmail.com]]></activiti:string>
@@ -44,7 +44,7 @@
           <activiti:expression><![CDATA[Loans Portal:  ${processName} for Loan Contract ${loanContractId} : Approval request was rejected]]></activiti:expression>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression><![CDATA[Hello ${requestorName},
+          <activiti:expression><![CDATA[Hello  ${requestorName},
           <br> <br>
           Your approval request for the following process was rejected: <br> <br>
               &#009 ProcessName  :&#009 ${processName} <br>
@@ -79,10 +79,10 @@
         <modeler:editor-resource-id><![CDATA[sid-715B5703-540E-419C-89C7-54AF0D2F796B]]></modeler:editor-resource-id>
       </extensionElements>
     </sequenceFlow>
-    <serviceTask id="Approval" name="Approval" activiti:async="true" activiti:type="mail">
+    <serviceTask id="Approval" name="Approval"  activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${approverEmail}]]></activiti:expression>
+          <activiti:expression><![CDATA[${requestorEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[pfsriskmodel@gmail.com]]></activiti:string>

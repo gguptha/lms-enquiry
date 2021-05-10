@@ -95,7 +95,7 @@ public class WorkflowController {
 
         Object processObject = workflowService.approveTask(workflowProcessRequestResource.getProcessInstanceId(),
                                     workflowProcessRequestResource.getBusinessProcessId(),
-                                    workflowProcessRequestResource.getProcessName());
+                                    workflowProcessRequestResource.getProcessName() );
 
 
 
@@ -112,7 +112,8 @@ public class WorkflowController {
         Object processObject = workflowService.rejectTask(workflowProcessRequestResource.getProcessInstanceId(),
                                         workflowProcessRequestResource.getBusinessProcessId(),
                                         workflowProcessRequestResource.getProcessName(),
-                                        workflowProcessRequestResource.getRejectionReason());
+                                        workflowProcessRequestResource.getRejectionReason(),
+                                        httpServletRequest.getUserPrincipal().getName());
 
 
         return ResponseEntity.ok(processObject);

@@ -29,7 +29,7 @@ public interface IWorkflowService {
 
     public Object approveTask(String processInstanceId, UUID businessProcessId, String processName);
 
-    public Object rejectTask(String processInstanceId, UUID businessProcessId, String processName, String rejectionReason);
+    public Object rejectTask(String processInstanceId, UUID businessProcessId, String processName, String rejectionReason,String requestorEmail);
 
 
     // Workflow Tasks for an User

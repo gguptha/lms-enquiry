@@ -17,10 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.domain.LoanMonitor;
+import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.domain.WorkflowApprover;
 import pfs.lms.enquiry.dto.WorkflowTaskDTO;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
+import pfs.lms.enquiry.repository.UserRepository;
 import pfs.lms.enquiry.repository.WorkflowApproverRepository;
 import pfs.lms.enquiry.service.workflow.IWorkflowService;
 import pfs.lms.enquiry.vault.FileSystemStorage;
@@ -55,6 +57,10 @@ public class WorkflowService implements IWorkflowService {
     @Autowired
     private WorkflowApproverRepository workflowApproverRepository;
 
+
+    @Autowired
+    private UserRepository userRepository;
+
     private static final Logger log = LoggerFactory.getLogger(FileSystemStorage.class);
 
 
@@ -87,11 +93,14 @@ public class WorkflowService implements IWorkflowService {
         //Deterimine Approver Name and Email
         WorkflowApprover workflowApprover = workflowApproverRepository.findByProcessName(processName);
 
+        User user = userRepository.findByEmail(requestorEmail);
+        String requestorFullName =  user.getFirstName() + " " + user.getLastName();
+
         //Fill the process Variables
         variables.put("LoanProcessId",businessProcessId);
         variables.put("approverEmail", workflowApprover.getApproverEmail());
         variables.put("approverName", workflowApprover.getApproverName());
-        variables.put("requestorName", requestorName);
+        variables.put("requestorName", requestorFullName);
         variables.put("requestorEmail", requestorEmail);
         variables.put("loanContractId"  , loanContractId);
         variables.put("fromEmail" , username);
@@ -99,6 +108,7 @@ public class WorkflowService implements IWorkflowService {
         variables.put("requestDate", DateTime.now().toString());
         variables.put("projectName", loanApplication.getProjectName());
         variables.put("workflowStatus", "In Approval");
+
 
 
         runtimeService = processEngine.getRuntimeService();
@@ -109,7 +119,7 @@ public class WorkflowService implements IWorkflowService {
             ProcessInstance processInstance =  runtimeService.startProcessInstanceByKey("LoansOneLevelApproval", variables);
             processInstanceId = processInstance.getProcessInstanceId();
 
-            System.out.println("Process Instance : " + processInstance.getProcessInstanceId());
+            System.out.println("STARTING WORKFLOW DONE : Process Instance : " + processInstance.getProcessInstanceId());
 
         } catch (Exception ex) {
             log.info ("Exception starting workflow process ------------------------------");
@@ -168,14 +178,18 @@ public class WorkflowService implements IWorkflowService {
         // Prepare Variables
         variables.put("workflowStatus", "TRUE");
 
-        System.out.println("--------------- Workflow Task Execution  Started @ : " + DateTime.now());
+//        //Determine Approver Name and Email
+//        WorkflowApprover workflowApprover = workflowApproverRepository.findByProcessName(processName);
+//        variables.put("approverEmail", workflowApprover.getApproverEmail());
+
+        System.out.println("--------------- Workflow APPROVAL Task Execution  Started @ : " + DateTime.now());
 
         try {
             taskService.complete(task.getId(), variables);
         } catch (Exception ex) {
          log.info("WorkFlow Approval Exception : " +ex.getMessage());
         }
-        System.out.println("--------------- Workflow Task Execution Finished @ : " + DateTime.now());
+        System.out.println("--------------- Workflow APPROVAL Task Execution Finished @ : " + DateTime.now());
 
         switch (processName) {
             case "Monitoring":
@@ -193,7 +207,7 @@ public class WorkflowService implements IWorkflowService {
      }
 
     @Override
-    public Object rejectTask(String processInstanceId, UUID businessProcessId, String processName, String rejectionReason) {
+    public Object rejectTask(String processInstanceId, UUID businessProcessId, String processName, String rejectionReason, String requestorEmail) {
 
 
 
@@ -226,15 +240,16 @@ public class WorkflowService implements IWorkflowService {
         // Prepare Variables
         variables.put("workflowStatus", "FALSE");
         variables.put("rejectionReason", rejectionReason);
+//        variables.put("requestorEmail",  requestorEmail);
 
-        System.out.println("--------------- Workflow Task Execution  Started @ : " + DateTime.now());
+        System.out.println("--------------- Workflow REJECTION Task Execution  Started @ : " + DateTime.now());
 
         try {
             taskService.complete(task.getId(), variables);
         } catch (Exception ex) {
             log.info("WorkFlow REJECTION Exception : " +ex.getMessage());
         }
-        System.out.println("--------------- Workflow Task Execution Finished @ : " + DateTime.now());
+        System.out.println("--------------- Workflow REJECTION Task Execution Finished @ : " + DateTime.now());
 
         switch (processName) {
             case "Monitoring":
