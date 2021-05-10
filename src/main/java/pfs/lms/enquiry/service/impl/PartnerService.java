@@ -380,12 +380,14 @@ public class PartnerService implements IPartnerService {
 
           boolean addPartnerContact = true;
 
-        log.info("Processing CONTACT DETAILS  of NEW Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
 
-        for (PartnerContact partnerContact: partner.getPartnerContacts()){
-             addPartnerContact = true;
-              //Check if Partner Contact exists
-              for (PartnerContact partnerContactExisting : existingPartner.getPartnerContacts()){
+        if (partner.getPartnerContacts() != null){
+            log.info("Processing CONTACT DETAILS  of NEW Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
+
+            for (PartnerContact partnerContact : partner.getPartnerContacts()) {
+                addPartnerContact = true;
+                //Check if Partner Contact exists
+                for (PartnerContact partnerContactExisting : existingPartner.getPartnerContacts()) {
 
                     if (partnerContact.getSerialNumber() == partnerContactExisting.getSerialNumber()) {
 
@@ -401,10 +403,11 @@ public class PartnerService implements IPartnerService {
                         partnerContactExisting.setFaxNumber(partnerContact.getFaxNumber());
                         addPartnerContact = false;
                     }
-                    if (addPartnerContact == true){
+                    if (addPartnerContact == true) {
                         existingPartner.addPartnerContact(partnerContact);
                     }
-              }
+                }
+            }
         }
 
         log.info("SAVING... NEW Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
