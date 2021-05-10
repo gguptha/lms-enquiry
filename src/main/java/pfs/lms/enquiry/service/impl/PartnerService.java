@@ -380,6 +380,7 @@ public class PartnerService implements IPartnerService {
 
           boolean addPartnerContact = true;
 
+        log.info("Processing CONTACT DETAILS  of NEW Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
 
         for (PartnerContact partnerContact: partner.getPartnerContacts()){
              addPartnerContact = true;
@@ -405,6 +406,8 @@ public class PartnerService implements IPartnerService {
                     }
               }
         }
+
+        log.info("SAVING... NEW Business Partner Number :" + partner.getPartyNumber() + partner.getPartyName1());
 
         Partner updatedPartner = partnerRepository.save(existingPartner);
 
