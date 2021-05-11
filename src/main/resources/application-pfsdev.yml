@@ -32,7 +32,7 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: pfsriskmodel@gmail.com
+    username: pfsenquiryportal@gmail.com
     password: Sapsap@123
     protocol: smtp
     tls: true
@@ -44,10 +44,11 @@ spring:
     activiti5CompatibilityEnabled: true
     mail-server-host: smtp.gmail.com
     mail-server-port: 587
-    mail-server-user-name: pfsriskmodel@gmail.com
+    mail-server-user-name: pfsenquiryportal@gmail.com
     mail-server-password: Sapsap@123
-    mail-server-default-from: pfsriskmodel@gmail.com
+    mail-server-default-from: pfsenquiryportal@gmail.com
     mail-server-use-tls: true
+    database-schema-update: true
 oauth:
   baseUrl: http://192.168.1.205:9999/auth
 sap:
