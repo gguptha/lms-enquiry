@@ -38,7 +38,7 @@
           <activiti:expression><![CDATA[${requestorEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[pfsriskmodel@gmail.com]]></activiti:string>
+          <activiti:expression><![CDATA[${fromEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression><![CDATA[Loans Portal:  ${processName} for Loan Contract ${loanContractId} : Approval request was rejected]]></activiti:expression>
@@ -85,7 +85,7 @@
           <activiti:expression><![CDATA[${requestorEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[pfsriskmodel@gmail.com]]></activiti:string>
+          <activiti:expression><![CDATA[${fromEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression><![CDATA[Loans Portal:  ${processName} for Loan Contract ${loanContractId} : Approved]]></activiti:expression>
@@ -111,7 +111,7 @@
           <activiti:expression><![CDATA[${approverEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string><![CDATA[pfsriskmodel@gmail.com]]></activiti:string>
+          <activiti:expression><![CDATA[${fromEmail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression><![CDATA[Loans Portal:  ${processName} for Loan Contract ${loanContractId} : Approval Request]]></activiti:expression>
