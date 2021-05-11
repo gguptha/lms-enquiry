@@ -70,6 +70,10 @@ public class WorkflowService implements IWorkflowService {
                                                String requestorEmail,
                                                String processName) {
 
+
+
+
+
         Map<String, Object> variables = new HashMap<>();
         String processInstanceId =  new String();
         LoanMonitor loanMonitor = new LoanMonitor();
@@ -110,6 +114,9 @@ public class WorkflowService implements IWorkflowService {
         variables.put("workflowStatus", "In Approval");
 
 
+        log.info("ABOUT TO START WORKFLOW......... PROCES NAME   :  "  + processName);
+        log.info("ABOUT TO START WORKFLOW......... FROM EMAIL    : "  + username);
+        log.info("ABOUT TO START WORKFLOW......... LOAN CONTRACT : "  + loanContractId);
 
         runtimeService = processEngine.getRuntimeService();
 
