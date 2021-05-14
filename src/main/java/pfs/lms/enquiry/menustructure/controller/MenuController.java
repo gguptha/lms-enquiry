@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.menustructure.domain.Menu;
+import pfs.lms.enquiry.menustructure.domain.MenuHeader;
+import pfs.lms.enquiry.menustructure.domain.MenuItem;
+import pfs.lms.enquiry.menustructure.dto.ChildrenDTO;
+import pfs.lms.enquiry.menustructure.dto.MenuDTO;
+import pfs.lms.enquiry.menustructure.dto.MenuHeaderDTO;
 import pfs.lms.enquiry.menustructure.service.IMenuService;
 
 /**
@@ -29,7 +34,44 @@ public class MenuController {
 
         Menu menu = menuService.findByUserRole(userRole);
 
-        return ResponseEntity.ok(menu);
+        MenuDTO menuDTO = convertToDTO(menu);
 
+
+        return ResponseEntity.ok(menuDTO);
+
+    }
+
+
+    private MenuDTO convertToDTO( Menu menu){
+
+        MenuDTO menuDTO  = new MenuDTO();
+
+        for(MenuHeader menuHeader: menu.getMenuHeaders()) {
+
+            MenuHeaderDTO menuHeaderDTO = new MenuHeaderDTO();
+
+                menuHeaderDTO.setId(menuHeader.getId());
+                menuHeaderDTO.setTitle(menuHeader.getTitle());
+                menuHeaderDTO.setTranslate(menuHeader.getTranslate());
+                menuHeaderDTO.setType(menuHeader.getType());
+                menuHeaderDTO.setIcon(menuHeader.getIcon());
+
+            for (MenuItem menuItem : menuHeader.getMenuItems()) {
+                    ChildrenDTO children  = new ChildrenDTO();
+
+                    children.setId(menuItem.getId());
+                    children.setTitle(menuItem.getTitle());
+                    children.setIcon(menuItem.getIcon());
+                    children.setType(menuItem.getType());
+                    children.setTranslate(menuItem.getTranslate());
+                    children.setUrl(menuItem.getUrl());
+
+                    menuHeaderDTO.addChildren(children);
+                }
+
+             menuDTO.addMenuHeader(menuHeaderDTO);
+
+        }
+        return menuDTO;
     }
 }
