@@ -214,8 +214,8 @@ public class MenuInitializer  implements CommandLineRunner {
         }
         menuHeader.setId("home");
         menuHeader.setTitle("Home");
-        menuHeader.setTranslate("NAV.INBOX");
-        menuHeader.setType("collapsible");
+        menuHeader.setTranslate("NAV.HOME");
+        menuHeader.setType("group");
         menuHeader.setIcon("account_box");
 
         // Main Items
@@ -251,7 +251,7 @@ public class MenuInitializer  implements CommandLineRunner {
         menuHeader.setId("reports");
         menuHeader.setTitle("Reports");
         menuHeader.setTranslate("NAV.REPORTS");
-        menuHeader.setType("collapsible");
+        menuHeader.setType("group");
         menuHeader.setIcon("view_list");
 
 

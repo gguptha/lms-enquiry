@@ -64,32 +64,49 @@ export class AppComponent implements OnInit, OnDestroy {
             _appService.me().subscribe((response) => {
                 // Set the currently logged in user.
                 _appService.currentUser = response;
-                
-                if (_appService.currentUser.role === 'TR0100') {
-                    // Get default navigation
-                    this.navigation = navigation;
-                    // Register the navigation to the service
-                    this._fuseNavigationService.register('main', this.navigation);
-                    // Set the main navigation as our current navigation
-                    this._fuseNavigationService.setCurrentNavigation('main');
-                }
-                else if (_appService.currentUser.role === 'ZLM023' || _appService.currentUser.role === 'ZLM024' || _appService.currentUser.role === 'ZLM040') {
-                    // Get admin navigation
-                    this.navigation = adminNavigation;
-                    // Register the navigation to the service
-                    this._fuseNavigationService.register('admin', this.navigation);
-                    // Set the main navigation as our current navigation
-                    this._fuseNavigationService.setCurrentNavigation('admin');
-                }
-                else // if (_appService.currentUser.role === 'ZLM013')
-                {
-                    // Get officer navigation
-                    this.navigation = officerNavigation;
-                    // Register the navigation to the service
-                    this._fuseNavigationService.register('officer', this.navigation);
-                    // Set the main navigation as our current navigation
-                    this._fuseNavigationService.setCurrentNavigation('officer');
-                }
+
+                // Get user menu.
+                _appService.getUserMenu().subscribe(response => {
+                    console.log('menu is', response);
+                    console.log('navigation is', navigation);
+                    response.menuHeaderDTOS.forEach(element => {
+                        navigation.push(element);
+                    });
+                    console.log('navigation is', navigation);
+                });
+
+                // Get default navigation
+                this.navigation = navigation;
+                // Register the navigation to the service
+                this._fuseNavigationService.register('main', this.navigation);
+                // Set the main navigation as our current navigation
+                this._fuseNavigationService.setCurrentNavigation('main');
+
+                // if (_appService.currentUser.role === 'TR0100') {
+                //     // Get default navigation
+                //     this.navigation = navigation;
+                //     // Register the navigation to the service
+                //     this._fuseNavigationService.register('main', this.navigation);
+                //     // Set the main navigation as our current navigation
+                //     this._fuseNavigationService.setCurrentNavigation('main');
+                // }
+                // else if (_appService.currentUser.role === 'ZLM023' || _appService.currentUser.role === 'ZLM024' || _appService.currentUser.role === 'ZLM040') {
+                //     // Get admin navigation
+                //     this.navigation = adminNavigation;
+                //     // Register the navigation to the service
+                //     this._fuseNavigationService.register('admin', this.navigation);
+                //     // Set the main navigation as our current navigation
+                //     this._fuseNavigationService.setCurrentNavigation('admin');
+                // }
+                // else // if (_appService.currentUser.role === 'ZLM013')
+                // {
+                //     // Get officer navigation
+                //     this.navigation = officerNavigation;
+                //     // Register the navigation to the service
+                //     this._fuseNavigationService.register('officer', this.navigation);
+                //     // Set the main navigation as our current navigation
+                //     this._fuseNavigationService.setCurrentNavigation('officer');
+                // }
             });
         }
 

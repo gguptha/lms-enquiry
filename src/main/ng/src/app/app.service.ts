@@ -51,4 +51,8 @@ export class AppService implements CanActivate {
     me(): Observable<UserModel> {
         return this._http.get<UserModel>('enquiry/api/me');
     }
+
+    getUserMenu(): Observable<any> {
+        return this._http.get<any>('enquiry/api/menu?userRole=' + this.currentUser.role);
+    }
 }
