@@ -32,8 +32,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: pfsenquiryportal@gmail.com
-    password: Sapsap@123
+    username: portal.admin@pfs-ess.com
+    password: Pfs@HyyXIAn2#HyyXIAn2
     protocol: smtp
     tls: true
     properties.mail.smtp:
@@ -44,9 +44,9 @@ spring:
     activiti5CompatibilityEnabled: true
     mail-server-host: smtp.gmail.com
     mail-server-port: 587
-    mail-server-user-name: pfsenquiryportal@gmail.com
-    mail-server-password: Sapsap@123
-    mail-server-default-from: pfsenquiryportal@gmail.com
+    mail-server-user-name: portal.admin@pfs-ess.com
+    mail-server-password: Pfs@HyyXIAn2#HyyXIAn2
+    mail-server-default-from: portal.admin@pfs-ess.com
     mail-server-use-tls: true
     database-schema-update: true
 oauth:

@@ -44,7 +44,9 @@ public class MenuInitializer  implements CommandLineRunner {
             switch (userRole.getCode()) {
                 case "TR0100": //Loan Applicant
                     createLoanApplicantMenu(userRole.getCode(), userRole.getValue());
-
+                     break;
+                case "TR0110": //Prospect
+                    createLoanApplicantMenu(userRole.getCode(), userRole.getValue());
                     break;
                 case "ZLM013" : //Appraisal Officer
                         createAppraisalOfficerMenu(userRole.getCode(), userRole.getValue());

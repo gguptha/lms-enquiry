@@ -32,9 +32,14 @@ public class MenuController {
     public ResponseEntity getMenuforUserRole(@RequestParam(value = "userRole", required = true) String userRole){
 
 
-        Menu menu = menuService.findByUserRole(userRole);
+        Menu menu = new Menu( );;
+        MenuDTO menuDTO = new MenuDTO();
 
-        MenuDTO menuDTO = convertToDTO(menu);
+        menu = menuService.findByUserRole(userRole);
+
+        if (menu != null) {
+            menuDTO = convertToDTO(menu);
+        }
 
 
         return ResponseEntity.ok(menuDTO);
@@ -46,6 +51,9 @@ public class MenuController {
 
         MenuDTO menuDTO  = new MenuDTO();
 
+        if (menu.getMenuHeaders() == null)
+            return null;
+
         for(MenuHeader menuHeader: menu.getMenuHeaders()) {
 
             MenuHeaderDTO menuHeaderDTO = new MenuHeaderDTO();
@@ -55,6 +63,7 @@ public class MenuController {
                 menuHeaderDTO.setTranslate(menuHeader.getTranslate());
                 menuHeaderDTO.setType(menuHeader.getType());
                 menuHeaderDTO.setIcon(menuHeader.getIcon());
+
 
             for (MenuItem menuItem : menuHeader.getMenuItems()) {
                     ChildrenDTO children  = new ChildrenDTO();
