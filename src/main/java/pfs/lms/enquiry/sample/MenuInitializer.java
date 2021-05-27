@@ -191,8 +191,8 @@ public class MenuInitializer  implements CommandLineRunner {
         userMenu.setUserRoleName(userRoleName);
 
 
-        userMenu = this.addMain(userMenu);
-        userMenu = this.addReports(userMenu);
+//        userMenu = this.addMain(userMenu);
+//        userMenu = this.addReports(userMenu);
         userMenu = this.addLoanApplicantMenu(userMenu);
 
         if (userMenuExisting == null) {
@@ -393,8 +393,6 @@ public class MenuInitializer  implements CommandLineRunner {
         menuItem.setIcon("list");
         menuItem.setUrl("/enquiryList");
         menuHeader.addMenuitem(menuItem);
-
-
 
 
         menu.addMenuHeader(menuHeader);
