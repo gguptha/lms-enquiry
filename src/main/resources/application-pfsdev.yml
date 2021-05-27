@@ -30,7 +30,7 @@ spring:
     serialization:
       fail-on-empty-beans: false
   mail:
-    host: smtp.office365.com
+    host: us2.smtp.mailhostbox.com
     port: 587
     username: portal.admin@pfs-ess.com
     password: Pfs@HyyXIAn2#HyyXIAn2
@@ -39,10 +39,10 @@ spring:
     properties.mail.smtp:
         auth: true
         starttls.enable: true
-        ssl.trust: smtp.office365.com
+        ssl.trust: us2.smtp.mailhostbox.com
   activiti:
     activiti5CompatibilityEnabled: true
-    mail-server-host: smtp.office365.com
+    mail-server-host: us2.smtp.mailhostbox.com
     mail-server-port: 587
     mail-server-user-name: portal.admin@pfs-ess.com
     mail-server-password: Pfs@HyyXIAn2#HyyXIAn2
