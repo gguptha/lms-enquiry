@@ -385,13 +385,13 @@ public class MenuInitializer  implements CommandLineRunner {
 
         menuItem = new MenuItem();
         serialNo += 1;
-        menuItem.setId("enquiry-list");
-        menuItem.setTitle("Enquiry List");
+        menuItem.setId("enquiry-alerts");
+        menuItem.setTitle("Enquiry Alerts");
         menuItem.setSerialNumber(serialNo);
-        menuItem.setTranslate("NAV.ENQUIRYLIST");
+        menuItem.setTranslate("NAV.ENQUIRYALERTS");
         menuItem.setType("item");
-        menuItem.setIcon("list");
-        menuItem.setUrl("/enquiryList");
+        menuItem.setIcon("rate_review");
+        menuItem.setUrl("/enquiryAlerts");
         menuHeader.addMenuitem(menuItem);
 
 
