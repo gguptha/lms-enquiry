@@ -14,7 +14,7 @@ spring:
     validation-query: select 1
     connection-test-query: select 1
     test-while-idle: true
-    test-on-borrow: true
+    test-on-borrow: true00
     time-between-eviction-runs-millis: 60000
     hikari:
       connection-timeout: 60000
@@ -69,5 +69,5 @@ security:
       user-info-uri: http://192.168.1.205:9999/time
       jwt:
         keyValue: PfS$$$98567
-server:
+server:0
   port: 8080
