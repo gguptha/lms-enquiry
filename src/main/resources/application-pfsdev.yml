@@ -69,5 +69,5 @@ security:
       user-info-uri: http://192.168.1.205:9999/time
       jwt:
         keyValue: PfS$$$98567
-server:0
+server:
   port: 8080
