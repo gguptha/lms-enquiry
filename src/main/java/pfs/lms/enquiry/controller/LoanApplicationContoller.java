@@ -554,7 +554,10 @@ public class LoanApplicationContoller {
         // Set the project location state name
         for ( LoanApplicationResource loanApplicationResource : resources) {
             if (loanApplicationResource.getLoanApplication().getProjectLocationState() != null)
-                if (loanApplicationResource.getLoanApplication().getProjectLocationState().length() == 2) {
+                System.out.println("Loan Number : " + loanApplicationResource.getLoanApplication().getLoanContractId());
+                System.out.println("State       : " + loanApplicationResource.getLoanApplication().getProjectLocationState());
+
+            if (loanApplicationResource.getLoanApplication().getProjectLocationState().length() == 2) {
                     loanApplicationResource.getLoanApplication().setProjectLocationState(
                             stateRepository.findByCode(loanApplicationResource.getLoanApplication().getProjectLocationState()).getName());
                 }
