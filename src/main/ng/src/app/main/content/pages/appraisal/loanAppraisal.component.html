@@ -1,0 +1,188 @@
+<div id="tickers" class="page-layout simple" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="sub-header p-6 blue-grey-200-bg" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb text-truncate h4 pl-24 pt-12 pb-12" fxLayout="row" fxLayoutAlign="start center"
+            *fuseIfOnDom [@animate]="{value:'*',params:{x:'50px'}}">
+            Loan Monitoring : {{ selectedEnquiry.loanContractId }} / {{ selectedEnquiry.borrowerName }}
+            <br>
+            <!-- Status: {{ loanMonitor?.workFlowStatusDescription }} -->
+        </div>
+        <!-- / BREADCRUMB -->
+        <!-- TOOLBAR -->
+        <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
+            <!-- <button mat-raised-button class="mr-8 mb-8" (click)="sendMonitoringForApproval()" [disabled]="(loanMonitor == undefined || loanMonitor == null || 
+                    loanMonitor.workFlowStatusCode === 2) || disableSendForApproval === true">
+                <mat-icon matSuffix class="mr-8">check</mat-icon>Send for Approval
+            </button> -->
+        </div>
+        <!-- / TOOLBAR -->
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-16">
+
+        <div class="content-card mat-white-bg mat-elevation-z4 p-16" fusePerfectScrollbar style="width: 100%">
+            <mat-expansion-panel [expanded]="expandPanel1" hideToggle="false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Enquiry Details
+                    </mat-panel-title>
+                </mat-expansion-panel-header>            
+                <form [formGroup]="selectedEnquiryForm">
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="BP Code" formControlName="busPartnerNumber" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Project Location (State)" formControlName="projectLocationState" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Project Type" formControlName="projectType" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Loan Class" formControlName="loanClassDescription" readonly>          
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Project Capacity" formControlName="projectCapacity" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Type of Assistance" formControlName="assistanceTypeDescription" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Project Cost" formControlName="projectCost" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Loan Amount Requested" formControlName="loanAmount" readonly>          
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Financing Type" formControlName="financingTypeDescription" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Lead FI" formControlName="leadFI" readonly>          
+                        </mat-form-field>
+                        <mat-form-field fxFlex="25">
+                            <input matInput placeholder="Stage" formControlName="stage" readonly>          
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="expandPanel2" hideToggle="false" class="mt-16">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Other Details
+                    </mat-panel-title>
+                </mat-expansion-panel-header>               
+            </mat-expansion-panel>
+        </div>
+
+        <mat-tab-group class="mt-16">
+
+            <!-- Assigning officers tab starts here -->
+            <mat-tab label="Assigning Officers">
+                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-loan-partners [loanApplicationId]="loanApplicationId"></fuse-loan-partners>
+                </div>        
+            </mat-tab>
+            <!-- Assigning officers tab ends here -->
+        
+            <!-- KYC details tab starts here -->
+            <mat-tab label="KYC Details">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent"> 
+                        Add New
+                    </button>
+                    <button class="mr-8 btn" mat-raised-button color="accent"> 
+                        Edit
+                    </button>
+                </div>            
+            </mat-tab>
+            <!-- KYC details tab ends here -->
+
+            <!-- LEAD FI details tab starts here -->
+            <mat-tab label="Lead FI Details">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent"> 
+                        Edit
+                    </button>
+                </div>            
+            </mat-tab>
+            <!-- Lead FI details tab ends here -->
+
+            <!-- Internal risk rating tab starts here -->
+            <mat-tab label="Internal Risk Rating">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                </div>            
+            </mat-tab>
+            <!-- Internal risk rating tab ends here -->
+
+            <!-- Risk report tab starts here -->
+            <mat-tab label="Risk Report">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent"> 
+                        Edit
+                    </button>
+                </div>            
+            </mat-tab>
+            <!-- Risk report tab ends here -->
+
+            <!-- Project data tab starts here -->
+            <mat-tab label="Project Data">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent"> 
+                        Edit
+                    </button>
+                </div>            
+            </mat-tab>
+            <!-- Project data tab ends here -->
+
+            <!-- Proposal details tab starts here -->
+            <mat-tab label="Proposal Details">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                    <button class="mr-8 btn" mat-raised-button color="accent"> 
+                        Edit
+                    </button>
+                </div>            
+            </mat-tab>
+            <!-- Proposal details tab ends here -->
+
+            <!-- Further details tab starts here -->
+            <mat-tab label="Further Details">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                </div>            
+            </mat-tab>
+            <!-- Further details tab ends here -->
+
+            <!-- Proj appraisal compln tab starts here -->
+            <mat-tab label="Proj Appraisal Compln">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                </div>            
+            </mat-tab>
+            <!-- Proj appraisal compln tab ends here -->
+
+            <!-- Reason for delay tab starts here -->
+            <mat-tab label="Reason For Delay">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                </div>            
+            </mat-tab>
+            <!-- Reason for delay tab ends here -->
+
+            <!-- Rejected by customer tab starts here -->
+            <mat-tab label="Rejected By Customer">
+                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                </div>            
+            </mat-tab>
+            <!-- Rejected By Customer tab ends here -->
+            
+        </mat-tab-group>
+        <!-- / CONTENT -->
+    </div>
+</div>

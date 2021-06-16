@@ -36,6 +36,7 @@ import { LoanMonitoringModule } from './main/content/pages/monitoring/loanMonito
 import { InboxModule } from './main/content/pages/inbox/inbox.module';
 import { ChangeDocumentModule } from './main/content/pages/changeDocument/change-document.module';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { LoanAppraisalModule } from './main/content/pages/appraisal/loanAppraisal.module';
 
 const appRoutes: Routes = [
     {
@@ -97,6 +98,7 @@ const appRoutes: Routes = [
         // Monitoring
         LoanContractsSearchModule,
         LoanMonitoringModule,
+        LoanAppraisalModule,
 
         // Workflow
         InboxModule,

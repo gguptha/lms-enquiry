@@ -1,0 +1,53 @@
+<div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+    <button class="ml-8 mr-8 btn" mat-raised-button color="accent" (click)="openUpdateDialog('addOfficer')"> Add Appraisal Officer </button>
+    <button class="mr-8 btn" mat-raised-button color="accent" (click)="openUpdateDialog('modifyOfficer')"> Modify Appraisal Officer </button>
+</div>            
+
+<div class="mat-table-container" style="width: 100%" class="mt-16">
+
+    <mat-table class="enquiries-table" [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+        <!-- serialNumber Column -->
+        <ng-container matColumnDef="serialNumber">
+            <mat-header-cell *matHeaderCellDef>Sl No.</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.serialNumber }}</p>
+            </mat-cell>
+        </ng-container>
+        
+        <!-- businessPartnerId Column -->
+        <ng-container matColumnDef="businessPartnerId">
+            <mat-header-cell *matHeaderCellDef>Business Partner Id</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.businessPartnerId }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- roleType Column -->
+        <ng-container matColumnDef="roleType">
+            <mat-header-cell *matHeaderCellDef>Role Type</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.roleType }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <!-- startDate Column -->
+        <ng-container matColumnDef="startDate">
+            <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.startDate | date: 'dd/MM/yyyy' }}</p>
+            </mat-cell>
+        </ng-container>
+       
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+        <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onRowSelect(obj)"
+            [ngClass]="{'highlight':obj.id === selectedLoanOfficer?.id}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row>
+
+        <!-- <mat-row *matRowDef="let obj; columns: displayedColumns;" class="obj" matRipple (click)="onSelect(obj.lendersFinancialAdvisor)"
+            [ngClass]="{'highlight':obj.lendersFinancialAdvisor === selectedLFA}" [@animate]="{value:'*',params:{y:'100%'}}">
+        </mat-row> -->
+
+    </mat-table>
+</div>

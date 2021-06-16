@@ -12,6 +12,10 @@
 
         <!-- TOOLBAR -->
         <div class="toolbar" fxLayout="row" fxLayoutAlign="end">
+            <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToLoanAppraisal()" 
+                    [disabled]="_service.selectedLoanApplicationId === undefined">
+                Loan Appraisal
+            </button>
             <button class="mr-8 btn" mat-raised-button color="accent" (click)="redirectToMonitorLoan()" 
                     [disabled]="_service.selectedLoanApplicationId == undefined && 
                     (_appService.currentUser.role.localeCompare('ZLM024') != 0 || 

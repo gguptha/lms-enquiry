@@ -114,6 +114,21 @@ export class LoanContractsSearchComponent {
      * redirectToMonitorLoan()
      */
     redirectToMonitorLoan(): void {
+        this.redirect('/loanMonitoring');
+    }
+
+    /**
+     * redirectToLoanAppraisal()
+     */
+    redirectToLoanAppraisal(): void {
+        this.redirect('/loanAppraisal');
+    }
+
+    /**
+     * redirect()
+     * @param to 
+     */
+    redirect(to: string): void {
         if (this._enquiryAlertsService.selectedLoanApplicationId !== undefined) {
             this._enquiryAlertsService.selectedLoanApplicationId.next(this._service.selectedLoanApplicationId.value);
             this._enquiryAlertsService.selectedLoanApplicationPartyNumber.next(this._service.selectedLoanApplicationPartyNumber.value);
@@ -122,6 +137,6 @@ export class LoanContractsSearchComponent {
             this._enquiryAlertsService.selectedLoanApplicationId = new BehaviorSubject(this._service.selectedLoanApplicationId.value);
             this._enquiryAlertsService.selectedLoanApplicationPartyNumber = new BehaviorSubject(this._service.selectedLoanApplicationPartyNumber.value);
         }
-        this._router.navigate(['/loanMonitoring']);
+        this._router.navigate([to]);
     }
 }
