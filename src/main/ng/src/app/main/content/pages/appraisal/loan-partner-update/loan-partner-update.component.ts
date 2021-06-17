@@ -25,7 +25,7 @@ export class LoanPartnerUpdateComponent implements OnInit {
      */
     constructor(_formBuilder: FormBuilder, 
                 private _loanAppraisalService: LoanAppraisalService,
-                private _dialogRef: MatDialogRef<LoanPartnerUpdateComponent>,
+                public _dialogRef: MatDialogRef<LoanPartnerUpdateComponent>,
                 @Inject(MAT_DIALOG_DATA) private _dialogData: any,
                 private _matSnackBar: MatSnackBar) { 
 
