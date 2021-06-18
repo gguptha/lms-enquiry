@@ -13,6 +13,8 @@ public interface DefaultLoanPartnerProjection {
     Integer getSerialNumber();
 
     String getBusinessPartnerId();
+    String getBusinessPartnerName();
     String getRoleType();
+
     LocalDate getStartDate();
 }

@@ -28,10 +28,11 @@ public class LoanPartnerController {
         LoanApplication loanApplication = loanApplicationRepository.findById(loanPartnerResource.getLoanApplicationId())
                 .orElseThrow(() -> new EntityNotFoundException(loanPartnerResource.getLoanApplicationId().toString()));
         LoanPartner loanPartner = new LoanPartner();
-        loanPartner.setSerialNumber(loanPartnerRepository.findByLoanApplicationId(loanPartnerResource
+        loanPartner.setSerialNumber(loanPartnerRepository.findByLoanApplicationIdOrderBySerialNumberDesc(loanPartnerResource
                 .getLoanApplicationId()).size() + 1);
         loanPartner.setLoanApplication(loanApplication);
         loanPartner.setBusinessPartnerId(loanPartnerResource.getBusinessPartnerId());
+        loanPartner.setBusinessPartnerName(loanPartnerResource.getBusinessPartnerName());
         loanPartner.setRoleType(loanPartnerResource.getRoleType());
         loanPartner.setStartDate(loanPartnerResource.getStartDate());
         loanPartner = loanPartnerRepository.save(loanPartner);
@@ -45,6 +46,7 @@ public class LoanPartnerController {
         LoanPartner loanPartner = loanPartnerRepository.findById(loanPartnerResource.getId())
                 .orElseThrow(() -> new EntityNotFoundException(loanPartnerResource.getId().toString()));
         loanPartner.setBusinessPartnerId(loanPartnerResource.getBusinessPartnerId());
+        loanPartner.setBusinessPartnerName(loanPartnerResource.getBusinessPartnerName());
         loanPartner.setRoleType(loanPartnerResource.getRoleType());
         loanPartner.setStartDate(loanPartnerResource.getStartDate());
         loanPartner = loanPartnerRepository.save(loanPartner);

@@ -9,5 +9,5 @@ import java.util.UUID;
 @RepositoryRestResource(excerptProjection = DefaultLoanPartnerProjection.class)
 public interface LoanPartnerRepository extends JpaRepository<LoanPartner, UUID> {
 
-    List<LoanPartner> findByLoanApplicationId(UUID loanApplicationId);
+    List<LoanPartner> findByLoanApplicationIdOrderBySerialNumberDesc(UUID loanApplicationId);
 }

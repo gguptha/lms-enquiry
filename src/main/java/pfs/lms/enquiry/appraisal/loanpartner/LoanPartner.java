@@ -22,8 +22,11 @@ public class LoanPartner extends AggregateRoot<LoanPartner> implements Cloneable
     private LoanApplication loanApplication;
 
     private Integer serialNumber;
+
     private String businessPartnerId;
+    private String businessPartnerName;
     private String roleType;
+
     private LocalDate startDate;
 
     public Object clone () throws CloneNotSupportedException {

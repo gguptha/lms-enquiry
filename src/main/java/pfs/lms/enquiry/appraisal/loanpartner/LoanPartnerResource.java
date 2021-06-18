@@ -18,6 +18,8 @@ public class LoanPartnerResource {
     private Integer serialNumber;
 
     private String businessPartnerId;
+    private String businessPartnerName;
     private String roleType;
+
     private LocalDate startDate;
 }

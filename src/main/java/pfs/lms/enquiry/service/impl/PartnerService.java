@@ -17,7 +17,6 @@ import pfs.lms.enquiry.service.IPartnerService;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -315,6 +314,13 @@ public class PartnerService implements IPartnerService {
         List<Partner> partners = new ArrayList<>();
         PartnerRoleType partnerRoleType = partnerRoleTypeRepository.findByRoleCode("ZLM002");
         partners = partnerRepository.findByPartnerRoleTypes(partnerRoleType);
+        return partners;
+    }
+
+    @Override
+    public List<Partner> getPartnersByRoleType(String roleType) {
+        List<Partner> partners = new ArrayList<>();
+        partners = partnerRepository.findByPartyRole(roleType);
         return partners;
     }
 

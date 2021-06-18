@@ -23,6 +23,14 @@
             </mat-cell>
         </ng-container>
 
+        <!-- businessPartnerName Column -->
+        <ng-container matColumnDef="businessPartnerName">
+            <mat-header-cell *matHeaderCellDef>Business Partner Name</mat-header-cell>
+            <mat-cell *matCellDef="let obj" >
+                <p class="text-truncate">{{ obj.businessPartnerName || '' }}</p>
+            </mat-cell>
+        </ng-container>
+
         <!-- roleType Column -->
         <ng-container matColumnDef="roleType">
             <mat-header-cell *matHeaderCellDef>Role Type</mat-header-cell>

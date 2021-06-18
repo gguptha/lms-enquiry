@@ -15,7 +15,7 @@ export class LoanPartnersComponent implements OnInit {
     dataSource: MatTableDataSource<any>;
     
     displayedColumns = [
-        'serialNumber', 'businessPartnerId', 'roleType','startDate'
+        'serialNumber', 'businessPartnerId', 'businessPartnerName', 'roleType','startDate'
     ];
 
     selectedLoanOfficer: any;
@@ -52,7 +52,7 @@ export class LoanPartnersComponent implements OnInit {
         var data = {
             'operation': operation,
             'loanApplicationId': this._loanApplicationId,
-            'loanOfficer': {}
+            'loanOfficer': {},
         };
         if (operation === 'modifyOfficer') {
             data.loanOfficer = this.selectedLoanOfficer;

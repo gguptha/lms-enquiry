@@ -13,17 +13,29 @@
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="Serial Number" formControlName="serialNumber" readonly>          
                 </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Role Type" formControlName="roleType" required>
+                        <mat-option *ngFor="let roleType of bupaRoleTypes" [value]="roleType.code" (click)="onBupaRoleSelect(roleType)">
+                            {{ roleType.value }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Business Partner Code" formControlName="businessPartnerId" required>
+                    <mat-select placeholder="Select Business Partner Code" formControlName="businessPartnerId" required>
+                        <mat-option *ngFor="let partner of partners" [value]="partner.partyNumber" (click)="onPartnerSelect(partner)">
+                            {{ partner.partyNumber }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Business Partner Code" formControlName="displayBusinessPartnerId" readonly>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <mat-select placeholder="Role Type" formControlName="roleType" required>
-                        <mat-option [value]="'ZLM001'">Promoter</mat-option>
-                        <mat-option [value]="'ZLM002'">Lenders Financial Advisor</mat-option>
-                        <mat-option [value]="'ZLM003'">Lenders Engineer</mat-option>
-                    </mat-select>
+                    <input matInput placeholder="Business Partner Name" formControlName="businessPartnerName" readonly>
                 </mat-form-field>
             </div>
             <div fxLayout="row">

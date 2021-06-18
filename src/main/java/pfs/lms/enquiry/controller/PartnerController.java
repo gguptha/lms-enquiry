@@ -2,10 +2,7 @@ package pfs.lms.enquiry.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.repository.PartnerRepository;
@@ -144,6 +141,17 @@ public class PartnerController {
         else {
             return ResponseEntity.noContent().build();
         }
+    }
+
+    @GetMapping("partners/role/{roleType}")
+    public ResponseEntity<List<Partner>> getPartnersByRole(@PathVariable String roleType,
+                                                           HttpServletRequest httpServletRequest) {
+
+        List<Partner> partners = partnerService.getPartnersByRoleType(roleType);
+        if (partners != null)
+            return ResponseEntity.ok(partners);
+        else
+            return ResponseEntity.noContent().build();
     }
 
     @PutMapping("partner/migrate")

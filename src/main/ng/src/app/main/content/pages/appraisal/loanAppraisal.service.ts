@@ -16,11 +16,21 @@ export class LoanAppraisalService {
     }
 
     /**
+     * getPartnersByRoleType()
+     * @param roleType 
+     * @returns 
+     */
+    public getPartnersByRole(role: string): Observable<any> {
+        return this._http.get("enquiry/api/partners/role/" + role);
+    }
+    
+    /**
      * getAppraisalOfficers()
      * @param loanApplicationId 
      */
     public getLoanOfficers(loanApplicationId: string): Observable<any> {
-        return this._http.get("enquiry/api/loanPartners/search/findByLoanApplicationId?loanApplicationId=" + loanApplicationId);
+        return this._http.get("enquiry/api/loanPartners/search/findByLoanApplicationIdOrderBySerialNumberDesc?loanApplicationId=" 
+                + loanApplicationId);
     }
 
     /**

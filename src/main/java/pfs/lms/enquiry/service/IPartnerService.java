@@ -21,5 +21,7 @@ public interface IPartnerService {
     List<Partner> getLendersIndependentEngineers();
     List<Partner> getLendersFinancialAdvisors();
 
+    List<Partner> getPartnersByRoleType(String roleType);
+
     Partner migratePartner(Partner partner, HttpServletRequest httpServletRequest);
 }

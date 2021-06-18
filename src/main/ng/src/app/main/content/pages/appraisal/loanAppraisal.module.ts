@@ -18,6 +18,7 @@ import { LoanAppraisalService } from './loanAppraisal.service';
 import { LoanAppraisalComponent } from './loanAppraisal.component';
 import { LoanPartnerUpdateComponent } from './loan-partner-update/loan-partner-update.component';
 import { LoanPartnersComponent } from './loan-partners/loan-partners.component';
+import { FormsModule } from '@angular/forms';
 
 const routes = [
     {
@@ -59,7 +60,8 @@ const MY_FORMATS = {
       MatDatepickerModule,
       MatProgressSpinnerModule,
       MatTabsModule,
-      MatDialogModule
+      MatDialogModule,
+      FormsModule
     ],
     declarations: [
         LoanAppraisalComponent,
