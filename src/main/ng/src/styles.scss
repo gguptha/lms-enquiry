@@ -23,4 +23,12 @@ $yellow-theme: mat-light-theme($yellow-theme-primary, $yellow-theme-accent, $yel
     @include generateFuseColorClasses($yellow-theme-primary, $yellow-theme-accent, $yellow-theme-warn);
 }
 
+.mat-dialog-container {
+    
+    padding: 0 !important;
 
+}
+
+.mat-dialog-content {
+    margin: 0 !important;
+}
