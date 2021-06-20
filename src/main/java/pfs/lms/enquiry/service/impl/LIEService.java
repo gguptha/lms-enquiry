@@ -12,6 +12,7 @@ import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.monitoring.lie.LIEResource;
 import pfs.lms.enquiry.service.ILIEService;
+import pfs.lms.enquiry.service.changedocs.impl.ChangeDocumentService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class LIEService implements ILIEService {
     private final LIERepository lieRepository;
     private  final LoanMonitorRepository loanMonitorRepository;
     private final LoanApplicationRepository loanApplicationRepository;
+    private final ChangeDocumentService changeDocumentService;
 
     @Override
     @Transactional
@@ -40,6 +42,18 @@ public class LIEService implements ILIEService {
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
         }
+        // Change Documents for Monitoring Header
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(),
+                loanMonitor.getId().toString(),null,
+                loanApplication.getLoanContractId(),
+                null,
+                loanMonitor,
+                "Created",
+                username,
+                "Monitoring ", "Header");
+
+
         LendersIndependentEngineer lendersIndependentEngineer = resource.getLendersIndependentEngineer();
         lendersIndependentEngineer.setLoanMonitor(loanMonitor);
         lendersIndependentEngineer.setAdvisor(resource.getLendersIndependentEngineer().getAdvisor());
@@ -52,7 +66,23 @@ public class LIEService implements ILIEService {
         lendersIndependentEngineer.setContactNumber(resource.getLendersIndependentEngineer().getContactNumber());
         lendersIndependentEngineer.setEmail(resource.getLendersIndependentEngineer().getEmail());
         lendersIndependentEngineer = lieRepository.save(lendersIndependentEngineer);
+
+        //Create Change Document
+        //Create Change Document
+        changeDocumentService.createChangeDocument(
+                loanMonitor.getId(), lendersIndependentEngineer.getId(),null,
+                lendersIndependentEngineer.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                lendersIndependentEngineer,
+                "Created",
+                username,
+                "Monitoring", "Lenders Independent Engineer-LIE Report & Fee" );
+
         return lendersIndependentEngineer;
+
+
+
+
     }
 
     @Override
@@ -71,6 +101,18 @@ public class LIEService implements ILIEService {
         existingLendersIndependentEngineer.setContactNumber(resource.getLendersIndependentEngineer().getContactNumber());
         existingLendersIndependentEngineer.setEmail(resource.getLendersIndependentEngineer().getEmail());
         existingLendersIndependentEngineer = lieRepository.save(existingLendersIndependentEngineer);
+
+        changeDocumentService.createChangeDocument(
+                existingLendersIndependentEngineer.getLoanMonitor().getId(),
+                existingLendersIndependentEngineer.getId(), null,
+                existingLendersIndependentEngineer.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                existingLendersIndependentEngineer,
+                resource.getLendersIndependentEngineer(),
+                "Updated",
+                username,
+                "Monitoring", "Lenders Independent Engineer" );
+
+
 
         return existingLendersIndependentEngineer;
     }

@@ -31,10 +31,10 @@ public class ChangeDocument extends AuditModel  {
     private UUID loanBusinessProcessObjectId; //Id of the Business Project Object i.e. Monitoring, Appraisal etc.
 
     @Nullable
-    private String key1; //Semantic Key 1 of the Sub Entity
+    private String enitityId; // Id of Entity
 
     @Nullable
-    private String key2; //Semantic Key 2 of the Sub Entity
+    private String mainEntityId; //Id of Main Entity
 
 
     @Nullable

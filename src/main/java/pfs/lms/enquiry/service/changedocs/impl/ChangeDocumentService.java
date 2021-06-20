@@ -24,6 +24,7 @@ import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccount;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccountStatement;
 import pfs.lms.enquiry.repository.ChangeDocumentRepository;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
+import pfs.lms.enquiry.service.ISAPIntegrationPointerService;
 import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
 
 import javax.transaction.Transactional;
@@ -50,15 +51,18 @@ public class ChangeDocumentService implements IChangeDocumentService {
     LoanApplicationRepository loanApplicationRepository;
 
 
+    @Autowired
+    ISAPIntegrationPointerService sapIntegrationPointerService;
+
     @Override
-    public ChangeDocument createChangeDocument(UUID objectId,
+    public ChangeDocument createChangeDocument(UUID loanBusinessProcessObjectId, String entityId, String mainEntityId,
                                                String loanContractId,
                                                Object oldObject,
                                                Object changedObject,
                                                String action,
                                                String userName,
                                                String businessProcessName,
-                                               String subProcessName, String key1, String key2) {
+                                               String subProcessName ) {
 
 
 
@@ -68,49 +72,52 @@ public class ChangeDocumentService implements IChangeDocumentService {
             case "Created":
 //                if (objectId == null) {
 //                    changeDocument.setAction("Created");
-                    changeDocument = prepareCreateChangeDocument(objectId,
+                    changeDocument = prepareCreateChangeDocument(loanBusinessProcessObjectId, entityId,mainEntityId,
                             loanContractId,
                             changedObject,
                             action,
                             userName,
-                            businessProcessName,subProcessName,   key1,   key2);
+                            businessProcessName,subProcessName );
 
                  break;
             case "Updated":
 //                changeDocument.setAction("Sent for Approval");
-                changeDocument = prepareUpdateChangeDocument(objectId,
+                changeDocument = prepareUpdateChangeDocument(loanBusinessProcessObjectId, entityId,mainEntityId,
                         loanContractId,
                         oldObject,
                         changedObject,
                         action,
                         userName,
-                        businessProcessName,subProcessName,   key1,   key2);
+                        businessProcessName,subProcessName );
                 break;
             case "Sent for Approval":
                 changeDocument.setAction("Rejected");
-                changeDocument = changeDocument = prepareUpdateChangeDocument(objectId,
+                changeDocument = changeDocument = prepareUpdateChangeDocument(loanBusinessProcessObjectId, entityId,mainEntityId,
                         loanContractId,
                         oldObject,
                         changedObject,
                         action,
                         userName,
-                        businessProcessName,subProcessName,   key1,   key2);
+                        businessProcessName,subProcessName );
                 break;
             case "Approved":
                 changeDocument.setAction("Approved");
-                changeDocument = changeDocument = prepareUpdateChangeDocument(objectId,
+                changeDocument = changeDocument = prepareUpdateChangeDocument(loanBusinessProcessObjectId, entityId,mainEntityId,
                         loanContractId,
                         oldObject,
                         changedObject,
                         action,
                         userName,
-                        businessProcessName,subProcessName ,   key1,   key2);
+                        businessProcessName,subProcessName );
                 break;
 
             case "Rejected":
         }
 
         changeDocument = this.saveChangeDocument(changeDocument);
+
+
+        sapIntegrationPointerService.saveForObject(businessProcessName,subProcessName,entityId);
 
         return changeDocument;
     }
@@ -172,20 +179,20 @@ public class ChangeDocumentService implements IChangeDocumentService {
     }
 
 
-    private ChangeDocument prepareCreateChangeDocument(UUID objectId,
+    private ChangeDocument prepareCreateChangeDocument(UUID loanBusinessProcessObjectId, String entityId, String mainEntityId,
                                                        String loanContractId,
                                                        Object changedObject,
                                                        String action,
                                                        String userName,
                                                        String businessProcessName,
-                                                       String subProcessName, String key1, String key2) {
+                                                       String subProcessName ) {
 
-        changeDocument = prepareHeader(objectId,
+        changeDocument = prepareHeader(loanBusinessProcessObjectId, entityId,mainEntityId,
                 loanContractId,
                 changedObject,
                 action,
                 userName,
-                businessProcessName,  subProcessName,   key1,   key2);
+                businessProcessName,  subProcessName );
 
         return changeDocument;
 
@@ -193,21 +200,21 @@ public class ChangeDocumentService implements IChangeDocumentService {
     }
 
 
-    private ChangeDocument prepareUpdateChangeDocument(UUID objectId,
+    private ChangeDocument prepareUpdateChangeDocument(UUID loanBusinessProcessObjectId, String entityId, String mainEntityId,
                                                        String loanContractId,
                                                        Object oldObject,
                                                        Object changedObject,
                                                        String action,
                                                        String userName,
                                                        String businessProcessName,
-                                                       String subProcessName, String key1, String key2) {
+                                                       String subProcessName ) {
 
-        changeDocument = prepareHeader(objectId,
+        changeDocument = prepareHeader(loanBusinessProcessObjectId, entityId,mainEntityId,
                 loanContractId,
                 changedObject,
                 action,
                 userName,
-                businessProcessName,subProcessName,   key1,   key2);
+                businessProcessName,subProcessName );
 
 
         // Compare RiskModel Header //given
@@ -392,15 +399,15 @@ public class ChangeDocumentService implements IChangeDocumentService {
     }
 
 
-    private ChangeDocument prepareHeader(UUID objectId,
+    private ChangeDocument prepareHeader(UUID loanBusinessProcessObjectId, String entityId, String mainEntityId,
                                          String loanContractId,
                                          Object changedObject,
                                          String action,
                                          String userName,
-                                         String businessProcessName,String subProcessName, String key1, String key2) {
+                                         String businessProcessName,String subProcessName ) {
 
         //ChangeDocument changeDocument = new ChangeDocument();
-        changeDocument.setLoanBusinessProcessObjectId(objectId);
+        changeDocument.setLoanBusinessProcessObjectId(loanBusinessProcessObjectId);
         changeDocument.setDate(new Date());
 
         LoanApplication loanApplication = loanApplicationRepository.findByLoanContractId(loanContractId);
@@ -410,8 +417,8 @@ public class ChangeDocumentService implements IChangeDocumentService {
         changeDocument.setAction(action);
         changeDocument.setBusinessProcessName(businessProcessName);
         changeDocument.setSubProcessName(subProcessName);
-        changeDocument.setKey1(key1);
-        changeDocument.setKey2(key2);
+        changeDocument.setEnitityId(entityId);
+        changeDocument.setMainEntityId(mainEntityId);
         changeDocument.setUserName(userName);
 
         return changeDocument;

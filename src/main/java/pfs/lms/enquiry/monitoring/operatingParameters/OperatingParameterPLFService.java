@@ -34,12 +34,13 @@ public class OperatingParameterPLFService implements IOperatingParameterPLFServi
 
             changeDocumentService.createChangeDocument(
                     loanMonitor.getId(),
+                    loanMonitor.getId().toString(),null,
                     loanApplication.getLoanContractId(),
                     null,
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header", null,null);
+                    "Monitoring ", "Header" );
         }
         OperatingParameterPLF operatingParameterPLF = resource.getOperatingParameterPLF();
         operatingParameterPLF.setLoanMonitor(loanMonitor);
@@ -47,13 +48,14 @@ public class OperatingParameterPLFService implements IOperatingParameterPLFServi
         operatingParameterPLF = operatingParameterPLFRepository.save(operatingParameterPLF);
 
         changeDocumentService.createChangeDocument(
-                loanMonitor.getId(),
+                loanMonitor.getId() ,
+                operatingParameterPLF.getId(),null,
                 loanApplication.getLoanContractId(),
                 null,
                 operatingParameterPLF,
                 "Created",
                 username,
-                "Monitoring ", "Operating Parameter", null,null);
+                "Monitoring ", "Operating Parameter" );
 
         return operatingParameterPLF;
 
@@ -76,12 +78,13 @@ public class OperatingParameterPLFService implements IOperatingParameterPLFServi
         // Change Documents for Operating Parameter
         changeDocumentService.createChangeDocument(
                 existingOperatingParameterPLF.getLoanMonitor().getId(),
+                existingOperatingParameterPLF.getId(),null,
                 existingOperatingParameterPLF.getLoanMonitor().getLoanApplication().getLoanContractId(),
                 oldExistingOperatingParameter,
                 existingOperatingParameterPLF,
                 "Updated",
                 username,
-                "Monitoring ", "Operating Parameter", null,null);
+                "Monitoring ", "Operating Parameter");
 
         return existingOperatingParameterPLF;
     }

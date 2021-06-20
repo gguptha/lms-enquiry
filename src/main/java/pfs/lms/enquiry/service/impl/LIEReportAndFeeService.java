@@ -2,6 +2,7 @@ package pfs.lms.enquiry.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
 import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
@@ -11,6 +12,8 @@ import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeResource;
 import pfs.lms.enquiry.service.ILIEReportAndFeeService;
+import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
+import pfs.lms.enquiry.service.changedocs.impl.ChangeDocumentService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -26,6 +29,9 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
     private  final LoanMonitorRepository loanMonitorRepository;
     private final LoanApplicationRepository loanApplicationRepository;
 
+    @Autowired
+    private final IChangeDocumentService changeDocumentService;
+
     @Override
     @Transactional
     public LIEReportAndFee save(LIEReportAndFeeResource resource, String username) {
@@ -35,6 +41,18 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
         LIEReportAndFee lieReportAndFee = resource.getLieReportAndFee();
         lieReportAndFee.setLendersIndependentEngineer(lendersIndependentEngineer);
         lieReportAndFee = lieReportAndFeeRepository.save(lieReportAndFee);
+
+        //Create Change Document
+        changeDocumentService.createChangeDocument(
+                lieReportAndFee.getLendersIndependentEngineer().getLoanMonitor().getId() ,
+                lieReportAndFee.getId(), lendersIndependentEngineer.getId(),
+                lieReportAndFee.getLendersIndependentEngineer().getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                lieReportAndFee,
+                "Created",
+                username,
+                "Monitoring", "Lenders Independent Engineer-LIE Report & Fee" );
+
         return lieReportAndFee;
     }
 
@@ -54,6 +72,18 @@ public class LIEReportAndFeeService implements ILIEReportAndFeeService{
         existinglieReportAndFee.setDocumentTitle(resource.getLieReportAndFee().getDocumentTitle());
         existinglieReportAndFee.setNextReportDate(resource.getLieReportAndFee().getNextReportDate());
         existinglieReportAndFee = lieReportAndFeeRepository.save(existinglieReportAndFee);
+
+        //Create Change Document
+        changeDocumentService.createChangeDocument(
+                existinglieReportAndFee.getLendersIndependentEngineer().getLoanMonitor().getId() ,
+                existinglieReportAndFee.getId(), existinglieReportAndFee.getLendersIndependentEngineer().getId(),
+                existinglieReportAndFee.getLendersIndependentEngineer().getLoanMonitor().getLoanApplication().getLoanContractId(),
+                existinglieReportAndFee,
+                resource.getLieReportAndFee(),
+                "Updated",
+                username,
+                "Monitoring", "Lenders Independent Engineer-LIE Report & Fee" );
+
 
         return existinglieReportAndFee;
     }

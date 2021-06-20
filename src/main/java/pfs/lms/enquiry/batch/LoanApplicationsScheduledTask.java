@@ -52,7 +52,7 @@ public class LoanApplicationsScheduledTask {
         this.partnerRepository = partnerRepository;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 50000)
     public void syncLoanApplicationsToBackend() throws ParseException {
        // log.info("The time is now {}", dateFormat.format(new Date()));
        // System.out.println("The time is now :" + dateFormat.format(new Date()));

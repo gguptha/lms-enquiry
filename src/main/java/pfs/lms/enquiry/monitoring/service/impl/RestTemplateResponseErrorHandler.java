@@ -1,7 +1,7 @@
-package pfs.lms.enquiry.exception;
+package pfs.lms.enquiry.monitoring.service.impl;
 
-import javassist.NotFoundException;
-import org.springframework.http.HttpStatus;
+
+ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -12,11 +12,10 @@ import static org.springframework.http.HttpStatus.Series.CLIENT_ERROR;
 import static org.springframework.http.HttpStatus.Series.SERVER_ERROR;
 
 /**
- * Created by sajeev on 11-Aug-19.
+ * Created by sajeev on 15-Jun-21.
  */
-//@Component
-public class RestTemplateResponseErrorHandler
-        implements ResponseErrorHandler {
+@Component
+public class RestTemplateResponseErrorHandler  implements ResponseErrorHandler {
 
     @Override
     public boolean hasError(ClientHttpResponse httpResponse)
@@ -32,18 +31,18 @@ public class RestTemplateResponseErrorHandler
             throws IOException {
 
         if (httpResponse.getStatusCode()
-                .series() == HttpStatus.Series.SERVER_ERROR) {
+                .series() == SERVER_ERROR) {
+
             // handle SERVER_ERROR
+            System.out.println("HTTP SERVER EXCEPTION :  " + httpResponse.getStatusCode().toString());
+
         } else if (httpResponse.getStatusCode()
-                .series() == HttpStatus.Series.CLIENT_ERROR) {
-            // handle CLIENT_ERROR
+                .series() == CLIENT_ERROR) {
+            System.out.println("HTTP CLIENT EXCEPTION :  " + httpResponse.getStatusCode().toString());
             if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
-                try {
-                    throw new NotFoundException("");
-                } catch (NotFoundException e) {
-                    e.printStackTrace();
-                }
+                System.out.println("HTTP EXCEPTION : NOT_FOUND EXCEPTION...............................................");
             }
         }
     }
+
 }

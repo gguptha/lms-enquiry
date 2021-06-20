@@ -88,11 +88,8 @@ public class SAPIntegrationService implements ISAPIntegrationService {
         return responseEntity.getHeaders().get("x-csrf-token").get(0);
     }
 
+
     @Override
-    /*@Retryable(
-            value = { Exception.class },
-            maxAttempts = 2,
-            backoff = @Backoff(delay = 2000))*/
     public SAPLoanApplicationResource postLoanApplication(SAPLoanApplicationResource sapLoanApplicationResource) {
 
         HttpHeaders headers = new HttpHeaders() {

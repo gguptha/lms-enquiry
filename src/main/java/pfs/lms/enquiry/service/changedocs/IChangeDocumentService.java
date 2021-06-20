@@ -14,14 +14,14 @@ import java.util.UUID;
  */
 public interface IChangeDocumentService {
 
-    public ChangeDocument createChangeDocument(UUID objectId,
+    public ChangeDocument createChangeDocument(UUID loanBusinessProcessObjectId, String entityId, String mainEntityId,
                                                String loanContractId,
                                                Object oldObject,
                                                Object changedObject,
                                                String action,
                                                String userName,
                                                String businessProcessName,
-                                               String subProcessName, String key1, String key2);
+                                               String subProcessName );
 
 
     public ChangeDocument saveChangeDocument(ChangeDocument changeDocument);

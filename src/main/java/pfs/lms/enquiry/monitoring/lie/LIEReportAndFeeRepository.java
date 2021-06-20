@@ -7,4 +7,5 @@ import java.util.List;
 public interface LIEReportAndFeeRepository extends JpaRepository<LIEReportAndFee, String> {
 
     List<LIEReportAndFee> findByLendersIndependentEngineer(LendersIndependentEngineer lendersIndependentEngineer);
+
 }
