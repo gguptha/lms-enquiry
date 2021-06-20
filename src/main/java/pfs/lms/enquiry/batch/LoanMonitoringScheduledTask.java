@@ -1,9 +1,7 @@
 package pfs.lms.enquiry.batch;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -13,16 +11,15 @@ import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeRepository;
 import pfs.lms.enquiry.monitoring.lie.LIERepository;
 import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
+import pfs.lms.enquiry.monitoring.resource.SAPLIEDetailsResource;
 import pfs.lms.enquiry.monitoring.resource.SAPLIEReportAndFeeDetailsResource;
 import pfs.lms.enquiry.monitoring.resource.SAPLIEReportAndFeeResource;
 import pfs.lms.enquiry.monitoring.resource.SAPLIEResource;
 import pfs.lms.enquiry.monitoring.service.ISAPLoanMonitoringIntegrationService;
 import pfs.lms.enquiry.repository.SAPIntegrationRepository;
 import pfs.lms.enquiry.repository.UserRepository;
-import pfs.lms.enquiry.monitoring.resource.SAPLIEDetailsResource;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
-import pfs.lms.enquiry.vault.DownloadService;
-import pfs.lms.enquiry.vault.IDownloadService;
+import pfs.lms.enquiry.vault.FileStorage;
 
 import javax.transaction.Transactional;
 import java.text.ParseException;
@@ -37,11 +34,11 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class LoanMonitoringScheduledTask {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-    private static final Logger log = LoggerFactory.getLogger(LoanMonitoringScheduledTask.class);
 
     @Value("${sap.lieUri}")
     private String lieUri;
@@ -51,45 +48,29 @@ public class LoanMonitoringScheduledTask {
 
 
 
-    @Autowired
     private  final ISAPIntegrationService isapIntegrationService;
 
-    @Autowired
-    private final IDownloadService downloadService = null;
+    private final FileStorage fileStorage;
 
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private SAPIntegrationRepository sapIntegrationRepository;
+    private final SAPIntegrationRepository sapIntegrationRepository;
 
-    @Autowired
-    private ISAPLoanMonitoringIntegrationService sapLoanMonitoringIntegrationService;
+    private final ISAPLoanMonitoringIntegrationService sapLoanMonitoringIntegrationService;
 
-    @Autowired
-    private SAPLIEResource saplieResource;
+    private final SAPLIEResource saplieResource;
 
-    @Autowired
-    private SAPLIEReportAndFeeResource saplieReportAndFeeResource;
+    private final SAPLIEReportAndFeeResource saplieReportAndFeeResource;
 
-    @Autowired
     private final LIERepository lieRepository;
 
-    @Autowired
     private final LIEReportAndFeeRepository lieReportAndFeeRepository;
 
-    public LoanMonitoringScheduledTask(LIERepository lieRepository,
-                                       ISAPIntegrationService isapIntegrationService,
-                                       LIEReportAndFeeRepository lieReportAndFeeRepository) {
-        this.lieRepository = lieRepository;
-        this.isapIntegrationService = isapIntegrationService;
-        this.lieReportAndFeeRepository = lieReportAndFeeRepository;
-    }
 
      @Scheduled(fixedRate = 5000)
     public void syncLoanApplicationsToBackend() throws ParseException {
-
+         // fileStorage.download("pass uuid here");
         LendersIndependentEngineer lendersIndependentEngineer = new LendersIndependentEngineer();
 
         User lastChangedByUser = new User() ;

@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FileStorage {
+	byte[] download(UUID id);
 	Optional<FilePointer> findFile(UUID uuid);
 	UUID saveFile(MultipartFile file) throws IOException, MimeTypeException;
 	UUID saveFile(File file) throws IOException, MimeTypeException;

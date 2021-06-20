@@ -55,7 +55,21 @@ public class FileSystemStorage implements FileStorage {
         register = db.treeMap(dbName);*/
     }
 
-	@Override
+    @Override
+    public byte[] download(UUID id) {
+        if(register.containsKey(id.toString())){
+            String filename = register.get(id.toString());
+            final File file = new File(filename);
+            try {
+                return Files.readAllBytes(file.toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new RuntimeException("File not found : "+id);
+    }
+
+    @Override
 	public Optional<FilePointer> findFile(UUID uuid) {
 		log.debug("Downloading {}", uuid);
 		if(register.containsKey(uuid.toString())){
