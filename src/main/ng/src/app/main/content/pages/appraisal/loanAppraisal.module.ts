@@ -16,9 +16,9 @@ import { MAT_DATE_FORMATS } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { LoanAppraisalService } from './loanAppraisal.service';
 import { LoanAppraisalComponent } from './loanAppraisal.component';
-import { LoanPartnerUpdateComponent } from './loan-partner-update/loan-partner-update.component';
-import { LoanPartnersComponent } from './loan-partners/loan-partners.component';
+import { LoanPartnerUpdateComponent } from './loan-partner/loan-partner-update/loan-partner-update.component';
 import { FormsModule } from '@angular/forms';
+import { LoanPartnersComponent } from './loan-partner/loan-partners/loan-partners.component';
 
 const routes = [
     {
