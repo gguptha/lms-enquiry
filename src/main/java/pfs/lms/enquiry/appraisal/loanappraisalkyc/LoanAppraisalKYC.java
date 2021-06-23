@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"loanApplication", "businessPartnerId", "roleType"}, callSuper = false)
+@EqualsAndHashCode(of = {"loanAppraisal", "serialNumber", "partnerType", "kycType"}, callSuper = false)
 public class LoanAppraisalKYC extends AggregateRoot<LoanAppraisalKYC> implements Cloneable {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -31,7 +31,9 @@ public class LoanAppraisalKYC extends AggregateRoot<LoanAppraisalKYC> implements
 
     private String remarks;
     private String documentName;
-    private String uploadDate;
+    private String fileReference;
+
+    private LocalDate uploadDate;
 
     public Object clone () throws CloneNotSupportedException {
         return super.clone();

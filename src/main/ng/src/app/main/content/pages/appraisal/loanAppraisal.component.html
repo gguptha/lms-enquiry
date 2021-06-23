@@ -96,14 +96,9 @@
         
             <!-- KYC details tab starts here -->
             <mat-tab label="KYC Details">
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent"> 
-                        Add New
-                    </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent"> 
-                        Edit
-                    </button>
-                </div>            
+                <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-loan-appraisal-kyc-list [loanApplicationId]="loanApplicationId"></fuse-loan-appraisal-kyc-list>
+                </div>
             </mat-tab>
             <!-- KYC details tab ends here -->
 

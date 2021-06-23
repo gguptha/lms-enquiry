@@ -19,6 +19,7 @@ export class LoanAppraisalComponent implements OnInit, OnDestroy {
     disableSendForApproval: boolean = false;
 
     loanApplicationId: string;
+    loanAppraisalId: string;
     selectedEnquiry: any;
 
     selectedEnquiryForm: FormGroup;
@@ -47,7 +48,6 @@ export class LoanAppraisalComponent implements OnInit, OnDestroy {
         
         this.subscriptions.add(
             _loanEnquiryService.selectedLoanApplicationId.subscribe(data => {
-                // set loanApplicationId
                 this.loanApplicationId = data;
             })
         );
