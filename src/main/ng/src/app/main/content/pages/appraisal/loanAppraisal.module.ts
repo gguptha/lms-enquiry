@@ -16,9 +16,11 @@ import { MAT_DATE_FORMATS } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { LoanAppraisalService } from './loanAppraisal.service';
 import { LoanAppraisalComponent } from './loanAppraisal.component';
-import { LoanPartnerUpdateComponent } from './loan-partner-update/loan-partner-update.component';
-import { LoanPartnersComponent } from './loan-partners/loan-partners.component';
+import { LoanPartnerUpdateComponent } from './loan-partner/loan-partner-update/loan-partner-update.component';
 import { FormsModule } from '@angular/forms';
+import { LoanPartnersComponent } from './loan-partner/loan-partners/loan-partners.component';
+import { LoanAppraisalKYCListComponent } from './loan-appraisal-kyc/loan-appraisal-kyc-list/loan-appraisal-kyc-list.component';
+import { LoanAppraisalKYCUpdateComponent } from './loan-appraisal-kyc/loan-appraisal-kyc-update/loan-appraisal-kyc-update.component';
 
 const routes = [
     {
@@ -67,6 +69,8 @@ const MY_FORMATS = {
         LoanAppraisalComponent,
         LoanPartnerUpdateComponent,
         LoanPartnersComponent,
+        LoanAppraisalKYCListComponent,
+        LoanAppraisalKYCUpdateComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -83,7 +87,9 @@ const MY_FORMATS = {
     ],  
     entryComponents: [
         LoanPartnersComponent,
-        LoanPartnerUpdateComponent
+        LoanPartnerUpdateComponent,
+        LoanAppraisalKYCListComponent,
+        LoanAppraisalKYCUpdateComponent
     ]
 })
 export class LoanAppraisalModule {

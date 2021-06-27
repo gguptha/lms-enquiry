@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
-import { businessPartnerRoleTypes } from '../loanAppraisal.constants';
-import { LoanAppraisalService } from '../loanAppraisal.service';
+import { businessPartnerRoleTypes } from '../../loanAppraisal.constants';
+import { LoanAppraisalService } from '../../loanAppraisal.service';
 
 @Component({
   selector: 'fuse-loan-partner-update',

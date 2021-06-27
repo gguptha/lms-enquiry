@@ -6,19 +6,24 @@ import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 @Injectable()
 export class LoanAppraisalService {
 
-    public enquirySearchList: BehaviorSubject<any>;
-
     /**
      * constructor()
      * @param _http
      */
-    constructor(private _http: HttpClient, private _loanEnquiryService: LoanEnquiryService) {
+    constructor(private _http: HttpClient) {
+    }
+
+    /**
+     * getLaonAppraisal()
+     * @param loanApplicationId 
+     */
+    public getLaonAppraisal(loanApplicationId: string): Observable<any> {
+        return this._http.get("enquiry/api/loanAppraisals/search/findByLoanApplicationId?loanApplicationId=" + loanApplicationId);
     }
 
     /**
      * getPartnersByRoleType()
      * @param roleType 
-     * @returns 
      */
     public getPartnersByRole(role: string): Observable<any> {
         return this._http.get("enquiry/api/partners/role/" + role);
@@ -44,9 +49,41 @@ export class LoanAppraisalService {
     /**
      * updateLoanOfficer()
      * @param loanOfficer 
-     * @returns 
      */
     public updateLoanOfficer(loanOfficer: any): Observable<any> {
         return this._http.put("enquiry/api/loanPartners/update", loanOfficer);
+    }
+
+    /**
+     * createLoanAppraisalKYC()
+     * @param loanAppraisalKYC 
+     */
+    public createLoanAppraisalKYC(loanAppraisalKYC: any): Observable<any> {
+        return this._http.post("enquiry/api/loanAppraisalKYCs/create", loanAppraisalKYC);
+    }
+
+    /**
+     * updateLoanAppraisalKYC()
+     * @param loanAppraisalKYC 
+     */
+    public updateLoanAppraisalKYC(loanAppraisalKYC: any): Observable<any> {
+        return this._http.put("enquiry/api/loanAppraisalKYCs/update", loanAppraisalKYC);
+    }
+
+    /**
+     * getLaonAppraisalKYCs()
+     * @param loanApplicationId 
+     */
+    public getLaonAppraisalKYCs(loanApplicationId: string): Observable<any> {
+        return this._http.get("enquiry/api/loanAppraisalKYCs/search/findByLoanAppraisalLoanApplicationId?loanApplicationId=" 
+                + loanApplicationId);
+    }
+
+    /**
+     * uploadVaultDocument()
+     * @param file 
+     */
+    public uploadVaultDocument(file: FormData): Observable<any> {
+        return this._http.post('enquiry/api/upload', file);
     }
 }

@@ -1,29 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
-import { LoanPartnerUpdateComponent } from '../loan-partner-update/loan-partner-update.component';
-import { LoanAppraisalService } from '../loanAppraisal.service';
+import { LoanAppraisalService } from '../../loanAppraisal.service';
+import { LoanAppraisalKYCUpdateComponent } from '../loan-appraisal-kyc-update/loan-appraisal-kyc-update.component';
 
 @Component({
-    selector: 'fuse-loan-partners',
-    templateUrl: './loan-partners.component.html',
-    styleUrls: ['./loan-partners.component.scss'],
+    selector: 'fuse-loan-appraisal-kyc-list',
+    templateUrl: './loan-appraisal-kyc-list.component.html',
+    styleUrls: ['./loan-appraisal-kyc-list.component.scss'],
     animations: fuseAnimations
 })
-export class LoanPartnersComponent implements OnInit {
+export class LoanAppraisalKYCListComponent implements OnInit {
 
     dataSource: MatTableDataSource<any>;
     
     displayedColumns = [
-        'serialNumber', 'businessPartnerId', 'businessPartnerName', 'roleType','startDate'
+        'serialNumber', 'kycType', 'dateOfCompletion', 'remarks', 'download'
     ];
 
-    selectedLoanOfficer: any;
+    selectedKYC: any;
 
     _loanApplicationId: string;
     @Input() set loanApplicationId(value: string) {
         this._loanApplicationId = value;
-        this.getLoanOfficers();
+        this.getLoanAppraisalKYCs();
     }
 
     /**
@@ -52,38 +52,45 @@ export class LoanPartnersComponent implements OnInit {
         var data = {
             'operation': operation,
             'loanApplicationId': this._loanApplicationId,
-            'loanOfficer': {},
+            'loanAppraisalKYC': {},
         };
-        if (operation === 'modifyOfficer') {
-            data.loanOfficer = this.selectedLoanOfficer;
+        if (operation === 'modifyAppraisalKYC') {
+            data.loanAppraisalKYC = this.selectedKYC;
         }
-        const dialogRef = this._dialogRef.open(LoanPartnerUpdateComponent, {
-            panelClass: 'loan-partner-update',
+        const dialogRef = this._dialogRef.open(LoanAppraisalKYCUpdateComponent, {
             width: '750px',
             data: data
         });
         // Subscribe to the dialog close event to intercept the action taken.
         dialogRef.afterClosed().subscribe((result) => { 
             if (result.refresh) {
-                this.getLoanOfficers();
+                this.getLoanAppraisalKYCs();
             }
-        });       
+        });
     }
 
     /**
-     * getLoanOfficers()
+     * getLoanAppraisalKYCs()
      */
-    getLoanOfficers(): void {
-        this._loanAppraisalService.getLoanOfficers(this._loanApplicationId).subscribe(data => {
-            this.dataSource = new MatTableDataSource(data._embedded.loanPartners);
+     getLoanAppraisalKYCs(): void {
+        this._loanAppraisalService.getLaonAppraisalKYCs(this._loanApplicationId).subscribe(data => {
+            this.dataSource = new MatTableDataSource(data._embedded.loanAppraisalKYCs);
         });
     }
 
     /**
      * onRowSelect()
-     * @param loanOfficer 
+     * @param loanAppraisalKYC 
      */
-    onRowSelect(loanOfficer: any): void {
-        this.selectedLoanOfficer = loanOfficer;
+    onRowSelect(loanAppraisalKYC: any): void {
+        this.selectedKYC = loanAppraisalKYC;
+    }
+
+    /**
+     * getFileURL()
+     * @param fileReference 
+     */
+    getFileURL(fileReference: string): string {
+        return 'enquiry/api/download/' + fileReference;
     }
 }
