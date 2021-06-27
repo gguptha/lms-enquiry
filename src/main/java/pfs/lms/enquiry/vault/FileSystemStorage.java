@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import pfs.lms.enquiry.resource.FileResource;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
@@ -70,6 +71,25 @@ public class FileSystemStorage implements FileStorage {
     }
 
     @Override
+    public FileResource getFile(UUID id) {
+        FileResource fileResource = new FileResource();
+        if(register.containsKey(id.toString())){
+            String filename = register.get(id.toString());
+            final File file = new File(filename);
+            try {
+                //return Files.readAllBytes(file.toPath());
+                fileResource.setDocumentContent(Files.readAllBytes(file.toPath()));
+                fileResource.setMimeType(Files.probeContentType(file.toPath()));
+
+                return  fileResource;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new RuntimeException("File not found : "+id);
+    }
+
+    @Override
 	public Optional<FilePointer> findFile(UUID uuid) {
 		log.debug("Downloading {}", uuid);
 		if(register.containsKey(uuid.toString())){
@@ -84,6 +104,18 @@ public class FileSystemStorage implements FileStorage {
 
 
 	}
+
+    @Override
+    public String getFilePath(UUID id) {
+        if(register.containsKey(id.toString())){
+            String filename = register.get(id.toString());
+            return  filename;
+        }
+        else {
+            return null;
+        }
+
+    }
 
     @Override
     public UUID saveFile(MultipartFile file) throws IOException, MimeTypeException{
@@ -109,6 +141,8 @@ public class FileSystemStorage implements FileStorage {
         saveFile(file,uuid);
         return uuid;
     }
+
+
 
     public UUID saveFile(File file,UUID uuid) throws IOException, MimeTypeException {
         String targetFileName = uuid.toString() + FileSystemPointer.getFileExtension(new BufferedInputStream(new FileInputStream(file.getAbsolutePath())));

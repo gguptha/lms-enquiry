@@ -75,9 +75,12 @@ public class DownloadController {
 	}
 
 	private Optional<ExistingFile> findExistingFile(HttpMethod method, @PathVariable UUID uuid, String contextPath) {
-		return storage
+		Optional <ExistingFile> existingFile= storage
 				.findFile(uuid)
 				.map(pointer -> new ExistingFile(contextPath, method, pointer, uuid));
+
+		return existingFile;
+
 	}
 
 }

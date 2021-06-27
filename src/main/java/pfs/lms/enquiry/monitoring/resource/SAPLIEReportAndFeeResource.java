@@ -40,7 +40,9 @@ public class SAPLIEReportAndFeeResource implements Serializable   {
     }
 
     public SAPLIEReportAndFeeDetailsResource
-                    mapToSAP(LIEReportAndFee lieReportAndFee, User lastProcessedBy) throws ParseException {
+                    mapToSAP(LIEReportAndFee lieReportAndFee,
+                             byte[] documentContent,
+                             User lastProcessedBy) throws ParseException {
 
         DataConversionUtility dataConversionUtility =  new DataConversionUtility();
 
@@ -54,10 +56,13 @@ public class SAPLIEReportAndFeeResource implements Serializable   {
 
         if (lieReportAndFee.getDateOfReceipt() != null)
             detailsResource.setDateofreceipt(dataConversionUtility.convertDateToSAPFormat(lieReportAndFee.getDateOfReceipt()));
+        else
+            detailsResource.setDateofreceipt(null);
 
         if (lieReportAndFee.getInvoiceDate() != null)
             detailsResource.setInvoicedate(dataConversionUtility.convertDateToSAPFormat(lieReportAndFee.getInvoiceDate()));
-
+        else
+            detailsResource.setInvoicedate(null);
 
         detailsResource.setInvoiceno(lieReportAndFee.getInvoiceNo());
         detailsResource.setFeeamount(lieReportAndFee.getFeeAmount().toString());
@@ -67,6 +72,18 @@ public class SAPLIEReportAndFeeResource implements Serializable   {
 //                Feeamountraisedoncustomer
 //                Statusoffeereceipt
 
+
+        if (lieReportAndFee.getNextReportDate() != null)
+            detailsResource.setNextreportdate(dataConversionUtility.convertDateToSAPFormat(lieReportAndFee.getNextReportDate()));
+        else
+            detailsResource.setNextreportdate(null);
+
+        //detailsResource.setDocumenttitle(lieReportAndFee.getDocumentTitle());
+
+        detailsResource.setDocumenttitle("application/pdf");
+        //detailsResource.setDocumentcontent(documentContent);
+//        detailsResource.setFileName("File Name ");
+//        detailsResource.setMimeType("application/pdf");
 
 
         return detailsResource;

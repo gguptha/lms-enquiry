@@ -42,20 +42,33 @@ public class SAPLIEReportAndFeeDetailsResource {
     @JsonProperty (value = "Feeamount")
     private String feeamount;
 
-    @JsonProperty (value = "statusoffeepaid")
+    @JsonProperty (value = "Statusoffeepaid")
     private String statusoffeepaid;
 
     @JsonProperty (value = "Sapfiinvoicedate")
-    private String Sapfiinvoicedate;
+    private String sapfiinvoicedate;
 
     @JsonProperty (value = "Sapfiinvoicenumber")
-    private String Sapfiinvoicenumber;
+    private String sapfiinvoicenumber;
 
     @JsonProperty (value = "Feeamountraisedoncustomer")
-    private String Feeamountraisedoncustomer;
+    private String feeamountraisedoncustomer;
 
     @JsonProperty (value = "Statusoffeereceipt")
-    private String Statusoffeereceipt;
+    private String statusoffeereceipt;
+
+    @JsonProperty (value = "Documenttitle")
+    private String documenttitle;
+//    @JsonProperty (value = "Documentcontent")
+//    private String documentcontent;
+    @JsonProperty (value = "Nextreportdate")
+    private String nextreportdate;
+
+//    @JsonProperty (value = "FileName")
+//    private String fileName;
+//
+//    @JsonProperty(value = "MimeType")
+//    private String mimeType;
 
     @Override
     public String toString() {
@@ -69,10 +82,15 @@ public class SAPLIEReportAndFeeDetailsResource {
                 ", invoiceno='" + invoiceno + '\'' +
                 ", feeamount='" + feeamount + '\'' +
                 ", statusoffeepaid='" + statusoffeepaid + '\'' +
-                ", Sapfiinvoicedate='" + Sapfiinvoicedate + '\'' +
-                ", Sapfiinvoicenumber='" + Sapfiinvoicenumber + '\'' +
-                ", Feeamountraisedoncustomer='" + Feeamountraisedoncustomer + '\'' +
-                ", Statusoffeereceipt='" + Statusoffeereceipt + '\'' +
+                ", sapfiinvoicedate='" + sapfiinvoicedate + '\'' +
+                ", sapfiinvoicenumber='" + sapfiinvoicenumber + '\'' +
+                ", feeamountraisedoncustomer='" + feeamountraisedoncustomer + '\'' +
+                ", statusoffeereceipt='" + statusoffeereceipt + '\'' +
+                ", documenttitle='" + documenttitle + '\'' +
+//                ", documentcontent='" + documentcontent + '\'' +
+                ", nextreportdate='" + nextreportdate + '\'' +
+//                ", fileName='" + fileName + '\'' +
+//                ", mimeType='" + mimeType + '\'' +
                 '}';
     }
 }

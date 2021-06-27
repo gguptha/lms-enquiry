@@ -1,5 +1,6 @@
 package pfs.lms.enquiry.monitoring.service.impl;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -25,6 +28,8 @@ import javax.xml.ws.http.HTTPException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Slf4j
@@ -194,14 +199,19 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
 
      }
 
+
+
     @Override
-    public Object postResourceToSAP(Object resource, String serviceUri) {
+    public Object postResourceToSAP(Object resource, String serviceUri, HttpMethod httpMethod , MediaType mediaType) {
 
         // String csrfToken = this.fetchCSRFToken();
 
         String postURL = baseUrl + serviceUri+ "?sap-client=" + client;
 
         System.out.println("THE URI : "+postURL.toString());
+
+
+
 
         HttpHeaders headers = new HttpHeaders() {
             {
@@ -210,7 +220,7 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
                         auth.getBytes(Charset.forName("US-ASCII")) );
                 String authHeader = "Basic " + new String( encodedAuth );
                 set( "Authorization", authHeader );
-                setContentType(MediaType.APPLICATION_JSON);
+                setContentType(mediaType);
                 add("X-Requested-With", "X");
                 // add("X-CSRF-Token", csrfToken);
 
@@ -226,15 +236,46 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
 
 
         ResponseEntity responseEntity; // = new ResponseEntity();
+//        MappingJackson2HttpMessageConverter jsonHttpMessageConverter = new MappingJackson2HttpMessageConverter();
+//
+//        jsonHttpMessageConverter.getObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+//        restTemplate.getMessageConverters().add(jsonHttpMessageConverter);
+//
+//        List<MediaType> supportedApplicationTypes = new ArrayList<>();
+//        MediaType pdfApplication = new MediaType("application","pdf");
+//        supportedApplicationTypes.add(pdfApplication);
+//        ByteArrayHttpMessageConverter byteArrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
+//
+//        MediaType jsonApplication = new MediaType("application","json");
+//        supportedApplicationTypes.add(pdfApplication);
+//        ByteArrayHttpMessageConverter byteArrayHttpMessageConverterJSON = new ByteArrayHttpMessageConverter();
+//
+//         MediaType textApplication = new MediaType("text","plain");
+//        supportedApplicationTypes.add(pdfApplication);
+//        ByteArrayHttpMessageConverter byteArrayHttpMessageConverterText = new ByteArrayHttpMessageConverter();
+//
+//
+//        byteArrayHttpMessageConverter.setSupportedMediaTypes(supportedApplicationTypes);
+//        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+//        messageConverters.add(byteArrayHttpMessageConverter);
+//        messageConverters.add(byteArrayHttpMessageConverterText);
+//        messageConverters.add(byteArrayHttpMessageConverterJSON);
 
 
-        try {
-            responseEntity =
-                    restTemplate.exchange(postURL, HttpMethod.POST, requestToPost, Object.class);
+
+//        restTemplate.setMessageConverters(messageConverters);
+
+
+
+            try{
+
+                responseEntity =
+                        restTemplate.exchange(postURL, httpMethod, requestToPost, Object.class);
+
 
         } catch (HttpClientErrorException ex) {
 
-            System.out.println("HTTP EXCEPTION ----------------------- Post LIE to SAP");
+            System.out.println("HTTP EXCEPTION ----------------------- Post " + serviceUri + "  to SAP");
             System.out.println("HTTP Code    :" + ex.getStatusCode());
             System.out.println("HTTP Message :" +ex.getMessage());
             return  null;
@@ -242,30 +283,27 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
         }
         catch (HttpServerErrorException ex) {
 
-            System.out.println("HTTP EXCEPTION ----------------------- Post LIE to SAP");
+            System.out.println("HTTP EXCEPTION ----------------------- Post " + serviceUri + "  to SAP");
             System.out.println("HTTP Code    :" + ex.getStatusCode());
             System.out.println("HTTP Message :" + ex.getMessage());
             return  null;
         }
         catch (UnknownHttpStatusCodeException ex) {
 
-            System.out.println("HTTP EXCEPTION ----------------------- Post LIE to SAP");
+            System.out.println("HTTP EXCEPTION ----------------------- Post " + serviceUri + "  to SAP");
             System.out.println("HTTP Message :" + ex.getMessage());
             return  null;
         }
 
         catch (HTTPException ex) {
 
-            System.out.println("HTTP EXCEPTION ----------------------- Post LIE to SAP");
+            System.out.println("HTTP EXCEPTION ----------------------- Post " + serviceUri + "  to SAP");
             System.out.println("HTTP Code    :" + ex.getStatusCode());
             System.out.println("HTTP Message :" +ex.getMessage());
             return  null;
         }
         catch (Exception ex) {
-
-
-
-            System.out.println("General EXCEPTION ----------------------- Post LIE to SAP");
+            System.out.println("HTTP EXCEPTION ----------------------- Post " + serviceUri + "  to SAP");
             System.out.println("Exception Message :" +ex.getMessage());
             return null;
 
