@@ -75,8 +75,33 @@ export class LoanAppraisalService {
      * @param loanApplicationId 
      */
     public getLaonAppraisalKYCs(loanApplicationId: string): Observable<any> {
-        return this._http.get("enquiry/api/loanAppraisalKYCs/search/findByLoanAppraisalLoanApplicationId?loanApplicationId=" 
+        return this._http.get("enquiry/api/loanAppraisalKYCs/search/findByLoanAppraisalLoanApplicationIdOrderBySerialNumberDesc?loanApplicationId=" 
                 + loanApplicationId);
+    }
+
+    /**
+     * getSyndicateConsortiums()
+     * @param loanApplicationId 
+     */
+    public getSyndicateConsortiums(loanApplicationId: string): Observable<any> {
+        return this._http.get("enquiry/api/syndicateConsortiums/search/findByLoanAppraisalLoanApplicationIdOrderBySerialNumberDesc?loanApplicationId=" 
+                + loanApplicationId);
+    }
+
+    /**
+     * createSyndicateConsortium()
+     * @param syndicateConsortium 
+     */
+    public createSyndicateConsortium(syndicateConsortium: any): Observable<any> {
+        return this._http.post("enquiry/api/syndicateConsortiums/create", syndicateConsortium);
+    }
+
+    /**
+     * updateSyndicateConsortium()
+     * @param syndicateConsortium 
+     */
+    public updateSyndicateConsortium(syndicateConsortium: any): Observable<any> {
+        return this._http.put("enquiry/api/syndicateConsortiums/update", syndicateConsortium);
     }
 
     /**

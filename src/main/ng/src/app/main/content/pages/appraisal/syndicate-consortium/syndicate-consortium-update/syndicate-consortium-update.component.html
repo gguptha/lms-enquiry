@@ -1,0 +1,68 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{ dialogTitle }}</span>
+            <button mat-button class="mat-icon-button" (click)="_dialogRef.close()" aria-label="Close Dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content fusePerfectScrollbar style="height: 410px">
+        <form [formGroup]="syndicateConsortiumForm">
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Serial Number" formControlName="serialNumber" readonly>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Sanctioned Amount" formControlName="sanctionedAmount" maxlength="18">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Currency" formControlName="currency" maxlength="3">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Lead" formControlName="lead" required>
+                        <mat-option [value]="'true'">Yes</mat-option>
+                        <mat-option [value]="'false'">No</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Approval Status" formControlName="approvalStatus" required>
+                        <mat-option [value]="'01'">Application Submited</mat-option>
+                        <mat-option [value]="'02'">In-principle Approved</mat-option>
+                        <mat-option [value]="'03'">Sanctioned</mat-option>
+                        <mat-option [value]="'04'">Disbursed</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Document Stage" formControlName="documentStage" maxlength="50">
+                </mat-form-field>
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Disbursed Amount" formControlName="disbursedAmount" maxlength="18">
+                </mat-form-field>
+            </div>
+            <div fxLayout="row">
+                <mat-form-field fxFlex="50">
+                    <mat-select placeholder="Disbursement Status" formControlName="disbursementStatus" required>
+                        <mat-option [value]="'1'">Disbursed</mat-option>
+                        <mat-option [value]="'2'">Not Disbursed</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div mat-dialog-actions fxLayout="row">
+                <button class="mr-8" mat-raised-button type="submit" color="accent" (click)="submit()">
+                    Submit
+                </button>
+                <button class="mr-8" mat-raised-button type="button" color="accent" (click)="closeDialog()">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

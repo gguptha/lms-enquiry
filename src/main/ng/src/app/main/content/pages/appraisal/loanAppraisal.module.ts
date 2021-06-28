@@ -8,7 +8,8 @@ import {
   MatTabsModule,
   MAT_DATE_LOCALE,
   DateAdapter,
-  MatDialogModule
+  MatDialogModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { EnquiryApplicationRouteGuard } from 'app/enquiryApplication.guard';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
@@ -21,6 +22,8 @@ import { FormsModule } from '@angular/forms';
 import { LoanPartnersComponent } from './loan-partner/loan-partners/loan-partners.component';
 import { LoanAppraisalKYCListComponent } from './loan-appraisal-kyc/loan-appraisal-kyc-list/loan-appraisal-kyc-list.component';
 import { LoanAppraisalKYCUpdateComponent } from './loan-appraisal-kyc/loan-appraisal-kyc-update/loan-appraisal-kyc-update.component';
+import { SyndicateConsortiumListComponent } from './syndicate-consortium/syndicate-consortium-list/syndicate-consortium-list.component';
+import { SyndicateConsortiumUpdateComponent } from './syndicate-consortium/syndicate-consortium-update/syndicate-consortium-update.component';
 
 const routes = [
     {
@@ -63,14 +66,17 @@ const MY_FORMATS = {
       MatProgressSpinnerModule,
       MatTabsModule,
       MatDialogModule,
-      FormsModule
+      FormsModule,
+      MatCheckboxModule
     ],
     declarations: [
         LoanAppraisalComponent,
         LoanPartnerUpdateComponent,
         LoanPartnersComponent,
         LoanAppraisalKYCListComponent,
-        LoanAppraisalKYCUpdateComponent
+        LoanAppraisalKYCUpdateComponent,
+        SyndicateConsortiumListComponent,
+        SyndicateConsortiumUpdateComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -89,7 +95,9 @@ const MY_FORMATS = {
         LoanPartnersComponent,
         LoanPartnerUpdateComponent,
         LoanAppraisalKYCListComponent,
-        LoanAppraisalKYCUpdateComponent
+        LoanAppraisalKYCUpdateComponent,
+        SyndicateConsortiumListComponent,
+        SyndicateConsortiumUpdateComponent
     ]
 })
 export class LoanAppraisalModule {

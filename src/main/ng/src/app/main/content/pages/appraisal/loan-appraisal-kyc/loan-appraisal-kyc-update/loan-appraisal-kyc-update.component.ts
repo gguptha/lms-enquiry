@@ -72,7 +72,7 @@ export class LoanAppraisalKYCUpdateComponent implements OnInit {
                         (response) => {
                             this.selectedLoanAppraisalKYC.fileReference = response.fileReference;
                             this._loanAppraisalService.updateLoanAppraisalKYC(this.selectedLoanAppraisalKYC).subscribe(() => {
-                                this._matSnackBar.open('Loan Appraisal KYC added successfully.', 'OK', { duration: 7000 });
+                                this._matSnackBar.open('Loan Appraisal KYC updated successfully.', 'OK', { duration: 7000 });
                                 this._dialogRef.close({ 'refresh': true });
                             });
                         },
@@ -85,7 +85,7 @@ export class LoanAppraisalKYCUpdateComponent implements OnInit {
                 else
                 {
                     this._loanAppraisalService.updateLoanAppraisalKYC(this.selectedLoanAppraisalKYC).subscribe(() => {
-                        this._matSnackBar.open('Loan Appraisal KYC added successfully.', 'OK', { duration: 7000 });
+                        this._matSnackBar.open('Loan Appraisal KYC updated successfully.', 'OK', { duration: 7000 });
                         this._dialogRef.close({ 'refresh': true });
                     });
                 }
