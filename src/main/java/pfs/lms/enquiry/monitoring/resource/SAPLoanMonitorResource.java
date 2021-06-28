@@ -19,25 +19,25 @@ public class SAPLoanMonitorResource implements Serializable   {
 
 
     public SAPLoanMonitorResource() {
-        sapLoanMonitorDetailsResource = new SAPLoanMonitorDetailsResource();
+        sapLoanMonitorResourceDetails = new SAPLoanMonitorResourceDetails();
     }
 
     @JsonProperty(value = "d")
-    private SAPLoanMonitorDetailsResource sapLoanMonitorDetailsResource;
+    private SAPLoanMonitorResourceDetails sapLoanMonitorResourceDetails;
 
-    public SAPLoanMonitorDetailsResource getSapLoanMonitorDetailsResource() {
-        return sapLoanMonitorDetailsResource;
+    public SAPLoanMonitorResourceDetails getSapLoanMonitorResourceDetails() {
+        return sapLoanMonitorResourceDetails;
     }
 
-    public void setSapLoanMonitorDetailsResource(SAPLoanMonitorDetailsResource sapLoanMonitorDetailsResource) {
-        this.sapLoanMonitorDetailsResource = sapLoanMonitorDetailsResource;
+    public void setSapLoanMonitorResourceDetails(SAPLoanMonitorResourceDetails sapLoanMonitorResourceDetails) {
+        this.sapLoanMonitorResourceDetails = sapLoanMonitorResourceDetails;
     }
 
 
-    public SAPLoanMonitorDetailsResource
+    public SAPLoanMonitorResourceDetails
                     mapLoanMonitorToSAP(LoanMonitor loanMonitor, Partner partner, User lastProcessedBy) throws ParseException {
 
-        SAPLoanMonitorDetailsResource detailsResource = new SAPLoanMonitorDetailsResource();
+        SAPLoanMonitorResourceDetails detailsResource = new SAPLoanMonitorResourceDetails();
 
        
 

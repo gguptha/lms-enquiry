@@ -1,6 +1,5 @@
 package pfs.lms.enquiry.monitoring.service.impl;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
-import org.springframework.http.converter.ByteArrayHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -18,18 +15,14 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.UnknownHttpStatusCodeException;
-import pfs.lms.enquiry.monitoring.resource.SAPLIEDetailsResource;
-import pfs.lms.enquiry.monitoring.resource.SAPLIEReportAndFeeResource;
+import pfs.lms.enquiry.monitoring.resource.SAPLIEResourceDetails;
 import pfs.lms.enquiry.monitoring.resource.SAPLIEResource;
 import pfs.lms.enquiry.monitoring.service.ISAPLoanMonitoringIntegrationService;
-import pfs.lms.enquiry.resource.SAPLoanApplicationResource;
 
 import javax.xml.ws.http.HTTPException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Slf4j
@@ -133,12 +126,12 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
         };
 
         RestTemplate restTemplate = new RestTemplate();
-        SAPLIEDetailsResource createdLIE = null;
+        SAPLIEResourceDetails createdLIE = null;
 
         HttpEntity<SAPLIEResource> requestToPost = new HttpEntity<SAPLIEResource>(saplieResource, headers);
 
         System.out.println("THE REQUEST : " + requestToPost.toString());
-        System.out.println("THE PAYLOAD : " + saplieResource.getSaplieDetailsResource().toString());
+        System.out.println("THE PAYLOAD : " + saplieResource.getSaplieResourceDetails().toString());
 
 
         ResponseEntity responseEntity; // = new ResponseEntity();
@@ -153,7 +146,7 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
              responseEntity =
                     restTemplate.exchange(postURL, HttpMethod.POST, requestToPost, Object.class);
 
-             createdLIE = (SAPLIEDetailsResource) responseEntity.getBody();
+             createdLIE = (SAPLIEResourceDetails) responseEntity.getBody();
 
         } catch (HttpClientErrorException ex) {
 
@@ -194,7 +187,7 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
 
         }
 
-        SAPLIEDetailsResource saplieDetailsResource = createdLIE;
+        SAPLIEResourceDetails saplieResourceDetails = createdLIE;
          return createdLIE;
 
      }

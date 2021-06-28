@@ -1,6 +1,5 @@
 package pfs.lms.enquiry.batch;
 
-import com.fasterxml.uuid.impl.UUIDUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,6 @@ import pfs.lms.enquiry.resource.FileResource;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 import pfs.lms.enquiry.vault.FilePointer;
 import pfs.lms.enquiry.vault.FileStorage;
-import pfs.lms.enquiry.vault.FileSystemPointer;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -107,52 +105,21 @@ public class LoanMonitoringScheduledTask {
                      sapIntegrationPointer.setStatus(1); // In Posting Process
                      sapIntegrationRepository.save(sapIntegrationPointer);
 
-                     SAPLIEDetailsResource saplieDetailsResource = saplieResource.mapToSAP(lendersIndependentEngineer, lastChangedByUser);
-
+                     SAPLIEResourceDetails saplieResourceDetails = saplieResource.mapToSAP(lendersIndependentEngineer, lastChangedByUser);
                      SAPLIEResource d = new SAPLIEResource();
-                     d.setSaplieDetailsResource(saplieDetailsResource);
+                     d.setSaplieResourceDetails(saplieResourceDetails);
 
                      resource = (Object) d;
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(d, lieUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
-                     if (response == null) {
-                         //Set Status as Failed
-                         sapIntegrationPointer.setStatus(2); // Posting Failed
-                         sapIntegrationRepository.save(sapIntegrationPointer);
-
-                     }
-
+                     updateSAPIntegrationPointer(response, sapIntegrationPointer);
                      break;
+
                  case "LIE Report And Fee":
 
-
                      LIEReportAndFee lieReportAndFee = new LIEReportAndFee();
-
-
                      log.info("Attempting to Post LIE  Report and Fee to SAP AT :" + dateFormat.format(new Date()));
                      Optional<LIEReportAndFee> lieRF = lieReportAndFeeRepository.findById(sapIntegrationPointer.getBusinessObjectId().toString());
-
-
-                     UUID fileUUID = UUID.fromString(lieRF.get().getFileReference());
-
-
-                     byte[] file = fileStorage.download(fileUUID);
-                     FileResource fileResource = fileStorage.getFile(fileUUID);
-
-                     Optional<FilePointer> filePointer = fileStorage.findFile(fileUUID);
-                     FilePointer fp = filePointer.get();
-
-                     String filePath = fileStorage.getFilePath(fileUUID);
-
-
-
-
-
-
-
-
-
-                    // String documentContent = new String(file);
 
                      lieReportAndFee = lieRF.get();
 
@@ -160,58 +127,58 @@ public class LoanMonitoringScheduledTask {
                      sapIntegrationPointer.setStatus(1); // In Posting Process
                      sapIntegrationRepository.save(sapIntegrationPointer);
 
-                     SAPLIEReportAndFeeDetailsResource saplieReportAndFeeDetailsResource =
-                             saplieReportAndFeeResource.mapToSAP(lieReportAndFee, file, lastChangedByUser);
+                     SAPLIEReportAndFeeResourceDetails saplieReportAndFeeResourceDetails = saplieReportAndFeeResource.mapToSAP(lieReportAndFee, lastChangedByUser);
                      SAPLIEReportAndFeeResource c = new SAPLIEReportAndFeeResource();
-                     c.setSaplieReportAndFeeDetailsResource(saplieReportAndFeeDetailsResource);
+                     c.setSaplieReportAndFeeResourceDetails(saplieReportAndFeeResourceDetails);
                      resource = (Object) c;
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, lieReportAndFeeUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-
-                         response = postDocument(fileUUID.toString(),
-                                 lieReportAndFee.getId(),
-                                 "LIE Report & Fee",
-                                 file,
-                                 fileResource.getMimeType(),
-                                 lieReportAndFee.getDocumentTitle(), filePath);
-
-                         if (response == null) {
-                             //Set Status as Failed
-                             sapIntegrationPointer.setStatus(2); // Posting Failed
-                             sapIntegrationRepository.save(sapIntegrationPointer);
-                         }
+                         response = postDocument(lieReportAndFee.getFileReference(), lieReportAndFee.getId(), "LIE Report & Fee", lieReportAndFee.getDocumentTitle());
                      }
+
+                     updateSAPIntegrationPointer(response,sapIntegrationPointer);
+
              }
          }
      }
 
-    private Object postDocument(String fileUUID,
+    private Object postDocument(String fileReference,
                                 String entityId,
                                 String entityName,
-                                byte [] documentContent,
-                                String mimeType,
-                                String fileName, String filePath ) throws IOException {
-        SAPDocumentAttachmentDetailsResource sapDocumentAttachmentDetailsResource = new SAPDocumentAttachmentDetailsResource();
+                                String fileName) throws IOException {
+
+        UUID fileUUID = UUID.fromString(fileReference);
+        byte[] file = fileStorage.download(fileUUID);
+        FileResource fileResource = fileStorage.getFile(fileUUID);
+        Optional<FilePointer> filePointer = fileStorage.findFile(fileUUID);
+        FilePointer fp = filePointer.get();
+
+        com.google.common.net.MediaType mediaType = fp.getMediaType().get();
+        //MediaType mediaType = (MediaType) mediaTypeOptional.get();
+
+        String mimeType = mediaType.toString();
+        String filePath = fileStorage.getFilePath(fileUUID);
+
+
+        SAPDocumentAttachmentResourceDetails sapDocumentAttachmentResourceDetails = new SAPDocumentAttachmentResourceDetails();
         if (mimeType == "")
             mimeType = "application/pdf";
 
-         sapDocumentAttachmentDetailsResource = sapDocumentAttachmentResource.mapToSAP(
-                fileUUID,
+         sapDocumentAttachmentResourceDetails = sapDocumentAttachmentResource.mapToSAP(
+                fileUUID.toString(),
                 entityId,
-                entityName,
-                documentContent.toString(),
+                entityName, file.toString(),
                 mimeType,
                 fileName );
 
-        sapDocumentAttachmentResource.setSapDocumentAttachmentDetailsResource(sapDocumentAttachmentDetailsResource);
+        sapDocumentAttachmentResource.setSapDocumentAttachmentResourceDetails(sapDocumentAttachmentResourceDetails);
         Object d1 = (Object) sapDocumentAttachmentResource;
 
-        MediaType mediaType = getMediaType(mimeType);
-
+        String fileType = new String();
         String [] mimeTypeParts = mimeType.split("\\/") ;
         mimeType = mimeTypeParts[1];
-        //mimeType.
+        fileType = mimeTypeParts[0];
 
         String documentUploadUri = monitorDocumentUri + "("
                 + "Id='" + fileUUID.toString() + "',"
@@ -219,14 +186,13 @@ public class LoanMonitoringScheduledTask {
                 + "EntityName='" +entityName +  "',"
                 + "MimeType='" +mimeType +  "',"
                 + "Filename='" +fileName +  "',"
+                + "FileType='" +fileType +  "',"
                 + ")/$value";
 
 
-        Object response =  fileUploadIntegrationService.fileUploadTest(documentUploadUri, filePath);
+        Object response =  fileUploadIntegrationService.fileUploadToSAP(documentUploadUri, filePath);
 
-       //  Object response =  fileUploadIntegrationService.fileUploadToSAP( fileName, documentContent,documentUploadUri,mediaType);
 
-       // Object response = fileUploadIntegrationService.fileUpload(documentContent,documentUploadUri);
 
         return  response;
     }
@@ -239,16 +205,36 @@ public class LoanMonitoringScheduledTask {
              case "application/pdf":
                  mediaType = MediaType.APPLICATION_PDF;
                  break;
-             case "application/jpg":
+             case "image/jpg":
                  mediaType = MediaType.IMAGE_JPEG;
                  break;
              case "text/plain":
                  mediaType = MediaType.TEXT_PLAIN;
                  break;
+             case "image/jpeg":
+                 mediaType = MediaType.IMAGE_JPEG;
          }
 
          return mediaType;
     }
+
+
+    private void updateSAPIntegrationPointer(Object response, SAPIntegrationPointer sapIntegrationPointer) {
+
+        if (response != null) {
+
+            if (response == null) {
+                //Set Status as Failed
+                sapIntegrationPointer.setStatus(2); // Posting Failed
+                sapIntegrationRepository.save(sapIntegrationPointer);
+            } else {
+                //Set Status as Posted Successfully
+                sapIntegrationPointer.setStatus(3); // Posting Successful
+                sapIntegrationRepository.save(sapIntegrationPointer);
+            }
+        }
+    }
+
 }
 
 

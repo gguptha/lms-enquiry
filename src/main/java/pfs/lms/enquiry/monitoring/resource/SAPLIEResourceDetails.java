@@ -13,11 +13,14 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class SAPLIEDetailsResource {
+public class SAPLIEResourceDetails {
 
 
-    @JsonProperty (value = "Id")
+    @JsonProperty (value = "LieId")
     private String id;
+
+    @JsonProperty (value = "MonitorId")
+    private String monitorId;
 
     @JsonProperty (value = "SerialNo")
     private Integer serialNumber;
@@ -49,12 +52,12 @@ public class SAPLIEDetailsResource {
     @JsonProperty (value = "Email")
     private String email;
 
-    public SAPLIEDetailsResource() {
+    public SAPLIEResourceDetails() {
     }
 
     @Override
     public String toString() {
-        return "SAPLIEDetailsResource{" +
+        return "SAPLIEResourceDetails{" +
                 "id='" + id + '\'' +
                 ", serialNumber=" + serialNumber +
                 ", bpCode='" + bpCode + '\'' +

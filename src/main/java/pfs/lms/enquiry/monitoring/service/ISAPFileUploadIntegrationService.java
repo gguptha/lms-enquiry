@@ -14,7 +14,7 @@ public interface ISAPFileUploadIntegrationService {
 
     Object fileUpload(byte[] documentConent, String serviceUrl) throws IOException;
 
-    Object fileUploadTest(String serviceUrl, String filePath);
+    Object fileUploadToSAP(String serviceUrl, String filePath);
 
 
  }

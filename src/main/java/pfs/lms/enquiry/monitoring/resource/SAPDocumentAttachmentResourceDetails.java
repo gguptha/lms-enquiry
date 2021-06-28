@@ -13,7 +13,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class SAPDocumentAttachmentDetailsResource {
+public class SAPDocumentAttachmentResourceDetails {
 
 
     @JsonProperty (value = "Id")
@@ -36,12 +36,12 @@ public class SAPDocumentAttachmentDetailsResource {
     private String filename;
 
 
-    public SAPDocumentAttachmentDetailsResource() {
+    public SAPDocumentAttachmentResourceDetails() {
     }
 
     @Override
     public String toString() {
-        return "SAPDocumentAttachmentDetailsResource{" +
+        return "SAPDocumentAttachmentResourceDetails{" +
                 "id='" + id + '\'' +
                 ", entityId=" + entityId +
                 ", entityName='" + entityName + '\'' +

@@ -18,20 +18,20 @@ public class SAPDocumentAttachmentResource implements Serializable {
 
 
     @JsonProperty(value = "d")
-    private SAPDocumentAttachmentDetailsResource sapDocumentAttachmentDetailsResource;
+    private SAPDocumentAttachmentResourceDetails sapDocumentAttachmentResourceDetails;
 
 
-//    public SAPDocumentAttachmentDetailsResource getSAPDocumentAttachmentResource() {
-//        return sapDocumentAttachmentDetailsResource;
+//    public SAPDocumentAttachmentResourceDetails getSAPDocumentAttachmentResource() {
+//        return sapDocumentAttachmentResourceDetails;
 //    }
 
-    public void setSapDocumentAttachmentDetailsResource(SAPDocumentAttachmentDetailsResource sapDocumentAttachmentDetailsResource) {
-        this.sapDocumentAttachmentDetailsResource = sapDocumentAttachmentDetailsResource;
+    public void setSapDocumentAttachmentResourceDetails(SAPDocumentAttachmentResourceDetails sapDocumentAttachmentResourceDetails) {
+        this.sapDocumentAttachmentResourceDetails = sapDocumentAttachmentResourceDetails;
     }
 
-    public SAPDocumentAttachmentDetailsResource mapToSAP(String id, String entityId, String entityName, String documentContent, String mimeType, String fileName) {
+    public SAPDocumentAttachmentResourceDetails mapToSAP(String id, String entityId, String entityName, String documentContent, String mimeType, String fileName) {
 
-        SAPDocumentAttachmentDetailsResource documentAttachmentDetailsResource = new SAPDocumentAttachmentDetailsResource();
+        SAPDocumentAttachmentResourceDetails documentAttachmentDetailsResource = new SAPDocumentAttachmentResourceDetails();
 
         documentAttachmentDetailsResource.setDocumentcontent(documentContent);
         documentAttachmentDetailsResource.setId(id);

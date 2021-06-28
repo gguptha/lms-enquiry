@@ -179,7 +179,7 @@ public class SAPFileUploadIntegrationService implements ISAPFileUploadIntegratio
     }
 
     @Override
-    public Object fileUploadTest(String serviceUrl, String filePath) {
+    public Object fileUploadToSAP(String serviceUrl, String filePath) {
 
         String url = baseUrl + serviceUrl + "?sap-client=" + client;
         log.info("THE URI : " + url.toString());

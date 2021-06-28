@@ -4,18 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
-import pfs.lms.enquiry.domain.LoanMonitor;
-import pfs.lms.enquiry.domain.Partner;
 import pfs.lms.enquiry.domain.User;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
-import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 
 @Component
 @JsonInclude (JsonInclude.Include.NON_NULL)
@@ -24,30 +18,29 @@ public class SAPLIEReportAndFeeResource implements Serializable   {
 
 
     public SAPLIEReportAndFeeResource() {
-        saplieReportAndFeeDetailsResource = new SAPLIEReportAndFeeDetailsResource();
+        saplieReportAndFeeResourceDetails = new SAPLIEReportAndFeeResourceDetails();
      }
 
     @JsonProperty(value = "d")
-    private SAPLIEReportAndFeeDetailsResource saplieReportAndFeeDetailsResource;
+    private SAPLIEReportAndFeeResourceDetails saplieReportAndFeeResourceDetails;
 
 
-    public SAPLIEReportAndFeeDetailsResource getSaplieReportAndFeeDetailsResource() {
-        return saplieReportAndFeeDetailsResource;
+    public SAPLIEReportAndFeeResourceDetails getSaplieReportAndFeeResourceDetails() {
+        return saplieReportAndFeeResourceDetails;
     }
 
-    public void setSaplieReportAndFeeDetailsResource(SAPLIEReportAndFeeDetailsResource saplieReportAndFeeDetailsResource) {
-        this.saplieReportAndFeeDetailsResource = saplieReportAndFeeDetailsResource;
+    public void setSaplieReportAndFeeResourceDetails(SAPLIEReportAndFeeResourceDetails saplieReportAndFeeResourceDetails) {
+        this.saplieReportAndFeeResourceDetails = saplieReportAndFeeResourceDetails;
     }
 
-    public SAPLIEReportAndFeeDetailsResource
+    public SAPLIEReportAndFeeResourceDetails
                     mapToSAP(LIEReportAndFee lieReportAndFee,
-                             byte[] documentContent,
                              User lastProcessedBy) throws ParseException {
 
         DataConversionUtility dataConversionUtility =  new DataConversionUtility();
 
 
-       SAPLIEReportAndFeeDetailsResource detailsResource= new SAPLIEReportAndFeeDetailsResource();
+       SAPLIEReportAndFeeResourceDetails detailsResource= new SAPLIEReportAndFeeResourceDetails();
 
         detailsResource.setId(lieReportAndFee.getId());
         detailsResource.setSerialNo(lieReportAndFee.getSerialNumber());
@@ -81,9 +74,7 @@ public class SAPLIEReportAndFeeResource implements Serializable   {
         //detailsResource.setDocumenttitle(lieReportAndFee.getDocumentTitle());
 
         detailsResource.setDocumenttitle("application/pdf");
-        //detailsResource.setDocumentcontent(documentContent);
-//        detailsResource.setFileName("File Name ");
-//        detailsResource.setMimeType("application/pdf");
+
 
 
         return detailsResource;

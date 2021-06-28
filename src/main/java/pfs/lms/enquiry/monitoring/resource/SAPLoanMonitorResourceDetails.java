@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class SAPLoanMonitorDetailsResource {
+public class SAPLoanMonitorResourceDetails {
 
     @JsonProperty (value = "LoanContract")
     private String loanContract;
@@ -206,7 +206,7 @@ public class SAPLoanMonitorDetailsResource {
     private String industrySector;
 
 
-    public SAPLoanMonitorDetailsResource() {
+    public SAPLoanMonitorResourceDetails() {
 
         this.loanContract = "";
         this.loanApplicationId = "";

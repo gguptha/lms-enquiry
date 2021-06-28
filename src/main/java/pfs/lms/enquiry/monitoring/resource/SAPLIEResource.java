@@ -18,28 +18,29 @@ public class SAPLIEResource implements Serializable   {
 
 
     public SAPLIEResource() {
-        saplieDetailsResource = new SAPLIEDetailsResource();
+        saplieResourceDetails = new SAPLIEResourceDetails();
     }
 
     @JsonProperty(value = "d")
-    private SAPLIEDetailsResource saplieDetailsResource;
+    private SAPLIEResourceDetails saplieResourceDetails;
 
 
-    public SAPLIEDetailsResource getSaplieDetailsResource() {
-        return saplieDetailsResource;
+    public SAPLIEResourceDetails getSaplieResourceDetails() {
+        return saplieResourceDetails;
     }
 
-    public void setSaplieDetailsResource(SAPLIEDetailsResource saplieDetailsResource) {
-        this.saplieDetailsResource = saplieDetailsResource;
+    public void setSaplieResourceDetails(SAPLIEResourceDetails saplieResourceDetails) {
+        this.saplieResourceDetails = saplieResourceDetails;
     }
 
-    public SAPLIEDetailsResource
+    public SAPLIEResourceDetails
                     mapToSAP(LendersIndependentEngineer lendersIndependentEngineer, User lastProcessedBy) throws ParseException {
         DataConversionUtility dataConversionUtility =  new DataConversionUtility();
 
-       SAPLIEDetailsResource detailsResource= new SAPLIEDetailsResource();
+       SAPLIEResourceDetails detailsResource= new SAPLIEResourceDetails();
 
         detailsResource.setId(lendersIndependentEngineer.getId());
+        detailsResource.setMonitorId(lendersIndependentEngineer.getLoanMonitor().getId().toString());
         detailsResource.setSerialNumber(lendersIndependentEngineer.getSerialNumber());
         detailsResource.setBpCode(lendersIndependentEngineer.getBpCode());
         detailsResource.setName(lendersIndependentEngineer.getName());

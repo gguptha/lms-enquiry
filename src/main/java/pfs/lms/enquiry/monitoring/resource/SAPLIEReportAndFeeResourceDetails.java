@@ -14,7 +14,7 @@ import org.joda.time.DateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class SAPLIEReportAndFeeDetailsResource {
+public class SAPLIEReportAndFeeResourceDetails {
 
 
 
@@ -64,15 +64,9 @@ public class SAPLIEReportAndFeeDetailsResource {
     @JsonProperty (value = "Nextreportdate")
     private String nextreportdate;
 
-//    @JsonProperty (value = "FileName")
-//    private String fileName;
-//
-//    @JsonProperty(value = "MimeType")
-//    private String mimeType;
-
     @Override
     public String toString() {
-        return "SAPLIEReportAndFeeDetailsResource{" +
+        return "SAPLIEReportAndFeeResourceDetails{" +
                 "id='" + id + '\'' +
                 ", lieId='" + lieId + '\'' +
                 ", serialNo=" + serialNo +
