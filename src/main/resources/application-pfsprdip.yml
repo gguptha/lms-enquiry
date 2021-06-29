@@ -34,6 +34,15 @@ spring:
         auth: true
         starttls.enable: true
         ssl.trust: smtp.office365.com
+  activiti:
+    activiti5CompatibilityEnabled: true
+    mail-server-host: smtp.office365.com
+    mail-server-port: 587
+    mail-server-user-name: pfs.sap@ptcfinancial.com
+    mail-server-password: Sap$#!%*@admin&369!&*
+    mail-server-default-from: pfs.sap@ptcfinancial.com
+    mail-server-use-tls: true
+    database-schema-update: true
 oauth:
   baseUrl: http://192.168.1.247:9999/auth
 sap:
