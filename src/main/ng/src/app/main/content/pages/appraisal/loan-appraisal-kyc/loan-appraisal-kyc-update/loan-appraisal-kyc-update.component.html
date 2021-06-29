@@ -27,12 +27,12 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput [matDatepicker]="picker1" placeholder="Date of Completion" formControlName="dateOfCompletion" readonly>
+                    <input matInput [matDatepicker]="picker1" placeholder="Date of Completion" formControlName="dateOfCompletion" readonly required>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker> 
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Remarks" formControlName="remarks">
+                    <input matInput placeholder="Remarks" formControlName="remarks" required>
                 </mat-form-field>
             </div>
             <div fxLayout="row">

@@ -86,7 +86,7 @@ export class LoanPartnerUpdateComponent implements OnInit {
             else {
                 this.selectedLoanOfficer.loanApplicationId = this._dialogData.loanApplicationId;
                 this._loanAppraisalService.createLoanOfficer(this.selectedLoanOfficer).subscribe(response => {
-                    this._matSnackBar.open('Loan partner created successfully.', 'OK', { duration: 7000 });
+                    this._matSnackBar.open('Loan partner added successfully.', 'OK', { duration: 7000 });
                     this._dialogRef.close({ 'refresh': true });
                 });
             }
