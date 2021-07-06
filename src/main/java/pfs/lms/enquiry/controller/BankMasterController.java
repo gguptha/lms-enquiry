@@ -47,8 +47,11 @@ public class BankMasterController {
     @PostMapping(value = "/bankmaster")
     public ResponseEntity<BankMaster> createBankMaster(@RequestBody BankMaster bankMaster, HttpServletRequest request) {
 
+        System.out.println("Uploading Bank Master....." + bankMaster.toString() );
+        System.out.println("Uploading Bank Master....." + bankMaster.getBankKey() + ":" + bankMaster.getBankKey() );
+
         BankMaster existingbankMaster = bankMasterRepository.findBankMasterByBankCountryKeyAndBankKey(bankMaster.getBankCountryKey(), bankMaster.getBankKey());
-        System.out.println("Uploading Bank Master....."); bankMaster.toString();
+
         if (existingbankMaster != null) {
             existingbankMaster.setCreationDate(DateTime.now().toString());
             existingbankMaster.setCreatedBy(request.getUserPrincipal().getName());
