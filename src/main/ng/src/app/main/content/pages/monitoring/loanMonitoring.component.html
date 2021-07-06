@@ -383,7 +383,7 @@
         
             <!-- Project Monitoring Data Tab - Starts Here -->
             <mat-tab label="Project Monitoring">
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
+                <!-- <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
                     <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateProjectMonitoringData()"> 
                         Modify
                     </button>
@@ -391,9 +391,9 @@
                             [disabled]="selectedFinancialCovenants.id == ''"> 
                         View History
                     </button>
-                </div>            
+                </div>             -->
                 <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
-                    <fuse-financial-covenants-list [financialCovenantsList]="financialCovenantsList"></fuse-financial-covenants-list>
+                    <fuse-project-monitoring-data></fuse-project-monitoring-data>
                 </div>
             </mat-tab>
             <!-- Project Monitoring Data Tab - Ends Here -->

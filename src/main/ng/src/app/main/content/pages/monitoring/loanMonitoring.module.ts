@@ -47,6 +47,7 @@ import { OperatingParameterUpdateDialogComponent } from './operatingParameter/op
 import { OperatingParameterListComponent } from './operatingParameter/operatingParameterList/operatingParameterList.component';
 import { OperatingParameterPLFUpdateDialogComponent } from './operatingParameterPLF/operatingParameterPLFUpdate/operatingParameterPLFUpdate.component';
 import { OperatingParameterPLFListComponent } from './operatingParameterPLF/operatingParameterPLFList/operatingParameterPLFList.component';
+import { ProjectMonitoringDataComponent } from './projectMonitoringData/projectMonitoringData.component';
 
 const routes = [
     {
@@ -125,7 +126,8 @@ const MY_FORMATS = {
         OperatingParameterListComponent,
         OperatingParameterUpdateDialogComponent,
         OperatingParameterPLFListComponent,
-        OperatingParameterPLFUpdateDialogComponent
+        OperatingParameterPLFUpdateDialogComponent,
+        ProjectMonitoringDataComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -170,7 +172,8 @@ const MY_FORMATS = {
         OperatingParameterListComponent,
         OperatingParameterUpdateDialogComponent,
         OperatingParameterPLFListComponent,
-        OperatingParameterPLFUpdateDialogComponent
+        OperatingParameterPLFUpdateDialogComponent,
+        ProjectMonitoringDataComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -204,7 +207,8 @@ const MY_FORMATS = {
         OperatingParameterListComponent,
         OperatingParameterUpdateDialogComponent,
         OperatingParameterPLFListComponent,
-        OperatingParameterPLFUpdateDialogComponent
+        OperatingParameterPLFUpdateDialogComponent,
+        ProjectMonitoringDataComponent
     ]
 })
 export class LoanMonitoringModule {
