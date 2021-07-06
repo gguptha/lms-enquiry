@@ -1,4 +1,4 @@
-package pfs.lms.enquiry.monitoring.promoterFinancials;
+package pfs.lms.enquiry.monitoring.promoterfinancials;
 
 import lombok.*;
 import pfs.lms.enquiry.domain.AbstractEntity;
@@ -6,7 +6,6 @@ import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.time.LocalDate;
 
 @Entity

@@ -300,6 +300,16 @@ export class LoanMonitoringService implements Resolve<any> {
         return this._http.put(url, { 'loanApplicationId':'', 'operatingParameterPLF':operatingParameterPLF });
     }
 
+    // All about Project Monitoring Data
+
+    public getProjectMonitoringData(loanApplicationId: string): Observable<any> {
+        return this._http.get('enquiry/api/projectMonitoringDatas/loanApplication/' + loanApplicationId);
+    }
+
+    public saveProjectMonitoringData(loanApplicationId: string): Observable<any> {
+        return this._http.post('enquiry/api/projectMonitoringDatas/loanApplication/' + loanApplicationId, {});
+    }
+
     // Others
 
     public searchLoanEnquiries(request: any): Observable<any> {

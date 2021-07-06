@@ -1,4 +1,4 @@
-package pfs.lms.enquiry.monitoring.operatingParameters;
+package pfs.lms.enquiry.monitoring.operatingparameters;
 
 import lombok.*;
 import pfs.lms.enquiry.domain.AbstractEntity;
