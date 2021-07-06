@@ -227,44 +227,13 @@ public class SAPLoanMonitoringIntegrationService implements ISAPLoanMonitoringIn
         System.out.println("THE REQUEST : " + requestToPost.toString());
         System.out.println("THE PAYLOAD : " + resource.toString());
 
-
         ResponseEntity responseEntity; // = new ResponseEntity();
-//        MappingJackson2HttpMessageConverter jsonHttpMessageConverter = new MappingJackson2HttpMessageConverter();
-//
-//        jsonHttpMessageConverter.getObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-//        restTemplate.getMessageConverters().add(jsonHttpMessageConverter);
-//
-//        List<MediaType> supportedApplicationTypes = new ArrayList<>();
-//        MediaType pdfApplication = new MediaType("application","pdf");
-//        supportedApplicationTypes.add(pdfApplication);
-//        ByteArrayHttpMessageConverter byteArrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
-//
-//        MediaType jsonApplication = new MediaType("application","json");
-//        supportedApplicationTypes.add(pdfApplication);
-//        ByteArrayHttpMessageConverter byteArrayHttpMessageConverterJSON = new ByteArrayHttpMessageConverter();
-//
-//         MediaType textApplication = new MediaType("text","plain");
-//        supportedApplicationTypes.add(pdfApplication);
-//        ByteArrayHttpMessageConverter byteArrayHttpMessageConverterText = new ByteArrayHttpMessageConverter();
-//
-//
-//        byteArrayHttpMessageConverter.setSupportedMediaTypes(supportedApplicationTypes);
-//        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-//        messageConverters.add(byteArrayHttpMessageConverter);
-//        messageConverters.add(byteArrayHttpMessageConverterText);
-//        messageConverters.add(byteArrayHttpMessageConverterJSON);
-
-
-
-//        restTemplate.setMessageConverters(messageConverters);
-
-
 
             try{
 
                 responseEntity =
                         restTemplate.exchange(postURL, httpMethod, requestToPost, Object.class);
-
+                log.info("HTTP Code :" + responseEntity.getStatusCodeValue());
 
         } catch (HttpClientErrorException ex) {
 

@@ -22,7 +22,7 @@ public class SAPInterestRateResourceDetails {
     private String monitorId;
 
     @JsonProperty(value = "SerialNo")
-    private String serialNo;
+    private Integer serialNo;
 
     @JsonProperty(value = "Particulars")
     private String particulars;

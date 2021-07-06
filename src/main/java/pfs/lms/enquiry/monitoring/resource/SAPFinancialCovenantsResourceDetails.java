@@ -24,7 +24,7 @@ public class SAPFinancialCovenantsResourceDetails {
     private String monitorId;
 
     @JsonProperty(value = "SerialNo")
-    private String serialNo;
+    private Integer serialNo;
 
     @JsonProperty(value = "Financialcovenanttype")
     private String financialcovenanttype;

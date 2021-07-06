@@ -21,6 +21,7 @@ public class TrustRetentionAccount extends AbstractEntity implements  Cloneable{
     private LoanMonitor loanMonitor;
 
     private Integer serialNumber;
+
     private String bankKey;
 
     private String traBankName;

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 /**
  * Created by sajeev on 28-Jun-21.
  */
@@ -13,33 +15,33 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class SAPTermsAndConditionsModificationDetails {
+public class SAPTRAStatementResourceDetails {
+
 
     @JsonProperty(value = "Id")
     private String id;
 
-    @JsonProperty(value = "MonitorId")
-    private String monitorId;
+    @JsonProperty(value = "TraId")
+    private String traId;
 
     @JsonProperty(value = "SerialNo")
     private Integer serialNo;
 
-    @JsonProperty(value = "Documenttype")
-    private String documenttype;
-
-    @JsonProperty(value = "DocumentTitle")
-    private String documentTitle;
-
-    @JsonProperty(value = "Communication")
-    private String communication;
-
-    @JsonProperty(value = "Borrowerrequestletterdate")
-    private String borrowerrequestletterdate;
-
-    @JsonProperty(value = "Dateofissueofamendedsanctionle")
-    private String dateofissueofamendedsanctionle;
-
+    @JsonProperty(value = "Viewrights")
+    private String viewrights;
     @JsonProperty(value = "Remarks")
     private String remarks;
+    @JsonProperty(value = "Traaccountnumber")
+    private String traaccountnumber;
+
+    @JsonProperty(value = "PeriodQuarter")
+    private String periodQuarter;
+    @JsonProperty(value = "PeriodYear")
+    private String periodYear;
+    @JsonProperty(value = "Documenttype")
+    private String documenttype;
+    @JsonProperty(value = "Documenttitle")
+    private String documenttitle;
+
 
 }

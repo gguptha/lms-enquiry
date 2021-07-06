@@ -13,7 +13,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class SAPProjectMonitoringHistoryDetails {
+public class SAPProjectMonitoringHistoryResourceDetails {
 
     @JsonProperty(value = "Id")
     private String id;
@@ -22,7 +22,7 @@ public class SAPProjectMonitoringHistoryDetails {
     private String monitorId;
 
     @JsonProperty(value = "Serialno")
-    private String serialNo;
+    private Integer serialNo;
 
     @JsonProperty(value = "Particulars")
     private String particulars;
@@ -32,6 +32,9 @@ public class SAPProjectMonitoringHistoryDetails {
 
     @JsonProperty(value = "Reviseddata1")
     private String reviseddata1;
+
+    @JsonProperty(value = "Reviseddata2")
+    private String reviseddata2;
 
     @JsonProperty(value = "Remarks")
     private Double remarks;

@@ -22,7 +22,7 @@ public class SAPPromoterFinancialResourceDetails {
     private String monitorId;
 
     @JsonProperty(value = "SerialNo")
-    private String serialNo;
+    private Integer serialNo;
 
     @JsonProperty(value = "Fiscalyear")
     private String fiscalyear;

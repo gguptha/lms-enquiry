@@ -22,34 +22,38 @@ public class SAPSecurityComplianceResourceDetails {
     private String monitorId;
 
     @JsonProperty(value = "SerialNo")
-    private String serialNo;
+    private Integer serialNo;
 
-    @JsonProperty(value = "zcollateralType")
+    @JsonProperty(value = "ZcollateralType")
     private String zcollateralType;
+
+    @JsonProperty(value = "ZConditionDesc")
+    private String zConditionDesc;
+
 
     @JsonProperty(value = "ZapplEryDisbur")
     private Boolean zapplEryDisbur;
 
     @JsonProperty(value = "ZresponParty")
-    private Double zresponParty;
+    private String zresponParty;
 
     @JsonProperty(value = "ZcondCat")
-    private Double  zcondCat;
+    private String  zcondCat;
 
     @JsonProperty(value = "ZmasterCond")
     private String  zmasterCond;
 
     @JsonProperty(value = "ZsecNoOfUnits")
-    private Double  zsecNoOfUnits;
+    private String  zsecNoOfUnits;
 
     @JsonProperty(value = "ZsecValue")
-    private Double zsecValue;
+    private String zsecValue;
 
     @JsonProperty(value = "ZsecValueCurr")
     private String zsecValueCurr;
 
-    @JsonProperty(value = "zsecPctHolding")
-    private Double zsecPctHolding  ;
+    @JsonProperty(value = "ZsecPctHolding")
+    private String zsecPctHolding  ;
 
     @JsonProperty(value = "ZcolSecType")
     private String  zcolSecType;
@@ -95,11 +99,11 @@ public class SAPSecurityComplianceResourceDetails {
     private String zcolAddtlText;
 
     @JsonProperty(value = "ZreArea")
-    private Double zreArea  ;
+    private String zreArea  ;
 
 
     @JsonProperty(value = "ZreAreaUom")
-    private Double zreAreaUom  ;
+    private String zreAreaUom  ;
 
 
 }

@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
+import lombok.ToString;
 
 /**
  * Created by sajeev on 28-Jun-21.
@@ -15,7 +14,8 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class SAPProjectMonitoringDetails {
+@ToString
+public class SAPPromoterDetailsResourceDetails {
 
     @JsonProperty(value = "Id")
     private String id;
@@ -23,24 +23,11 @@ public class SAPProjectMonitoringDetails {
     @JsonProperty(value = "MonitorId")
     private String monitorId;
 
-    @JsonProperty(value = "Serialno")
-    private String serialNo;
+    @JsonProperty(value = "Dateofchange")
+    private String dateofchange;
 
-    @JsonProperty(value = "Particulars")
-    private String Particulars;
-
-    @JsonProperty(value = "Dateofentry")
-    private String dateofentry;
-
-    @JsonProperty(value = "Reviseddata1")
-    private String reviseddata1;
-
-    @JsonProperty(value = "Reviseddata2")
-    private String reviseddata2;
-
-    @JsonProperty(value = "Remarks")
-    private String remarks;
-
+    @JsonProperty(value = "Groupexposure")
+    private Double groupexposure;
 
 
 

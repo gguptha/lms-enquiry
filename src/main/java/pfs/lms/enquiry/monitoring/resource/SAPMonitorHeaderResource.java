@@ -33,7 +33,7 @@ public class SAPMonitorHeaderResource implements Serializable   {
 
 
     public SAPMonitorHeaderResourceDetails
-                    mapLoanMonitorToSAP(LoanMonitor loanMonitor, Partner partner, User lastProcessedBy) throws ParseException {
+                    mapLoanMonitorToSAP(LoanMonitor loanMonitor ) throws ParseException {
 
         SAPMonitorHeaderResourceDetails detailsResource = new SAPMonitorHeaderResourceDetails();
 

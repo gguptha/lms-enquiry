@@ -27,6 +27,7 @@ public abstract class AggregateRoot<A extends AbstractAggregateRoot<A>> extends 
 
     @Id
     @Type(type = "uuid-char")
+    @NonNull
     protected UUID id;
 
     @Version

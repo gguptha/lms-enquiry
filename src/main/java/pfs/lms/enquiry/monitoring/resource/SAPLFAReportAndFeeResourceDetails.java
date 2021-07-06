@@ -29,7 +29,7 @@ public class SAPLFAReportAndFeeResourceDetails {
     @JsonProperty (value = "Reporttype")
     private String reporttype;
 
-    @JsonProperty (value = "Dateofreceipt")
+    @JsonProperty (value = "Qtryr")
     private String dateofreceipt;
 
     @JsonProperty (value = "Invoicedate")

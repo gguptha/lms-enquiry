@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * Created by sajeev on 28-Jun-21.
  */
@@ -13,7 +15,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class SAPTermsAndConditionsModificationDetails {
+public class SAPProjectMonitoringResourceDetails {
 
     @JsonProperty(value = "Id")
     private String id;
@@ -21,25 +23,25 @@ public class SAPTermsAndConditionsModificationDetails {
     @JsonProperty(value = "MonitorId")
     private String monitorId;
 
-    @JsonProperty(value = "SerialNo")
+    @JsonProperty(value = "Serialno")
     private Integer serialNo;
 
-    @JsonProperty(value = "Documenttype")
-    private String documenttype;
+    @JsonProperty(value = "Particulars")
+    private String Particulars;
 
-    @JsonProperty(value = "DocumentTitle")
-    private String documentTitle;
+    @JsonProperty(value = "Dateofentry")
+    private String dateofentry;
 
-    @JsonProperty(value = "Communication")
-    private String communication;
+    @JsonProperty(value = "Reviseddata1")
+    private String reviseddata1;
 
-    @JsonProperty(value = "Borrowerrequestletterdate")
-    private String borrowerrequestletterdate;
-
-    @JsonProperty(value = "Dateofissueofamendedsanctionle")
-    private String dateofissueofamendedsanctionle;
+    @JsonProperty(value = "Reviseddata2")
+    private String reviseddata2;
 
     @JsonProperty(value = "Remarks")
     private String remarks;
+
+
+
 
 }

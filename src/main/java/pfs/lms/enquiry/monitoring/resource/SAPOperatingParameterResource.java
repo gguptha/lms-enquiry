@@ -1,6 +1,9 @@
 package pfs.lms.enquiry.monitoring.resource;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.stereotype.Component;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
 import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameter;
 import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterPLFResource;
@@ -11,16 +14,22 @@ import java.text.ParseException;
 /**
  * Created by sajeev on 28-Jun-21.
  */
+@Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SAPOperatingParameterResource {
 
     @JsonProperty(value = "d")
     private SAPOperatingParameterResourceDetails sapOperatingParameterResourceDetails;
 
-    public SAPOperatingParameterResource(SAPOperatingParameterResourceDetails sapOperatingParameterResourceDetails) {
-        this.sapOperatingParameterResourceDetails = sapOperatingParameterResourceDetails;
+
+    public SAPOperatingParameterResourceDetails getSapOperatingParameterResourceDetails() {
+        return sapOperatingParameterResourceDetails;
     }
 
-
+    public void setSapOperatingParameterResourceDetails(SAPOperatingParameterResourceDetails sapOperatingParameterResourceDetails) {
+        this.sapOperatingParameterResourceDetails = sapOperatingParameterResourceDetails;
+    }
 
     public SAPOperatingParameterResourceDetails mapToSAP(OperatingParameter operatingParameter) throws ParseException {
 
@@ -30,7 +39,7 @@ public class SAPOperatingParameterResource {
 
         detailedResource.setId(operatingParameter.getId());
         detailedResource.setMonitorId(operatingParameter.getLoanMonitor().getId().toString());
-        detailedResource.setSerialNo(operatingParameter.getSerialNumber().toString());
+        detailedResource.setSerialNo(operatingParameter.getSerialNumber() );
 
         if (operatingParameter.getDateOfInvoice() != null)
              detailedResource.setInoviceDate(dataConversionUtility.convertDateToSAPFormat(operatingParameter.getDateOfInvoice()));
@@ -42,19 +51,53 @@ public class SAPOperatingParameterResource {
         } else
             detailedResource.setDatePayment(null);
 
-//        if(operatingParameter.getDateOfPaymentReceipt() != null) {
-//            detailedResource.setNextduedateofexternalrating(dataConversionUtility.convertDateToSAPFormat(borrowerFinancials.getNextDueDateOfExternalRating()));
+
+
+
+        detailedResource.setMonthYear(operatingParameter.getMonth().toString() + ".") ; //TODO - ADD YEAR  + operatingParameter.get );
+        detailedResource.setExportUnit(operatingParameter.getExportNetGeneration().toString());
+
+        detailedResource.setExportUnit("");
+
+        detailedResource.setPlfPercent(String.format("%.2f",operatingParameter.getPlfCufActual()));
+        detailedResource.setAppliTariff(String.format("%.2f",operatingParameter.getApplicableTariff()));
+        detailedResource.setRevenue( String.format("%.2f", operatingParameter.getRevenue()));
+
+
+        if(operatingParameter.getDateOfInvoice() != null) {
+            detailedResource.setInoviceDate(dataConversionUtility.convertDateToSAPFormat(operatingParameter.getDateOfInvoice()));
+        } else
+            detailedResource.setInoviceDate(null);
+
+        if(operatingParameter.getDateOfPaymentReceipt() != null) {
+            detailedResource.setDatePayment(dataConversionUtility.convertDateToSAPFormat(operatingParameter.getDateOfPaymentReceipt()));
+        } else
+            detailedResource.setDatePayment(null);
+
+        detailedResource.setCo2Emission(String.format("%.2f",operatingParameter.getCarbonDiOxideEmission()));
+        detailedResource.setWaterSaved(String.format("%2f",operatingParameter.getWaterSaved()));
+        detailedResource.setExportUnit(String.format("%2f",operatingParameter.getExportNetGeneration()));
+
+//        if(operatingParameter.getRe() != null) {
+//            detailedResource.setDatePayment(dataConversionUtility.convertDateToSAPFormat(operatingParameter.getDateOfPaymentReceipt()));
 //        } else
-//            detailedResource.setNextduedateofexternalrating(null);
+//            detailedResource.setDatePayment(null);
 
 
-        detailedResource.setMonthYear(operatingParameter.getMonth().toString()  );
-        detailedResource.setExportUnit(operatingParameter.getExportNetGeneration());
-        detailedResource.setPlfPercent(operatingParameter.getPlfCufActual());
-        detailedResource.setAppliTariff(operatingParameter.getApplicableTariff());
-        detailedResource.setRevenue(operatingParameter.getRevenue());
-        detailedResource.setCo2Emission(operatingParameter.getCarbonDiOxideEmission().toString());
-        detailedResource.setWaterSaved(operatingParameter.getWaterSaved().toString());
+        detailedResource.setFileType(operatingParameter.getDocumentType());
+
+
+//        if(operatingParameter.get() != null) {
+//            detailedResource.setDatePayment(dataConversionUtility.convertDateToSAPFormat(operatingParameter.getDateOfPaymentReceipt()));
+//        } else
+            detailedResource.setReceivedDate(null);
+            detailedResource.setAvgRealisationPeriod(null);
+            detailedResource.setFileType("");
+
+
+//        detailedResource.setOverallrating(operatingParameter.getR);
+//        detailedResource.setAvgRealisationPeriod(operatingParameter.getA());
+//        detailedResource.setRevenue(operatingParameter.getRevenue());
 
         //detailedResource.setFileType(operatingParameter.getFileReference().);
         //detailedResource.setAvgRealisationPeriod(operatingParameter.;

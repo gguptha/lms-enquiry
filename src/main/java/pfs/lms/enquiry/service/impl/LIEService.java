@@ -51,7 +51,7 @@ public class LIEService implements ILIEService {
                 loanMonitor,
                 "Created",
                 username,
-                "Monitoring ", "Header");
+                "Monitoring", "Header");
 
 
         LendersIndependentEngineer lendersIndependentEngineer = resource.getLendersIndependentEngineer();

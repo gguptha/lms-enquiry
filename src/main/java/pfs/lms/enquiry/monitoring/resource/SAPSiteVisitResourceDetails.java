@@ -22,7 +22,7 @@ public class SAPSiteVisitResourceDetails {
     private String monitorId;
 
     @JsonProperty(value = "SerialNo")
-    private String serialNo;
+    private Integer serialNo;
 
     @JsonProperty(value = "Actualcod")
     private String actualcod;

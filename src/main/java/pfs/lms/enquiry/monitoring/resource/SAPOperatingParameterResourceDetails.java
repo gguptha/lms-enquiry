@@ -22,22 +22,22 @@ public class SAPOperatingParameterResourceDetails {
     private String monitorId;
 
     @JsonProperty(value = "SerialNo")
-    private String serialNo;
+    private Integer serialNo;
 
     @JsonProperty(value = "MonthYear")
     private String monthYear;
 
     @JsonProperty(value = "ExportUnit")
-    private Double exportUnit;
+    private String exportUnit;
 
     @JsonProperty(value = "PlfPercent")
-    private Double plfPercent;
+    private String plfPercent;
 
     @JsonProperty(value = "AppliTariff")
-    private Double appliTariff;
+    private String appliTariff;
 
     @JsonProperty(value = "Revenue")
-    private Double revenue;
+    private String revenue;
 
     @JsonProperty(value = "InoviceDate")
     private String inoviceDate;
@@ -60,8 +60,8 @@ public class SAPOperatingParameterResourceDetails {
     @JsonProperty(value = "ReceivedDate")
     private String receivedDate;
 
-    @JsonProperty(value = "Overallrating")
-    private String overallrating;
+//    @JsonProperty(value = "Overallrating")
+//    private String overallrating;
 
 
     @JsonProperty(value = "AvgRealisationPeriod")

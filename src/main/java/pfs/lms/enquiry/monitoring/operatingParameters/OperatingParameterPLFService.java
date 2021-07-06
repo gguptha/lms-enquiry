@@ -40,7 +40,7 @@ public class OperatingParameterPLFService implements IOperatingParameterPLFServi
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header" );
+                    "Monitoring", "Header" );
         }
         OperatingParameterPLF operatingParameterPLF = resource.getOperatingParameterPLF();
         operatingParameterPLF.setLoanMonitor(loanMonitor);
@@ -55,7 +55,7 @@ public class OperatingParameterPLFService implements IOperatingParameterPLFServi
                 operatingParameterPLF,
                 "Created",
                 username,
-                "Monitoring ", "Operating Parameter" );
+                "Monitoring", "Operating Parameter PLF" );
 
         return operatingParameterPLF;
 
@@ -84,7 +84,7 @@ public class OperatingParameterPLFService implements IOperatingParameterPLFServi
                 existingOperatingParameterPLF,
                 "Updated",
                 username,
-                "Monitoring ", "Operating Parameter");
+                "Monitoring", "Operating Parameter PLF");
 
         return existingOperatingParameterPLF;
     }

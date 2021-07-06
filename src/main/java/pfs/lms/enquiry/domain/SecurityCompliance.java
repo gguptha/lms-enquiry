@@ -55,15 +55,17 @@ public class SecurityCompliance extends AbstractEntity implements Cloneable {
 
     private String additionalText;
 
-    private Integer realEstateLandArea;
+    private Double realEstateLandArea;
 
-    private String areaUnitOfMeasure;
+   private String areaUnitOfMeasure;
 
     private Integer securityNoOfUnits;
 
     private Double securityFaceValueAmount;
 
     private Double holdingPercentage;
+
+    private String validityPeriod;
 
 
     public Object clone () throws CloneNotSupportedException {
