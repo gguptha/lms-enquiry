@@ -2,6 +2,7 @@ package pfs.lms.enquiry.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,8 @@ public class BankMasterController {
         BankMaster existingbankMaster = bankMasterRepository.findBankMasterByBankCountryKeyAndBankKey(bankMaster.getBankCountryKey(), bankMaster.getBankKey());
         System.out.println("Uploading Bank Master....."); bankMaster.toString();
         if (existingbankMaster != null) {
+            existingbankMaster.setCreationDate(DateTime.now().toString());
+            existingbankMaster.setCreatedBy(request.getUserPrincipal().getName());
             existingbankMaster.setCreatedBy(bankMaster.getCreatedBy());
             existingbankMaster.setCreationDate(bankMaster.getCreationDate());
             existingbankMaster.setBankName(bankMaster.getBankName());
@@ -76,6 +79,8 @@ public class BankMasterController {
             return ResponseEntity.ok(existingbankMaster);
         }
 
+        bankMaster.setCreationDate(DateTime.now().toString());
+        bankMaster.setCreatedBy(request.getUserPrincipal().getName());
         bankMaster = bankMasterRepository.save(bankMaster);
         return  ResponseEntity.ok(bankMaster);
     }
