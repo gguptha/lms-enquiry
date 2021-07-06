@@ -18,6 +18,7 @@ import pfs.lms.enquiry.repository.BankMasterRepository;
 import pfs.lms.enquiry.service.IBankMasterService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,8 +54,8 @@ public class BankMasterController {
         BankMaster existingbankMaster = bankMasterRepository.findBankMasterByBankCountryKeyAndBankKey(bankMaster.getBankCountryKey(), bankMaster.getBankKey());
 
         if (existingbankMaster != null) {
-            existingbankMaster.setCreationDate(DateTime.now().toString());
-            existingbankMaster.setCreatedBy(request.getUserPrincipal().getName());
+            existingbankMaster.setUpdatedAt(new Date());
+
             existingbankMaster.setCreatedBy(bankMaster.getCreatedBy());
             existingbankMaster.setCreationDate(bankMaster.getCreationDate());
             existingbankMaster.setBankName(bankMaster.getBankName());
@@ -82,6 +83,7 @@ public class BankMasterController {
             return ResponseEntity.ok(existingbankMaster);
         }
 
+        bankMaster.setCreatedAt(new Date() );
         bankMaster.setCreationDate(DateTime.now().toString());
         bankMaster.setCreatedBy(request.getUserPrincipal().getName());
         bankMaster = bankMasterRepository.save(bankMaster);
