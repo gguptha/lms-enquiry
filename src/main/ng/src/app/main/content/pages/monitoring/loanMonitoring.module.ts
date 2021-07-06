@@ -47,7 +47,8 @@ import { OperatingParameterUpdateDialogComponent } from './operatingParameter/op
 import { OperatingParameterListComponent } from './operatingParameter/operatingParameterList/operatingParameterList.component';
 import { OperatingParameterPLFUpdateDialogComponent } from './operatingParameterPLF/operatingParameterPLFUpdate/operatingParameterPLFUpdate.component';
 import { OperatingParameterPLFListComponent } from './operatingParameterPLF/operatingParameterPLFList/operatingParameterPLFList.component';
-import { ProjectMonitoringDataComponent } from './projectMonitoringData/projectMonitoringData.component';
+import { ProjectMonitoringDataItemListComponent } from './projectMonitoringData/projectMonitoringDataItemList/projectMonitoringDataItemList.component';
+import { ProjectMonitoringDataItemUpdateComponent } from './projectMonitoringData/projectMonitoringDataItemUpdate/projectMonitoringDataItemUpdate.component';
 
 const routes = [
     {
@@ -127,7 +128,8 @@ const MY_FORMATS = {
         OperatingParameterUpdateDialogComponent,
         OperatingParameterPLFListComponent,
         OperatingParameterPLFUpdateDialogComponent,
-        ProjectMonitoringDataComponent
+        ProjectMonitoringDataItemListComponent,
+        ProjectMonitoringDataItemUpdateComponent
     ],
     providers: [
         LoanEnquiryService,
@@ -173,7 +175,8 @@ const MY_FORMATS = {
         OperatingParameterUpdateDialogComponent,
         OperatingParameterPLFListComponent,
         OperatingParameterPLFUpdateDialogComponent,
-        ProjectMonitoringDataComponent
+        ProjectMonitoringDataItemListComponent,
+        ProjectMonitoringDataItemUpdateComponent
     ],  
     entryComponents: [
         LIEListComponent,
@@ -208,7 +211,8 @@ const MY_FORMATS = {
         OperatingParameterUpdateDialogComponent,
         OperatingParameterPLFListComponent,
         OperatingParameterPLFUpdateDialogComponent,
-        ProjectMonitoringDataComponent
+        ProjectMonitoringDataItemListComponent,
+        ProjectMonitoringDataItemUpdateComponent
     ]
 })
 export class LoanMonitoringModule {

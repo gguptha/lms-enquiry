@@ -194,18 +194,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getOperatingParameterPLFs(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterPLFList = data;
                 })
-                // getProjectMonitoringData
-                _loanMonitoringService.getProjectMonitoringData(this.loanApplicationId).subscribe(data => {
-                    if (data === null) {
-                        _loanMonitoringService.saveProjectMonitoringData(this.loanApplicationId).subscribe(response => {
-                            this.selectedProjectMonitoringData = response;
-                            console.log(this.selectedProjectMonitoringData, 'this.selectedProjectMonitoringData');
-                        });
-                    }
-                    else {
-                        this.selectedProjectMonitoringData = data;
-                    }
-                })
             })
         );
         

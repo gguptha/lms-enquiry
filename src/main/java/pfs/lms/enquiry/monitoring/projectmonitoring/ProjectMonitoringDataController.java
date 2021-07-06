@@ -12,10 +12,7 @@ import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.repository.LoanMonitorRepository;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @RepositoryRestController
@@ -45,71 +42,73 @@ public class ProjectMonitoringDataController {
         if (projectMonitoringData == null) {
             // Create project monitoring data
             projectMonitoringData = new ProjectMonitoringData();
-            projectMonitoringData.setDateOfChange(LocalDate.now());
             projectMonitoringData.setLoanMonitor(loanMonitor);
 
             // Create default project monitoring data items
             List<ProjectMonitoringDataItem> projectMonitoringDataItems = new ArrayList<>();
 
-            ProjectMonitoringDataItem projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "1",
+            ProjectMonitoringDataItem projectMonitoringDataItem = new ProjectMonitoringDataItem(1, null, "1",
                     "Unit Size", "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "2", "Overall Project Cost",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(2, null, "2", "Overall Project Cost",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "3", "Debt Equity Ratio",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(3, null, "3", "Debt Equity Ratio",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "4", "Total Debt",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(4, null, "4", "Total Debt",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "5", "LEV. Cost of Supply w/o ROE - Total",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(5, null, "5", "LEV. Cost of Supply w/o ROE - Total",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "6", "DSCR (MIN)",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(6, null, "6", "DSCR (MIN)",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "7", "DSCR (MAX)",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(7, null, "7", "DSCR (MAX)",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "8", "Offtake Volume",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(8, null, "8", "Offtake Volume",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "9", "Offtake Mix",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(9, null, "9", "Offtake Mix",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "10", "Sale Rate",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(10, null, "10", "Sale Rate",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "11", "Fuel Mix",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(11, null, "11", "Fuel Mix",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "12", "Fuel Cost",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(12, null, "12", "Fuel Cost",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "13", "Construction Period",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(13, null, "13", "Construction Period",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
-            projectMonitoringDataItem = new ProjectMonitoringDataItem(LocalDate.now(), "14", "SCOD(3 Revisions)",
+            projectMonitoringDataItem = new ProjectMonitoringDataItem(14, null, "14", "SCOD(3 Revisions)",
                     "", "", "", "");
             projectMonitoringDataItems.add(projectMonitoringDataItem);
 
             projectMonitoringData.setProjectMonitoringDataItems(projectMonitoringDataItems);
             projectMonitoringData = projectMonitoringDataRepository.save(projectMonitoringData);
         }
+
+        Collections.sort(projectMonitoringData.getProjectMonitoringDataItems(), Comparator.comparingInt((ProjectMonitoringDataItem a) ->
+                a.getSerialNumber()));
 
         return ResponseEntity.ok(projectMonitoringData);
     }
@@ -118,6 +117,8 @@ public class ProjectMonitoringDataController {
     public ResponseEntity<ProjectMonitoringData> getProjectMonitoringData(@PathVariable UUID loanApplicationId) {
         ProjectMonitoringData projectMonitoringData = projectMonitoringDataRepository.
                 findByLoanMonitorLoanApplicationId(loanApplicationId);
+        Collections.sort(projectMonitoringData.getProjectMonitoringDataItems(), Comparator.comparingInt((ProjectMonitoringDataItem a) ->
+                a.getSerialNumber()));
         return ResponseEntity.ok(projectMonitoringData);
     }
 }

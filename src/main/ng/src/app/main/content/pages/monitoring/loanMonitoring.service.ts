@@ -310,6 +310,10 @@ export class LoanMonitoringService implements Resolve<any> {
         return this._http.post('enquiry/api/projectMonitoringDatas/loanApplication/' + loanApplicationId, {});
     }
 
+    public updateProjectMonitoringDataItem(projectMonitoringDataItem: any): Observable<any> {
+        return this._http.put('enquiry/api/projectMonitoringDataItems/' + projectMonitoringDataItem.id, projectMonitoringDataItem);
+    }
+
     // Others
 
     public searchLoanEnquiries(request: any): Observable<any> {
