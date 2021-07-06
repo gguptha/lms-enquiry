@@ -31,9 +31,9 @@
             </div>
 
             <div fxLayout="row">
-                <!-- <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Year" formControlName="year" maxlength="4">          
-                </mat-form-field> -->
+                <mat-form-field fxFlex="50">
+                    <input matInput placeholder="Year" formControlName="year" maxlength="4">
+                </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput [matDatepicker]="picker2" placeholder="Date of Payment Receipt" formControlName="dateOfPaymentReceipt" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -64,7 +64,7 @@
                     <input matInput placeholder="Applicable Tarrif " formControlName="applicableTariff" maxlength="3">          
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Water Saved" formControlName="revenue" maxlength="10">          
+                    <input matInput placeholder="Revenue (Rs. in Lakhs)" formControlName="revenue" maxlength="10">          
                 </mat-form-field>
             </div>
 

@@ -1,4 +1,4 @@
-package pfs.lms.enquiry.monitoring.operatingParameters;
+package pfs.lms.enquiry.monitoring.operatingparameters;
 
 import lombok.*;
 import pfs.lms.enquiry.domain.AbstractEntity;
@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import java.sql.Blob;
 import java.time.LocalDate;
 
 @Entity
@@ -24,7 +23,7 @@ public class OperatingParameter extends AbstractEntity implements Cloneable {
 
     private Integer serialNumber;
     private String month;
-//    private Integer year;
+    private Integer year;
     private Double exportNetGeneration; //(Million Units)
     private Double plfCufActual; // (%age)
     private Double applicableTariff; // (Rs / Unit)

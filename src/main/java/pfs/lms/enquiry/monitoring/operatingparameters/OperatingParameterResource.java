@@ -1,4 +1,4 @@
-package pfs.lms.enquiry.monitoring.operatingParameters;
+package pfs.lms.enquiry.monitoring.operatingparameters;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

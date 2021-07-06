@@ -1,7 +1,6 @@
 package pfs.lms.enquiry.service.impl;
 
 
-import javafx.beans.binding.ObjectExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +11,19 @@ import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsRepositor
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsResource;
 import pfs.lms.enquiry.monitoring.lfa.*;
 import pfs.lms.enquiry.monitoring.lie.*;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameter;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterRepository;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterResource;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancials;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsRepository;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsResource;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterRepository;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterResource;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsRepository;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsResource;
 import pfs.lms.enquiry.monitoring.tra.*;
 import pfs.lms.enquiry.repository.*;
 import pfs.lms.enquiry.resource.*;
 import pfs.lms.enquiry.service.ILoanMonitoringService;
 import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -1545,8 +1545,9 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     @Override
     public PromoterDetails updatePromoterDetails(PromoterDetailsResource resource, String username) throws CloneNotSupportedException {
-        final PromoterDetails existingPromoterDetails
-                = promoterDetailsRepository.getOne(resource.getPromoterDetails().getId());
+        PromoterDetails existingPromoterDetails
+                = promoterDetailsRepository.findById(resource.getPromoterDetails().getId())
+                .orElseThrow(()-> new EntityNotFoundException(resource.getPromoterDetails().getId()));
 
         Object oldPromoterDetails = existingPromoterDetails.clone();
 
@@ -1574,14 +1575,14 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
 
         // Change Documents for Promoter Details
-        changeDocumentService.createChangeDocument(
-                promoterDetails.getLoanMonitor().getId(), promoterDetails.getId(),null,
-                promoterDetails.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
-                oldPromoterDetails,
-                "Updated",
-                username,
-                "Monitoring ", "Promoter Details");
+//        changeDocumentService.createChangeDocument(
+//                promoterDetails.getLoanMonitor().getId(), promoterDetails.getId(),null,
+//                promoterDetails.getLoanMonitor().getLoanApplication().getLoanContractId(),
+//                null,
+//                oldPromoterDetails,
+//                "Updated",
+//                username,
+//                "Monitoring ", "Promoter Details");
 
 
         return promoterDetails;

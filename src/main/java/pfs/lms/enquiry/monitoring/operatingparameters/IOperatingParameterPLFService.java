@@ -1,4 +1,4 @@
-package pfs.lms.enquiry.monitoring.operatingParameters;
+package pfs.lms.enquiry.monitoring.operatingparameters;
 
 import java.util.List;
 

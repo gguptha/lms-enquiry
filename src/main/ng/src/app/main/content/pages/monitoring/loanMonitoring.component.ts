@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute, Router} from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -40,6 +40,7 @@ import { OperatingParameterUpdateDialogComponent } from './operatingParameter/op
 import { AppService } from 'app/app.service';
 import { OperatingParameterPLFUpdateDialogComponent } from './operatingParameterPLF/operatingParameterPLFUpdate/operatingParameterPLFUpdate.component';
 import { OperatingParameterPLFModel } from '../../model/operatingParameterPLF';
+import { MonitoringRegEx } from '../../others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -74,6 +75,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedPromoterDetailsItem: PromoterDetailsItemModel = new PromoterDetailsItemModel({});
     selectedOperatingParameter: OperatingParameterModel;
     selectedOperatingParameterPLF: OperatingParameterPLFModel;
+    selectedProjectMonitoringData: any;
 
     lieList: any;
     lieReportAndFeeList: any;
@@ -92,6 +94,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     operatingParameterList: any;
     operatingParameterPLFList: any;
 
+
     selectedEnquiryForm: FormGroup;
     boardApprovalDetailsForm: FormGroup;
 
@@ -99,6 +102,8 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
     expandPanel1 = true;
     expandPanel2 = false;
+
+    promoterHeaderDetailsForm: FormGroup;
 
     /**
      * constructor()
@@ -112,7 +117,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 private _activatedRoute: ActivatedRoute) {
         
         _activatedRoute.data.subscribe((data) => {
-            console.log('route resolved data', data.routeResolvedData);
             if (data.routeResolvedData !== null) {
                 this.loanContractExtension = data.routeResolvedData;
             }
@@ -120,7 +124,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         this.subscriptions.add(this._loanEnquiryService.selectedEnquiry.subscribe(data => {
             this.selectedEnquiry = data;
-            console.log('this.selectedEnquiry', this.selectedEnquiry);
         }));          
         
         this.subscriptions.add(
@@ -130,7 +133,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 // getLoanMonitor
                 _loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
                     this.loanMonitor = data;
-                    console.log('loanMonitor', this.loanMonitor);
                 })
                 // getLendersIndependentEngineers
                 _loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
@@ -174,10 +176,14 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 })
                 // getPromoterDetails
                 _loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
+                    console.log('data', data);
                     if (data.length > 0) {
                         this.selectedPromoterDetails = data[0].promoterDetails;
                         this.selectedPromoterDetails.promoterDetailsItemSet.sort((a, b) => b.serialNumber - a.serialNumber);
                         this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
+                        console.log(this.selectedPromoterDetails);
+                        this.promoterHeaderDetailsForm.controls.dateOfChange.setValue(this.selectedPromoterDetails.dateOfChange);
+                        this.promoterHeaderDetailsForm.controls.groupExposure.setValue(this.selectedPromoterDetails.groupExposure);
                     }
                 });
                 // getOperatingParameters
@@ -187,6 +193,18 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 // getOperatingParameterPLFs
                 _loanMonitoringService.getOperatingParameterPLFs(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterPLFList = data;
+                })
+                // getProjectMonitoringData
+                _loanMonitoringService.getProjectMonitoringData(this.loanApplicationId).subscribe(data => {
+                    if (data === null) {
+                        _loanMonitoringService.saveProjectMonitoringData(this.loanApplicationId).subscribe(response => {
+                            this.selectedProjectMonitoringData = response;
+                            console.log(this.selectedProjectMonitoringData, 'this.selectedProjectMonitoringData');
+                        });
+                    }
+                    else {
+                        this.selectedProjectMonitoringData = data;
+                    }
                 })
             })
         );
@@ -200,7 +218,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             if (this.selectedLIE.id !== '') {
                 _loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
                     this.lieReportAndFeeList = data;
-                    console.log('lieReportAndFeeList', this.lieReportAndFeeList);
                 });
             }
         })
@@ -329,7 +346,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             stage: [this.selectedEnquiry.stage || '']
         });
 
-        console.log('this.loanContractExtension is ...', this.loanContractExtension);
         this.boardApprovalDetailsForm = this._formBuilder.group({
             boardMeetingNumber: [this.loanContractExtension.boardMeetingNumber || ''],
             boardApprovalDate: [this.loanContractExtension.boardApprovalDate || ''],
@@ -340,6 +356,17 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             sanctionAmount: [this.loanContractExtension.sanctionAmount || ''],
             discributionStatus: [this.loanContractExtension.disbursementStatus || ''],
             scheduledCOD: [this.loanContractExtension.scheduledCOD || '']
+        });
+
+        console.log(this.selectedPromoterDetails);
+        if (!this.selectedPromoterDetails) {
+            console.log('inside ifffff....');
+            this.selectedPromoterDetails = new PromoterDetailsModel({});
+        }
+        console.log(this.selectedPromoterDetails);
+        this.promoterHeaderDetailsForm = this._formBuilder.group({
+            dateOfChange: [this.selectedPromoterDetails.dateOfChange || ''],
+            groupExposure: [this.selectedPromoterDetails.groupExposure || '', [Validators.pattern(MonitoringRegEx.genericAmount)]]
         });
     }
 
@@ -728,7 +755,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         if (operation === 'updateSiteVisit') {
             data.selectedSiteVisit = this.selectedSiteVisit;
         }
-        console.log('opening modify site visit with data', data);
         const dialogRef = this._dialogRef.open(SiteVisitUpdateDialogComponent, {
             panelClass: 'fuse-site-visit-update-dialog',
             width: '750px',
@@ -889,7 +915,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe((result) => { 
             if (result.refresh) {
                 this._loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
-                    console.log('promoter details list', data);
                     if (data.length > 0) {
                         this.selectedPromoterDetails = data[0].promoterDetails;
                         this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
@@ -928,5 +953,29 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
             this.loanMonitor = data;
         })
+    }
+
+    /**
+     * savePromoterHeaderDetails()
+     */
+    savePromoterHeaderDetails(): void {
+        if (this.promoterHeaderDetailsForm.valid) {
+            this.selectedPromoterDetails.dateOfChange = this.promoterHeaderDetailsForm.value.dateOfChange;
+            this.selectedPromoterDetails.groupExposure = this.promoterHeaderDetailsForm.value.groupExposure;
+            if (this.selectedPromoterDetails.id) {
+                this._loanMonitoringService.updatePromoterDetails(this.selectedPromoterDetails).subscribe((response) => {
+                    this.selectedPromoterDetails = new PromoterDetailsModel(response);
+                    console.log(this.selectedPromoterDetails);
+                    this._matSnackBar.open('Promoter details updated successfully.', 'OK', { duration: 7000 });
+                });
+            }
+            else {
+                this._loanMonitoringService.savePromoterDetails(this.selectedPromoterDetails, this.loanApplicationId).subscribe((response) => {
+                    this.selectedPromoterDetails = new PromoterDetailsModel(response);
+                    console.log(this.selectedPromoterDetails);
+                    this._matSnackBar.open('Promoter details updated successfully.', 'OK', { duration: 7000 });
+                });
+            }
+        }
     }
 }
