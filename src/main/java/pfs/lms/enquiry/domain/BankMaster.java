@@ -20,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
-public class BankMaster extends AuditModel {
+ public class BankMaster extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
