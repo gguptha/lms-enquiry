@@ -83,6 +83,7 @@ public class BankMasterController {
             return ResponseEntity.ok(existingbankMaster);
         }
 
+        bankMaster.setUpdatedAt(new Date());
         bankMaster.setCreatedAt(new Date() );
         bankMaster.setCreationDate(DateTime.now().toString());
         bankMaster.setCreatedBy(request.getUserPrincipal().getName());
