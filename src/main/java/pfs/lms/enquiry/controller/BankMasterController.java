@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.appraisal.syndicateconsortium.Bank;
 import pfs.lms.enquiry.config.ApiController;
 import pfs.lms.enquiry.domain.BankMaster;
@@ -36,7 +33,7 @@ public class BankMasterController {
     BankMasterRepository bankMasterRepository;
 
 
-    @RequestMapping(value = "/bankmasters", method = {RequestMethod.GET})
+    @RequestMapping(value = "/bankmasters/all", method = {RequestMethod.GET})
     public ResponseEntity<List<BankMaster>> getBankMasterList(HttpServletRequest request) {
 
         List<BankMaster> bankMasterList = bankMasterRepository.findAll();
@@ -45,11 +42,21 @@ public class BankMasterController {
 
     }
 
+    @RequestMapping(value = "/bankmasters", method = {RequestMethod.GET})
+    public ResponseEntity<List<BankMaster>> findByBankName(@RequestParam(value = "bankName",required = true) String bankName, HttpServletRequest request) {
+
+        List<BankMaster> bankMasterList  = bankMasterRepository.findBankMasterByBankNameStartingWith(bankName);
+
+        return ResponseEntity.ok(bankMasterList);
+
+    }
+
+
     @PostMapping(value = "/bankmaster")
     public ResponseEntity<BankMaster> createBankMaster(@RequestBody BankMaster bankMaster, HttpServletRequest request) {
 
         System.out.println("Uploading Bank Master....." + bankMaster.toString() );
-        System.out.println("Uploading Bank Master....." + bankMaster.getBankKey() + ":" + bankMaster.getBankKey() );
+        System.out.println("Uploading Bank Master....." + bankMaster.getBankCountryKey() + ":" + bankMaster.getBankKey() );
 
         BankMaster existingbankMaster = bankMasterRepository.findBankMasterByBankCountryKeyAndBankKey(bankMaster.getBankCountryKey(), bankMaster.getBankKey());
 
