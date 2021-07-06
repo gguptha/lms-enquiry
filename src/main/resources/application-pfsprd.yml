@@ -46,9 +46,12 @@ spring:
 oauth:
   baseUrl: https://enquiry.pfs-ess.com/auth
 sap:
-  postUrl: http://192.168.1.207:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=500
-  baseUrl: http://192.168.1.207:8000
+  postUrl: http://192.168.1.205:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300
+  baseUrl: http://192.168.1.205:8000
   serviceUri: /sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet
+  lieUri: /sap/opu/odata/sap/ZPFS_LMS_MONITOR_V1_SRV/LendersIndependentEngineerSet
+  lieReportAndFeeUri: /sap/opu/odata/sap/ZPFS_LMS_MONITOR_V1_SRV/LIEReportAndFeeSet
+  monitorDocumentUri: /sap/opu/odata/sap/ZPFS_LMS_MONITOR_V1_SRV/DocumentSet
   client: 500
   userName: SAP_PFS_GW
   password: Sapsap@4646
