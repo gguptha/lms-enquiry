@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameter;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterPLFResource;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLFResource;
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.text.ParseException;

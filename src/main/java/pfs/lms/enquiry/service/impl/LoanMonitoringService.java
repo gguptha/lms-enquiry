@@ -11,12 +11,12 @@ import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsRepositor
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsResource;
 import pfs.lms.enquiry.monitoring.lfa.*;
 import pfs.lms.enquiry.monitoring.lie.*;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameter;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterRepository;
-import pfs.lms.enquiry.monitoring.operatingParameters.OperatingParameterResource;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancials;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsRepository;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsResource;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterRepository;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterResource;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsRepository;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsResource;
 import pfs.lms.enquiry.monitoring.tra.*;
 import pfs.lms.enquiry.repository.*;
 import pfs.lms.enquiry.resource.*;
@@ -56,7 +56,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final BorrowerFinancialsRepository borrowerFinancialsRepository;
 
-    private final PromoterFinancialsRepository promoterFinancialsRepository;
+    private final PromoterFinancialsRepository promoterfinancialsRepository;
 
     private final FinancialCovenantsRepository financialCovenantsRepository;
 
@@ -87,7 +87,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
 
         }
         LendersIndependentEngineer lendersIndependentEngineer = resource.getLendersIndependentEngineer();
@@ -281,7 +281,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
 
 
@@ -477,7 +477,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
 
         }
         TrustRetentionAccount trustRetentionAccount = resource.getTrustRetentionAccount();
@@ -506,7 +506,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 trustRetentionAccount,
                 "Created",
                 username,
-                "Monitoring ", "TRA Account");
+                "Monitoring", "TRA Account");
 
 
         return trustRetentionAccount;
@@ -543,7 +543,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 existingTrustRetentionAccount,
                 "Updated",
                 username,
-                "Monitoring ", "TRA Account");
+                "Monitoring", "TRA Account");
 
         return existingTrustRetentionAccount;
     }
@@ -587,7 +587,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 trustRetentionAccount,
                 "Created",
                 username,
-                "Monitoring ", "TRA Account Statement");
+                "Monitoring", "TRA Account Statement");
 
 
         return trustRetentionAccountStatement;
@@ -619,7 +619,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 existingTrustRetentionAccountStatement,
                 "Updated",
                 username,
-                "Monitoring ", "TRA Account Statement");
+                "Monitoring", "TRA Account Statement");
 
 
         return existingTrustRetentionAccountStatement;
@@ -671,7 +671,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         TermsAndConditionsModification termsAndConditions = resource.getTermsAndConditionsModification();
         termsAndConditions.setLoanMonitor(loanMonitor);
@@ -693,7 +693,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 termsAndConditions,
                 "Created",
                 username,
-                "Monitoring ", "Terms and Conditions" );
+                "Monitoring", "Terms and Conditions" );
 
         return termsAndConditions;
 
@@ -724,7 +724,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 existingTermsAndConditionsModification,
                 "Updated",
                 username,
-                "Monitoring ", "Terms and Conditions" );
+                "Monitoring", "Terms and Conditions" );
 
 
         return existingTermsAndConditionsModification;
@@ -777,7 +777,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         SecurityCompliance securityCompliance = resource.getSecurityCompliance();
         securityCompliance.setLoanMonitor(loanMonitor);
@@ -812,7 +812,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 securityCompliance,
                 "Created",
                 username,
-                "Monitoring ", "Security Compliance" );
+                "Monitoring", "Security Compliance" );
 
 
         return securityCompliance;
@@ -858,7 +858,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 existingSecurityCompliance,
                 "Updated",
                 username,
-                "Monitoring ", "Security Compliance" );
+                "Monitoring", "Security Compliance" );
 
 
         return existingSecurityCompliance;
@@ -907,7 +907,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         SiteVisit siteVisit = resource.getSiteVisit();
         siteVisit.setLoanMonitor(loanMonitor);
@@ -926,7 +926,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 siteVisit,
                 "Created",
                 username,
-                "Monitoring ", "Site Visit" );
+                "Monitoring", "Site Visit" );
 
         return siteVisit;
 
@@ -954,7 +954,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 existingSiteVisit,
                 "Updated",
                 username,
-                "Monitoring ", "Site Visit" );
+                "Monitoring", "Site Visit" );
 
 
 
@@ -1005,7 +1005,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         OperatingParameter operatingParameter = resource.getOperatingParameter();
         operatingParameter.setLoanMonitor(loanMonitor);
@@ -1020,7 +1020,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 operatingParameter,
                 "Created",
                 username,
-                "Monitoring ", "Operating Parameter");
+                "Monitoring", "Operating Parameter");
 
         return operatingParameter;
 
@@ -1061,7 +1061,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 existingOperatingParameter,
                 "Updated",
                 username,
-                "Monitoring ", "Operating Parameter");
+                "Monitoring", "Operating Parameter");
 
         return existingOperatingParameter;
     }
@@ -1072,9 +1072,9 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
         LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
         if(loanMonitor != null) {
-            List<OperatingParameter> operatingParameters
+            List<OperatingParameter> operatingparameters
                     = operatingParameterRepository.findByLoanMonitor(loanMonitor);
-            operatingParameters.forEach(
+            operatingparameters.forEach(
                     operatingParameter -> {
                         OperatingParameterResource operatingParameterResource = new OperatingParameterResource();
                         operatingParameterResource.setLoanApplicationId(loanApplication.getId());
@@ -1111,7 +1111,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         RateOfInterest rateOfInterest = resource.getRateOfInterest();
         rateOfInterest.setLoanMonitor(loanMonitor);
@@ -1132,7 +1132,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 rateOfInterest,
                 "Created",
                 username,
-                "Monitoring ", "Rate of Interest");
+                "Monitoring", "Rate of Interest");
 
         return rateOfInterest;
 
@@ -1162,7 +1162,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 existingRateOfInterest,
                 "Updated",
                 username,
-                "Monitoring ", "Rate of Interest");
+                "Monitoring", "Rate of Interest");
 
 
         return existingRateOfInterest;
@@ -1212,7 +1212,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         BorrowerFinancials borrowerFinancials = resource.getBorrowerFinancials();
         borrowerFinancials.setLoanMonitor(loanMonitor);
@@ -1238,7 +1238,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 borrowerFinancials,
                 "Created",
                 username,
-                "Monitoring ", "Borrower Financials");
+                "Monitoring", "Borrower Financials");
 
 
         return borrowerFinancials;
@@ -1271,7 +1271,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 oldBorrowerFinancials,
                 "Updated",
                 username,
-                "Monitoring ", "Borrower Financials");
+                "Monitoring", "Borrower Financials");
 
 
         return existingBorrowerFinancials;
@@ -1322,67 +1322,67 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
-        PromoterFinancials promoterFinancials = resource.getPromoterFinancials();
-        promoterFinancials.setLoanMonitor(loanMonitor);
-        promoterFinancials.setSerialNumber(promoterFinancialsRepository.findByLoanMonitor(loanMonitor).size() + 1);
-        promoterFinancials.setBorrowerFinancialsId(resource.getPromoterFinancials().getBorrowerFinancialsId());
-        promoterFinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
-        promoterFinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
-        promoterFinancials.setPat(resource.getPromoterFinancials().getPat());
-        promoterFinancials.setNetWorth(resource.getPromoterFinancials().getNetWorth());
-        promoterFinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
-        promoterFinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
-        promoterFinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
-        promoterFinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
-        promoterFinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
-        promoterFinancials = promoterFinancialsRepository.save(promoterFinancials);
+        PromoterFinancials promoterfinancials = resource.getPromoterFinancials();
+        promoterfinancials.setLoanMonitor(loanMonitor);
+        promoterfinancials.setSerialNumber(promoterfinancialsRepository.findByLoanMonitor(loanMonitor).size() + 1);
+        promoterfinancials.setBorrowerFinancialsId(resource.getPromoterFinancials().getBorrowerFinancialsId());
+        promoterfinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
+        promoterfinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
+        promoterfinancials.setPat(resource.getPromoterFinancials().getPat());
+        promoterfinancials.setNetWorth(resource.getPromoterFinancials().getNetWorth());
+        promoterfinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
+        promoterfinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
+        promoterfinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
+        promoterfinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
+        promoterfinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
+        promoterfinancials = promoterfinancialsRepository.save(promoterfinancials);
 
         // Change Documents for Promoter Financials
         changeDocumentService.createChangeDocument(
-                loanMonitor.getId(), promoterFinancials.getId(),null,
+                loanMonitor.getId(), promoterfinancials.getId(),null,
                 loanApplication.getLoanContractId(),
                 null,
-                promoterFinancials,
+                promoterfinancials,
                 "Created",
                 username,
-                "Monitoring ", "Promoter Financials");
+                "Monitoring", "Promoter Financials");
 
-        return promoterFinancials;
+        return promoterfinancials;
 
     }
 
     @Override
     public PromoterFinancials updatePromoterFinancials(PromoterFinancialsResource resource, String username) throws CloneNotSupportedException {
-        PromoterFinancials existingPromoterFinancials
-                = promoterFinancialsRepository.getOne(resource.getPromoterFinancials().getId());
+        PromoterFinancials existingpromoterfinancials
+                = promoterfinancialsRepository.getOne(resource.getPromoterFinancials().getId());
 
-        Object oldPromoterDetails = existingPromoterFinancials.clone();
+        Object oldPromoterDetails = existingpromoterfinancials.clone();
 
-        existingPromoterFinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
-        existingPromoterFinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
-        existingPromoterFinancials.setPat(resource.getPromoterFinancials().getPat());
-        existingPromoterFinancials.setNetWorth(resource.getPromoterFinancials().getNetWorth());
-        existingPromoterFinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
-        existingPromoterFinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
-        existingPromoterFinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
-        existingPromoterFinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
-        existingPromoterFinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
-        existingPromoterFinancials = promoterFinancialsRepository.save(existingPromoterFinancials);
+        existingpromoterfinancials.setFiscalYear(resource.getPromoterFinancials().getFiscalYear());
+        existingpromoterfinancials.setTurnover(resource.getPromoterFinancials().getTurnover());
+        existingpromoterfinancials.setPat(resource.getPromoterFinancials().getPat());
+        existingpromoterfinancials.setNetWorth(resource.getPromoterFinancials().getNetWorth());
+        existingpromoterfinancials.setDateOfExternalRating(resource.getPromoterFinancials().getDateOfExternalRating());
+        existingpromoterfinancials.setNextDueDateOfExternalRating(resource.getPromoterFinancials().getNextDueDateOfExternalRating());
+        existingpromoterfinancials.setOverAllRating(resource.getPromoterFinancials().getOverAllRating());
+        existingpromoterfinancials.setAnnualReturnFileReference(resource.getPromoterFinancials().getAnnualReturnFileReference());
+        existingpromoterfinancials.setRatingFileReference(resource.getPromoterFinancials().getRatingFileReference());
+        existingpromoterfinancials = promoterfinancialsRepository.save(existingpromoterfinancials);
 
         // Change Documents fooldPromoterDetailsr Promoter Financials
         changeDocumentService.createChangeDocument(
-                existingPromoterFinancials.getLoanMonitor().getId(), existingPromoterFinancials.getId(),null,
-                existingPromoterFinancials.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                existingpromoterfinancials.getLoanMonitor().getId(), existingpromoterfinancials.getId(),null,
+                existingpromoterfinancials.getLoanMonitor().getLoanApplication().getLoanContractId(),
                 oldPromoterDetails,
-                existingPromoterFinancials,
+                existingpromoterfinancials,
                 "Updated",
                 username,
-                "Monitoring ", "Promoter Financials");
+                "Monitoring", "Promoter Financials");
 
 
-        return existingPromoterFinancials;
+        return existingpromoterfinancials;
 
 
     }
@@ -1394,7 +1394,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
         if(loanMonitor != null) {
             List<PromoterFinancials> promoterFinancials
-                    = promoterFinancialsRepository.findByLoanMonitor(loanMonitor);
+                    = promoterfinancialsRepository.findByLoanMonitor(loanMonitor);
             promoterFinancials.forEach(
                     promoterFinancial -> {
                         PromoterFinancialsResource promoterFinancialsResource = new PromoterFinancialsResource();
@@ -1429,7 +1429,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         FinancialCovenants financialCovenants = resource.getFinancialCovenants();
         financialCovenants.setLoanMonitor(loanMonitor);
@@ -1450,7 +1450,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 financialCovenants,
                 "Created",
                 username,
-                "Monitoring ", "Financial Covenants");
+                "Monitoring", "Financial Covenants");
 
 
         return financialCovenants;
@@ -1481,7 +1481,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 oldFinancialCovenants,
                 "Updated",
                 username,
-                "Monitoring ", "Financial Covenants");
+                "Monitoring", "Financial Covenants");
 
         return existingFinancialCovenants;
 
@@ -1530,7 +1530,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                     loanMonitor,
                     "Created",
                     username,
-                    "Monitoring ", "Header");
+                    "Monitoring", "Header");
         }
         PromoterDetails promoterDetails = resource.getPromoterDetails();
         promoterDetails.setLoanMonitor(loanMonitor);
@@ -1580,7 +1580,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 oldPromoterDetails,
                 "Updated",
                 username,
-                "Monitoring ", "Promoter Details");
+                "Monitoring", "Promoter Details");
 
 
         return promoterDetails;

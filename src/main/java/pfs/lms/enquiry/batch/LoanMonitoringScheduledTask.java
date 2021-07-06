@@ -18,9 +18,12 @@ import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeRepository;
 import pfs.lms.enquiry.monitoring.lie.LIERepository;
 import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
-import pfs.lms.enquiry.monitoring.operatingParameters.*;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancials;
-import pfs.lms.enquiry.monitoring.promoterFinancials.PromoterFinancialsRepository;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLF;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLFRepository;
+import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterRepository;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
+import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsRepository;
 import pfs.lms.enquiry.monitoring.resource.*;
 import pfs.lms.enquiry.monitoring.service.ISAPFileUploadIntegrationService;
 import pfs.lms.enquiry.monitoring.service.ISAPLoanMonitoringIntegrationService;
@@ -78,8 +81,9 @@ public class LoanMonitoringScheduledTask {
     private final TermsAndConditionsRepository termsAndConditionsRepository;
     private final BorrowerFinancialsRepository borrowerFinancialsRepository;
     private final PromoterFinancialsRepository promoterFinancialsRepository;
-    private final OperatingParameterPLFRepository operatingParameterPLFRepository;
     private final OperatingParameterRepository operatingParameterRepository;
+    private final OperatingParameterPLFRepository operatingParameterPLFRepository;
+
     private final SecurityComplianceRepository securityComplianceRepository;
     private final SiteVisitRepository   siteVisitRepository;
     private final RateOfInterestRepository rateOfInterestRepository;
@@ -327,7 +331,9 @@ public class LoanMonitoringScheduledTask {
                      break;
 
                  case "Operating Parameter":
-                     OperatingParameter operatingParameter = new OperatingParameter();
+
+                    OperatingParameter operatingParameter = new OperatingParameter();
+
                      log.info("Attempting to Post Operating Parameter to SAP AT :" + dateFormat.format(new Date()));
                      Optional<OperatingParameter> oP = operatingParameterRepository.findById(sapIntegrationPointer.getBusinessObjectId().toString());
 
