@@ -96,7 +96,7 @@ public class LoanMonitoringScheduledTask {
     private final SAPLFAReportAndFeeResource saplfaReportAndFeeResource;
     private final SAPLIEReportAndFeeResource saplieReportAndFeeResource;
     private final SAPDocumentAttachmentResource sapDocumentAttachmentResource;
-//    private final SAPTermsAndConditionsModificationResource sapTermsAndConditionsModificationResource;
+    private final SAPTermsAndConditionsModificationResource sapTermsAndConditionsModificationResource;
     private final SAPSecurityComplianceResource sapSecurityComplianceResource;
     private final SAPSiteVisitResource sapSiteVisitResource;
     private final SAPPromoterFinancialsResource sapPromoterFinancialsResource;
@@ -263,13 +263,13 @@ public class LoanMonitoringScheduledTask {
                      sapIntegrationPointer.setStatus(1); // In Posting Process
                      sapIntegrationRepository.save(sapIntegrationPointer);
 
-//                     SAPTermsAndConditionsModificationDetails sapTermsAndConditionsModificationDetails =  sapTermsAndConditionsModificationResource.mapToSAP(termsAndConditionsModification);
-//                     SAPTermsAndConditionsModificationResource sapTermsAndConditionsModificationResource = new SAPTermsAndConditionsModificationResource();
-//                     sapTermsAndConditionsModificationResource.setSAPTermsAndConditionsModificationDetails(sapTermsAndConditionsModificationDetails);
-//
-//                     resource = (Object) sapTermsAndConditionsModificationResource;
-//                     serviceUri = monitorServiceUri + "TermsAndConditionsModificationSet";
-//                     response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
+                     SAPTermsAndConditionsModificationDetails sapTermsAndConditionsModificationDetails =  sapTermsAndConditionsModificationResource.mapToSAP(termsAndConditionsModification);
+                     SAPTermsAndConditionsModificationResource sapTermsAndConditionsModificationResource = new SAPTermsAndConditionsModificationResource();
+                     sapTermsAndConditionsModificationResource.setSAPTermsAndConditionsModificationDetails(sapTermsAndConditionsModificationDetails);
+
+                     resource = (Object) sapTermsAndConditionsModificationResource;
+                     serviceUri = monitorServiceUri + "TermsAndConditionsModificationSet";
+                     response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
                          response = postDocument(termsAndConditionsModification.getFileReference(), termsAndConditionsModification.getId(), "TermsAndConditionsModification", termsAndConditionsModification.getDocumentTitle());
