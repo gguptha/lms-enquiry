@@ -16,7 +16,7 @@ export class ProjectMonitoringDataItemUpdateComponent implements OnInit {
     dialogTitle = 'Update Project Monitoring Data';
 
     selectedProjectMonitoringDataItem: any;
-
+    
     projectMonitoringDataForm: FormGroup;
   
     /**
@@ -32,6 +32,7 @@ export class ProjectMonitoringDataItemUpdateComponent implements OnInit {
         private _matSnackBar: MatSnackBar) {
 
         this.selectedProjectMonitoringDataItem = _dialogData.selectedProjectMonitoringDataItem;
+        this.selectedProjectMonitoringDataItem.loanApplicationId = _dialogData.loanApplicationId;
         console.log(this.selectedProjectMonitoringDataItem);
     }
 

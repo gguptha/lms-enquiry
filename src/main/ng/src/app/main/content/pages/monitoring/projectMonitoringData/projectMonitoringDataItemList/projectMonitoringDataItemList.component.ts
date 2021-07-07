@@ -13,14 +13,17 @@ import { ProjectMonitoringDataItemUpdateComponent } from '../projectMonitoringDa
 })
 export class ProjectMonitoringDataItemListComponent implements OnInit {
 
+    displayHistory = false;
+
     loanApplicationId: string;
 
     projectMonitoringData: any;
 
-    dataSource: MatTableDataSource<any>;
-    @ViewChild(MatSort) sort: MatSort;
+    projectMonitoringDataSource: MatTableDataSource<any>;
+    projectMonitoringHistoryDataSource: MatTableDataSource<any>
 
     selectedProjectMonitoringDataItem: any;
+    selectedProjectMonitoringDataHistoryItem: any;
 
     displayedColumns = [
         'dateOfEntry', 'description', 'originalData','revisedData1', 'revisedData2', 'remarks'
@@ -36,13 +39,13 @@ export class ProjectMonitoringDataItemListComponent implements OnInit {
             if (data === null) {
                 _monitoringService.saveProjectMonitoringData(this.loanApplicationId).subscribe(response => {
                     this.projectMonitoringData = response;
-                    this.dataSource = new MatTableDataSource(this.projectMonitoringData.projectMonitoringDataItems);
+                    this.projectMonitoringDataSource = new MatTableDataSource(this.projectMonitoringData.projectMonitoringDataItems);
                     console.log(this.projectMonitoringData, 'this.projectMonitoringData');
                 });
             }
             else {
                 this.projectMonitoringData = data;
-                this.dataSource = new MatTableDataSource(this.projectMonitoringData.projectMonitoringDataItems);
+                this.projectMonitoringDataSource = new MatTableDataSource(this.projectMonitoringData.projectMonitoringDataItems);
             }
         });
     }
@@ -55,17 +58,29 @@ export class ProjectMonitoringDataItemListComponent implements OnInit {
          * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
          * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
          */
-        this.dataSource.sort = this.sort;
+        //this.dataSource.sort = this.sort;
     }
 
     /**
-     *
+     * onSelect()
      * @param onSelect
      */
     onSelect(projectMonitoringDataItem: any): void {
+        if (this.selectedProjectMonitoringDataItem !== projectMonitoringDataItem) {
+            this.projectMonitoringHistoryDataSource = new MatTableDataSource();
+            this.displayHistory = false;
+        }
         this.selectedProjectMonitoringDataItem = projectMonitoringDataItem;
     }
     
+    /**
+     * onHistorySelect()
+     * @param projectMonitoringDataHistoryItem 
+     */
+    onHistorySelect(projectMonitoringDataHistoryItem: any): void {
+        this.selectedProjectMonitoringDataHistoryItem = projectMonitoringDataHistoryItem;
+    }
+
     /**
      * updateProjectMonitoringData()
      */
@@ -84,7 +99,7 @@ export class ProjectMonitoringDataItemListComponent implements OnInit {
             if (result.refresh) {
                 this._monitoringService.getProjectMonitoringData(this.loanApplicationId).subscribe(response => {
                     this.projectMonitoringData = response;
-                    this.dataSource = new MatTableDataSource(this.projectMonitoringData.projectMonitoringDataItems);
+                    this.projectMonitoringDataSource = new MatTableDataSource(this.projectMonitoringData.projectMonitoringDataItems);
                 });
             }
         });  
@@ -94,6 +109,12 @@ export class ProjectMonitoringDataItemListComponent implements OnInit {
      * getHistory()
      */
     getHistory(): void {
-
+        this._monitoringService.getProjectMonitoringDataItemHistory(this.projectMonitoringData.id, this.selectedProjectMonitoringDataItem.particulars)
+                .subscribe(response => {
+                    if (response._embedded.projectMonitoringDataItemHistories.length > 0) {
+                        this.projectMonitoringHistoryDataSource = new MatTableDataSource(response._embedded.projectMonitoringDataItemHistories);
+                        this.displayHistory = true;
+                    }
+                });
     }
 }

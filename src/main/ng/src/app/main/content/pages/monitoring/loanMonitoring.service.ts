@@ -314,6 +314,12 @@ export class LoanMonitoringService implements Resolve<any> {
         return this._http.put('enquiry/api/projectMonitoringDataItems/' + projectMonitoringDataItem.id, projectMonitoringDataItem);
     }
 
+    public getProjectMonitoringDataItemHistory(projectMonitoringDataId: string, particulars: string): Observable<any> {
+        const url = 'enquiry/api/projectMonitoringDataItemHistories/search/findByProjectMonitoringDataIdAndParticularsOrderByDateOfEntryDesc' 
+                + '?projectMonitoringDataId=' + projectMonitoringDataId + '&particulars=' + particulars;
+        return this._http.get(url);
+    }
+    
     // Others
 
     public searchLoanEnquiries(request: any): Observable<any> {

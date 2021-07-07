@@ -1,21 +1,21 @@
 package pfs.lms.enquiry.monitoring.projectmonitoring;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AggregateRoot;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
-import java.util.UUID;
 
+@Entity
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode(of = {"particulars", "originalData"}, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectMonitoringDataItemResource {
+public class ProjectMonitoringDataItemHistory extends AggregateRoot<ProjectMonitoringDataItemHistory> {
 
-    private UUID id;
-    private UUID loanApplicationId;
-
-    private Integer serialNumber;
+    private String projectMonitoringDataId;
 
     private LocalDate dateOfEntry;
 
