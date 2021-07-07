@@ -46,7 +46,8 @@ export class OperatingParameterPLFUpdateDialogComponent {
             serialNumber: [this.selectedOperatingParameterPLF.serialNumber],
             year: [this.selectedOperatingParameterPLF.year, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             remarks: [this.selectedOperatingParameterPLF.remarks],
-            actualYearlyAveragePlfCuf: [this.selectedOperatingParameterPLF.actualYearlyAveragePlfCuf]
+            actualYearlyAveragePlfCuf: [this.selectedOperatingParameterPLF.actualYearlyAveragePlfCuf, 
+                [Validators.pattern(MonitoringRegEx.environmentParameters)]]
         });
     }
 

@@ -25,7 +25,7 @@ public class OperatingParameterPLF extends AbstractEntity implements Cloneable {
 
     private Integer serialNumber;
     private Integer year;
-    private String actualYearlyAveragePlfCuf;
+    private Double actualYearlyAveragePlfCuf;
 
     private String remarks;
 

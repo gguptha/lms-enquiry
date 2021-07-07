@@ -42,7 +42,7 @@ public class SAPOperatingParameterPLFCUFResource {
 
 
         detailedResource.setPeriod(operatingParameterPLF.getYear().toString());
-        detailedResource.setActualPlfCuf( String.format("%.2f", Double.parseDouble(operatingParameterPLF.getActualYearlyAveragePlfCuf())));
+        detailedResource.setActualPlfCuf(operatingParameterPLF.getActualYearlyAveragePlfCuf());
         detailedResource.setDesignPlfCuf(String.format("%.2f", Double.parseDouble("0")));
 
         return detailedResource;

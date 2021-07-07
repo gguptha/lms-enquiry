@@ -34,7 +34,7 @@ public class SAPOperatingParameterPLFCUFResourceDetails {
     private String designPlfCuf;
 
     @JsonProperty(value = "ActualPlfCuf")
-    private String actualPlfCuf;
+    private Double actualPlfCuf;
 
     @JsonProperty(value = "Remark")
     private String remark;
