@@ -117,8 +117,9 @@ public class ProjectMonitoringDataController {
     public ResponseEntity<ProjectMonitoringData> getProjectMonitoringData(@PathVariable UUID loanApplicationId) {
         ProjectMonitoringData projectMonitoringData = projectMonitoringDataRepository.
                 findByLoanMonitorLoanApplicationId(loanApplicationId);
-        Collections.sort(projectMonitoringData.getProjectMonitoringDataItems(), Comparator.comparingInt((ProjectMonitoringDataItem a) ->
-                a.getSerialNumber()));
+        if (projectMonitoringData != null && projectMonitoringData.getProjectMonitoringDataItems() != null)
+            Collections.sort(projectMonitoringData.getProjectMonitoringDataItems(), Comparator.comparingInt((ProjectMonitoringDataItem a) ->
+                    a.getSerialNumber()));
         return ResponseEntity.ok(projectMonitoringData);
     }
 }
