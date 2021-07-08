@@ -7,7 +7,8 @@ import {
   MatPaginatorModule, MatToolbarModule, MatIconModule, MatSelectModule, MatProgressSpinnerModule, MatDatepickerModule,
   MatTabsModule,
   MAT_DATE_LOCALE,
-  DateAdapter
+  DateAdapter,
+  MatAutocompleteModule
 } from '@angular/material';
 import { LoanMonitoringComponent } from './loanMonitoring.component';
 import { EnquiryApplicationRouteGuard } from 'app/enquiryApplication.guard';
@@ -92,7 +93,8 @@ const MY_FORMATS = {
       MatSortModule,
       MatDatepickerModule,
       MatProgressSpinnerModule,
-      MatTabsModule
+      MatTabsModule,
+      MatAutocompleteModule
     ],
     declarations: [
         LoanMonitoringComponent,

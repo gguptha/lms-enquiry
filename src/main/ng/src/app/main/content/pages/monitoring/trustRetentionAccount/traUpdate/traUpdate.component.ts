@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { TRAModel } from 'app/main/content/model/tra.model';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
     selector: 'fuse-tra-update-dialog',
@@ -23,6 +24,11 @@ export class TRAUpdateDialogComponent implements OnInit {
     traUpdateForm: FormGroup;
 
     accountTypes = LoanMonitoringConstants.accountTypes;
+
+    banks: any;
+    bankFilteredOptions: any;
+    bankNameFormControl = new FormControl();
+    bankKeyFormControl = new FormControl();
 
     /**
      * constructor()
@@ -60,13 +66,29 @@ export class TRAUpdateDialogComponent implements OnInit {
             pfsAuthorisedPerson: [this.selectedTRA.pfsAuthorisedPerson || ''],
             beneficiaryName: [this.selectedTRA.beneficiaryName || '']
         });
+
+        this.banks = _loanMonitoringService.banks;
     }
 
     /**
      * ngOnInit()
      */
     ngOnInit(): void {
+        // this.bankKeyFormControl.valueChanges.subscribe(str => {
+        //     this.bankFilteredOptions = this.banks.filter(bank => bank.bankName.toLowerCase().includes(str.toLowerCase()));
+        // });
+
+        this.bankFilteredOptions = this.bankKeyFormControl.valueChanges.pipe(
+            startWith(''),
+            map(value => value ? this._filterStates(value) : this.banks.slice())
+        );
+
         this.traUpdateForm.controls.typeOfAccount.setValue(this.accountTypes[0].code);
+    }
+
+    private _filterStates(value: string): any {
+        const filterValue = value.toLowerCase();
+        return this.banks.filter(bank => bank.bankName.toLowerCase().indexOf(filterValue) === 0);
     }
 
     /**
@@ -108,5 +130,24 @@ export class TRAUpdateDialogComponent implements OnInit {
      */
     closeClick(): void {
         this._dialogRef.close({ 'refresh': false });
+    }
+
+    /**
+     * validateBank()
+     */
+     validateBank($event) {
+        const filteredBanks = this.banks.filter(bank => bank.bankKey === $event.target.value);
+        if (filteredBanks.length > 0) {
+            this.traUpdateForm.controls.bankKey.setValue(this.bankKeyFormControl.value);
+            let bankDetails = filteredBanks[0].bankName;
+            if (filteredBanks[0].bankbankBranch) {
+                bankDetails = bankDetails + ' - ' + filteredBanks[0].bankbankBranch;
+            }
+            this.bankNameFormControl.setValue(bankDetails)
+        }
+        else {
+            this.traUpdateForm.controls.bankKey.setValue('');
+            this.bankNameFormControl.setValue('');
+        }
     }
 }

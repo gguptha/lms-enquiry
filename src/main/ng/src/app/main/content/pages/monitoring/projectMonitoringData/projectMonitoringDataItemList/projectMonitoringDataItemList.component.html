@@ -7,7 +7,7 @@
             View History
         </button>
     </div>
-    <div class="mat-table-container" style="width: 100%">
+    <div class="mat-table-container" mat-white-bg style="width: 100%">
 
         <mat-table class="enquiries-table" [dataSource]="projectMonitoringDataSource" matSort fusePerfectScrollbar>
 
@@ -67,8 +67,8 @@
 
         </mat-table>
     </div>
-    <div class="mat-table-container mt-16" style="width: 100%" *ngIf="displayHistory">
-        <div>Displaying historical data for {{ selectedProjectMonitoringDataItem.description }}</div>
+    <div class="mat-table-container mt-16" mat-white-bg style="width: 100%" *ngIf="displayHistory">
+        <div class="m-16"><h3>historical data for {{ selectedProjectMonitoringDataItem.description }}</h3></div>
         <mat-table class="enquiries-table" [dataSource]="projectMonitoringHistoryDataSource" matSort fusePerfectScrollbar>
 
             <!-- description Column -->

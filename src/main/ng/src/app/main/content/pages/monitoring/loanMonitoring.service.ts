@@ -27,11 +27,16 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedFinancialCovenants: BehaviorSubject<any> = new BehaviorSubject({});
     selectedPromoterDetailsItem: BehaviorSubject<any> = new BehaviorSubject({});
     
+    public banks: any;
+
     /**
      *
      * @param _http
      */
     constructor(private _http: HttpClient, private _loanEnquiryService: LoanEnquiryService) {
+        this.getBanks().subscribe(response => {
+            this.banks = response;
+        })
     }
 
     /**
@@ -321,6 +326,10 @@ export class LoanMonitoringService implements Resolve<any> {
     }
     
     // Others
+
+    public getBanks(): Observable<any> {
+        return this._http.get('enquiry/api/bankmasters/all');
+    }
 
     public searchLoanEnquiries(request: any): Observable<any> {
         return this._http.put<any>('enquiry/api/loanApplications/search', request);
