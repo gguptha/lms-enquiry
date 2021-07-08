@@ -29,13 +29,15 @@ public class SecurityCompliance extends AbstractEntity implements Cloneable {
 
     private String collateralAgreementType;
 
+    private String collateralAgreementTypeDescription;
+
     private String timelines;
 
     private LocalDate dateOfCreation;
 
     private LocalDate validityDate;
 
-    private Double value; //(ifany)
+    private Double value; //(if any)
 
     private LocalDate securityPerfectionDate;
 
