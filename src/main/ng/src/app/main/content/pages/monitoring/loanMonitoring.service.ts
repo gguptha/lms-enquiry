@@ -8,7 +8,9 @@ import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 @Injectable()
 export class LoanMonitoringService implements Resolve<any> {
 
-    public enquirySearchList: BehaviorSubject<any>;
+    // public enquirySearchList: BehaviorSubject<any>;
+
+    loanMonitor: BehaviorSubject<any> = new BehaviorSubject({});
 
     selectedLIE: BehaviorSubject<any> = new BehaviorSubject({});
     selectedLIEReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
@@ -16,7 +18,6 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedLFAReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRA: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRAStatement: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedTandC: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameter: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameterPLF: BehaviorSubject<any> = new BehaviorSubject({});

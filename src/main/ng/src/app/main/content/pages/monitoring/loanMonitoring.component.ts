@@ -18,8 +18,6 @@ import { TRAUpdateDialogComponent } from './trustRetentionAccount/traUpdate/traU
 import { TRAModel } from '../../model/tra.model';
 import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traStatementUpdate/traStatementUpdate.component';
 import { TRAStatementModel } from '../../model/traStatement.model';
-import { TandCModel } from '../../model/tandc.model';
-import { TandCUpdateDialogComponent } from './termsAndConditions/tandcUpdate/tandcUpdate.component';
 import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
 import { SecurityComplianceModel } from '../../model/securityCompliance.model';
 import { SiteVisitModel } from '../../model/siteVisit.model';
@@ -64,7 +62,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedLFAReportAndFee: LFAReportAndFeeModel;
     selectedTRA: TRAModel;
     selectedTRAStatement: TRAStatementModel = new TRAStatementModel({});
-    selectedTandC: TandCModel = new TandCModel({});
     selectedSecurityCompliance: SecurityComplianceModel;
     selectedSiteVisit: SiteVisitModel;
     selectedRateOfInterest: RateOfInterestModel;
@@ -83,7 +80,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     lfaReportAndFeeList: any;
     traList: any;
     traStatementList: any;
-    tandcList: any;
     securityComplianceList: any;
     siteVisitList: any;
     rateOfInterestList: any;
@@ -122,6 +118,11 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             }
         });
 
+        this.subscriptions.add(this._loanMonitoringService.loanMonitor.subscribe(data => {
+            this.loanMonitor = data;
+            console.log('updated loan monitor', this.loanMonitor);
+        }));
+
         this.subscriptions.add(this._loanEnquiryService.selectedEnquiry.subscribe(data => {
             this.selectedEnquiry = data;
         }));          
@@ -146,10 +147,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
                     this.traList = data;
                 });
-                // getTermsAndConditions
-                _loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
-                    this.tandcList = data;
-                })
                 // getSecurityCompliances
                 _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                     this.securityComplianceList = data;
@@ -246,12 +243,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         _loanMonitoringService.selectedTRAStatement.subscribe(data => {
             this.selectedTRAStatement = new TRAStatementModel(data);
-        })
-
-        // All about Terms & Conditions
-
-        _loanMonitoringService.selectedTandC.subscribe(data => {
-            this.selectedTandC = new TandCModel(data);
         })
 
         // All about Security Compliance
@@ -605,36 +596,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 this._loanMonitoringService.getTRAStatements(this.selectedTRA.id).subscribe(data => {
                     this.traStatementList = data;
                 });
-            }
-        });    
-    }
-
-    /**
-     * updateTermsAndConditions()
-     * @param operation 
-     */
-    updateTermsAndConditions(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedTandC': undefined
-        };
-        if (operation === 'updateT&C') {
-            data.selectedTandC = this.selectedTandC;
-        }
-        const dialogRef = this._dialogRef.open(TandCUpdateDialogComponent, {
-            panelClass: 'fuse-tandc-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getTermsAndConditions(this.loanApplicationId).subscribe(data => {
-                    this.tandcList = data;
-                });
-                this.getLoanMonitor();
             }
         });    
     }

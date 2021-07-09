@@ -32,7 +32,6 @@ export class SecurityComplianceListComponent implements OnInit {
      * constructor()
      */
     constructor(private _service: LoanMonitoringService) {
-        this._service.selectedTandC.next({});
     }
 
     /**

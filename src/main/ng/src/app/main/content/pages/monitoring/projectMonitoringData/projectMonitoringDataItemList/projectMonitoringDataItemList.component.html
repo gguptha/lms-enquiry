@@ -67,8 +67,9 @@
 
         </mat-table>
     </div>
+    
     <div class="mat-table-container mt-16" mat-white-bg style="width: 100%" *ngIf="displayHistory">
-        <div class="m-16"><h3>historical data for {{ selectedProjectMonitoringDataItem.description }}</h3></div>
+        <div class="m-16 pt-8"><h3><b>Historical data for - {{ selectedProjectMonitoringDataItem.description }}</b></h3></div>
         <mat-table class="enquiries-table" [dataSource]="projectMonitoringHistoryDataSource" matSort fusePerfectScrollbar>
 
             <!-- description Column -->
