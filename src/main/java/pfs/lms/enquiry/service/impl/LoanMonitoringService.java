@@ -1267,7 +1267,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         changeDocumentService.createChangeDocument(
                 existingBorrowerFinancials.getLoanMonitor().getId(), existingBorrowerFinancials.getId(),null,
                 existingBorrowerFinancials.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
+                existingBorrowerFinancials,
                 oldBorrowerFinancials,
                 "Updated",
                 username,
@@ -1477,8 +1477,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         changeDocumentService.createChangeDocument(
                 existingFinancialCovenants.getLoanMonitor().getId(), existingFinancialCovenants.getId(),null,
                 existingFinancialCovenants.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
                 oldFinancialCovenants,
+                existingFinancialCovenants,
                 "Updated",
                 username,
                 "Monitoring", "Financial Covenants");
@@ -1538,12 +1538,21 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         promoterDetails.setGroupExposure(resource.getPromoterDetails().getGroupExposure());
         promoterDetails.setPromoterDetailsItemSet(resource.getPromoterDetails().getPromoterDetailsItemSet());
         promoterDetails = promoterDetailsRepository.save(promoterDetails);
-
+        // Change Documents for Promoter Details
+        changeDocumentService.createChangeDocument(
+                promoterDetails.getLoanMonitor().getId(), promoterDetails.getId(),null,
+                promoterDetails.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                null,
+                promoterDetails,
+                "Created",
+                username,
+                "Monitoring", "Promoter Details");
         return promoterDetails;
     }
 
     @Override
     public PromoterDetails updatePromoterDetails(PromoterDetailsResource resource, String username) throws CloneNotSupportedException {
+
         final PromoterDetails existingPromoterDetails
                 = promoterDetailsRepository.getOne(resource.getPromoterDetails().getId());
 
@@ -1576,8 +1585,8 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         changeDocumentService.createChangeDocument(
                 promoterDetails.getLoanMonitor().getId(), promoterDetails.getId(),null,
                 promoterDetails.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
                 oldPromoterDetails,
+                existingPromoterDetails,
                 "Updated",
                 username,
                 "Monitoring", "Promoter Details");

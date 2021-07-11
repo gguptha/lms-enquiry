@@ -1,5 +1,6 @@
 package pfs.lms.enquiry.monitoring.service.impl;
 
+import com.sun.deploy.net.HttpResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -50,8 +51,8 @@ import java.util.List;
 public class SAPFileUploadIntegrationService implements ISAPFileUploadIntegrationService {
 
 
-    @Value("http://192.168.1.205:8000//sap/opu/odata/sap/ZPFS_LMS_MONITOR_SRV/")
-    private String postURL;
+//    @Value("http://192.168.1.205:8000//sap/opu/odata/sap/ZPFS_LMS_MONITOR_SRV/")
+//    private String postURL;
 
     @Value("${sap.userName}")
     private String userName;
@@ -196,8 +197,18 @@ public class SAPFileUploadIntegrationService implements ISAPFileUploadIntegratio
          HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
 
         RestTemplate restTemplate = new RestTemplate();
+        Object response = new Object();
+            try {
+                 response = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
 
-        Object response = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
+                System.out.println( "FILE UPLOAD RESPONSE SUCESSS:" + response.toString());
+
+            } catch (Exception exception) {
+                System.out.println( "FILE UPLOAD FAILED :" + exception.toString());
+
+            }
+
+
 
         return response;
 

@@ -42,9 +42,9 @@ public class SAPInterestRateResource {
 
         detailedResource.setParticulars(rateOfInterest.getParticulars());
         detailedResource.setScheduled(rateOfInterest.getScheduledIfAny());
-        detailedResource.setPrecodsanction(rateOfInterest.getSanctionPreCod());
-        detailedResource.setPostcodsacnction(rateOfInterest.getSanctionPreCod());
-        detailedResource.setPresentRoi(rateOfInterest.getPresentRoi());
+        detailedResource.setPrecodsanction( String.format("%.2f",rateOfInterest.getSanctionPreCod()));
+        detailedResource.setPostcodsacnction(String.format("%.2f",rateOfInterest.getSanctionPreCod()));
+        detailedResource.setPresentRoi(String.format("%.2f",rateOfInterest.getPresentRoi()));
         detailedResource.setFreeText(rateOfInterest.getFreeText());
 
         return detailedResource;

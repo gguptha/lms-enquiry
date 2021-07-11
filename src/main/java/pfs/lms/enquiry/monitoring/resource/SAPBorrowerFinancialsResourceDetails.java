@@ -30,13 +30,13 @@ public class SAPBorrowerFinancialsResourceDetails {
     private String fiscalyear;
 
     @JsonProperty(value = "Turnover")
-    private Double turnover;
+    private String turnover;
 
     @JsonProperty(value = "Pat")
-    private Double pat;
+    private String pat;
 
     @JsonProperty(value = "Networth")
-    private Double networth;
+    private String networth;
 
     @JsonProperty(value = "Dateofexternalrating")
     private String dateofexternalrating;

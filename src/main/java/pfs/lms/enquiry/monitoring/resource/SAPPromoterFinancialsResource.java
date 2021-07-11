@@ -50,9 +50,9 @@ public class SAPPromoterFinancialsResource {
             detailedResource.setNextduedateofexternalrating(null);
 
         detailedResource.setFiscalyear(promoterFinancials.getFiscalYear().toString());
-        detailedResource.setNetworth(promoterFinancials.getNetWorth());
-        detailedResource.setTurnover(promoterFinancials.getTurnover());
-        detailedResource.setPat(promoterFinancials.getPat());
+        detailedResource.setNetworth(String.format("%.2f",promoterFinancials.getNetWorth()));
+        detailedResource.setTurnover(String.format("%.2f",promoterFinancials.getTurnover()));
+        detailedResource.setPat(String.format("%.2f",promoterFinancials.getPat()));
         detailedResource.setOverallrating(promoterFinancials.getOverAllRating());
         
 

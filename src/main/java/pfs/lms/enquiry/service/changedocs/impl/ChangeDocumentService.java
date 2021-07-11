@@ -160,7 +160,9 @@ public class ChangeDocumentService implements IChangeDocumentService {
     public Page<ChangeDocument> findByBusinessProcessNameAndLoanContractId(String processName,
                                                                            String loanContractId,
                                                                            Pageable pageable) {
-        return changeDocumentRepository.findByBusinessProcessNameAndLoanContractId(processName,loanContractId,pageable);
+        Page<ChangeDocument> changeDocumentPage = changeDocumentRepository.findByBusinessProcessNameAndLoanContractId(processName,loanContractId,pageable);
+        return  changeDocumentPage;
+
     }
 
     @Override

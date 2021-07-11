@@ -1,6 +1,7 @@
 package pfs.lms.enquiry.monitoring.projectmonitoring;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
 import pfs.lms.enquiry.domain.AggregateRoot;
 import pfs.lms.enquiry.domain.LoanMonitor;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode(of = {"loanMonitor"}, callSuper = false)
 @NoArgsConstructor
-public class ProjectMonitoringData extends AggregateRoot<ProjectMonitoringData> {
+public class ProjectMonitoringData extends AbstractEntity  implements Cloneable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;

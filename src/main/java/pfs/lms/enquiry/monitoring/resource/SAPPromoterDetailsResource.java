@@ -47,8 +47,20 @@ public class SAPPromoterDetailsResource {
             detailedResource.setDateofchange(dataConversionUtility.convertDateToSAPFormat(promoterDetails.getDateOfChange()));
         } else
             detailedResource.setDateofchange(null);
-
         detailedResource.setGroupexposure(promoterDetails.getGroupExposure());
+
+        for (PromoterDetailsItem promoterDetailsItem : promoterDetails.getPromoterDetailsItemSet()) {
+            SAPPromoterDetailsItemsResourceDetails sapPromoterDetailsItemsResourceDetails = new SAPPromoterDetailsItemsResourceDetails();
+            sapPromoterDetailsItemsResourceDetails.setId(promoterDetailsItem.getId());
+            sapPromoterDetailsItemsResourceDetails.setSerialNo(promoterDetailsItem.getSerialNumber());
+            sapPromoterDetailsItemsResourceDetails.setPromDtlId(promoterDetails.getId());
+            sapPromoterDetailsItemsResourceDetails.setSanctionedequitylinkinstrument(promoterDetailsItem.getEquityLinkInstrumentSanction());
+            sapPromoterDetailsItemsResourceDetails.setCurrentequitylinkinstrument(promoterDetailsItem.getEquityLinkInstrumentCurrent());
+            sapPromoterDetailsItemsResourceDetails.setCurrentpaidupce(promoterDetailsItem.getPaidupCapitalEquityCurrent());
+            sapPromoterDetailsItemsResourceDetails.setSanctionedpaidupce(promoterDetailsItem.getPaidupCapitalEquitySanction());
+            //sapPromoterDetailsItemsResourceDetails.setBupaId(promoterDetailsItem.se);
+            detailedResource.add(sapPromoterDetailsItemsResourceDetails);
+        }
 
         return detailedResource;
     }

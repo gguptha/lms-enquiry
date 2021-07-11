@@ -10,6 +10,10 @@ import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLFResou
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by sajeev on 28-Jun-21.
@@ -52,9 +56,14 @@ public class SAPOperatingParameterResource {
             detailedResource.setDatePayment(null);
 
 
+        Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(operatingParameter.getMonth());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int month = cal.get(Calendar.MONTH);
+        //System.out.println(month == Calendar.FEBRUARY);
 
 
-        detailedResource.setMonthYear(operatingParameter.getMonth().toString() + ".") ; //TODO - ADD YEAR  + operatingParameter.get );
+        detailedResource.setMonthYear( String.valueOf(month) +"." + operatingParameter.getYear().toString()) ;
         detailedResource.setExportUnit(operatingParameter.getExportNetGeneration().toString());
 
         detailedResource.setExportUnit("");

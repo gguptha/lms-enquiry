@@ -46,10 +46,10 @@ public class SAPFinancialCovenantsResource {
         detailedResource.setSerialNo(financialCovenants.getSerialNumber());
 
         detailedResource.setFinancialcovenanttype(financialCovenants.getFinancialCovenantType());
-        detailedResource.setFinancialyear( Double.toString(financialCovenants.getFinancialYear()));
-        detailedResource.setDebtequityratio(financialCovenants.getDebtEquityRatio());
-        detailedResource.setDscr(financialCovenants.getDscr());
-        detailedResource.setToltnw(financialCovenants.getTolTnw());
+        detailedResource.setFinancialyear(financialCovenants.getFinancialYear().toString());
+        detailedResource.setDebtequityratio(String.format("%.2f",financialCovenants.getDebtEquityRatio()));
+        detailedResource.setDscr(String.format("%.2f",financialCovenants.getDscr()));
+        detailedResource.setToltnw(String.format("%.2f",financialCovenants.getTolTnw()));
         detailedResource.setRemarksfordeviation(financialCovenants.getRemarksForDeviation());
 
         return detailedResource;

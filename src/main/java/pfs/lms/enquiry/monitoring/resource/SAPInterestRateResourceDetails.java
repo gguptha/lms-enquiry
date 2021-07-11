@@ -31,13 +31,13 @@ public class SAPInterestRateResourceDetails {
     private String scheduled;
 
     @JsonProperty(value = "Precodsanction")
-    private Double precodsanction;
+    private String  precodsanction;
 
     @JsonProperty(value = "Postcodsacnction")
-    private Double postcodsacnction;
+    private String postcodsacnction;
 
     @JsonProperty(value = "PresentRoi")
-    private Double presentRoi;
+    private String presentRoi;
 
     @JsonProperty(value = "FreeText")
     private String freeText;

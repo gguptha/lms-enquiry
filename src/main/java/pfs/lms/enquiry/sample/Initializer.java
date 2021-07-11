@@ -8,6 +8,7 @@ import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.repository.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -40,8 +41,27 @@ public class Initializer implements CommandLineRunner {
 
     private final EnquiryPortalCommonConfigRepository enquiryPortalCommonConfigRepository;
 
+    private final LoanApplicationRepository loanApplicationRepository;
+
     @Override
     public void run(String... strings) throws Exception {
+
+//        List<LoanApplication> loanApplicationList = loanApplicationRepository.findAll();
+//        for (LoanApplication loanApplication: loanApplicationList) {
+//             String loanContractID = loanApplication.getLoanContractId();
+//            char ch = '1';
+//            // Get the index
+//            int index = 5;
+//
+//            //if (loanContractID.substring(0, index).equals("000002")) {
+//
+//                loanContractID = loanContractID.substring(0, index) + ch + loanContractID.substring(index + 1);
+//                loanApplication.setLoanContractId(loanContractID);
+//                loanApplicationRepository.saveAndFlush(loanApplication);
+//            //}
+//        }
+
+
 
         if(loanClassRepository.count() == 0) {
             LoanClass lc1 = new LoanClass("001", "Power");
