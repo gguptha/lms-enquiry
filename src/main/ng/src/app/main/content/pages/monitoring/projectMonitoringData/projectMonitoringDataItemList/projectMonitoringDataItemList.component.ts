@@ -91,6 +91,7 @@ export class ProjectMonitoringDataItemListComponent implements OnInit {
             width: '850px',
             data: {
                 loanApplicationId: this.loanApplicationId,
+                projectMonitoringDataId: this.projectMonitoringData.id,
                 selectedProjectMonitoringDataItem: this.selectedProjectMonitoringDataItem
             }
         });

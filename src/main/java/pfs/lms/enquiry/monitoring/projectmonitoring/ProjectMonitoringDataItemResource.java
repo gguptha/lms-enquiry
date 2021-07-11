@@ -14,6 +14,7 @@ public class ProjectMonitoringDataItemResource {
 
     private UUID id;
     private UUID loanApplicationId;
+    private UUID projectMonitoringDataId;
 
     private Integer serialNumber;
 

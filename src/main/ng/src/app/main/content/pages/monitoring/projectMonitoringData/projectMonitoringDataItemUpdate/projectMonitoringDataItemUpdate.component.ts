@@ -33,6 +33,7 @@ export class ProjectMonitoringDataItemUpdateComponent implements OnInit {
 
         this.selectedProjectMonitoringDataItem = _dialogData.selectedProjectMonitoringDataItem;
         this.selectedProjectMonitoringDataItem.loanApplicationId = _dialogData.loanApplicationId;
+        this.selectedProjectMonitoringDataItem.projectMonitoringDataId = _dialogData.projectMonitoringDataId;
         console.log(this.selectedProjectMonitoringDataItem);
     }
 
@@ -57,13 +58,11 @@ export class ProjectMonitoringDataItemUpdateComponent implements OnInit {
         if (this.projectMonitoringDataForm.valid) {
             var projectMonitoringDataItem = this.projectMonitoringDataForm.value;
             var dt = new Date(projectMonitoringDataItem.dateOfEntry);
-            projectMonitoringDataItem.dateOfEntry = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
-
-            this.selectedProjectMonitoringDataItem.dateOfEntry  = projectMonitoringDataItem.dateOfEntry;
-            this.selectedProjectMonitoringDataItem.originalData  = projectMonitoringDataItem.originalData;
-            this.selectedProjectMonitoringDataItem.revisedData1  = projectMonitoringDataItem.revisedData1;
-            this.selectedProjectMonitoringDataItem.revisedData2  = projectMonitoringDataItem.revisedData2;
-            this.selectedProjectMonitoringDataItem.remarks  = projectMonitoringDataItem.remarks;
+            this.selectedProjectMonitoringDataItem.dateOfEntry = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+            this.selectedProjectMonitoringDataItem.originalData = projectMonitoringDataItem.originalData;
+            this.selectedProjectMonitoringDataItem.revisedData1 = projectMonitoringDataItem.revisedData1;
+            this.selectedProjectMonitoringDataItem.revisedData2 = projectMonitoringDataItem.revisedData2;
+            this.selectedProjectMonitoringDataItem.remarks = projectMonitoringDataItem.remarks;
             this._loanMonitoringService.updateProjectMonitoringDataItem(this.selectedProjectMonitoringDataItem).subscribe(() => {
                 this._matSnackBar.open('Project monitoring data updated successfully.', 'OK', { duration: 7000 });
                 this._dialogRef.close({ 'refresh': true });
