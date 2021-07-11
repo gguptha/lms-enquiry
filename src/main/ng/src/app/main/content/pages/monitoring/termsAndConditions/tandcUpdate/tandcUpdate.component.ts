@@ -104,19 +104,21 @@ export class TandCUpdateDialogComponent {
                 }
             }
             else {
+                var selectedTandC = Object.assign({}, this.selectedTandC);
+                console.log('selectedTandC', selectedTandC);
                 if (this.tandcUpdateForm.get('file').value !== '') {
                     var formData = new FormData();
                     formData.append('file', this.tandcUpdateForm.get('file').value);      
                     this._loanMonitoringService.uploadVaultDocument(formData).subscribe(
                         (response) => {
-                            this.selectedTandC.documentType  = tandc.documentType;
-                            this.selectedTandC.documentTitle  = tandc.documentTitle;
-                            this.selectedTandC.communication  = tandc.communication;
-                            this.selectedTandC.borrowerRequestLetterDate  = tandc.borrowerRequestLetterDate;
-                            this.selectedTandC.dateofIssueofAmendedSanctionLetter  = tandc.dateofIssueofAmendedSanctionLetter;
-                            this.selectedTandC.remarks  = tandc.remarks;
-                            this.selectedTandC.fileReference = response.fileReference;
-                            this._loanMonitoringService.updateTandC(this.selectedTandC).subscribe(() => {
+                            selectedTandC.documentType  = tandc.documentType;
+                            selectedTandC.documentTitle  = tandc.documentTitle;
+                            selectedTandC.communication  = tandc.communication;
+                            selectedTandC.borrowerRequestLetterDate  = tandc.borrowerRequestLetterDate;
+                            selectedTandC.dateofIssueofAmendedSanctionLetter  = tandc.dateofIssueofAmendedSanctionLetter;
+                            selectedTandC.remarks  = tandc.remarks;
+                            selectedTandC.fileReference = response.fileReference;
+                            this._loanMonitoringService.updateTandC(selectedTandC).subscribe(() => {
                                 this._matSnackBar.open('T&C updated successfully.', 'OK', { duration: 7000 });
                                 this._dialogRef.close({ 'refresh': true });
                             });            
@@ -129,13 +131,13 @@ export class TandCUpdateDialogComponent {
                 }
                 else
                 {
-                    this.selectedTandC.documentType  = tandc.documentType;
-                    this.selectedTandC.documentTitle  = tandc.documentTitle;
-                    this.selectedTandC.communication  = tandc.communication;
-                    this.selectedTandC.borrowerRequestLetterDate  = tandc.borrowerRequestLetterDate;
-                    this.selectedTandC.dateofIssueofAmendedSanctionLetter  = tandc.dateofIssueofAmendedSanctionLetter;
-                    this.selectedTandC.remarks  = tandc.remarks;
-                    this._loanMonitoringService.updateTandC(this.selectedTandC).subscribe(() => {
+                    selectedTandC.documentType  = tandc.documentType;
+                    selectedTandC.documentTitle  = tandc.documentTitle;
+                    selectedTandC.communication  = tandc.communication;
+                    selectedTandC.borrowerRequestLetterDate  = tandc.borrowerRequestLetterDate;
+                    selectedTandC.dateofIssueofAmendedSanctionLetter  = tandc.dateofIssueofAmendedSanctionLetter;
+                    selectedTandC.remarks  = tandc.remarks;
+                    this._loanMonitoringService.updateTandC(selectedTandC).subscribe(() => {
                         this._matSnackBar.open('T&C updated successfully.', 'OK', { duration: 7000 });
                         this._dialogRef.close({ 'refresh': true });
                     });            
