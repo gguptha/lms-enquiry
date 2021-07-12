@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 import pfs.lms.enquiry.domain.PromoterDetails;
-import pfs.lms.enquiry.domain.PromoterDetailsItem;
+import pfs.lms.enquiry.domain.PromoterDetailItem;
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.text.ParseException;
@@ -49,15 +49,15 @@ public class SAPPromoterDetailsResource {
             detailedResource.setDateofchange(null);
         detailedResource.setGroupexposure(promoterDetails.getGroupExposure());
 
-        for (PromoterDetailsItem promoterDetailsItem : promoterDetails.getPromoterDetailsItemSet()) {
+        for (PromoterDetailItem promoterDetailItem : promoterDetails.getPromoterDetailsItemSet()) {
             SAPPromoterDetailsItemsResourceDetails sapPromoterDetailsItemsResourceDetails = new SAPPromoterDetailsItemsResourceDetails();
-            sapPromoterDetailsItemsResourceDetails.setId(promoterDetailsItem.getId());
-            sapPromoterDetailsItemsResourceDetails.setSerialNo(promoterDetailsItem.getSerialNumber());
+            sapPromoterDetailsItemsResourceDetails.setId(promoterDetailItem.getId());
+            sapPromoterDetailsItemsResourceDetails.setSerialNo(promoterDetailItem.getSerialNumber());
             sapPromoterDetailsItemsResourceDetails.setPromDtlId(promoterDetails.getId());
-            sapPromoterDetailsItemsResourceDetails.setSanctionedequitylinkinstrument(promoterDetailsItem.getEquityLinkInstrumentSanction());
-            sapPromoterDetailsItemsResourceDetails.setCurrentequitylinkinstrument(promoterDetailsItem.getEquityLinkInstrumentCurrent());
-            sapPromoterDetailsItemsResourceDetails.setCurrentpaidupce(promoterDetailsItem.getPaidupCapitalEquityCurrent());
-            sapPromoterDetailsItemsResourceDetails.setSanctionedpaidupce(promoterDetailsItem.getPaidupCapitalEquitySanction());
+            sapPromoterDetailsItemsResourceDetails.setSanctionedequitylinkinstrument(promoterDetailItem.getEquityLinkInstrumentSanction());
+            sapPromoterDetailsItemsResourceDetails.setCurrentequitylinkinstrument(promoterDetailItem.getEquityLinkInstrumentCurrent());
+            sapPromoterDetailsItemsResourceDetails.setCurrentpaidupce(promoterDetailItem.getPaidupCapitalEquityCurrent());
+            sapPromoterDetailsItemsResourceDetails.setSanctionedpaidupce(promoterDetailItem.getPaidupCapitalEquitySanction());
             //sapPromoterDetailsItemsResourceDetails.setBupaId(promoterDetailsItem.se);
             detailedResource.add(sapPromoterDetailsItemsResourceDetails);
         }

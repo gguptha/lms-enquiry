@@ -1,12 +1,9 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.promoterdetails;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AggregateRoot;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import java.time.LocalDate;
 
 @Entity
 @Setter
@@ -14,7 +11,8 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class PromoterDetailsItem extends AbstractEntity implements Cloneable {
+@AllArgsConstructor
+public class PromoterDetailItem extends AggregateRoot<PromoterDetailItem> {
 
     private Integer serialNumber;
     private String  shareHoldingCompany;
@@ -22,8 +20,4 @@ public class PromoterDetailsItem extends AbstractEntity implements Cloneable {
     private Double  paidupCapitalEquityCurrent;
     private Double  equityLinkInstrumentSanction; // (CCD/ CCPS/ Unsecured loan) - Sanction
     private Double  equityLinkInstrumentCurrent; // (CCD/ CCPS/ Unsecured loan) - Current
-
-    public Object clone () throws CloneNotSupportedException {
-        return super.clone();
-    }
 }
