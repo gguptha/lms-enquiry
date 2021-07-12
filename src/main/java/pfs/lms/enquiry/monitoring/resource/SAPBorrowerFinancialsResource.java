@@ -49,10 +49,10 @@ public class SAPBorrowerFinancialsResource {
         } else
             detailedResource.setNextduedateofexternalrating(null);
 
-        detailedResource.setFiscalyear(borrowerFinancials.getFiscalYear().toString());
-        detailedResource.setNetworth(borrowerFinancials.getNetWorth());
-        detailedResource.setTurnover(borrowerFinancials.getTurnover());
-        detailedResource.setPat(borrowerFinancials.getPat());
+        detailedResource.setFiscalyear(  borrowerFinancials.getFiscalYear().toString());
+        detailedResource.setNetworth(String.format("%.2f",borrowerFinancials.getNetWorth()));
+        detailedResource.setTurnover(String.format("%.2f",borrowerFinancials.getTurnover()));
+        detailedResource.setPat(String.format("%.2f",borrowerFinancials.getPat()));
         detailedResource.setOverallrating(borrowerFinancials.getOverAllRating());
 
 

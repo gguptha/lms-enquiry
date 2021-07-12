@@ -1,4 +1,4 @@
-package pfs.lms.enquiry.batch;
+package pfs.lms.enquiry.monitoring.batch;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +22,7 @@ import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLF;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLFRepository;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterRepository;
+import pfs.lms.enquiry.monitoring.projectmonitoring.*;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsRepository;
 import pfs.lms.enquiry.monitoring.resource.*;
@@ -90,6 +91,9 @@ public class LoanMonitoringScheduledTask {
     private final FinancialCovenantsRepository financialCovenantsRepository;
     private final PromoterDetailsRepository promoterDetailsRepository;
     private final LoanMonitorRepository loanMonitorRepository;
+    private final ProjectMonitoringDataRepository projectMonitoringDataRepository;
+    private final ProjectMonitoringDataItemRepository projectMonitoringDataItemRepository;
+    private final ProjectMonitoringDataItemHistoryRepository projectMonitoringDataItemHistoryRepository;
 
     private final SAPLIEResource saplieResource;
     private final SAPLFAResource saplfaResource;
@@ -110,6 +114,8 @@ public class LoanMonitoringScheduledTask {
     private final SAPPromoterDetailsItemResource sapPromoterDetailsItemResource;
     private final SAPTRAResource saptraResource;
     private final SAPTRAStatementResource  saptraStatementResource;
+    private final SAPProjectMonitoringDataResource sapProjectMonitoringDataResource;
+    private final SAPProjectMonitoringHistoryResource sapProjectMonitoringHistoryResource;
 
 
      @Scheduled(fixedRate = 5000)
@@ -196,7 +202,7 @@ public class LoanMonitoringScheduledTask {
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-                         response = postDocument(lieReportAndFee.getFileReference(), lieReportAndFee.getId(), "LIE Report & Fee", lieReportAndFee.getDocumentTitle());
+                         response = postDocument(lieReportAndFee.getFileReference(), lieReportAndFee.getId(), "","LIE Report & Fee", lieReportAndFee.getDocumentTitle());
                      }
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
@@ -245,7 +251,7 @@ public class LoanMonitoringScheduledTask {
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-                         response = postDocument(lfaReportAndFee.getFileReference(), lfaReportAndFee.getId(), "LFE Report & Fee", lfaReportAndFee.getDocumentTitle());
+                         response = postDocument(lfaReportAndFee.getFileReference(), lfaReportAndFee.getId(), "", "LFA Report & Fee", lfaReportAndFee.getDocumentTitle());
                      }
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
@@ -272,7 +278,7 @@ public class LoanMonitoringScheduledTask {
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-                         response = postDocument(termsAndConditionsModification.getFileReference(), termsAndConditionsModification.getId(), "TermsAndConditionsModification", termsAndConditionsModification.getDocumentTitle());
+                         response = postDocument(termsAndConditionsModification.getFileReference(), termsAndConditionsModification.getId(), "","TermsAndConditionsModification", termsAndConditionsModification.getDocumentTitle());
                      }
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
@@ -352,7 +358,7 @@ public class LoanMonitoringScheduledTask {
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-                         response = postDocument(operatingParameter.getFileReference(), operatingParameter.getId(), "Operating Parameter", operatingParameter.getDocumentTitle());
+                         response = postDocument(operatingParameter.getFileReference(), operatingParameter.getId(), "", "Operating Parameter", operatingParameter.getDocumentTitle());
                      }
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
@@ -399,7 +405,7 @@ public class LoanMonitoringScheduledTask {
                      sapInterestRateResource.setSapInterestRateResourceDetails(sapInterestRateResourceDetails);
 
                      resource = (Object) sapInterestRateResource;
-                     serviceUri = monitorServiceUri + "RateOfInterestSet";
+                     serviceUri = monitorServiceUri + "InterestRateSet";
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
 //                     if (response != null) {
@@ -424,13 +430,21 @@ public class LoanMonitoringScheduledTask {
                      sapBorrowerFinancialsResource.setSapBorrowerFinancialsResourceDetails(sapBorrowerFinancialsResourceDetails);
 
                      resource = (Object) sapBorrowerFinancialsResource;
-                     serviceUri = monitorServiceUri + "BorrowerFinancialstSet";
+                     serviceUri = monitorServiceUri + "BorrowerFinancialSet";
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-                         response = postDocument(borrowerFinancials.getRatingFileReference(), borrowerFinancials.getId(), "Borrower Financials Rating File", borrowerFinancials.getId() + borrowerFinancials.getFiscalYear());
+                         response = postDocument(borrowerFinancials.getRatingFileReference(),
+                                 borrowerFinancials.getId(),
+                                 "1",
+                                 "Borrower Financials Rating File",
+                                 "BorrowerFinancials_Annual_Report_" + borrowerFinancials.getFiscalYear());
                         if (response != null) {
-                            response = postDocument(borrowerFinancials.getAnnualReturnFileReference(), borrowerFinancials.getId(), "Borrower Financials Annual Report File", borrowerFinancials.getId() + borrowerFinancials.getFiscalYear());
+                            response = postDocument(borrowerFinancials.getAnnualReturnFileReference(),
+                                    borrowerFinancials.getId(),
+                                    "2",
+                                    "Borrower Financials Annual Report File",
+                                    "BorrowerFinancials_Rating_" + borrowerFinancials.getFiscalYear());
                         }
                      }
 
@@ -452,13 +466,20 @@ public class LoanMonitoringScheduledTask {
                      sapPromoterFinancialsResource.setSapPromoterFinancialResourceDetails(sapPromoterFinancialResourceDetails);
 
                      resource = (Object) sapPromoterFinancialsResource;
-                     serviceUri = monitorServiceUri + "PromoterFinancialstSet";
+                     serviceUri = monitorServiceUri + "PromoterFinancialSet";
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-                         response = postDocument(promoterFinancials.getRatingFileReference(), promoterFinancials.getId(), "Promoter Financials Rating File", promoterFinancials.getId() + promoterFinancials.getFiscalYear());
+                         response = postDocument(promoterFinancials.getRatingFileReference(),
+                                    promoterFinancials.getId(),
+                                   "1",
+                                 "Promoter Financials Rating File",
+                                 "PromoterFinancials_Rating_" + promoterFinancials.getFiscalYear());
                          if (response != null) {
-                             response = postDocument(promoterFinancials.getAnnualReturnFileReference(), promoterFinancials.getId(), "Promoter Financials Annual Report File", promoterFinancials.getId() + promoterFinancials.getFiscalYear());
+                             response = postDocument(promoterFinancials.getAnnualReturnFileReference(),
+                                     promoterFinancials.getId(),
+                                     "2",
+                                     "Promoter Financials Annual Report File","PromoterFinancials_Annual_Report_" + promoterFinancials.getFiscalYear());
                          }
                      }
 
@@ -481,7 +502,7 @@ public class LoanMonitoringScheduledTask {
                      sapFinancialCovenantsResource.setSapFinancialCovenantsResourceDetails(sapFinancialCovenantsResourceDetails);
 
                      resource = (Object) sapFinancialCovenantsResource;
-                     serviceUri = monitorServiceUri + " FinancialCovenantsSet";
+                     serviceUri = monitorServiceUri + "FinancialCovenantsSet";
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
@@ -507,7 +528,29 @@ public class LoanMonitoringScheduledTask {
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
                      break;
+                 case "ProjectMonitoring":
+                     ProjectMonitoringData projectMonitoringData = new ProjectMonitoringData();
+                     log.info("Attempting to Post ProjectMonitoring  to SAP AT :" + dateFormat.format(new Date()));
+                     Optional<ProjectMonitoringData> pmd =
+                             projectMonitoringDataRepository.findById(UUID.fromString(sapIntegrationPointer.getBusinessObjectId()));
+                     projectMonitoringData = pmd.get();
 
+                     //Set Status as in progress
+                     sapIntegrationPointer.setStatus(1); // In Posting Process
+                     sapIntegrationRepository.save(sapIntegrationPointer);
+
+                     SAPProjectMonitoringResourceDataDetails sapProjectMonitoringResourceDataDetails
+                             = sapProjectMonitoringDataResource.mapToSAP(projectMonitoringData);
+
+                     SAPProjectMonitoringDataResource sapProjectMonitoringDataResource = new SAPProjectMonitoringDataResource();
+                     sapProjectMonitoringDataResource.setSapProjectMonitoringResourceDataDetails(sapProjectMonitoringResourceDataDetails);
+
+                     resource = (Object) sapProjectMonitoringDataResource;
+                     serviceUri = monitorServiceUri + " ProjectMonitoringSet";
+                     response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
+
+                     updateSAPIntegrationPointer(response,sapIntegrationPointer);
+                     break;
                  case "TRA Account":
                      TrustRetentionAccount trustRetentionAccount = new TrustRetentionAccount();
 
@@ -555,7 +598,7 @@ public class LoanMonitoringScheduledTask {
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      if (response != null) {
-                         response = postDocument(trustRetentionAccountStatement.getFileReference(), trustRetentionAccountStatement.getId(), "Trust Retention Account Statement", "" ); //trustRetentionAccountStatement.getDocumentTitle());
+                         response = postDocument(trustRetentionAccountStatement.getFileReference(), trustRetentionAccountStatement.getId(), "", "Trust Retention Account Statement", "" ); //trustRetentionAccountStatement.getDocumentTitle());
                      }
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
@@ -565,7 +608,7 @@ public class LoanMonitoringScheduledTask {
      }
 
     private Object postDocument(String fileReference,
-                                String entityId,
+                                String entityId, String docSubId,
                                 String entityName,
                                 String fileName) throws IOException {
 
@@ -601,8 +644,17 @@ public class LoanMonitoringScheduledTask {
         mimeType = mimeTypeParts[1];
         fileType = mimeTypeParts[0];
 
-        String documentUploadUri = monitorDocumentUri + "("
-                + "Id='" + fileUUID.toString() + "',"
+//        String documentUploadUri = monitorDocumentUri + "("
+//                + "Id='" + fileUUID.toString() + "',"
+//                + "EntityId='" +entityId +  "',"
+//                + "EntityName='" +entityName +  "',"
+//                + "MimeType='" +mimeType +  "',"
+//                + "Filename='" +fileName +  "',"
+//                + "FileType='" +fileType +  "',"
+//                + ")/$value";
+
+                String documentUploadUri = monitorDocumentUri + "("
+                + "Id='" + entityId + "'," + "DocSubId='" + docSubId + "',"
                 + "EntityId='" +entityId +  "',"
                 + "EntityName='" +entityName +  "',"
                 + "MimeType='" +mimeType +  "',"
@@ -642,7 +694,7 @@ public class LoanMonitoringScheduledTask {
 
     private void updateSAPIntegrationPointer(Object response, SAPIntegrationPointer sapIntegrationPointer) {
 
-
+            sapIntegrationPointer.setProcessDate(new Date());
             if (response == null) {
                 //Set Status as Failed
                 sapIntegrationPointer.setStatus(2); // Posting Failed

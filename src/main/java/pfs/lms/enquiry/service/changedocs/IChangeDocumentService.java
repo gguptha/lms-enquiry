@@ -48,4 +48,5 @@ public interface IChangeDocumentService {
     Page<ChangeDocument> findByBusinessProcessNameAndDateBetween(String businessProcessName, Date dateFrom, Date dateTo, Pageable pageable);
     Page<ChangeDocument> findByBusinessProcessNameAndDate(String businessProcessName, Date date,Pageable pageable);
 
+
 }

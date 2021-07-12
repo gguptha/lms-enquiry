@@ -18,21 +18,21 @@ import java.text.ParseException;
 public class SAPProjectMonitoringHistoryResource {
 
     @JsonProperty(value = "d")
-    private SAPProjectMonitoringResourceDetails sapProjectMonitoringResourceDetails;
+    private SAPProjectMonitoringResourceDataItemDetails sapProjectMonitoringResourceDataItemDetails;
 
-    public SAPProjectMonitoringResourceDetails getSapProjectMonitoringResourceDetails() {
-        return sapProjectMonitoringResourceDetails;
+    public SAPProjectMonitoringResourceDataItemDetails getSapProjectMonitoringResourceDetails() {
+        return sapProjectMonitoringResourceDataItemDetails;
     }
 
-    public void setSapProjectMonitoringResourceDetails(SAPProjectMonitoringResourceDetails sapProjectMonitoringResourceDetails) {
-        this.sapProjectMonitoringResourceDetails = sapProjectMonitoringResourceDetails;
+    public void setSapProjectMonitoringResourceDetails(SAPProjectMonitoringResourceDataItemDetails sapProjectMonitoringResourceDataItemDetails) {
+        this.sapProjectMonitoringResourceDataItemDetails = sapProjectMonitoringResourceDataItemDetails;
     }
 
-    public SAPProjectMonitoringResourceDetails mapToSAP(BorrowerFinancials borrowerFinancials) throws ParseException {
+    public SAPProjectMonitoringResourceDataItemDetails mapToSAP(BorrowerFinancials borrowerFinancials) throws ParseException {
 
         DataConversionUtility dataConversionUtility = new DataConversionUtility();
 
-        SAPProjectMonitoringResourceDetails detailedResource = new SAPProjectMonitoringResourceDetails();
+        SAPProjectMonitoringResourceDataItemDetails detailedResource = new SAPProjectMonitoringResourceDataItemDetails();
 //
 //        detailedResource.setId(borrowerFinancials.getId());
 //        detailedResource.setMonitorId(borrowerFinancials.getLoanMonitor().getId().toString());

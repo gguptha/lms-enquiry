@@ -33,13 +33,13 @@ public class SAPFinancialCovenantsResourceDetails {
     private String financialyear;
 
     @JsonProperty(value = "Debtequityratio")
-    private Double debtequityratio;
+    private String debtequityratio;
 
     @JsonProperty(value = "Dscr")
-    private Double dscr;
+    private String dscr;
 
     @JsonProperty(value = "Toltnw")
-    private Double toltnw;
+    private String toltnw;
 
     @JsonProperty(value = "Remarksfordeviation")
     private String remarksfordeviation;

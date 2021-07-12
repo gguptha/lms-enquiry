@@ -1,5 +1,5 @@
 package pfs.lms.enquiry.controller;
- 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,31 +36,36 @@ public class ChangeDocumentController {
                                              @RequestParam(value = "loanContractId", required = false) String loanContractId,
                                              @RequestParam(value = "dateFrom", required = false) String dateFromString,
                                              @RequestParam(value = "dateTo", required = false) String dateToString,
-                                             Pageable pageable) throws Exception{
+                                             Pageable pageable) throws Exception {
+        if (processName == null)
+            processName = "Monitoring";
 
+        if (dateToString == null) dateToString = dateFromString;
 
-         if (dateToString == null) dateToString = dateFromString;
-
-        if ( loanContractId != null && dateFromString != null && dateToString != null)
-            return ResponseEntity.ok(this.getChangeDocumentForBusinessProcessNameLoanContractIdDateRange(processName,loanContractId,dateFromString,dateToString, pageable));
+        if (loanContractId != null && dateFromString != null && dateToString != null)
+            return ResponseEntity.ok(this.getChangeDocumentForBusinessProcessNameLoanContractIdDateRange(processName, loanContractId, dateFromString, dateToString, pageable));
 
         if (loanContractId == null && dateFromString == null && dateToString == null) {
             return ResponseEntity.ok(this.getChangeDocumentForProcessName(processName, pageable));
         }
 
         if (loanContractId != null && dateFromString != null && dateToString == null) {
-            return ResponseEntity.ok(this.getChangeDocumentForBusinessProcessNameLoanContractIdDate(processName,loanContractId,dateFromString, pageable));
+            return ResponseEntity.ok(this.getChangeDocumentForBusinessProcessNameLoanContractIdDate(processName, loanContractId, dateFromString, pageable));
+        }
+
+        if (loanContractId != null && dateFromString == null && dateToString == null) {
+            return ResponseEntity.ok(this.getChangeDocumentForProcessNameLoanContract(processName,loanContractId,pageable));
         }
 
         if (loanContractId == null && dateFromString != null && dateToString != null) {
-            return ResponseEntity.ok(this.getChangeDocumentForProcessNameDateRange(processName,dateFromString, dateToString,pageable));
+            return ResponseEntity.ok(this.getChangeDocumentForProcessNameDateRange(processName, dateFromString, dateToString, pageable));
         }
 
         if (loanContractId == null && dateFromString == null && dateToString == null) {
-            return ResponseEntity.ok(this.getChangeDocumentForProcessName(processName,pageable));
+            return ResponseEntity.ok(this.getChangeDocumentForProcessName(processName, pageable));
         }
         if (loanContractId == null && dateFromString != null && dateToString == null) {
-            return ResponseEntity.ok(this.getChangeDocumentForProcessNameDate(processName,dateFromString,pageable));
+            return ResponseEntity.ok(this.getChangeDocumentForProcessNameDate(processName, dateFromString, pageable));
         }
 
         return ResponseEntity.noContent().build();
@@ -68,55 +73,54 @@ public class ChangeDocumentController {
     }
 
 
-
     private Page<ChangeDocument> getChangeDocumentForProcessName(String businessProcessName,
-                                                                                   Pageable pageable) throws ParseException {
+                                                                 Pageable pageable) throws ParseException {
 
         return changeDocumentService.findByBusinessProcessName(businessProcessName, pageable);
     }
 
 
+    private Page<ChangeDocument> getChangeDocumentForProcessNameLoanContractIdDate(String businessProcessName,
+                                                                                   String loanContractId,
+                                                                                   String date,
+                                                                                   Pageable pageable) throws ParseException {
 
-     private Page<ChangeDocument> getChangeDocumentForProcessNameLoanContractIdDate(String businessProcessName,
-                                                                                    String loanContractId,
-                                                               String date,
-                                                               Pageable pageable) throws ParseException {
-
-         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOn       = format.parse ( date);
-        return changeDocumentService.findByBusinessProcessNameAndLoanContractIdAndDate(businessProcessName,loanContractId, dateOn, pageable);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOn = format.parse(date);
+        return changeDocumentService.findByBusinessProcessNameAndLoanContractIdAndDate(businessProcessName, loanContractId, dateOn, pageable);
     }
 
 
-
     private Page<ChangeDocument> getChangeDocumentForBusinessProcessNameLoanContractIdDate(String processName, String loanContractId,
-                                                                       String date,
-                                                                       Pageable pageable) throws ParseException {
+                                                                                           String date,
+                                                                                           Pageable pageable) throws ParseException {
 
-         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateOn       = format.parse ( date);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateOn = format.parse(date);
         return changeDocumentService.findByBusinessProcessNameAndLoanContractIdAndDate(
                 processName, loanContractId, dateOn, pageable);
 
     }
 
-
-
-
+    private Page<ChangeDocument> getChangeDocumentForProcessNameLoanContract(String businessProcessName,
+                                                                             String loanContractId,
+                                                                             Pageable pageable) throws  ParseException
+    {
+        return changeDocumentService.findByBusinessProcessNameAndLoanContractId(businessProcessName,loanContractId,pageable);
+    }
     private Page<ChangeDocument> getChangeDocumentForBusinessProcessNameLoanContractIdDateRange(String processName, String loanContractId,
-                                                                        String dateFromString,
-                                                                        String dateToString,
-                                                                        Pageable pageable) throws ParseException {
+                                                                                                String dateFromString,
+                                                                                                String dateToString,
+                                                                                                Pageable pageable) throws ParseException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateFrom       = format.parse ( dateFromString);
-        Date dateTo       = format.parse ( dateToString);
+        Date dateFrom = format.parse(dateFromString);
+        Date dateTo = format.parse(dateToString);
         dateTo = setTimeToLastSecondOfDay(dateTo);
 
 
-
         Page<ChangeDocument> changeDocuments = changeDocumentService.findByBusinessProcessNameAndLoanContractIdAndDateBetween(
-                                                    processName,loanContractId, dateFrom  ,  dateTo, pageable);
+                processName, loanContractId, dateFrom, dateTo, pageable);
 
         return changeDocuments;
 
@@ -124,36 +128,35 @@ public class ChangeDocumentController {
 
 
     private Page<ChangeDocument> getChangeDocumentForProcessNameDateRange(String processName,
-                                                                                                String dateFromString,
-                                                                                                String dateToString,
-                                                                                                Pageable pageable) throws ParseException {
+                                                                          String dateFromString,
+                                                                          String dateToString,
+                                                                          Pageable pageable) throws ParseException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateFrom       = format.parse ( dateFromString);
-        Date dateTo       = format.parse ( dateToString);
+        Date dateFrom = format.parse(dateFromString);
+        Date dateTo = format.parse(dateToString);
         dateTo = setTimeToLastSecondOfDay(dateTo);
 
         Page<ChangeDocument> changeDocuments = changeDocumentService.findByBusinessProcessNameAndDateBetween(
-                                            processName,dateFrom,  dateTo, pageable);
+                processName, dateFrom, dateTo, pageable);
 
         return changeDocuments;
 
     }
 
     private Page<ChangeDocument> getChangeDocumentForProcessNameDate(String processName,
-                                                                          String dateFromString,
-                                                                          Pageable pageable) throws ParseException {
+                                                                     String dateFromString,
+                                                                     Pageable pageable) throws ParseException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateFrom       = format.parse ( dateFromString);
+        Date dateFrom = format.parse(dateFromString);
 
         Page<ChangeDocument> changeDocuments = changeDocumentService.findByBusinessProcessNameAndDate(
-                                                                                             processName,dateFrom,   pageable);
+                processName, dateFrom, pageable);
 
         return changeDocuments;
 
     }
-
 
 
     private Date setTimeToLastSecondOfDay(Date date) {

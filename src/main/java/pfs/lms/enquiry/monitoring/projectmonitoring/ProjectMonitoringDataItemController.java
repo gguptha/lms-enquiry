@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 @Slf4j
@@ -20,10 +21,10 @@ public class ProjectMonitoringDataItemController {
     @PutMapping("/projectMonitoringDataItems/{projectMonitoringDataItemId}")
     public ResponseEntity<ProjectMonitoringDataItem> updateProjectMonitoringDataItem(
             @PathVariable UUID projectMonitoringDataItemId,
-            @RequestBody ProjectMonitoringDataItemResource projectMonitoringDataItemResource) {
+            @RequestBody ProjectMonitoringDataItemResource projectMonitoringDataItemResource, HttpServletRequest request) throws CloneNotSupportedException {
 
         ProjectMonitoringDataItem projectMonitoringDataItem = projectMonitoringDataItemService
-                .updateProjectMonitoringDataItem(projectMonitoringDataItemId, projectMonitoringDataItemResource);
+                .updateProjectMonitoringDataItem(projectMonitoringDataItemId, projectMonitoringDataItemResource,request);
         return ResponseEntity.ok(projectMonitoringDataItem);
     }
 }

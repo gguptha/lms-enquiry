@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.checkerframework.common.reflection.qual.GetClass;
 import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -31,6 +33,9 @@ public class SAPIntegrationPointer {
     private String businessProcessName;
     private String subBusinessProcessName;
 
+    private Date creationDate;
+
+    private Date processDate;
 
 
     //0- Not Posted

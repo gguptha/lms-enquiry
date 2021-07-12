@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * Created by sajeev on 28-Jun-21.
  */
@@ -29,6 +31,10 @@ public class SAPPromoterDetailsResourceDetails {
     @JsonProperty(value = "Groupexposure")
     private Double groupexposure;
 
+    @JsonProperty(value = "PromoterDetailsItem")
+    private List<SAPPromoterDetailsItemsResourceDetails> sapPromoterDetailsItemsResourceDetailsList;
 
-
+    public void add(SAPPromoterDetailsItemsResourceDetails sapPromoterDetailsItemsResourceDetails) {
+        this.sapPromoterDetailsItemsResourceDetailsList.add(sapPromoterDetailsItemsResourceDetails);
+    }
 }

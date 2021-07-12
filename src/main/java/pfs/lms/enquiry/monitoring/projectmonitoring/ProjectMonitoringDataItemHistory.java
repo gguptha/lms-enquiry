@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(of = {"particulars", "originalData"}, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectMonitoringDataItemHistory extends AggregateRoot<ProjectMonitoringDataItemHistory> {
+public class ProjectMonitoringDataItemHistory extends AggregateRoot<ProjectMonitoringDataItemHistory> implements  Cloneable{
 
     private String projectMonitoringDataId;
 
@@ -25,4 +25,9 @@ public class ProjectMonitoringDataItemHistory extends AggregateRoot<ProjectMonit
     private String revisedData1;
     private String revisedData2;
     private String remarks;
+
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.UUID;
 
@@ -21,10 +22,10 @@ public class ProjectMonitoringDataController {
     private final IProjectMonitoringDataService projectMonitoringDataService;
 
     @PostMapping("/projectMonitoringDatas/loanApplication/{loanApplicationId}")
-    public ResponseEntity<ProjectMonitoringData> saveProjectMonitoringData(@PathVariable UUID loanApplicationId) {
+    public ResponseEntity<ProjectMonitoringData> saveProjectMonitoringData(@PathVariable UUID loanApplicationId, HttpServletRequest request) {
 
         ProjectMonitoringData projectMonitoringData = projectMonitoringDataService
-                .saveProjectMonitoringData(loanApplicationId);
+                .saveProjectMonitoringData(loanApplicationId, request);
         return ResponseEntity.ok(projectMonitoringData);
     }
 

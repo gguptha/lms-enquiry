@@ -1,5 +1,6 @@
 package pfs.lms.enquiry.service.impl;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.SAPIntegrationPointer;
@@ -7,6 +8,7 @@ import pfs.lms.enquiry.repository.SAPIntegrationRepository;
 import pfs.lms.enquiry.service.ISAPIntegrationPointerService;
 import pfs.lms.enquiry.service.ISAPIntegrationService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +45,7 @@ public class SAPIntegrationPointerService implements ISAPIntegrationPointerServi
         SAPIntegrationPointer sapIntegrationPointer = new SAPIntegrationPointer();
         sapIntegrationPointer.setBusinessProcessName(businessProcessName);
         sapIntegrationPointer.setSubBusinessProcessName(subBusinessProcessName);
-
+        sapIntegrationPointer.setCreationDate(new Date());
         sapIntegrationPointer.setBusinessObjectId(entityId);
         sapIntegrationPointer.setStatus(status);
 
