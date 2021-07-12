@@ -19,6 +19,7 @@ import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
 import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLF;
+import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetail;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccount;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccountStatement;
@@ -381,7 +382,7 @@ public class ChangeDocumentService implements IChangeDocumentService {
                     return result;
 
                 case "PromoterDetails":
-                    PromoterDetails promoterDetails  =   (PromoterDetails) object;
+                    PromoterDetail promoterDetails  =   (PromoterDetail) object;
                     result.put("id", promoterDetails.getDateOfChange().toString());
                     result.put("description", promoterDetails.getDateOfChange().toString());
                     return result;

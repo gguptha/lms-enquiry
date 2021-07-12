@@ -6,8 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-import pfs.lms.enquiry.domain.PromoterDetails;
-import pfs.lms.enquiry.domain.PromoterDetailItem;
+
+import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetail;
+import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetailItem;
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.text.ParseException;
@@ -35,12 +36,12 @@ public class SAPPromoterDetailsResource {
         this.sapPromoterDetailsResourceDetails = sapPromoterDetailsResourceDetails;
     }
 
-    public SAPPromoterDetailsResourceDetails mapToSAP(PromoterDetails promoterDetails) throws ParseException {
+    public SAPPromoterDetailsResourceDetails mapToSAP(PromoterDetail promoterDetails) throws ParseException {
 
         DataConversionUtility dataConversionUtility = new DataConversionUtility();
 
         SAPPromoterDetailsResourceDetails detailedResource = new SAPPromoterDetailsResourceDetails();
-        detailedResource.setId(promoterDetails.getId());
+        detailedResource.setId(promoterDetails.getId().toString());
         detailedResource.setMonitorId(promoterDetails.getLoanMonitor().getId().toString());
 
         if (promoterDetails.getDateOfChange() != null) {
@@ -49,11 +50,11 @@ public class SAPPromoterDetailsResource {
             detailedResource.setDateofchange(null);
         detailedResource.setGroupexposure(promoterDetails.getGroupExposure());
 
-        for (PromoterDetailItem promoterDetailItem : promoterDetails.getPromoterDetailsItemSet()) {
+        for (PromoterDetailItem promoterDetailItem : promoterDetails.getPromoterDetailItemSet()) {
             SAPPromoterDetailsItemsResourceDetails sapPromoterDetailsItemsResourceDetails = new SAPPromoterDetailsItemsResourceDetails();
-            sapPromoterDetailsItemsResourceDetails.setId(promoterDetailItem.getId());
+            sapPromoterDetailsItemsResourceDetails.setId(promoterDetailItem.getId().toString());
             sapPromoterDetailsItemsResourceDetails.setSerialNo(promoterDetailItem.getSerialNumber());
-            sapPromoterDetailsItemsResourceDetails.setPromDtlId(promoterDetails.getId());
+            sapPromoterDetailsItemsResourceDetails.setPromDtlId(promoterDetails.getId().toString());
             sapPromoterDetailsItemsResourceDetails.setSanctionedequitylinkinstrument(promoterDetailItem.getEquityLinkInstrumentSanction());
             sapPromoterDetailsItemsResourceDetails.setCurrentequitylinkinstrument(promoterDetailItem.getEquityLinkInstrumentCurrent());
             sapPromoterDetailsItemsResourceDetails.setCurrentpaidupce(promoterDetailItem.getPaidupCapitalEquityCurrent());

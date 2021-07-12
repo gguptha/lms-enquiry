@@ -23,6 +23,8 @@ import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLF;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterPLFRepository;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterRepository;
 import pfs.lms.enquiry.monitoring.projectmonitoring.*;
+import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetail;
+import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetailRepository;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsRepository;
 import pfs.lms.enquiry.monitoring.resource.*;
@@ -89,7 +91,7 @@ public class LoanMonitoringScheduledTask {
     private final SiteVisitRepository   siteVisitRepository;
     private final RateOfInterestRepository rateOfInterestRepository;
     private final FinancialCovenantsRepository financialCovenantsRepository;
-    private final PromoterDetailsRepository promoterDetailsRepository;
+    private final PromoterDetailRepository promoterDetailsRepository;
     private final LoanMonitorRepository loanMonitorRepository;
     private final ProjectMonitoringDataRepository projectMonitoringDataRepository;
     private final ProjectMonitoringDataItemRepository projectMonitoringDataItemRepository;
@@ -516,9 +518,9 @@ public class LoanMonitoringScheduledTask {
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
                      break;
                  case "Promoter Details":
-                     PromoterDetails promoterDetails = new PromoterDetails();
+                     PromoterDetail promoterDetails = new PromoterDetail();
                      log.info("Attempting to Post Promoter Details  to SAP AT :" + dateFormat.format(new Date()));
-                     Optional<PromoterDetails> pd = promoterDetailsRepository.findById(sapIntegrationPointer.getBusinessObjectId().toString());
+                     Optional<PromoterDetail> pd = promoterDetailsRepository.findById(UUID.fromString(sapIntegrationPointer.getBusinessObjectId()));
 
                      promoterDetails = pd.get();
 
