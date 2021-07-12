@@ -261,17 +261,17 @@ export class LoanMonitoringService implements Resolve<any> {
     // All about Promoter Details
 
     public getPromoterDetails(loanApplicationId: string): Observable<any> {
-        return this._http.get('enquiry/api/loanApplications/' + loanApplicationId + '/promoterdetails');
+        return this._http.get('enquiry/api/promoterDetails/loanApplication/' + loanApplicationId);
     }
 
-    public savePromoterDetails(promoterDetails: any, loanApplicationId: any): Observable<any> {
-        const url = "enquiry/api/loanApplications/promoterdetails/create";
-        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'promoterDetails':promoterDetails });
+    public savePromoterDetails(promoterDetail: any, loanApplicationId: any): Observable<any> {
+        const url = "enquiry/api/promoterDetails";
+        return this._http.post(url, { 'loanApplicationId':loanApplicationId, 'promoterDetail':promoterDetail });
     }
 
-    public updatePromoterDetails(promoterDetails: any): Observable<any> {
-        const url = "enquiry/api/loanApplications/promoterdetails/" + promoterDetails.id;
-        return this._http.put(url, { 'loanApplicationId':'', 'promoterDetails':promoterDetails });
+    public updatePromoterDetails(promoterDetail: any): Observable<any> {
+        const url = "enquiry/api/promoterDetails/" + promoterDetail.id;
+        return this._http.put(url, { 'loanApplicationId':'', 'promoterDetail':promoterDetail });
     }
 
     // All about Operating Parameters 

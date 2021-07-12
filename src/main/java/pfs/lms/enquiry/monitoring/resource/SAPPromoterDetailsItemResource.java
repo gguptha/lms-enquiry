@@ -6,8 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-import pfs.lms.enquiry.domain.PromoterDetails;
-import pfs.lms.enquiry.domain.PromoterDetailsItem;
+import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetailItem;
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.text.ParseException;
@@ -34,22 +33,22 @@ public class SAPPromoterDetailsItemResource {
         this.sapPromoterDetailsItemsResourceDetails = sapPromoterDetailsItemsResourceDetails;
     }
 
-    public SAPPromoterDetailsItemsResourceDetails mapToSAP(PromoterDetailsItem promoterDetailsItem) throws ParseException {
+    public SAPPromoterDetailsItemsResourceDetails mapToSAP(PromoterDetailItem promoterDetailItem) throws ParseException {
 
         DataConversionUtility dataConversionUtility = new DataConversionUtility();
 
         SAPPromoterDetailsItemsResourceDetails detailedResource = new SAPPromoterDetailsItemsResourceDetails();
-        detailedResource.setId(promoterDetailsItem.getId());
+        detailedResource.setId(promoterDetailItem.getId().toString());
 
         //detailedResource.setMonitorId(promoterDetailsItem.get);
 
 
-        detailedResource.setSerialNo(promoterDetailsItem.getSerialNumber() );
-        detailedResource.setShareholdingcompany(promoterDetailsItem.getShareHoldingCompany());
-        detailedResource.setCurrentpaidupce(promoterDetailsItem.getPaidupCapitalEquityCurrent());
-        detailedResource.setCurrentequitylinkinstrument(promoterDetailsItem.getPaidupCapitalEquityCurrent());
-        detailedResource.setSanctionedequitylinkinstrument(promoterDetailsItem.getEquityLinkInstrumentSanction());
-        detailedResource.setCurrentequitylinkinstrument(promoterDetailsItem.getEquityLinkInstrumentCurrent());
+        detailedResource.setSerialNo(promoterDetailItem.getSerialNumber() );
+        detailedResource.setShareholdingcompany(promoterDetailItem.getShareHoldingCompany());
+        detailedResource.setCurrentpaidupce(promoterDetailItem.getPaidupCapitalEquityCurrent());
+        detailedResource.setCurrentequitylinkinstrument(promoterDetailItem.getPaidupCapitalEquityCurrent());
+        detailedResource.setSanctionedequitylinkinstrument(promoterDetailItem.getEquityLinkInstrumentSanction());
+        detailedResource.setCurrentequitylinkinstrument(promoterDetailItem.getEquityLinkInstrumentCurrent());
 
         return detailedResource;
     }

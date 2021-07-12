@@ -14,7 +14,10 @@ import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAResource;
 import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
-import pfs.lms.enquiry.monitoring.lie.*;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeResource;
+import pfs.lms.enquiry.monitoring.lie.LIEResource;
+import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterResource;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
@@ -24,7 +27,6 @@ import pfs.lms.enquiry.monitoring.tra.TRAStatementResource;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccount;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccountStatement;
 import pfs.lms.enquiry.resource.*;
-
 import pfs.lms.enquiry.service.ILoanMonitoringService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -438,34 +440,6 @@ public class LoanMonitoringController {
         List<FinancialCovenantsResource> financialCovenants = loanMonitoringService.getFinancialCovenants(loanApplicationId,
                 request.getUserPrincipal().getName());
         return ResponseEntity.ok(financialCovenants);
-    }
-
-
-    // Create update and list (Promoter Details)
-
-    @PostMapping("/loanApplications/promoterdetails/create")
-    public ResponseEntity createPromoterDetails(@RequestBody PromoterDetailsResource resource, HttpServletRequest request) {
-        PromoterDetails promoterDetails =
-                loanMonitoringService.savePromoterDetails(resource, request.getUserPrincipal().getName());
-        return ResponseEntity.ok(promoterDetails);
-    }
-
-    @PutMapping("/loanApplications/promoterdetails/{id}")
-    public ResponseEntity updatePromoterDetails(@PathVariable("id") String promoterDetailsId, @RequestBody PromoterDetailsResource resource, HttpServletRequest request) throws CloneNotSupportedException {
-        PromoterDetails promoterDetails =
-                loanMonitoringService.updatePromoterDetails(resource, request.getUserPrincipal().getName());
-
-        return ResponseEntity.ok(promoterDetails);
-
-    }
-
-    @GetMapping("/loanApplications/{loanapplicationid}/promoterdetails")
-    public ResponseEntity getPromoterDetails(@PathVariable("loanapplicationid") String loanApplicationId,
-                                                HttpServletRequest request)
-    {
-        List<PromoterDetailsResource> promoterDetails = loanMonitoringService.getPromoterDetails(loanApplicationId,
-                request.getUserPrincipal().getName());
-        return ResponseEntity.ok(promoterDetails);
     }
 
     @GetMapping("/loanApplications/{loanContractId}/loanMonitor")

@@ -7,7 +7,10 @@ import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAResource;
 import pfs.lms.enquiry.monitoring.lfa.LendersFinancialAdvisor;
-import pfs.lms.enquiry.monitoring.lie.*;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFee;
+import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeResource;
+import pfs.lms.enquiry.monitoring.lie.LIEResource;
+import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterResource;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
@@ -96,12 +99,6 @@ public interface ILoanMonitoringService {
     FinancialCovenants saveFinancialCovenants(FinancialCovenantsResource resource, String username);
     FinancialCovenants updateFinancialCovenants(FinancialCovenantsResource resource, String username) throws CloneNotSupportedException;
     List<FinancialCovenantsResource> getFinancialCovenants(String loanApplicationId, String name);
-
-
-    //  Promoter Details
-    PromoterDetails savePromoterDetails(PromoterDetailsResource resource, String username);
-    PromoterDetails updatePromoterDetails(PromoterDetailsResource resource, String username) throws CloneNotSupportedException;
-    List<PromoterDetailsResource> getPromoterDetails(String loanApplicationId, String name);
 
     //  Promoter Details Item
     // PromoterDetailsItem savePromoterDetailsItem(PromoterDetailsItemResource resource, String username);

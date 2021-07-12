@@ -86,7 +86,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
     financialCovenantsList: any;
-    promoterDetailsItemSet: any;
+    promoterDetailItemSet: any;
     operatingParameterList: any;
     operatingParameterPLFList: any;
 
@@ -175,9 +175,9 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
                     console.log('data', data);
                     if (data.length > 0) {
-                        this.selectedPromoterDetails = data[0].promoterDetails;
-                        this.selectedPromoterDetails.promoterDetailsItemSet.sort((a, b) => b.serialNumber - a.serialNumber);
-                        this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
+                        this.selectedPromoterDetails = data[0].promoterDetail;
+                        this.selectedPromoterDetails.promoterDetailItemSet.sort((a, b) => b.serialNumber - a.serialNumber);
+                        this.promoterDetailItemSet = this.selectedPromoterDetails.promoterDetailItemSet;
                         console.log(this.selectedPromoterDetails);
                         this.promoterHeaderDetailsForm.controls.dateOfChange.setValue(this.selectedPromoterDetails.dateOfChange);
                         this.promoterHeaderDetailsForm.controls.groupExposure.setValue(this.selectedPromoterDetails.groupExposure);
@@ -865,8 +865,9 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             if (result.refresh) {
                 this._loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
                     if (data.length > 0) {
-                        this.selectedPromoterDetails = data[0].promoterDetails;
-                        this.promoterDetailsItemSet = this.selectedPromoterDetails.promoterDetailsItemSet;
+                        this.selectedPromoterDetails = data[0].promoterDetail;
+                        this.selectedPromoterDetails.promoterDetailItemSet.sort((a, b) => b.serialNumber - a.serialNumber);
+                        this.promoterDetailItemSet = this.selectedPromoterDetails.promoterDetailItemSet;
                     }
                 });
                 this.getLoanMonitor();

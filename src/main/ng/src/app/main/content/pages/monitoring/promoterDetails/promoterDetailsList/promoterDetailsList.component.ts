@@ -15,8 +15,8 @@ export class PromoterDetailsItemListComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     @Input()
-    set promoterDetailsItemSet(promoterDetailsItemSet: any) {
-        this.dataSource = new MatTableDataSource(promoterDetailsItemSet);
+    set promoterDetailItemSet(promoterDetailItemSet: any) {
+        this.dataSource = new MatTableDataSource(promoterDetailItemSet);
         this.dataSource.sort = this.sort
     }
 

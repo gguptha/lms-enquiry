@@ -1,6 +1,8 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.promoterdetails;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AggregateRoot;
+import pfs.lms.enquiry.domain.LoanMonitor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,7 +14,7 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class PromoterDetails extends AbstractEntity  implements Cloneable{
+public class PromoterDetail extends AggregateRoot<PromoterDetail> implements Cloneable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
@@ -21,7 +23,7 @@ public class PromoterDetails extends AbstractEntity  implements Cloneable{
     private Double groupExposure;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<PromoterDetailsItem> promoterDetailsItemSet;
+    private Set<PromoterDetailItem> promoterDetailItemSet;
 
     public Object clone () throws CloneNotSupportedException {
         return super.clone();

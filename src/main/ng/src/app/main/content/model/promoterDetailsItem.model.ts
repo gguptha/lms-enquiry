@@ -13,7 +13,7 @@ export class PromoterDetailsItemModel {
      * @param _promoterDetailsItem
      */
     constructor(_promoterDetailsItem: any) {
-        this.id = _promoterDetailsItem.id || '';
+        this.id = _promoterDetailsItem.id;
         this.serialNumber = _promoterDetailsItem.serialNumber || 0;
         this.shareHoldingCompany = _promoterDetailsItem.shareHoldingCompany || '';
         this.paidupCapitalEquitySanction = _promoterDetailsItem.paidupCapitalEquitySanction || 0;

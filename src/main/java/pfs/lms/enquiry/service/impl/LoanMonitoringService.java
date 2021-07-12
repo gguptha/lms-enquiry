@@ -14,6 +14,7 @@ import pfs.lms.enquiry.monitoring.lie.*;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterRepository;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterResource;
+import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetailRepository;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsRepository;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsResource;
@@ -60,7 +61,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
     private final FinancialCovenantsRepository financialCovenantsRepository;
 
-    private final PromoterDetailsRepository promoterDetailsRepository;
+    private final PromoterDetailRepository promoterDetailRepository;
 
     @Autowired
     private  IChangeDocumentService changeDocumentService;
@@ -1508,103 +1509,6 @@ public class LoanMonitoringService implements ILoanMonitoringService {
                 a.getFinancialCovenants().getSerialNumber()).reversed());
         return financialCovenantsResources;
 
-    }
-
-    //Promoter Details
-    @Override
-    public PromoterDetails savePromoterDetails(PromoterDetailsResource resource, String username) {
-        LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
-
-        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
-        if(loanMonitor == null)
-        {
-            loanMonitor = new LoanMonitor();
-            loanMonitor.setLoanApplication(loanApplication);
-            loanMonitor = loanMonitorRepository.save(loanMonitor);
-
-            // Change Documents for Monitoring Header
-            changeDocumentService.createChangeDocument(
-                    loanMonitor.getId(), loanMonitor.getId().toString(),null,
-                    loanApplication.getLoanContractId(),
-                    null,
-                    loanMonitor,
-                    "Created",
-                    username,
-                    "Monitoring", "Header");
-        }
-        PromoterDetails promoterDetails = resource.getPromoterDetails();
-        promoterDetails.setLoanMonitor(loanMonitor);
-        promoterDetails.setDateOfChange(resource.getPromoterDetails().getDateOfChange());
-        promoterDetails.setGroupExposure(resource.getPromoterDetails().getGroupExposure());
-        promoterDetails.setPromoterDetailsItemSet(resource.getPromoterDetails().getPromoterDetailsItemSet());
-        promoterDetails = promoterDetailsRepository.save(promoterDetails);
-
-        return promoterDetails;
-    }
-
-    @Override
-    public PromoterDetails updatePromoterDetails(PromoterDetailsResource resource, String username) throws CloneNotSupportedException {
-        final PromoterDetails existingPromoterDetails
-                = promoterDetailsRepository.getOne(resource.getPromoterDetails().getId());
-
-        Object oldPromoterDetails = existingPromoterDetails.clone();
-
-        existingPromoterDetails.setDateOfChange(resource.getPromoterDetails().getDateOfChange());
-        existingPromoterDetails.setGroupExposure(resource.getPromoterDetails().getGroupExposure());
-
-        resource.getPromoterDetails().getPromoterDetailsItemSet().forEach(resourceItem -> {
-            existingPromoterDetails.getPromoterDetailsItemSet().forEach(promoterDetailsItem -> {
-                if (resourceItem.getId().equals(promoterDetailsItem.getId())) {
-                    promoterDetailsItem.setShareHoldingCompany(resourceItem.getShareHoldingCompany());
-                    promoterDetailsItem.setPaidupCapitalEquitySanction(resourceItem.getPaidupCapitalEquitySanction());
-                    promoterDetailsItem.setEquityLinkInstrumentSanction(resourceItem.getEquityLinkInstrumentSanction());
-                    promoterDetailsItem.setPaidupCapitalEquityCurrent(resourceItem.getPaidupCapitalEquityCurrent());
-                    promoterDetailsItem.setEquityLinkInstrumentCurrent(resourceItem.getEquityLinkInstrumentCurrent());
-                }
-            });
-        });
-        resource.getPromoterDetails().getPromoterDetailsItemSet().forEach(resourceItem -> {
-            if (resourceItem.getId().equals("")) {
-                existingPromoterDetails.getPromoterDetailsItemSet().add(resourceItem);
-            }
-        });
-
-        PromoterDetails promoterDetails = promoterDetailsRepository.save(existingPromoterDetails);
-
-
-        // Change Documents for Promoter Details
-        changeDocumentService.createChangeDocument(
-                promoterDetails.getLoanMonitor().getId(), promoterDetails.getId(),null,
-                promoterDetails.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
-                oldPromoterDetails,
-                "Updated",
-                username,
-                "Monitoring", "Promoter Details");
-
-
-        return promoterDetails;
-    }
-
-    @Override
-    public List<PromoterDetailsResource> getPromoterDetails(String loanApplicationId, String name) {
-        List<PromoterDetailsResource> promoterDetailsResources= new ArrayList<>();
-        LoanApplication loanApplication = loanApplicationRepository.getOne(UUID.fromString(loanApplicationId));
-        LoanMonitor loanMonitor = loanMonitorRepository.findByLoanApplication(loanApplication);
-        if(loanMonitor != null) {
-            List<PromoterDetails> promoterDetails
-                    = promoterDetailsRepository.findByLoanMonitor(loanMonitor);
-            promoterDetails.forEach(
-                    promoterDetail -> {
-                        PromoterDetailsResource promoterDetailsResourceResource = new PromoterDetailsResource();
-                        promoterDetailsResourceResource.setLoanApplicationId(loanApplication.getId());
-                        promoterDetailsResourceResource.setPromoterDetails(promoterDetail);
-                        promoterDetailsResources.add(promoterDetailsResourceResource);
-                    }
-            );
-        }
-
-        return promoterDetailsResources;
     }
 
     @Override
