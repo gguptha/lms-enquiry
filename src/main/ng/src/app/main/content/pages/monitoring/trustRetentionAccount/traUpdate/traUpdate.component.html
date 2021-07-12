@@ -45,16 +45,16 @@
                 </mat-form-field>
             </div>
             <div fxLayout="row">
-                <mat-form-field fxFlex="50">
+                <!-- <mat-form-field fxFlex="50">
                     <input matInput placeholder="Bank Name" [formControl]="bankNameFormControl" readonly>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="Bank Key" formControlName="bankKey" maxlength="20" readonly required>
                 </mat-form-field>
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="TRA Bank Name" formControlName="traBankName" maxlength="60">
+                    <input matInput placeholder="TRA Bank Name" formControlName="traBankName" maxlength="60" readonly>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="Contact Number" formControlName="contactNumber" maxlength="15">
@@ -62,7 +62,7 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Branch" formControlName="branch" maxlength="40">
+                    <input matInput placeholder="Branch" formControlName="branch" maxlength="40" readonly>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="Email" formControlName="email" maxlength="200">
@@ -70,7 +70,7 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="Address" formControlName="address" maxlength="100">
+                    <input matInput placeholder="Address" formControlName="address" maxlength="100" readonly>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="PFS Authorised Person-BP Code" formControlName="pfsAuthorisedPersonBPCode">
@@ -86,7 +86,7 @@
             </div>
             <div fxLayout="row">
                 <mat-form-field fxFlex="50">
-                    <input matInput placeholder="IFSC Code" formControlName="ifscCode" maxlength="15">
+                    <input matInput placeholder="IFSC Code" formControlName="ifscCode" maxlength="15" readonly>
                 </mat-form-field>
                 <mat-form-field fxFlex="50">
                     <input matInput placeholder="Account Number" formControlName="accountNumber" maxlength="15" required>

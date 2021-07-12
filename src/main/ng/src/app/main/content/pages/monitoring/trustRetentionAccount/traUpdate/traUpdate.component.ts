@@ -27,7 +27,6 @@ export class TRAUpdateDialogComponent implements OnInit {
 
     banks: any;
     bankFilteredOptions: any;
-    bankNameFormControl = new FormControl();
     bankKeyFormControl = new FormControl();
 
     /**
@@ -139,15 +138,18 @@ export class TRAUpdateDialogComponent implements OnInit {
         const filteredBanks = this.banks.filter(bank => bank.bankKey === $event.target.value);
         if (filteredBanks.length > 0) {
             this.traUpdateForm.controls.bankKey.setValue(this.bankKeyFormControl.value);
-            let bankDetails = filteredBanks[0].bankName;
-            if (filteredBanks[0].bankbankBranch) {
-                bankDetails = bankDetails + ' - ' + filteredBanks[0].bankbankBranch;
-            }
-            this.bankNameFormControl.setValue(bankDetails)
+            console.log('bank details .....', filteredBanks[0]);
+            this.traUpdateForm.controls.traBankName.setValue(filteredBanks[0].bankName);
+            this.traUpdateForm.controls.branch.setValue(filteredBanks[0].bankBranch || '');
+            this.traUpdateForm.controls.address.setValue(filteredBanks[0].houseNumberAndStreet);
+            this.traUpdateForm.controls.ifscCode.setValue(filteredBanks[0].bankKey);
         }
         else {
             this.traUpdateForm.controls.bankKey.setValue('');
-            this.bankNameFormControl.setValue('');
+            this.traUpdateForm.controls.traBankName.setValue('');
+            this.traUpdateForm.controls.branch.setValue('');
+            this.traUpdateForm.controls.address.setValue('');
+            this.traUpdateForm.controls.ifscCode.setValue('');
         }
     }
 }
