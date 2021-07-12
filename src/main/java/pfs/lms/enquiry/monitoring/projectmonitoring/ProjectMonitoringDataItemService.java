@@ -8,6 +8,7 @@ import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -59,7 +60,7 @@ public class ProjectMonitoringDataItemService implements IProjectMonitoringDataI
                                                                      ProjectMonitoringDataItemResource projectMonitoringDataItemResource,
                                                                      HttpServletRequest request) throws CloneNotSupportedException {
         ProjectMonitoringDataItem projectMonitoringDataItem = projectMonitoringDataItemRepository
-                .findById(projectMonitoringDataItemId)
+                .findById( projectMonitoringDataItemId.toString())
                 .orElseThrow(() -> new EntityNotFoundException(projectMonitoringDataItemId.toString()));
 
         Object existingProjectMonitoringItemObject = projectMonitoringDataItem.clone();
@@ -80,9 +81,13 @@ public class ProjectMonitoringDataItemService implements IProjectMonitoringDataI
         ProjectMonitoringData projectMonitoringData =
                 projectMonitoringDataRepository.findByLoanMonitorLoanApplicationId(projectMonitoringDataItemResource.getLoanApplicationId());
 
+    //   Optional pdi   = projectMonitoringDataRepository.findById(projectMonitoringDataItemResource.getProjectMonitoringDataId().toString());
+   //    projectMonitoringData = (ProjectMonitoringData) pdi.get();
+
         // Change Documents for Project Monitoring Item
         changeDocumentService.createChangeDocument(
-                projectMonitoringData.getLoanMonitor().getId(), projectMonitoringDataItemResource.getId().toString(),null,
+                projectMonitoringData.getLoanMonitor().getId(), projectMonitoringDataItemResource.getId().toString(),
+                projectMonitoringData.getId().toString(),
                 projectMonitoringData.getLoanMonitor().getLoanApplication().getLoanContractId(),
                 existingProjectMonitoringItem,
                 projectMonitoringDataItemResource,

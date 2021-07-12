@@ -28,7 +28,7 @@ public class ProjectMonitoringDataItemHistoryService implements IProjectMonitori
                 .findByLoanMonitorLoanApplicationId(loanApplicationId);
 
         ProjectMonitoringDataItem projectMonitoringDataItem = projectMonitoringDataItemRepository
-                .findById(projectMonitoringDataItemId)
+                .findById(projectMonitoringDataItemId.toString())
                 .orElseThrow(() -> new EntityNotFoundException(projectMonitoringDataItemId.toString()));
 
         ProjectMonitoringDataItemHistory projectMonitoringDataItemHistory = new ProjectMonitoringDataItemHistory();
@@ -43,7 +43,7 @@ public class ProjectMonitoringDataItemHistoryService implements IProjectMonitori
         projectMonitoringDataItemHistory = projectMonitoringDataItemHistoryRepository.save(projectMonitoringDataItemHistory);
 
 
-        // Change Documents for Fin. Covenants
+        // Change Documents for Project Data Item History
         changeDocumentService.createChangeDocument(
                 projectMonitoringData.getLoanMonitor().getId(),
                 projectMonitoringDataItemHistory.getId().toString(),null,

@@ -7,6 +7,7 @@ import org.checkerframework.common.reflection.qual.GetClass;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -43,6 +44,9 @@ public class SAPIntegrationPointer {
     //2- Posting Failed
     //3 - Posted Successfully
     private Integer status;
+
+    @Nullable
+    private String mainEntityId;
 
 
 }

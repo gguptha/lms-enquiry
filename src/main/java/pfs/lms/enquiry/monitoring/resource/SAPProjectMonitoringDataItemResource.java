@@ -30,14 +30,26 @@ public class SAPProjectMonitoringDataItemResource {
         this.sapProjectMonitoringResourceDataItemDetails = sapProjectMonitoringResourceDataItemDetails;
     }
 
-    public SAPProjectMonitoringResourceDataItemDetails mapToSAP(ProjectMonitoringDataItem projectMonitoringDataItem) throws ParseException {
+    public SAPProjectMonitoringResourceDataItemDetails mapToSAP(ProjectMonitoringDataItem projectMonitoringDataItem,
+                                                                String projectMonitoringDataId) throws ParseException {
 
         DataConversionUtility dataConversionUtility = new DataConversionUtility();
 
         SAPProjectMonitoringResourceDataItemDetails detailedResource = new SAPProjectMonitoringResourceDataItemDetails();
 
         detailedResource.setId(projectMonitoringDataItem.getId().toString());
-//        detailedResource.setProjectMonDataHdrId(projectMonitoringDataItem.get().getId().toString());
+        detailedResource.setProjectMonDataHdrId(projectMonitoringDataId);
+
+        detailedResource.setSerialNo(projectMonitoringDataItem.getSerialNumber());
+        detailedResource.setParticulars(projectMonitoringDataItem.getParticulars());
+        if (projectMonitoringDataItem.getDateOfEntry() != null)
+            detailedResource.setDateofentry(dataConversionUtility.convertDateToSAPFormat(projectMonitoringDataItem.getDateOfEntry()));
+        else
+            detailedResource.setDateofentry(null);
+        detailedResource.setReviseddata1(projectMonitoringDataItem.getRevisedData1());
+        detailedResource.setReviseddata2(projectMonitoringDataItem.getRevisedData2());
+        detailedResource.setRemarks(projectMonitoringDataItem.getRemarks());
+
 
 
 

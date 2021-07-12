@@ -117,7 +117,7 @@ public class ChangeDocumentService implements IChangeDocumentService {
         changeDocument = this.saveChangeDocument(changeDocument);
 
 
-        sapIntegrationPointerService.saveForObject(businessProcessName,subProcessName,entityId);
+        sapIntegrationPointerService.saveForObject(businessProcessName,subProcessName,entityId,mainEntityId);
 
         return changeDocument;
     }

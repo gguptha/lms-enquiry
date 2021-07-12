@@ -27,7 +27,7 @@ public class SAPProjectMonitoringResourceDataItemDetails {
     private Integer serialNo;
 
     @JsonProperty(value = "Particulars")
-    private String Particulars;
+    private String particulars;
 
     @JsonProperty(value = "Dateofentry")
     private String dateofentry;

@@ -1,6 +1,7 @@
 package pfs.lms.enquiry.monitoring.projectmonitoring;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
 import pfs.lms.enquiry.domain.AggregateRoot;
 
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(of = {"particulars", "originalData"}, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectMonitoringDataItem extends AggregateRoot<ProjectMonitoringDataItem> implements Cloneable{
+public class ProjectMonitoringDataItem extends AbstractEntity implements Cloneable{
 
     private Integer serialNumber;
 

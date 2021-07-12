@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.UUID;
 
 @RepositoryRestResource(excerptProjection = DefaultProjectMonitorningDataProjection.class)
-public interface ProjectMonitoringDataRepository extends JpaRepository<ProjectMonitoringData, UUID> {
+public interface ProjectMonitoringDataRepository extends JpaRepository<ProjectMonitoringData, String> {
 
     ProjectMonitoringData findByLoanMonitorLoanApplicationId(UUID loanApplicationId);
 }

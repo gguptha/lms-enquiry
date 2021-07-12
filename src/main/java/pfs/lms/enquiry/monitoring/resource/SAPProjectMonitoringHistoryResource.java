@@ -3,8 +3,11 @@ package pfs.lms.enquiry.monitoring.resource;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
+import pfs.lms.enquiry.monitoring.projectmonitoring.ProjectMonitoringDataItemHistory;
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.text.ParseException;
@@ -15,45 +18,38 @@ import java.text.ParseException;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 public class SAPProjectMonitoringHistoryResource {
 
     @JsonProperty(value = "d")
-    private SAPProjectMonitoringResourceDataItemDetails sapProjectMonitoringResourceDataItemDetails;
+    private SAPProjectMonitoringHistoryResourceDetails sapProjectMonitoringHistoryResourceDetails;
 
-    public SAPProjectMonitoringResourceDataItemDetails getSapProjectMonitoringResourceDetails() {
-        return sapProjectMonitoringResourceDataItemDetails;
-    }
 
-    public void setSapProjectMonitoringResourceDetails(SAPProjectMonitoringResourceDataItemDetails sapProjectMonitoringResourceDataItemDetails) {
-        this.sapProjectMonitoringResourceDataItemDetails = sapProjectMonitoringResourceDataItemDetails;
-    }
 
-    public SAPProjectMonitoringResourceDataItemDetails mapToSAP(BorrowerFinancials borrowerFinancials) throws ParseException {
+    public SAPProjectMonitoringHistoryResourceDetails mapToSAP(ProjectMonitoringDataItemHistory projectMonitoringDataItemHistory,
+                                                                String projectMonitoringDataId) throws ParseException {
 
         DataConversionUtility dataConversionUtility = new DataConversionUtility();
 
-        SAPProjectMonitoringResourceDataItemDetails detailedResource = new SAPProjectMonitoringResourceDataItemDetails();
-//
-//        detailedResource.setId(borrowerFinancials.getId());
-//        detailedResource.setMonitorId(borrowerFinancials.getLoanMonitor().getId().toString());
-//        detailedResource.setSerialNo(borrowerFinancials.getSerialNumber().toString());
-//
-//        if (borrowerFinancials.getDateOfExternalRating() != null)
-//             detailedResource.setDateofexternalrating(dataConversionUtility.convertDateToSAPFormat(borrowerFinancials.getDateOfExternalRating()));
-//        else
-//            detailedResource.setDateofexternalrating(null);
-//
-//        if(borrowerFinancials.getNextDueDateOfExternalRating() != null) {
-//            detailedResource.setNextduedateofexternalrating(dataConversionUtility.convertDateToSAPFormat(borrowerFinancials.getNextDueDateOfExternalRating()));
-//        } else
-//            detailedResource.setNextduedateofexternalrating(null);
-//
-//        detailedResource.setFiscalyear(borrowerFinancials.getFiscalYear().toString());
-//        detailedResource.setNetworth(borrowerFinancials.getNetWorth());
-//        detailedResource.setTurnover(borrowerFinancials.getTurnover());
-//        detailedResource.setPat(borrowerFinancials.getPat());
-//        detailedResource.setOverallrating(borrowerFinancials.getOverAllRating());
-        
+        SAPProjectMonitoringHistoryResourceDetails detailedResource = new SAPProjectMonitoringHistoryResourceDetails();
+
+
+        detailedResource.setId(projectMonitoringDataItemHistory.getId().toString());
+        detailedResource.setProjectMonDataHdrId(projectMonitoringDataId);
+
+        // TODO
+        //detailedResource.setSerialNo(projectMonitoringDataItemHistory.getSerialNo());
+
+        detailedResource.setParticulars(projectMonitoringDataItemHistory.getParticulars());
+        if (projectMonitoringDataItemHistory.getDateOfEntry() != null)
+            detailedResource.setDateofentry(dataConversionUtility.convertDateToSAPFormat(projectMonitoringDataItemHistory.getDateOfEntry()));
+        else
+            detailedResource.setDateofentry(null);
+        detailedResource.setReviseddata1(projectMonitoringDataItemHistory.getRevisedData1());
+        detailedResource.setReviseddata2(projectMonitoringDataItemHistory.getRevisedData2());
+        detailedResource.setRemarks(projectMonitoringDataItemHistory.getRemarks());
+
 
         return detailedResource;
 

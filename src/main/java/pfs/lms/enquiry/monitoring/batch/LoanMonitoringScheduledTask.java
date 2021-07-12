@@ -116,6 +116,8 @@ public class LoanMonitoringScheduledTask {
     private final SAPTRAStatementResource  saptraStatementResource;
     private final SAPProjectMonitoringDataResource sapProjectMonitoringDataResource;
     private final SAPProjectMonitoringHistoryResource sapProjectMonitoringHistoryResource;
+    private final SAPProjectMonitoringDataItemResource sapProjectMonitoringDataItemResource;
+
 
 
      @Scheduled(fixedRate = 5000)
@@ -135,7 +137,13 @@ public class LoanMonitoringScheduledTask {
          sapIntegrationPointers.addAll(sapIntegrationRepository.getByBusinessProcessNameAndStatus("Monitoring", 0));
          sapIntegrationPointers.addAll(sapIntegrationRepository.getByBusinessProcessNameAndStatus("Monitoring", 2));
 
-         // SAPDocumentAttachmentResource sapDocumentAttachmentResource = new SAPDocumentAttachmentResource();
+         Collections.sort(sapIntegrationPointers, new Comparator<SAPIntegrationPointer>() {
+             public int compare(SAPIntegrationPointer o1, SAPIntegrationPointer o2) {
+                 return o1.getCreationDate().compareTo(o2.getCreationDate());
+             }
+         });
+
+
 
          String serviceUri = new String();
 
@@ -532,7 +540,7 @@ public class LoanMonitoringScheduledTask {
                      ProjectMonitoringData projectMonitoringData = new ProjectMonitoringData();
                      log.info("Attempting to Post ProjectMonitoring  to SAP AT :" + dateFormat.format(new Date()));
                      Optional<ProjectMonitoringData> pmd =
-                             projectMonitoringDataRepository.findById(UUID.fromString(sapIntegrationPointer.getBusinessObjectId()));
+                             projectMonitoringDataRepository.findById(sapIntegrationPointer.getBusinessObjectId().toString());
                      projectMonitoringData = pmd.get();
 
                      //Set Status as in progress
@@ -546,7 +554,53 @@ public class LoanMonitoringScheduledTask {
                      sapProjectMonitoringDataResource.setSapProjectMonitoringResourceDataDetails(sapProjectMonitoringResourceDataDetails);
 
                      resource = (Object) sapProjectMonitoringDataResource;
-                     serviceUri = monitorServiceUri + " ProjectMonitoringSet";
+                     serviceUri = monitorServiceUri + "ProjectMonitoringDataSet";
+                     response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
+
+                     updateSAPIntegrationPointer(response,sapIntegrationPointer);
+                     break;
+                 case "Project Monitoring Item":
+                     ProjectMonitoringDataItem projectMonitoringDataItem = new ProjectMonitoringDataItem();
+                     log.info("Attempting to Post ProjectMonitoringDataItem  to SAP AT :" + dateFormat.format(new Date()));
+                     Optional<ProjectMonitoringDataItem> pmdi =
+                             projectMonitoringDataItemRepository.findById(sapIntegrationPointer.getBusinessObjectId());
+                     projectMonitoringDataItem = pmdi.get();
+
+                     //Set Status as in progress
+                     sapIntegrationPointer.setStatus(1); // In Posting Process
+                     sapIntegrationRepository.save(sapIntegrationPointer);
+
+                     SAPProjectMonitoringResourceDataItemDetails sapProjectMonitoringResourceDataItemDetails
+                             = sapProjectMonitoringDataItemResource.mapToSAP(projectMonitoringDataItem, sapIntegrationPointer.getMainEntityId());
+
+                     SAPProjectMonitoringDataItemResource  sapProjectMonitoringDataItemResource = new SAPProjectMonitoringDataItemResource();
+                     sapProjectMonitoringDataItemResource.setSapProjectMonitoringResourceDataItemDetails(sapProjectMonitoringResourceDataItemDetails);
+
+                     resource = (Object) sapProjectMonitoringDataItemResource;
+                     serviceUri = monitorServiceUri + "ProjectMonitoringDataItemSet";
+                     response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
+
+                     updateSAPIntegrationPointer(response,sapIntegrationPointer);
+                     break;
+                 case "Project Monitoring History":
+                     ProjectMonitoringDataItemHistory projectMonitoringDataItemHistory = new ProjectMonitoringDataItemHistory();
+                     log.info("Attempting to Post ProjectMonitoringDataItemHistory  to SAP AT :" + dateFormat.format(new Date()));
+                     Optional<ProjectMonitoringDataItemHistory> pmdih =
+                             projectMonitoringDataItemHistoryRepository.findById(sapIntegrationPointer.getBusinessObjectId().toString());
+                     projectMonitoringDataItemHistory = pmdih.get();
+
+                     //Set Status as in progress
+                     sapIntegrationPointer.setStatus(1); // In Posting Process
+                     sapIntegrationRepository.save(sapIntegrationPointer);
+
+                     SAPProjectMonitoringHistoryResourceDetails sapProjectMonitoringHistoryResourceDetails
+                             = sapProjectMonitoringHistoryResource.mapToSAP(projectMonitoringDataItemHistory, sapIntegrationPointer.getMainEntityId());
+
+                     SAPProjectMonitoringHistoryResource  sapProjectMonitoringHistoryResource = new SAPProjectMonitoringHistoryResource();
+                     sapProjectMonitoringHistoryResource.setSapProjectMonitoringHistoryResourceDetails(sapProjectMonitoringHistoryResourceDetails);
+
+                     resource = (Object) sapProjectMonitoringHistoryResourceDetails;
+                     serviceUri = monitorServiceUri + "ProjectMonitoringHistorySet";
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
