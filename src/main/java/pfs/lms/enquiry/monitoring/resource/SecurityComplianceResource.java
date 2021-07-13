@@ -1,9 +1,9 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.resource;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.FinancialCovenants;
+import pfs.lms.enquiry.monitoring.domain.SecurityCompliance;
 
 import java.util.UUID;
 
@@ -14,8 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
-public class FinancialCovenantsResource {
+public class SecurityComplianceResource {
 
     private UUID loanApplicationId;
-    private FinancialCovenants financialCovenants;
+    private SecurityCompliance securityCompliance;
 }

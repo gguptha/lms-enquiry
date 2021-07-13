@@ -1,8 +1,8 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.resource;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.TermsAndConditionsModification;
+import pfs.lms.enquiry.monitoring.domain.TermsAndConditionsModification;
 
 import java.util.UUID;
 

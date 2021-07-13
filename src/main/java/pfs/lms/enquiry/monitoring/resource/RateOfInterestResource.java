@@ -1,10 +1,9 @@
-package pfs.lms.enquiry.resource;
+package pfs.lms.enquiry.monitoring.resource;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import pfs.lms.enquiry.domain.RateOfInterest;
-import pfs.lms.enquiry.domain.SiteVisit;
+import pfs.lms.enquiry.monitoring.domain.RateOfInterest;
 
 import java.util.UUID;
 

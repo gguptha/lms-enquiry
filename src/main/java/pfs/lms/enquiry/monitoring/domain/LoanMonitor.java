@@ -1,7 +1,9 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.domain;
 
 import lombok.*;
 import org.javers.core.metamodel.annotation.DiffIgnore;
+import pfs.lms.enquiry.domain.AggregateRoot;
+import pfs.lms.enquiry.domain.LoanApplication;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class LoanMonitor extends AggregateRoot<LoanMonitor>  implements Cloneable {
+public class LoanMonitor extends AggregateRoot<LoanMonitor> implements Cloneable {
 
     @DiffIgnore
     @NotNull

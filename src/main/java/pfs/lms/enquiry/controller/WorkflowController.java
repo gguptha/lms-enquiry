@@ -5,24 +5,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
-import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pfs.lms.enquiry.config.ApiController;
-import pfs.lms.enquiry.domain.LoanApplication;
-import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.dto.WorkflowTaskDTO;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
-import pfs.lms.enquiry.repository.LoanMonitorRepository;
+import pfs.lms.enquiry.monitoring.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.resource.WorkflowProcessRequestResource;
 import pfs.lms.enquiry.resource.WorkflowRequestResource;
 import pfs.lms.enquiry.service.workflow.IWorkflowService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 
 //

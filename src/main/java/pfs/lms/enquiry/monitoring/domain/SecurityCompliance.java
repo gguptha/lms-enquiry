@@ -1,6 +1,7 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.domain;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

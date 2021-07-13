@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
-import pfs.lms.enquiry.domain.LoanMonitor;
-import pfs.lms.enquiry.domain.Partner;
-import pfs.lms.enquiry.domain.User;
+import pfs.lms.enquiry.monitoring.domain.LoanMonitor;
 
 import java.io.Serializable;
 import java.text.ParseException;

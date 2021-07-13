@@ -1,12 +1,12 @@
-package pfs.lms.enquiry.domain;
+package pfs.lms.enquiry.monitoring.domain;
 
 import lombok.*;
+import pfs.lms.enquiry.domain.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import java.time.LocalDate;
 
 @Entity
 @Setter
@@ -14,18 +14,18 @@ import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class SiteVisit extends AbstractEntity implements  Cloneable{
+public class FinancialCovenants extends AbstractEntity implements Cloneable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private LoanMonitor loanMonitor;
 
     private Integer serialNumber;
-
-    private LocalDate  actualCOD;
-
-    private LocalDate dateOfSiteVisit;
-
-    private LocalDate dateOfLendersMeet;
+    private String financialCovenantType;
+    private Integer financialYear;
+    private Double debtEquityRatio;
+    private Double dscr;
+    private Double tolTnw;
+    private String remarksForDeviation;
 
     public Object clone () throws CloneNotSupportedException {
         return super.clone();

@@ -1,8 +1,8 @@
-package pfs.lms.enquiry.service;
+package pfs.lms.enquiry.monitoring.service;
 
-import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsResource;
+import pfs.lms.enquiry.monitoring.domain.*;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeResource;
 import pfs.lms.enquiry.monitoring.lfa.LFAResource;
@@ -15,11 +15,11 @@ import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameter;
 import pfs.lms.enquiry.monitoring.operatingparameters.OperatingParameterResource;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsResource;
+import pfs.lms.enquiry.monitoring.resource.*;
 import pfs.lms.enquiry.monitoring.tra.TRAResource;
 import pfs.lms.enquiry.monitoring.tra.TRAStatementResource;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccount;
 import pfs.lms.enquiry.monitoring.tra.TrustRetentionAccountStatement;
-import pfs.lms.enquiry.resource.*;
 
 import java.util.List;
 import java.util.UUID;

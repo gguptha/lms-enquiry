@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pfs.lms.enquiry.domain.LoanApplication;
-import pfs.lms.enquiry.domain.LoanMonitor;
+import pfs.lms.enquiry.monitoring.domain.LoanMonitor;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
-import pfs.lms.enquiry.repository.LoanMonitorRepository;
+import pfs.lms.enquiry.monitoring.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.service.changedocs.impl.ChangeDocumentService;
 
 import javax.persistence.EntityNotFoundException;

@@ -9,11 +9,10 @@ import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeRepository;
 import pfs.lms.enquiry.monitoring.lie.LIERepository;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
-import pfs.lms.enquiry.repository.LoanMonitorRepository;
+import pfs.lms.enquiry.monitoring.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.monitoring.lie.LIEReportAndFeeResource;
 import pfs.lms.enquiry.service.ILIEReportAndFeeService;
 import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
-import pfs.lms.enquiry.service.changedocs.impl.ChangeDocumentService;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

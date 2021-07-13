@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pfs.lms.enquiry.domain.LoanApplication;
-import pfs.lms.enquiry.domain.LoanMonitor;
 import pfs.lms.enquiry.domain.Partner;
 
 @Data

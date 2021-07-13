@@ -2,11 +2,9 @@ package pfs.lms.enquiry.monitoring.borrowerfinancials;
 
 import lombok.*;
 import pfs.lms.enquiry.domain.AbstractEntity;
-import pfs.lms.enquiry.domain.LoanMonitor;
+import pfs.lms.enquiry.monitoring.domain.LoanMonitor;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.sql.Blob;
 import java.time.LocalDate;
 
 @Entity

@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.monitoring.lie.LendersIndependentEngineer;
 import pfs.lms.enquiry.domain.LoanApplication;
-import pfs.lms.enquiry.domain.LoanMonitor;
+import pfs.lms.enquiry.monitoring.domain.LoanMonitor;
 import pfs.lms.enquiry.monitoring.lie.LIERepository;
 
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
-import pfs.lms.enquiry.repository.LoanMonitorRepository;
+import pfs.lms.enquiry.monitoring.repository.LoanMonitorRepository;
 import pfs.lms.enquiry.monitoring.lie.LIEResource;
 import pfs.lms.enquiry.service.ILIEService;
 import pfs.lms.enquiry.service.changedocs.impl.ChangeDocumentService;

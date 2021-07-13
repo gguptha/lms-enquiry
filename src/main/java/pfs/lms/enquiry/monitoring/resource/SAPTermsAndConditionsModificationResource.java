@@ -3,10 +3,8 @@ package pfs.lms.enquiry.monitoring.resource;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Setter;
 import org.springframework.stereotype.Component;
-import pfs.lms.enquiry.domain.TermsAndConditionsModification;
-import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
+import pfs.lms.enquiry.monitoring.domain.TermsAndConditionsModification;
 import pfs.lms.enquiry.utils.DataConversionUtility;
 
 import java.io.Serializable;
