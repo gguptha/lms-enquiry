@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute, Router} from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
@@ -31,14 +31,11 @@ import { PromoterFinancialsModel } from '../../model/promoterFinancials.model';
 import { FinancialCovenantsModel } from '../../model/financialCovenants.model';
 import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/financialCovenantsUpdate/financialCovenantsUpdate.component';
 import { PromoterDetailsModel } from '../../model/promoterDetails.model';
-import { PromoterDetailsItemModel } from '../../model/promoterDetailsItem.model';
-import { PromoterDetailsUpdateDialogComponent } from './promoterDetails/promoterDetailsUpdate/promoterDetailsUpdate.component';
 import { OperatingParameterModel } from '../../model/operatingParameter';
 import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
 import { AppService } from 'app/app.service';
 import { OperatingParameterPLFUpdateDialogComponent } from './operatingParameterPLF/operatingParameterPLFUpdate/operatingParameterPLFUpdate.component';
 import { OperatingParameterPLFModel } from '../../model/operatingParameterPLF';
-import { MonitoringRegEx } from '../../others/monitoring.regEx';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -69,7 +66,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedPromoterFinancials: PromoterFinancialsModel;
     selectedFinancialCovenants: FinancialCovenantsModel;
     selectedPromoterDetails: PromoterDetailsModel;
-    selectedPromoterDetailsItem: PromoterDetailsItemModel = new PromoterDetailsItemModel({});
     selectedOperatingParameter: OperatingParameterModel;
     selectedOperatingParameterPLF: OperatingParameterPLFModel;
     selectedProjectMonitoringData: any;
@@ -86,7 +82,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
     financialCovenantsList: any;
-    promoterDetailItemSet: any;
     operatingParameterList: any;
     operatingParameterPLFList: any;
 
@@ -98,8 +93,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
     expandPanel1 = true;
     expandPanel2 = false;
-
-    promoterHeaderDetailsForm: FormGroup;
 
     /**
      * constructor()
@@ -171,18 +164,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
                     this.financialCovenantsList = data;
                 })
-                // getPromoterDetails
-                _loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
-                    console.log('data', data);
-                    if (data.length > 0) {
-                        this.selectedPromoterDetails = data[0].promoterDetail;
-                        this.selectedPromoterDetails.promoterDetailItemSet.sort((a, b) => b.serialNumber - a.serialNumber);
-                        this.promoterDetailItemSet = this.selectedPromoterDetails.promoterDetailItemSet;
-                        console.log(this.selectedPromoterDetails);
-                        this.promoterHeaderDetailsForm.controls.dateOfChange.setValue(this.selectedPromoterDetails.dateOfChange);
-                        this.promoterHeaderDetailsForm.controls.groupExposure.setValue(this.selectedPromoterDetails.groupExposure);
-                    }
-                });
                 // getOperatingParameters
                 _loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterList = data;
@@ -292,12 +273,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         _loanMonitoringService.selectedFinancialCovenants.subscribe(data => {
             this.selectedFinancialCovenants = new FinancialCovenantsModel(data);
         })
-
-        // All about Promoter Details
-
-        _loanMonitoringService.selectedPromoterDetailsItem.subscribe(data => {
-            this.selectedPromoterDetailsItem = new PromoterDetailsItemModel(data);
-        })
     }
 
     /**
@@ -335,17 +310,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             sanctionAmount: [this.loanContractExtension.sanctionAmount || ''],
             discributionStatus: [this.loanContractExtension.disbursementStatus || ''],
             scheduledCOD: [this.loanContractExtension.scheduledCOD || '']
-        });
-
-        console.log(this.selectedPromoterDetails);
-        if (!this.selectedPromoterDetails) {
-            console.log('inside ifffff....');
-            this.selectedPromoterDetails = new PromoterDetailsModel({});
-        }
-        console.log(this.selectedPromoterDetails);
-        this.promoterHeaderDetailsForm = this._formBuilder.group({
-            dateOfChange: [this.selectedPromoterDetails.dateOfChange || ''],
-            groupExposure: [this.selectedPromoterDetails.groupExposure || '', [Validators.pattern(MonitoringRegEx.genericAmount)]]
         });
     }
 
@@ -841,41 +805,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * updatePromoterDetails()
-     * @param operation 
-     */
-    updatePromoterDetails(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedPromoterDetails': this.selectedPromoterDetails,
-            'selectedPromoterDetailsItem': undefined
-        };
-        if (operation === 'updatePromoterDetails') {
-            data.selectedPromoterDetailsItem = this.selectedPromoterDetailsItem;
-        }
-        const dialogRef = this._dialogRef.open(PromoterDetailsUpdateDialogComponent, {
-            panelClass: 'fuse-promoter-details-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getPromoterDetails(this.loanApplicationId).subscribe(data => {
-                    if (data.length > 0) {
-                        this.selectedPromoterDetails = data[0].promoterDetail;
-                        this.selectedPromoterDetails.promoterDetailItemSet.sort((a, b) => b.serialNumber - a.serialNumber);
-                        this.promoterDetailItemSet = this.selectedPromoterDetails.promoterDetailItemSet;
-                    }
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    /**
      * sendMonitoringForApproval()
      */
      sendMonitoringForApproval(): void {
@@ -903,29 +832,5 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
             this.loanMonitor = data;
         })
-    }
-
-    /**
-     * savePromoterHeaderDetails()
-     */
-    savePromoterHeaderDetails(): void {
-        if (this.promoterHeaderDetailsForm.valid) {
-            this.selectedPromoterDetails.dateOfChange = this.promoterHeaderDetailsForm.value.dateOfChange;
-            this.selectedPromoterDetails.groupExposure = this.promoterHeaderDetailsForm.value.groupExposure;
-            if (this.selectedPromoterDetails.id) {
-                this._loanMonitoringService.updatePromoterDetails(this.selectedPromoterDetails).subscribe((response) => {
-                    this.selectedPromoterDetails = new PromoterDetailsModel(response);
-                    console.log(this.selectedPromoterDetails);
-                    this._matSnackBar.open('Promoter details updated successfully.', 'OK', { duration: 7000 });
-                });
-            }
-            else {
-                this._loanMonitoringService.savePromoterDetails(this.selectedPromoterDetails, this.loanApplicationId).subscribe((response) => {
-                    this.selectedPromoterDetails = new PromoterDetailsModel(response);
-                    console.log(this.selectedPromoterDetails);
-                    this._matSnackBar.open('Promoter details updated successfully.', 'OK', { duration: 7000 });
-                });
-            }
-        }
     }
 }

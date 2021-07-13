@@ -34,7 +34,6 @@ export class ProjectMonitoringDataItemListComponent implements OnInit {
      */
     constructor(private _enquiryService: LoanEnquiryService, private _monitoringService: LoanMonitoringService, private _dialog: MatDialog) {
         this.loanApplicationId = _enquiryService.selectedLoanApplicationId.value;
-        console.log(this.loanApplicationId);
         _monitoringService.getProjectMonitoringData(this.loanApplicationId).subscribe(data => {
             if (data === null) {
                 _monitoringService.saveProjectMonitoringData(this.loanApplicationId).subscribe(response => {

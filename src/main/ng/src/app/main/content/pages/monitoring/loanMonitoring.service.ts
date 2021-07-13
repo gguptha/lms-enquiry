@@ -26,7 +26,6 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedPromoterFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedFinancialCovenants: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedPromoterDetailsItem: BehaviorSubject<any> = new BehaviorSubject({});
     
     public banks: any;
 
