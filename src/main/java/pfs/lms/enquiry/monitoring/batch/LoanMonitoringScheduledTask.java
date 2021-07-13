@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import pfs.lms.enquiry.domain.*;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancials;
 import pfs.lms.enquiry.monitoring.borrowerfinancials.BorrowerFinancialsRepository;
+import pfs.lms.enquiry.monitoring.domain.*;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFee;
 import pfs.lms.enquiry.monitoring.lfa.LFAReportAndFeeRepository;
 import pfs.lms.enquiry.monitoring.lfa.LFARepository;
@@ -27,6 +28,7 @@ import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetail;
 import pfs.lms.enquiry.monitoring.promoterdetails.PromoterDetailRepository;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancials;
 import pfs.lms.enquiry.monitoring.promoterfinancials.PromoterFinancialsRepository;
+import pfs.lms.enquiry.monitoring.repository.*;
 import pfs.lms.enquiry.monitoring.resource.*;
 import pfs.lms.enquiry.monitoring.service.ISAPFileUploadIntegrationService;
 import pfs.lms.enquiry.monitoring.service.ISAPLoanMonitoringIntegrationService;
@@ -82,13 +84,13 @@ public class LoanMonitoringScheduledTask {
     private final LFARepository lfaRepository;
     private final LFAReportAndFeeRepository lfaReportAndFeeRepository;
     private final TermsAndConditionsRepository termsAndConditionsRepository;
-    private final BorrowerFinancialsRepository borrowerFinancialsRepository;
+     private final BorrowerFinancialsRepository borrowerFinancialsRepository;
     private final PromoterFinancialsRepository promoterFinancialsRepository;
     private final OperatingParameterRepository operatingParameterRepository;
     private final OperatingParameterPLFRepository operatingParameterPLFRepository;
 
     private final SecurityComplianceRepository securityComplianceRepository;
-    private final SiteVisitRepository   siteVisitRepository;
+    private final SiteVisitRepository siteVisitRepository;
     private final RateOfInterestRepository rateOfInterestRepository;
     private final FinancialCovenantsRepository financialCovenantsRepository;
     private final PromoterDetailRepository promoterDetailsRepository;
@@ -313,10 +315,6 @@ public class LoanMonitoringScheduledTask {
                      serviceUri = monitorServiceUri + "SecurityComplianceSet";
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
 
-//                     if (response != null) {
-//                         response = postDocument(securityCompliance.getFileReference(), securityCompliance.getId(), "Security Compliance", termsAndConditionsModification.getDocumentTitle());
-//                     }
-
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
                      break;
 
@@ -338,10 +336,6 @@ public class LoanMonitoringScheduledTask {
                      resource = (Object) s;
                      serviceUri = monitorServiceUri + "SiteVisitSet";
                      response = sapLoanMonitoringIntegrationService.postResourceToSAP(resource, serviceUri, HttpMethod.POST, MediaType.APPLICATION_JSON);
-//
-//                     if (response != null) {
-//                         response = postDocument(siteVisit.getF(), securityCompliance.getId(), "Security Compliance", termsAndConditionsModification.getDocumentTitle());
-//                     }
 
                      updateSAPIntegrationPointer(response,sapIntegrationPointer);
                      break;
