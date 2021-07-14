@@ -20,8 +20,6 @@ import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traSt
 import { TRAStatementModel } from '../../model/traStatement.model';
 import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
 import { SecurityComplianceModel } from '../../model/securityCompliance.model';
-import { SiteVisitModel } from '../../model/siteVisit.model';
-import { SiteVisitUpdateDialogComponent } from './siteVisit/siteVisitUpdate/siteVisitUpdate.component';
 import { RateOfInterestUpdateDialogComponent } from './rateOfInterest/rateOfInterestUpdate/rateOfInterestUpdate.component';
 import { RateOfInterestModel } from '../../model/rateOfInterest.model';
 import { BorrowerFinancialsModel } from '../../model/borrowerFinancials.model';
@@ -60,7 +58,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedTRA: TRAModel;
     selectedTRAStatement: TRAStatementModel = new TRAStatementModel({});
     selectedSecurityCompliance: SecurityComplianceModel;
-    selectedSiteVisit: SiteVisitModel;
     selectedRateOfInterest: RateOfInterestModel;
     selectedBorrowerFinancials: BorrowerFinancialsModel;
     selectedPromoterFinancials: PromoterFinancialsModel;
@@ -77,7 +74,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     traList: any;
     traStatementList: any;
     securityComplianceList: any;
-    siteVisitList: any;
     rateOfInterestList: any;
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
@@ -144,10 +140,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                     this.securityComplianceList = data;
                 })
-                // getSiteVisits
-                _loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
-                    this.siteVisitList = data;
-                })            
                 // getRateOfInterests
                 _loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
                     this.rateOfInterestList = data;
@@ -242,12 +234,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         _loanMonitoringService.selectedOperatingParameterPLF.subscribe(data => {
             this.selectedOperatingParameterPLF = new OperatingParameterPLFModel(data);
-        })
-
-        // All about Site Visit
-
-        _loanMonitoringService.selectedSiteVisit.subscribe(data => {
-            this.selectedSiteVisit = new SiteVisitModel(data);
         })
 
         // All about Rate of Interest
@@ -648,36 +634,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             if (result.refresh) {
                 this._loanMonitoringService.getOperatingParameterPLFs(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterPLFList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    /**
-     * updatSiteVisit()
-     * @param operation 
-     */
-    updateSiteVisit(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedSiteVisit': undefined
-        };
-        if (operation === 'updateSiteVisit') {
-            data.selectedSiteVisit = this.selectedSiteVisit;
-        }
-        const dialogRef = this._dialogRef.open(SiteVisitUpdateDialogComponent, {
-            panelClass: 'fuse-site-visit-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getSiteVisits(this.loanApplicationId).subscribe(data => {
-                    this.siteVisitList = data;
                 });
                 this.getLoanMonitor();
             }

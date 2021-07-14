@@ -37,11 +37,11 @@ export class PromoterDetailsUpdateDialogComponent {
 
         // Fetch selected promoter details from the dialog's data attribute.
         if (_dialogData.selectedPromoterDetails !== undefined) {
-            this.selectedPromoterDetails = _dialogData.selectedPromoterDetails;
+            this.selectedPromoterDetails = Object.assign({}, _dialogData.selectedPromoterDetails);
             this.dialogTitle = 'Modify Promoter Details';
         }
         if (_dialogData.selectedPromoterDetailsItem !== undefined) {
-            this.selectedPromoterDetailsItem = _dialogData.selectedPromoterDetailsItem;
+            this.selectedPromoterDetailsItem = Object.assign({}, _dialogData.selectedPromoterDetailsItem);
         }
         else {
             this.selectedPromoterDetailsItem = new PromoterDetailsItemModel({});
