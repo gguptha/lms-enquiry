@@ -29,18 +29,29 @@ export class LoanEnquiryService implements Resolve<any> {
      * @param state
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        return forkJoin([
-            this.getLoanClasses(), // get loan classes.
-            this.getFinancingTypes(), // get financing types.
-            this.getProjectTypes(), // get project types.
-            this.getStates(), // get states.
-            this.getAssistanceTypes(), // get assistance types.
-            this.getPartnerByPrincipal(), // get logged in partner details.
-            this.getIndustrySectors(), // Get Industry Sectors
-            this.getUnitOfMeasures(),   // Get Units
-            this.getLoanApplicantsByEmail(), // Get Loan Applicants by Email
-            this.getTechnicalStatus()   // Get Technical Status
-        ]);
+        if (route.routeConfig.path === 'loanContractsList') {
+            return forkJoin([
+                this.getLoanClasses(), // get loan classes.
+                this.getFinancingTypes(), // get financing types.
+                this.getProjectTypes(), // get project types.
+                this.getStates(), // get states.
+                this.getAssistanceTypes(), // get assistance types.
+                this.getTechnicalStatus()   // Get Technical Status
+            ]);
+        } else {
+            return forkJoin([
+                this.getLoanClasses(), // get loan classes.
+                this.getFinancingTypes(), // get financing types.
+                this.getProjectTypes(), // get project types.
+                this.getStates(), // get states.
+                this.getAssistanceTypes(), // get assistance types.
+                this.getPartnerByPrincipal(), // get logged in partner details.
+                this.getIndustrySectors(), // Get Industry Sectors
+                this.getUnitOfMeasures(),   // Get Units
+                this.getLoanApplicantsByEmail(), // Get Loan Applicants by Email
+                this.getTechnicalStatus()   // Get Technical Status
+            ]);
+        }
     }
 
     /**

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
@@ -17,7 +17,6 @@ export class SiteVisitUpdateDialogComponent {
     dialogTitle = 'Add New Site Visit Details';
 
     selectedSiteVisit: SiteVisitModel ;
-
     siteVisitUpdateForm: FormGroup;
   
     /**
@@ -33,10 +32,8 @@ export class SiteVisitUpdateDialogComponent {
         private _matSnackBar: MatSnackBar) {
 
         // Fetch selected user details from the dialog's data attribute.
-        console.log('_dialogData.selectedSiteVisit', _dialogData.selectedSiteVisit);
         if (_dialogData.selectedSiteVisit !== undefined) {
-            console.log('selected site visit in modify', _dialogData.selectedSiteVisit);
-            this.selectedSiteVisit = _dialogData.selectedSiteVisit;
+            this.selectedSiteVisit = Object.assign({}, _dialogData.selectedSiteVisit);
             this.dialogTitle = 'Modify Site Visit Details';
         }
         else {

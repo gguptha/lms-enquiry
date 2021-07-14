@@ -69,7 +69,7 @@ export class LoanContractsSearchComponent {
         this.projectTypes = _route.snapshot.data.routeResolvedData[2]._embedded.projectTypes;
         this.states = _route.snapshot.data.routeResolvedData[3];
         this.assistanceTypes = _route.snapshot.data.routeResolvedData[4]._embedded.assistanceTypes;
-        this.technicalStatuses = _route.snapshot.data.routeResolvedData[9];
+        this.technicalStatuses = _route.snapshot.data.routeResolvedData[5];
 
         console.log('_appService.currentUser', _appService.currentUser);
     }
