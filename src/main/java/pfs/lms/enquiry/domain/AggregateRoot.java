@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
+import javax.annotation.Nullable;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
@@ -27,7 +28,7 @@ public abstract class AggregateRoot<A extends AbstractAggregateRoot<A>> extends 
 
     @Id
     @Type(type = "uuid-char")
-    @NonNull
+    @Nullable
     protected UUID id;
 
     @Version
