@@ -21,7 +21,6 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameter: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameterPLF: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedSiteVisit: BehaviorSubject<any> = new BehaviorSubject({});
     selectedRateOfInterest: BehaviorSubject<any> = new BehaviorSubject({});
     selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedPromoterFinancials: BehaviorSubject<any> = new BehaviorSubject({});
