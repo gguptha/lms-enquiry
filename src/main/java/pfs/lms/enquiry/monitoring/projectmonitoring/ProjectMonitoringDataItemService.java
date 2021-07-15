@@ -36,10 +36,11 @@ public class ProjectMonitoringDataItemService implements IProjectMonitoringDataI
         );
         projectMonitoringDataItem = projectMonitoringDataItemRepository.save(projectMonitoringDataItem);
 
+        if (projectMonitoringDataItemResource.getProjectMonitoringDataId() != null) {
         ProjectMonitoringData projectMonitoringData =
                 projectMonitoringDataRepository.getOne(projectMonitoringDataItemResource.getProjectMonitoringDataId().toString());
 
-        if (projectMonitoringData != null) {
+
             // Change Documents for Project Monitoring Item
             changeDocumentService.createChangeDocument(
                     projectMonitoringData.getLoanMonitor().getId(),

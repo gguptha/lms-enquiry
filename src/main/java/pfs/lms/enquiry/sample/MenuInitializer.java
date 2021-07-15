@@ -57,7 +57,9 @@ public class MenuInitializer  implements CommandLineRunner {
                 case "ZLM040": //Monitoring Head
                     createMonitoringOfficerMenu(userRole.getCode(), userRole.getValue());
                     break;
-
+                case "ZLM023" : //PFS IT Team
+                    createITTeamMenu(userRole.getCode(),userRole.getValue());
+                    break;
                 default:
                     createDefaultMenu(userRole.getCode(), userRole.getValue());
             }
@@ -84,6 +86,37 @@ public class MenuInitializer  implements CommandLineRunner {
         adminMenu.setMenuHeaders(null);
         adminMenu.setUserRole("admin");
         adminMenu.setUserRoleName("Administrator");
+
+        Integer headerSerialNumber =0 ;
+
+
+
+        adminMenu = this.addMain(adminMenu);
+        adminMenu = this.addAdministration(adminMenu);
+        adminMenu = this.addReports(adminMenu);
+        adminMenu = this.addLoanApplicationAll(adminMenu);
+        adminMenu = this.addLoanServicing(adminMenu);
+
+        if (adminMenuExisting == null) {
+            adminMenu = menuService.createMenu(adminMenu);
+        } else {
+            adminMenu = menuService.updateMenu(adminMenu);
+        }
+    }
+
+    private void createITTeamMenu(String userRole, String userRoleDesc){
+        // Admin User Menu
+
+        Menu adminMenu = new Menu();
+        Menu adminMenuExisting = new Menu();
+        adminMenuExisting = menuService.findByUserRole(userRole);
+        if (adminMenuExisting != null) {
+            adminMenu = adminMenuExisting;
+
+        }
+        adminMenu.setMenuHeaders(null);
+        adminMenu.setUserRole(userRole);
+        adminMenu.setUserRoleName(userRoleDesc);
 
         Integer headerSerialNumber =0 ;
 
