@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class PromoterDetailItem extends AggregateRoot<PromoterDetailItem> {
+public class PromoterDetailItem extends AggregateRoot<PromoterDetailItem> implements Cloneable    {
 
     private Integer serialNumber;
     private String  shareHoldingCompany;
@@ -20,4 +20,9 @@ public class PromoterDetailItem extends AggregateRoot<PromoterDetailItem> {
     private Double  paidupCapitalEquityCurrent;
     private Double  equityLinkInstrumentSanction; // (CCD/ CCPS/ Unsecured loan) - Sanction
     private Double  equityLinkInstrumentCurrent; // (CCD/ CCPS/ Unsecured loan) - Current
+
+
+    public Object clone () throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

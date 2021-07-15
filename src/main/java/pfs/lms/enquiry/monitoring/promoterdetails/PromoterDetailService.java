@@ -57,7 +57,7 @@ public class PromoterDetailService implements IPromoterDetailService {
             if (resourceItem.getId() == null) {
                 PromoterDetailItem promoterDetailItem = promoterDetailItemService.savePromoterDetailItem(resourceItem,
                         resource.getPromoterDetail().getId(),
-                        resource.getPromoterDetail().getPromoterDetailItemSet().size());
+                        resource.getPromoterDetail().getPromoterDetailItemSet().size(),username);
                 promoterDetail.getPromoterDetailItemSet().add(promoterDetailItem);
                 promoterDetail = promoterDetailRepository.save(promoterDetail);
             }
@@ -83,11 +83,11 @@ public class PromoterDetailService implements IPromoterDetailService {
             if (resourceItem.getId() == null) {
                 PromoterDetailItem promoterDetailItem = promoterDetailItemService.savePromoterDetailItem(resourceItem,
                         resource.getPromoterDetail().getId(),
-                        resource.getPromoterDetail().getPromoterDetailItemSet().size());
+                        resource.getPromoterDetail().getPromoterDetailItemSet().size(),username);
                 promoterDetail.getPromoterDetailItemSet().add(promoterDetailItem);
                 promoterDetail = promoterDetailRepository.save(existingPromoterDetail);
             } else {
-                promoterDetailItemService.updatePromoterDetailItem(resourceItem, resource.getPromoterDetail().getId());
+                promoterDetailItemService.updatePromoterDetailItem(resourceItem, resource.getPromoterDetail().getId(),username);
                 promoterDetail = promoterDetailRepository.getOne(promoterDetail.getId());
             }
         }

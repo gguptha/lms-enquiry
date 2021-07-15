@@ -54,8 +54,12 @@ public class MenuInitializer  implements CommandLineRunner {
                 case "ZLM024": //Nodal Officer-Monitoring
                         createMonitoringOfficerMenu(userRole.getCode(), userRole.getValue());
                     break;
+                case "ZLM040": //Monitoring Head
+                    createMonitoringOfficerMenu(userRole.getCode(), userRole.getValue());
+                    break;
+
                 default:
-                    createDefaultrMenu(userRole.getCode(), userRole.getValue());
+                    createDefaultMenu(userRole.getCode(), userRole.getValue());
             }
 
         }
@@ -124,7 +128,7 @@ public class MenuInitializer  implements CommandLineRunner {
         }
     }
 
-    private void createDefaultrMenu(String userRole, String userRoleName) {
+    private void createDefaultMenu(String userRole, String userRoleName) {
 
         Menu userMenu = new Menu();
         Menu userMenuExisting = new Menu();

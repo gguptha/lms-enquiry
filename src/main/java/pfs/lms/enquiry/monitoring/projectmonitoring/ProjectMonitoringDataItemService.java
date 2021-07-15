@@ -37,20 +37,21 @@ public class ProjectMonitoringDataItemService implements IProjectMonitoringDataI
         projectMonitoringDataItem = projectMonitoringDataItemRepository.save(projectMonitoringDataItem);
 
         ProjectMonitoringData projectMonitoringData =
-                projectMonitoringDataRepository.findByLoanMonitorLoanApplicationId(projectMonitoringDataItemResource.getLoanApplicationId());
+                projectMonitoringDataRepository.getOne(projectMonitoringDataItemResource.getProjectMonitoringDataId().toString());
 
-        // Change Documents for Project Monitoring Item
-        changeDocumentService.createChangeDocument(
-                projectMonitoringData.getLoanMonitor().getId(),
-                projectMonitoringDataItemResource.getId().toString(),
-                null,
-                projectMonitoringData.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
-                projectMonitoringDataItemResource,
-                "Created",
-                request.getUserPrincipal().getName(),
-                "Monitoring", "Project Monitoring Item");
-
+        if (projectMonitoringData != null) {
+            // Change Documents for Project Monitoring Item
+            changeDocumentService.createChangeDocument(
+                    projectMonitoringData.getLoanMonitor().getId(),
+                    projectMonitoringDataItemResource.getId().toString(),
+                    null,
+                    projectMonitoringData.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                    null,
+                    projectMonitoringDataItemResource,
+                    "Created",
+                    request.getUserPrincipal().getName(),
+                    "Monitoring", "Project Monitoring Item");
+        }
         return projectMonitoringDataItem;
     }
 

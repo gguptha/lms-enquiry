@@ -238,7 +238,7 @@ public class Initializer implements CommandLineRunner {
             UserRole r3 = new UserRole("ZLM023", "Administrator");
             UserRole r4 = new UserRole("ZLM001", "Promoter");
             UserRole r5 = new UserRole("ZLM023", "Co-Appraisal Officer");
-            UserRole r6 = new UserRole("ZLM010", "Appraisal Officer");
+            UserRole r6 = new UserRole("ZLM010", "Appraisal Head");
             UserRole r7 = new UserRole("TR0110", "Prospect");
 
 
@@ -246,7 +246,7 @@ public class Initializer implements CommandLineRunner {
             log.info("Added User Roles");
         }
 
-        if (userRoleRepository.count() <= 7){
+            if (userRoleRepository.count() <= 7){
 
             UserRole r1 = new UserRole("ZLM002", "Lenders Financial Advisor");
             UserRole r2 = new UserRole("ZLM003", "Lenders Engineer");
@@ -268,13 +268,52 @@ public class Initializer implements CommandLineRunner {
             UserRole r18 = new UserRole("ZLM021", "Employee(SuppServ&3rd pa)");
             UserRole r19 = new UserRole("ZLM022", "Loan DocumentationOfficer");
             UserRole r20 = new UserRole("ZLM024", "Nodal Officer-Monitoring");
-
-
             userRoleRepository.saveAll(Arrays.asList(r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,
                                                       r11,r12,r13,r14,r15,r16,r17,r18,r19,r20));
             log.info("Added Additonal User Roles");
         }
 
+        UserRole ur = userRoleRepository.findByCode("ZLM010");
+        if (ur != null) {
+            ur.setValue("Appraisal Head");
+            userRoleRepository.save(ur);
+        } else {
+            ur= new UserRole("ZLM010", "Appraisal Head");
+            userRoleRepository.save(ur);
+
+        }
+        ur = userRoleRepository.findByCode("ZLM025");
+        if (ur != null) {
+            ur.setValue("Key Promoter");
+            userRoleRepository.save(ur);
+        } else {
+            ur= new UserRole("ZLM025", "Key Promoter");
+            userRoleRepository.save(ur);
+        }
+        ur = userRoleRepository.findByCode("ZLM026");
+        if (ur != null) {
+            ur.setValue("Group Company");
+            userRoleRepository.save(ur);
+        } else {
+            ur= new UserRole("ZLM026", "Group Company");
+            userRoleRepository.save(ur);
+        }
+        ur = userRoleRepository.findByCode("ZLM027");
+        if (ur != null) {
+            ur.setValue("Technology Provide");
+            userRoleRepository.save(ur);
+        } else {
+            ur= new UserRole("ZLM027", "Technology Provider");
+            userRoleRepository.save(ur);
+        }
+        ur = userRoleRepository.findByCode("ZLM040");
+        if (ur != null) {
+            ur.setValue("Monitoring Head");
+            userRoleRepository.save(ur);
+        } else {
+            ur = new UserRole("ZLM040", "Monitoring Head");
+            userRoleRepository.save(ur);
+        }
 
         if (enquiryPortalCommonConfigRepository.count() == 0) {
             EnquiryPortalCommonConfig e1 = new EnquiryPortalCommonConfig("DEV","info@leanthoughts.com");
