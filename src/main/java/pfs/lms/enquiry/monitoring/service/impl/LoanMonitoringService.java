@@ -809,7 +809,9 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         // Change Documents for Sec. Compliance
         changeDocumentService.createChangeDocument(
-                loanMonitor.getId(),loanMonitor.getId().toString(),null,
+                loanMonitor.getId(),
+                securityCompliance.getId().toString(),
+                null,
                 loanApplication.getLoanContractId(),
                 null,
                 securityCompliance,
