@@ -37,11 +37,12 @@ import { InboxModule } from './main/content/pages/inbox/inbox.module';
 import { ChangeDocumentModule } from './main/content/pages/changeDocument/change-document.module';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { LoanAppraisalModule } from './main/content/pages/appraisal/loanAppraisal.module';
+import { InboxComponent } from './main/content/pages/inbox/inbox.component';
 
 const appRoutes: Routes = [
     {
         path: '',
-        component: AppComponent,
+        component: InboxComponent,
         canActivate: [
             AppService
         ]

@@ -37,7 +37,7 @@ export class AppService implements CanActivate {
                     observer.next(false);
                 }
                 else if (this.currentUser.role === 'ZLM023' || this.currentUser.role === 'ZLM024' || this.currentUser.role === 'ZLM040') {
-                    this._router.navigate(['userManagement']);
+                    this._router.navigate(['inbox']);
                     observer.next(false);
                 }
                 else {
