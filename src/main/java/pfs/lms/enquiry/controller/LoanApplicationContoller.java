@@ -197,15 +197,19 @@ public class LoanApplicationContoller {
 
         LoanApplication loanApplication = loanApplicationService.migrate(loanApplicationResource, request.getUserPrincipal().getName());
 
-        System.out .println("-----------------------------------------------------");
-        System.out.println("Migrating Extension : " + resource.getLoanContractExtension().toString());
-        System.out.println("-----------------------------------------------------");
+
         LoanContractExtension loanContractExtension = resource.getLoanContractExtension();
+        System.out.println("Loan Application GUID : " + loanApplication.getId().toString());
+        System.out.println("Loan Contract  Id : " + loanApplication.getId().toString());
 
         LoanContractExtensionResource loanContractExtensionResource = new LoanContractExtensionResource();
         loanContractExtensionResource.setLoanApplicationId(loanApplication.getId());
         loanContractExtensionResource.setLoanContractExtension(loanContractExtension);
 
+
+        System.out .println("-----------------------------------------------------");
+        System.out.println("Migrating Extension : " + resource.getLoanContractExtension().toString());
+        System.out.println("-----------------------------------------------------");
 
 
         LoanContractExtension existingLoanContractExtension =

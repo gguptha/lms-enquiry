@@ -23,8 +23,12 @@ public class LoanContractExtensionService implements ILoanContractExtensionServi
 
     @Override
     public LoanContractExtension save(LoanContractExtensionResource resource, String username) {
+
+        System.out.println(" Saving NEW Loan Contract Extension : Loan Application Id: " + resource.getLoanApplicationId());
+
         LoanApplication loanApplication = loanApplicationRepository.getOne(resource.getLoanApplicationId());
 
+        System.out.println(" Continuing to SAVE NEW Loan Contract Extension :" + resource.getLoanApplicationId());
 
         LoanContractExtension loanContractExtension = resource.getLoanContractExtension();
         loanContractExtension.setLoanApplication(loanApplication);
@@ -44,8 +48,15 @@ public class LoanContractExtensionService implements ILoanContractExtensionServi
 
     @Override
     public LoanContractExtension update(LoanContractExtensionResource resource, String username) {
+
+        System.out.println(" Updating Loan Contract Extension : " + resource.getLoanContractExtension().getId());
+
         LoanContractExtension existingLoanContractExtension
                 = loanContractExtensionRepository.getOne(resource.getLoanContractExtension().getId());
+
+        System.out.println(" Continuing Updating Loan Contract Extension : " + resource.getLoanContractExtension().getId());
+
+
 
         existingLoanContractExtension.setLoanApplication(resource.getLoanContractExtension().getLoanApplication());
         existingLoanContractExtension.setBoardApprovalDate(resource.getLoanContractExtension().getBoardApprovalDate());
