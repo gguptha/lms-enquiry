@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
-import { LIEReportAndFeeModel } from 'app/main/content/model/lieReportAndFee.model';
+import { LIEModel } from 'app/main/content/model/lie.model';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
-import { BehaviorSubject } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { LIEReportAndFeeUpdateDialogComponent } from '../lieReportAndFeeUpdate/lieReportAndFeeUpdate.component';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 
 @Component({
@@ -12,16 +13,12 @@ import { LoanMonitoringService } from '../loanMonitoring.service';
     styleUrls: ['./lieReportAndFeeList.component.scss'],
     animations: fuseAnimations
 })
-export class LIEReportAndFeeListComponent implements OnInit {
+export class LIEReportAndFeeListComponent implements OnDestroy {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input()
-    set lieReportAndFeeList(list: any) {
-        this.dataSource = new MatTableDataSource(list);
-        this.dataSource.sort = this.sort
-    }
+    selectedLIE: any;
 
     displayedColumns = [
         'serialNumber', 'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
@@ -30,36 +27,33 @@ export class LIEReportAndFeeListComponent implements OnInit {
 
     selectedLIEReportAndFee: any;
 
+    subscriptions = new Subscription()
+    
     /**
      * constructor()
      */
-    constructor(private _service: LoanMonitoringService) {
-        this._service.selectedLIEReportAndFee.next({});
+    constructor(private _loanMonitoringService: LoanMonitoringService, private _dialog: MatDialog) {
+        this.subscriptions.add(_loanMonitoringService.selectedLIE.subscribe(data => {
+            this.selectedLIE = new LIEModel(data);
+            if (this.selectedLIE.id !== '') {
+                _loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
+                    this.dataSource = new MatTableDataSource(data);
+                    this.dataSource.sort = this.sort;
+                });
+            }
+        })
+)
     }
 
     /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-        /**
-         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
-         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
-         */
-        this.dataSource.sort = this.sort;
-    }
-
-    /**
-     *
-     * @param enquiry
+     * onSelect()
      */
     onSelect(lieReportAndFee: any): void {
         this.selectedLIEReportAndFee = lieReportAndFee;
-        this._service.selectedLIEReportAndFee.next(this.selectedLIEReportAndFee);
     }
 
     /**
      * getFileURL()
-     * @param fileReference 
      */
     getFileURL(fileReference: string): string {
         return 'enquiry/api/download/' + fileReference;
@@ -67,10 +61,63 @@ export class LIEReportAndFeeListComponent implements OnInit {
 
     /**
      * getReportType()
-     * @param reportType 
      */
     getReportType(reportType: string): string {
         const filtered = LoanMonitoringConstants.reportTypes.filter(obj => obj.code === reportType);
         return filtered[0].value;
+    }
+
+    /**
+     * addLIEReportAndFee()
+     */
+    addLIEReportAndFee(): void {
+        // Open the dialog.
+        const dialogRef = this._dialog.open(LIEReportAndFeeUpdateDialogComponent, {
+            panelClass: 'fuse-lie-report-fee-update-dialog',
+            width: '1126px',
+            data: {
+                operation: 'addLIEReportAndFee',
+                selectedLIE: this.selectedLIE
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+            }
+        });    
+    }
+
+    /**
+     * updateLIEReportAndFee()
+     */
+    updateLIEReportAndFee(): void {
+        // Open the dialog.
+        const dialogRef = this._dialog.open(LIEReportAndFeeUpdateDialogComponent, {
+            panelClass: 'fuse-lie-report-fee-update-dialog',
+            width: '1126px',
+            data: {
+                operation: 'updateLIEReportAndFee',
+                selectedLIE: this.selectedLIE,
+                selectedLIEReportAndFee: this.selectedLIEReportAndFee
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+            }
+        });    
+    }
+
+    /**
+     * ngOnDestroy()
+     */
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 }

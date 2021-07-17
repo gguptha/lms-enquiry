@@ -40,7 +40,7 @@ export class LIEUpdateDialogComponent implements OnInit {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedLIE !== undefined) {
-            this.selectedLIE = _dialogData.selectedLIE;
+            this.selectedLIE = Object.assign({}, _dialogData.selectedLIE);
             this.dialogTitle = 'Modify LIE';
         }
         else {
