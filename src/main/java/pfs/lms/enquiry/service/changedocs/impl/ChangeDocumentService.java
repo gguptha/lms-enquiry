@@ -364,7 +364,7 @@ public class ChangeDocumentService implements IChangeDocumentService {
                 case "RateOfInterest":
                     RateOfInterest rateOfInterest = (RateOfInterest) object;
                     result.put("id", rateOfInterest.getSerialNumber().toString());
-                    result.put("description", rateOfInterest.getParticulars().toString());
+                    result.put("description", rateOfInterest.getConditionType().toString());
                     return result;
                 case "BorrowerFinancials":
                     BorrowerFinancials borrowerFinancials = (BorrowerFinancials) object;

@@ -1121,12 +1121,20 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         RateOfInterest rateOfInterest = resource.getRateOfInterest();
         rateOfInterest.setLoanMonitor(loanMonitor);
         rateOfInterest.setSerialNumber(rateOfInterestRepository.findByLoanMonitor(loanMonitor).size() + 1);
-        rateOfInterest.setParticulars(resource.getRateOfInterest().getParticulars());
-        rateOfInterest.setScheduledIfAny(resource.getRateOfInterest().getScheduledIfAny());
-        rateOfInterest.setSanctionPreCod(resource.getRateOfInterest().getSanctionPreCod());
-        rateOfInterest.setSanctionPostCod(resource.getRateOfInterest().getSanctionPostCod());
-        rateOfInterest.setPresentRoi(resource.getRateOfInterest().getPresentRoi());
-        rateOfInterest.setFreeText(resource.getRateOfInterest().getFreeText());
+
+        rateOfInterest.setConditionType(resource.getRateOfInterest().getConditionType());
+        rateOfInterest.setValidFromDate(resource.getRateOfInterest().getValidFromDate());
+        rateOfInterest.setInterestTypeIndicator(resource.getRateOfInterest().getInterestTypeIndicator());
+        rateOfInterest.setReferenceInterestRate(resource.getRateOfInterest().getReferenceInterestRate());
+        rateOfInterest.setRefInterestSign(resource.getRateOfInterest().getRefInterestSign());
+        rateOfInterest.setInterestRate(resource.getRateOfInterest().getInterestRate());
+        rateOfInterest.setCalculationDate(resource.getRateOfInterest().getCalculationDate());
+        rateOfInterest.setIsCalculationDateOnMonthEnd(resource.getRateOfInterest().getIsCalculationDateOnMonthEnd());
+        rateOfInterest.setDueDate(resource.getRateOfInterest().getDueDate());
+        rateOfInterest.setInterestPaymentFrequency(resource.getRateOfInterest().getInterestPaymentFrequency());
+        rateOfInterest.setPaymentForm(resource.getRateOfInterest().getPaymentForm());
+        rateOfInterest.setInterestCalculationMethod(resource.getRateOfInterest().getInterestCalculationMethod());
+
         rateOfInterest = rateOfInterestRepository.save(rateOfInterest);
 
         // Change Documents for Operating Parameter
@@ -1150,12 +1158,19 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         Object oldExistingRateOfInterest = existingRateOfInterest.clone();
 
-        existingRateOfInterest.setParticulars(resource.getRateOfInterest().getParticulars());
-        existingRateOfInterest.setScheduledIfAny(resource.getRateOfInterest().getScheduledIfAny());
-        existingRateOfInterest.setSanctionPreCod(resource.getRateOfInterest().getSanctionPreCod());
-        existingRateOfInterest.setSanctionPostCod(resource.getRateOfInterest().getSanctionPostCod());
-        existingRateOfInterest.setPresentRoi(resource.getRateOfInterest().getPresentRoi());
-        existingRateOfInterest.setFreeText(resource.getRateOfInterest().getFreeText());
+        existingRateOfInterest.setConditionType(resource.getRateOfInterest().getConditionType());
+        existingRateOfInterest.setValidFromDate(resource.getRateOfInterest().getValidFromDate());
+        existingRateOfInterest.setInterestTypeIndicator(resource.getRateOfInterest().getInterestTypeIndicator());
+        existingRateOfInterest.setReferenceInterestRate(resource.getRateOfInterest().getReferenceInterestRate());
+        existingRateOfInterest.setRefInterestSign(resource.getRateOfInterest().getRefInterestSign());
+        existingRateOfInterest.setInterestRate(resource.getRateOfInterest().getInterestRate());
+        existingRateOfInterest.setCalculationDate(resource.getRateOfInterest().getCalculationDate());
+        existingRateOfInterest.setIsCalculationDateOnMonthEnd(resource.getRateOfInterest().getIsCalculationDateOnMonthEnd());
+        existingRateOfInterest.setDueDate(resource.getRateOfInterest().getDueDate());
+        existingRateOfInterest.setInterestPaymentFrequency(resource.getRateOfInterest().getInterestPaymentFrequency());
+        existingRateOfInterest.setPaymentForm(resource.getRateOfInterest().getPaymentForm());
+        existingRateOfInterest.setInterestCalculationMethod(resource.getRateOfInterest().getInterestCalculationMethod());
+
         existingRateOfInterest = rateOfInterestRepository.save(existingRateOfInterest);
 
 

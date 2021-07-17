@@ -32,9 +32,10 @@ public class LoanContractExtensionService implements ILoanContractExtensionServi
 
         LoanContractExtension loanContractExtension = resource.getLoanContractExtension();
         loanContractExtension.setLoanApplication(loanApplication);
+        loanContractExtension.setLoanNumber(loanApplication.getLoanContractId());
         loanContractExtension.setBoardApprovalDate(resource.getLoanContractExtension().getBoardApprovalDate());
         loanContractExtension.setBoardMeetingNumber(resource.getLoanContractExtension().getBoardMeetingNumber());
-        loanContractExtension.setLoanNumber(resource.getLoanContractExtension().getLoanNumber());
+        //loanContractExtension.setLoanNumber(resource.getLoanContractExtension().getLoanNumber());
         loanContractExtension.setSanctionLetterDate(resource.getLoanContractExtension().getSanctionLetterDate());
         loanContractExtension.setLoanDocumentationDate(resource.getLoanContractExtension().getLoanDocumentationDate());
         loanContractExtension.setFirstDisbursementDate(resource.getLoanContractExtension().getFirstDisbursementDate());
@@ -50,6 +51,7 @@ public class LoanContractExtensionService implements ILoanContractExtensionServi
     public LoanContractExtension update(LoanContractExtensionResource resource, String username) {
 
         System.out.println(" Updating Loan Contract Extension : " + resource.getLoanContractExtension().getId());
+        
 
         LoanContractExtension existingLoanContractExtension
                 = loanContractExtensionRepository.getOne(resource.getLoanContractExtension().getId());

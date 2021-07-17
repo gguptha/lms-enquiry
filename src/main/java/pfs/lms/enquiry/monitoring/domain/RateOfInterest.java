@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -21,17 +23,47 @@ public class RateOfInterest extends AbstractEntity implements Cloneable {
 
     private Integer serialNumber;
 
-    private String particulars;
+    private String conditionType;
+    private LocalDate validFromDate;
 
-    private String scheduledIfAny;
+    // 0 - Fixed
+    // 1 - Reference Int. Rate
+    private Character interestTypeIndicator;
 
-    private Double sanctionPreCod;
+    private String referenceInterestRate;
 
-    private Double sanctionPostCod;
+    // +  - Plus
+    // -  - Minus
+    // *  - Multiply
+    private String refInterestSign;
 
-    private Double presentRoi;
+    private Double interestRate;
 
-    private String freeText;
+    private LocalDate calculationDate;
+
+    private Boolean isCalculationDateOnMonthEnd;
+
+    private LocalDate dueDate;
+
+    private Boolean isDueDateOnMonthEnd;
+
+    private String interestPaymentFrequency;
+
+    private String paymentForm;
+
+    private Integer interestCalculationMethod;
+
+//    private String particulars;
+//
+//    private String scheduledIfAny;
+//
+//    private Double sanctionPreCod;
+//
+//    private Double sanctionPostCod;
+//
+//    private Double presentRoi;
+//
+//    private String freeText;
 
     public Object clone () throws CloneNotSupportedException {
         return super.clone();

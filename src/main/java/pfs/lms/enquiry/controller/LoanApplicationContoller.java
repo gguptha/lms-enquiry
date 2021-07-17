@@ -199,8 +199,8 @@ public class LoanApplicationContoller {
 
 
         LoanContractExtension loanContractExtension = resource.getLoanContractExtension();
-        System.out.println("Loan Application GUID : " + loanApplication.getId().toString());
-        System.out.println("Loan Contract  Id : " + loanApplication.getId().toString());
+        System.out.println("Loan Application GUID  : " + loanApplication.getId().toString());
+        System.out.println("Loan Contract  Id      : " + loanApplication.getLoanContractId().toString());
 
         LoanContractExtensionResource loanContractExtensionResource = new LoanContractExtensionResource();
         loanContractExtensionResource.setLoanApplicationId(loanApplication.getId());
@@ -208,7 +208,7 @@ public class LoanApplicationContoller {
 
 
         System.out .println("-----------------------------------------------------");
-        System.out.println("Migrating Extension : " + resource.getLoanContractExtension().toString());
+        System.out.println("Migrating Extension : " + loanContractExtensionResource.getLoanContractExtension().toString());
         System.out.println("-----------------------------------------------------");
 
 

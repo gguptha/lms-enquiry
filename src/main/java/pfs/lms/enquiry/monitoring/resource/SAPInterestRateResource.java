@@ -37,14 +37,44 @@ public class SAPInterestRateResource {
 
         detailedResource.setId(rateOfInterest.getId());
         detailedResource.setMonitorId(rateOfInterest.getLoanMonitor().getId().toString());
-        detailedResource.setSerialNo(rateOfInterest.getSerialNumber() );
+        detailedResource.setSerialNo(rateOfInterest.getSerialNumber());
 
-        detailedResource.setParticulars(rateOfInterest.getParticulars());
-        detailedResource.setScheduled(rateOfInterest.getScheduledIfAny());
-        detailedResource.setPrecodsanction( String.format("%.2f",rateOfInterest.getSanctionPreCod()));
-        detailedResource.setPostcodsacnction(String.format("%.2f",rateOfInterest.getSanctionPreCod()));
-        detailedResource.setPresentRoi(String.format("%.2f",rateOfInterest.getPresentRoi()));
-        detailedResource.setFreeText(rateOfInterest.getFreeText());
+        if (rateOfInterest.getValidFromDate() !=null)
+            detailedResource.setValidFromDate(dataConversionUtility.convertDateToSAPFormat(rateOfInterest.getValidFromDate()));
+        else
+            detailedResource.setValidFromDate(null);
+
+        detailedResource.setConditionType(rateOfInterest.getConditionType());
+        detailedResource.setInterestTypeIndicator(rateOfInterest.getInterestTypeIndicator());
+        detailedResource.setReferenceInterestRate(rateOfInterest.getReferenceInterestRate());
+
+        detailedResource.setInterestRate(String.format("%.2f",rateOfInterest.getInterestRate()));
+
+
+        if (rateOfInterest.getCalculationDate() !=null)
+            detailedResource.setValidFromDate(dataConversionUtility.convertDateToSAPFormat(rateOfInterest.getCalculationDate()));
+        else
+            detailedResource.setValidFromDate(null);
+
+        if (rateOfInterest.getIsCalculationDateOnMonthEnd() == true)
+            detailedResource.setIsDueDateOnMonthEnd('X');
+        else
+            detailedResource.setIsDueDateOnMonthEnd(' ');
+
+        if (rateOfInterest.getDueDate() !=null)
+            detailedResource.setValidFromDate(dataConversionUtility.convertDateToSAPFormat(rateOfInterest.getDueDate()));
+        else
+            detailedResource.setValidFromDate(null);
+
+        if (rateOfInterest.getIsDueDateOnMonthEnd() == true)
+            detailedResource.setIsDueDateOnMonthEnd('X');
+        else
+            detailedResource.setIsDueDateOnMonthEnd(' ');
+
+
+        detailedResource.setInterestPaymentFrequency(rateOfInterest.getInterestPaymentFrequency());
+        detailedResource.setPaymentForm(rateOfInterest.getPaymentForm());
+        detailedResource.setInterestCalculationMethod(rateOfInterest.getInterestCalculationMethod());
 
         return detailedResource;
 
