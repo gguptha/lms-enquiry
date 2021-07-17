@@ -219,6 +219,7 @@ public class LoanApplicationContoller {
         }
             else {
             loanContractExtensionResource.getLoanContractExtension().setId(existingLoanContractExtension.getId());
+            loanContractExtensionResource.getLoanContractExtension().setLoanApplication(existingLoanContractExtension.getLoanApplication());
             loanContractExtensionService.update(loanContractExtensionResource, request.getUserPrincipal().getName());
         }
         System.out .println("-----------------------------------------------------");
