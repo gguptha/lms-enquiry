@@ -51,7 +51,7 @@ public class LoanContractExtensionService implements ILoanContractExtensionServi
     public LoanContractExtension update(LoanContractExtensionResource resource, String username) {
 
         System.out.println(" Updating Loan Contract Extension : " + resource.getLoanContractExtension().getId());
-        
+
 
         LoanContractExtension existingLoanContractExtension
                 = loanContractExtensionRepository.getOne(resource.getLoanContractExtension().getId());
