@@ -1,6 +1,7 @@
 package pfs.lms.enquiry.domain;
 
 import lombok.*;
+import org.assertj.core.data.Percentage;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -38,5 +39,20 @@ public class LoanContractExtension extends AggregateRoot<LoanContractExtension> 
     private String disbursementStatus;
 
     private LocalDate scheduledCOD;
+
+//  Percentage rate for condition items
+    private Double baseRate;
+//  Reference Interest Rate
+    private String referenceRateType;
+//  Frequency of change in Base rate
+    private String frequenceOfChangeInBaseRate;
+//  Applicable Spread (actual charged)
+    private Double applicableSpread;
+//  Spread - Fixed/ Floating
+    private Double spreadFixedFloating;
+//  Spread as per PFS BR (Should be-as per policy)
+    private Double spreadPFSBR;
+//  Applicable ROI as on Date
+    private Double applicableROI;
 
 }

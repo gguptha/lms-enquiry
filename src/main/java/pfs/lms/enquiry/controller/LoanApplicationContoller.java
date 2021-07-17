@@ -187,9 +187,9 @@ public class LoanApplicationContoller {
         System.out.println("LOAN APPLICATION : " + resource.getLoanApplication());
         System.out.println("PARTNER : " + resource.getPartner());
 
-//        System.out .println("-----------------------------------------------------");
-//        System.out.println("PARTNER : " + resource.getPartner());
-//        System.out.println("-----------------------------------------------------");
+        System.out .println("-----------------------------------------------------");
+        System.out.println("PARTNER : " + resource.getPartner());
+        System.out.println("-----------------------------------------------------");
 
         LoanApplicationResource loanApplicationResource = new LoanApplicationResource();
         loanApplicationResource.setLoanApplication(resource.getLoanApplication());
@@ -197,6 +197,9 @@ public class LoanApplicationContoller {
 
         LoanApplication loanApplication = loanApplicationService.migrate(loanApplicationResource, request.getUserPrincipal().getName());
 
+        System.out .println("-----------------------------------------------------");
+        System.out.println("Migrating Extension : " + resource.getLoanContractExtension().toString());
+        System.out.println("-----------------------------------------------------");
         LoanContractExtension loanContractExtension = resource.getLoanContractExtension();
 
         LoanContractExtensionResource loanContractExtensionResource = new LoanContractExtensionResource();
@@ -213,6 +216,9 @@ public class LoanApplicationContoller {
             else {
             loanContractExtensionService.update(loanContractExtensionResource, request.getUserPrincipal().getName());
         }
+        System.out .println("-----------------------------------------------------");
+        System.out.println("Finished Migrating Extension : ") ;
+        System.out.println("-----------------------------------------------------");
 
 
 

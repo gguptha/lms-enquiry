@@ -7,6 +7,7 @@ import pfs.lms.enquiry.domain.LoanApplication;
 import pfs.lms.enquiry.monitoring.domain.LoanMonitor;
 import pfs.lms.enquiry.repository.LoanApplicationRepository;
 import pfs.lms.enquiry.monitoring.repository.LoanMonitorRepository;
+import pfs.lms.enquiry.service.changedocs.IChangeDocumentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -20,6 +21,7 @@ public class ProjectMonitoringDataService implements IProjectMonitoringDataServi
     private final LoanMonitorRepository loanMonitorRepository;
     private final ProjectMonitoringDataRepository projectMonitoringDataRepository;
     private final ProjectMonitoringDataItemService projectMonitoringDataItemService;
+    private final IChangeDocumentService changeDocumentService;
 
     @Override
     public ProjectMonitoringData saveProjectMonitoringData(UUID loanApplicationId, HttpServletRequest request) {
@@ -31,6 +33,15 @@ public class ProjectMonitoringDataService implements IProjectMonitoringDataServi
             loanMonitor = new LoanMonitor();
             loanMonitor.setLoanApplication(loanApplication);
             loanMonitor = loanMonitorRepository.save(loanMonitor);
+
+            changeDocumentService.createChangeDocument(
+                    loanMonitor.getId(), loanMonitor.getId().toString(), null,
+                    loanApplication.getLoanContractId(),
+                    null,
+                    loanMonitor,
+                    "Created",
+                    request.getUserPrincipal().getName(),
+                    "Monitoring", "Header");
         }
 
         ProjectMonitoringData projectMonitoringData =
