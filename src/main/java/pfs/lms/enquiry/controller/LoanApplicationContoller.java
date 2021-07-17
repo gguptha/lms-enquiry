@@ -215,10 +215,10 @@ public class LoanApplicationContoller {
         LoanContractExtension existingLoanContractExtension =
                 loanContractExtensionRepository.getLoanContractExtensionByLoanNumber(loanApplication.getLoanContractId());
         if ( existingLoanContractExtension == null) {
-            loanContractExtensionResource.getLoanContractExtension().setId(existingLoanContractExtension.getId());
             loanContractExtensionService.save(loanContractExtensionResource, request.getUserPrincipal().getName());
         }
             else {
+            loanContractExtensionResource.getLoanContractExtension().setId(existingLoanContractExtension.getId());
             loanContractExtensionService.update(loanContractExtensionResource, request.getUserPrincipal().getName());
         }
         System.out .println("-----------------------------------------------------");
