@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
@@ -44,8 +44,7 @@ export class LIEReportAndFeeUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         this.selectedLIE = _dialogData.selectedLIE;
         if (_dialogData.selectedLIEReportAndFee !== undefined) {
-            console.log('_dialogData.selectedLIEReportAndFee', _dialogData.selectedLIEReportAndFee);
-            this.selectedLIEReportAndFee = _dialogData.selectedLIEReportAndFee;
+            this.selectedLIEReportAndFee = Object.assign({}, _dialogData.selectedLIEReportAndFee);
             this.dialogTitle = 'Modify LIE Report Submission';
         }
         else {

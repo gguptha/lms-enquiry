@@ -1,15 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { ActivatedRoute, Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
-import { LIEUpdateDialogComponent } from './lieUpdate/lieUpdate.component';
-import { LIEReportAndFeeUpdateDialogComponent } from './lieReportAndFeeUpdate/lieReportAndFeeUpdate.component';
-import { LIEModel } from '../../model/lie.model';
-import { LIEReportAndFeeModel } from '../../model/lieReportAndFee.model';
 import { LFAModel } from '../../model/lfa.model';
 import { LFAUpdateDialogComponent } from './lfaUpdate/lfaUpdate.component';
 import { LFAReportAndFeeModel } from '../../model/lfaReportAndFee.model';
@@ -51,8 +47,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     loanApplicationId: string;
     selectedEnquiry: any;
 
-    selectedLIE: LIEModel;
-    selectedLIEReportAndFee: LIEReportAndFeeModel;
     selectedLFA: LFAModel;
     selectedLFAReportAndFee: LFAReportAndFeeModel;
     selectedTRA: TRAModel;
@@ -67,8 +61,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedOperatingParameterPLF: OperatingParameterPLFModel;
     selectedProjectMonitoringData: any;
 
-    lieList: any;
-    lieReportAndFeeList: any;
     lfaList: any;
     lfaReportAndFeeList: any;
     traList: any;
@@ -124,10 +116,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
                     this.loanMonitor = data;
                 })
-                // getLendersIndependentEngineers
-                _loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
-                    this.lieList = data;
-                });
+
                 // getLendersFinancialAdvisors
                 _loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
                     this.lfaList = data;
@@ -165,24 +154,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                     this.operatingParameterPLFList = data;
                 })
             })
-        );
-        
-        // All about LIE
-
-        this.lieReportAndFeeList = [];
-
-        _loanMonitoringService.selectedLIE.subscribe(data => {
-            this.selectedLIE = new LIEModel(data);
-            if (this.selectedLIE.id !== '') {
-                _loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
-                    this.lieReportAndFeeList = data;
-                });
-            }
-        })
-
-        _loanMonitoringService.selectedLIEReportAndFee.subscribe(data => {
-            this.selectedLIEReportAndFee = new LIEReportAndFeeModel(data);
-        });
+        );        
 
         // All about LFA
 
@@ -304,89 +276,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      */
     redirectToMonitorLoan(): void {
         this._router.navigate(['/enquiryReview']);
-    }
-
-    addLIE(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LIEUpdateDialogComponent, {
-            panelClass: 'fuse-lie-update-dialog',
-            width: '750px',
-            data: {
-                operation: 'addLIE',
-                loanApplicationId: this.loanApplicationId
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
-                    this.lieList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    updateLIE(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LIEUpdateDialogComponent, {
-            panelClass: 'fuse-lie-update-dialog',
-            width: '750px',
-            data: {
-                operation: 'updateLIE',
-                loanApplicationId: this.loanApplicationId,
-                selectedLIE: this.selectedLIE
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLendersIndependentEngineers(this.loanApplicationId).subscribe(data => {
-                    this.lieList = data;
-                });
-            }
-        });    
-    }
-
-    addLIEReportAndFee(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LIEReportAndFeeUpdateDialogComponent, {
-            panelClass: 'fuse-lie-report-fee-update-dialog',
-            width: '1126px',
-            data: {
-                operation: 'addLIEReportAndFee',
-                selectedLIE: this.selectedLIE
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
-                    this.lieReportAndFeeList = data;
-                });
-            }
-        });    
-    }
-
-    updateLIEReportAndFee(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LIEReportAndFeeUpdateDialogComponent, {
-            panelClass: 'fuse-lie-report-fee-update-dialog',
-            width: '1126px',
-            data: {
-                operation: 'updateLIEReportAndFee',
-                selectedLIE: this.selectedLIE,
-                selectedLIEReportAndFee: this.selectedLIEReportAndFee
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLIEReportsAndFees(this.selectedLIE.id).subscribe(data => {
-                    this.lieReportAndFeeList = data;
-                });
-            }
-        });    
     }
 
     addLFA(): void {

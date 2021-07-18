@@ -13,7 +13,8 @@ export class LoanMonitoringService implements Resolve<any> {
     loanMonitor: BehaviorSubject<any> = new BehaviorSubject({});
 
     selectedLIE: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedLIEReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
+    
+    // TODO to be reviewed and deleted
     selectedLFA: BehaviorSubject<any> = new BehaviorSubject({});
     selectedLFAReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRA: BehaviorSubject<any> = new BehaviorSubject({});
