@@ -1,0 +1,71 @@
+spring:
+  profiles: pfsprdip
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: dn47gh3y
+    maximum-pool-size: 40
+    url: jdbc:mysql://localhost:3306/pfsenquiry?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true
+    validation-query: select 1
+    connection-test-query: select 1
+    test-while-idle: true
+    test-on-borrow: true
+    time-between-eviction-runs-millis: 60000
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 20
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    generate-ddl: true
+  data:
+    rest:
+      basePath: /api
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: pfs.sap@ptcfinancial.com
+    password: Sap$#!%*@admin&369!&*
+    protocol: smtp
+    tls: true
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        ssl.trust: smtp.office365.com
+  activiti:
+    activiti5CompatibilityEnabled: true
+    mail-server-host: smtp.office365.com
+    mail-server-port: 587
+    mail-server-user-name: pfs.sap@ptcfinancial.com
+    mail-server-password: Sap$#!%*@admin&369!&*
+    mail-server-default-from: pfs.sap@ptcfinancial.com
+    mail-server-use-tls: true
+    database-schema-update: true
+oauth:
+  baseUrl: http://13.71.85.200:9999/auth
+sap:
+  postUrl: http://13.71.85.200:8000/sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet?sap-client=300
+  baseUrl: http://13.71.85.200:8000
+  serviceUri: /sap/opu/odata/sap/ZPFS_LOAN_ENQ_PORTAL_SRV/LoanApplicationSet
+  monitorServiceUri: /sap/opu/odata/sap/ZPFS_LMS_MONITOR_V1_SRV/
+  lieUri: /sap/opu/odata/sap/ZPFS_LMS_MONITOR_V1_SRV/LendersIndependentEngineerSet
+  lieReportAndFeeUri: /sap/opu/odata/sap/ZPFS_LMS_MONITOR_V1_SRV/LIEReportAndFeeSet
+  monitorDocumentUri: /sap/opu/odata/sap/ZPFS_LMS_MONITOR_V1_SRV/DocumentSet
+  client: 500
+  userName: SAP_PFS_GW
+  password: Sapsap@4646
+security:
+  oauth2:
+    client:
+      client-id: pfs-client
+      client-secret: pfs-secret
+      access-token-uri: http://13.71.85.200:9999/auth/oauth/token
+      user-authorization-uri: http://13.71.85.200:9999/auth/oauth/authorize
+    resource:
+      user-info-uri: http://13.71.85.200:9999/auth/api/me
+    jwt:
+        keyValue: PfS$$$98567
+server:
+  port: 8080
