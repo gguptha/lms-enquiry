@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, Input, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
-import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { LoanEnquiryService } from '../../../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
+import { RateOfInterestUpdateDialogComponent } from '../rateOfInterestUpdate/rateOfInterestUpdate.component';
 
 @Component({
     selector: 'fuse-rate-of-interest-list',
@@ -10,39 +11,46 @@ import { LoanMonitoringService } from '../../loanMonitoring.service';
     styleUrls: ['./rateOfInterestList.component.scss'],
     animations: fuseAnimations
 })
-export class RateOfInterestListComponent implements OnInit {
+export class RateOfInterestListComponent {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input()
-    set rateOfInterestList(rateOfInterestList: any) {
-        this.dataSource = new MatTableDataSource(rateOfInterestList);
-        this.dataSource.sort = this.sort
-    }
-
     displayedColumns = [
-        'serialNumber', 'particulars', 'scheduledIfAny', 'sanctionPreCod','sanctionPostCod', 'presentRoi', 'freeText'
+        'serialNumber', 'conditionType', 'validFromDate', 'interestTypeIndicator','referenceInterestRate', 'refInterestSign', 'interestRate',
+                'calculationDate', 'dueDate', 'interestPaymentFrequency', 'paymentForm'
     ];
 
+    loanApplicationId: string;
     selectedRateOfInterest: any;
+
+    conditionTypes: any;
+    referenceInterestRates: any;
+    paymentForms: any;
 
     /**
      * constructor()
      */
-    constructor(private _service: LoanMonitoringService) {
-        this._service.selectedRateOfInterest.next({});
-    }
+    constructor(_enquiryService: LoanEnquiryService, private _loanMonitoringService: LoanMonitoringService, private _dialog: MatDialog) {
 
-    /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-        /**
-         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
-         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
-         */
-        this.dataSource.sort = this.sort;
+        _loanMonitoringService.getConditionTypes().subscribe(data => {
+            this.conditionTypes = data;
+        });
+
+        _loanMonitoringService.getReferenceInterestRates().subscribe(data => {
+            this.referenceInterestRates = data;
+        });
+
+        _loanMonitoringService.getPaymentForms().subscribe(data => {
+            this.paymentForms = data;
+        });
+
+        this.loanApplicationId = _enquiryService.selectedLoanApplicationId.value;
+
+        _loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.sort = this.sort;
+        });
     }
 
     /**
@@ -51,14 +59,71 @@ export class RateOfInterestListComponent implements OnInit {
      */
     onSelect(selectedRateOfInterest: any): void {
         this.selectedRateOfInterest = selectedRateOfInterest;
-        this._service.selectedRateOfInterest.next(this.selectedRateOfInterest);
+    }
+
+    
+    /**
+     * updateRateOfInterest()
+     * @param operation 
+     */
+    updateRateOfInterest(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedRateOfInterest': undefined
+        };
+        if (operation === 'updateRateOfInterest') {
+            data.selectedRateOfInterest = this.selectedRateOfInterest;
+        }
+        const dialogRef = this._dialog.open(RateOfInterestUpdateDialogComponent, {
+            panelClass: 'fuse-rate-of-interest-update-dialog',
+            width: '850px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+                this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
+                    this._loanMonitoringService.loanMonitor.next(data);
+                })
+            }
+        });    
     }
 
     /**
-     * getParticularsDescription()
-     * @param particularsCode
+     * getConditionType()
      */
-    getParticularsDescription(particularsCode: any): string {
-        return LoanMonitoringConstants.particulars.filter(p => p.code === particularsCode)[0].value;
+    getConditionType(conditionType: string): string {
+        const obj = this.conditionTypes.filter(f => f.code === conditionType)[0];
+        if (obj !== undefined)
+            return obj.description;
+        else
+            return '';
+    }
+
+    /**
+     * getReferenceInterestRate()
+     */
+    getReferenceInterestRate(referenceInterestRate: string): string {
+        const obj = this.referenceInterestRates.filter(f => f.code === referenceInterestRate)[0];
+        if (obj !== undefined)
+            return obj.description;
+        else
+            return '';
+    }
+
+    /**
+     * getPaymentForms()
+     */
+    getPaymentForms(paymentForm: string): string {
+        const obj = this.paymentForms.filter(f => f.code === paymentForm)[0];
+        if (obj !== undefined)
+            return obj.description;
+        else
+            return '';
     }
 }

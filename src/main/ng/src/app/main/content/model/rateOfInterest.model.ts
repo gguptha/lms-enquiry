@@ -1,12 +1,19 @@
 export class RateOfInterestModel {
 
     id: string;
-    particulars: string;
-    scheduledIfAny: string;
-    sanctionPreCod: number;
-    sanctionPostCod: number;
-    presentRoi: number;
-    freeText: string;
+    conditionType: string;
+    validFromDate: Date;
+    interestTypeIndicator: string;
+    referenceInterestRate: number;
+    refInterestSign: number;
+    interestRate: number;
+    calculationDate: Date;
+    isCalculationDateOnMonthEnd: boolean;
+    dueDate: Date;
+    isDueDateOnMonthEnd: boolean;
+    interestPaymentFrequency: number;
+    paymentForm: string;
+    interestCalculationMethod: string;
 
     /**
      * constructor()
@@ -15,11 +22,18 @@ export class RateOfInterestModel {
     constructor(_rateOfInterest: any)
     {
         this.id = _rateOfInterest.id || '';
-        this.particulars = _rateOfInterest.particulars || '';
-        this.scheduledIfAny = _rateOfInterest.scheduledIfAny || '';
-        this.freeText = _rateOfInterest.freeText || '';
-        this.sanctionPreCod = _rateOfInterest.sanctionPreCod || 0;
-        this.sanctionPostCod = _rateOfInterest.sanctionPostCod || 0;
-        this.presentRoi = _rateOfInterest.presentRoi || 0;
+        this.conditionType = _rateOfInterest.conditionType || '';
+        this.validFromDate = _rateOfInterest.validFromDate || undefined;
+        this.interestTypeIndicator = _rateOfInterest.interestTypeIndicator || '0';
+        this.referenceInterestRate = _rateOfInterest.referenceInterestRate || '';
+        this.refInterestSign = _rateOfInterest.refInterestSign || '';
+        this.interestRate = _rateOfInterest.interestRate || 0;
+        this.calculationDate = _rateOfInterest.calculationDate || undefined;
+        this.isCalculationDateOnMonthEnd = _rateOfInterest.isCalculationDateOnMonthEnd || false;
+        this.dueDate = _rateOfInterest.dueDate || undefined;
+        this.isDueDateOnMonthEnd = _rateOfInterest.isDueDateOnMonthEnd || false;
+        this.interestPaymentFrequency = _rateOfInterest.interestPaymentFrequency || 0;
+        this.paymentForm = _rateOfInterest.paymentForm || '';
+        this.interestCalculationMethod = _rateOfInterest.interestCalculationMethod || '';
     }
 }

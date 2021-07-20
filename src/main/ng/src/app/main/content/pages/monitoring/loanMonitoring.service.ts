@@ -22,7 +22,6 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameter: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameterPLF: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedRateOfInterest: BehaviorSubject<any> = new BehaviorSubject({});
     selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedPromoterFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedFinancialCovenants: BehaviorSubject<any> = new BehaviorSubject({});
@@ -359,6 +358,30 @@ export class LoanMonitoringService implements Resolve<any> {
 
     public getLFAs(): Observable<any> {
         return this._http.get<any>('enquiry/api/partner/lfas');
+    }
+
+    public getReferenceInterestRates(): Observable<any> {
+        return this._http.get<any>('enquiry/api/referenceinterestrates/all');
+    }
+
+    public getReferenceInterestRateSigns(): Observable<any> {
+        return this._http.get<any>('enquiry/api/referenceinterestratesign/all');
+    }
+
+    getConditionTypes(): Observable<any> {
+        return this._http.get<any>('enquiry/api/conditiontype/all');
+    }
+
+    getInterestPaymentFrequencies(): Observable<any> {
+        return this._http.get<any>('enquiry/api/conditiontype/all');
+    }
+
+    getPaymentForms(): Observable<any> {
+        return this._http.get<any>('enquiry/api/paymentform/all');
+    }
+
+    getInterestCalculationMethods(): Observable<any> {
+        return this._http.get<any>('enquiry/api/interestcalcmethod/all');
     }
 
     /**

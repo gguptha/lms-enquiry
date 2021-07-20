@@ -69,16 +69,13 @@ export class PromoterDetailsUpdateDialogComponent {
                 promoterDetailsItem.serialNumber = this.selectedPromoterDetails.promoterDetailItemSet.length + 1;
                 this.selectedPromoterDetails.promoterDetailItemSet.push(promoterDetailsItem);
                 
-                console.log('this.selectedPromoterDetails.id', this.selectedPromoterDetails);
                 if (!this.selectedPromoterDetails.id) { // If promoter details information is not available
-                    console.log('inside if');
                     this._loanMonitoringService.savePromoterDetails(this.selectedPromoterDetails, this._dialogData.loanApplicationId).subscribe(() => {
                         this._matSnackBar.open('Promoter details added successfully.', 'OK', { duration: 7000 });
                         this._dialogRef.close({ 'refresh': true });
                     });
                 }
                 else { // If promoter details information is available, but new company details are being added
-                    console.log('inside else');
                     this._loanMonitoringService.updatePromoterDetails(this.selectedPromoterDetails).subscribe(() => {
                         this._matSnackBar.open('Promoter details added successfully.', 'OK', { duration: 7000 });
                         this._dialogRef.close({ 'refresh': true });
@@ -101,12 +98,5 @@ export class PromoterDetailsUpdateDialogComponent {
                 });       
             }
         }
-    }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
     }
 }

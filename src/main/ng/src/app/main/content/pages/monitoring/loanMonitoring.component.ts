@@ -66,7 +66,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     traList: any;
     traStatementList: any;
     securityComplianceList: any;
-    rateOfInterestList: any;
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
     financialCovenantsList: any;
@@ -129,10 +128,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                     this.securityComplianceList = data;
                 })
-                // getRateOfInterests
-                _loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
-                    this.rateOfInterestList = data;
-                })         
+        
                 // getBorrowerFinancials
                 _loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
                     this.borrowerFinancialsList = data;
@@ -206,12 +202,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         _loanMonitoringService.selectedOperatingParameterPLF.subscribe(data => {
             this.selectedOperatingParameterPLF = new OperatingParameterPLFModel(data);
-        })
-
-        // All about Rate of Interest
-
-        _loanMonitoringService.selectedRateOfInterest.subscribe(data => {
-            this.selectedRateOfInterest = new RateOfInterestModel(data);
         })
 
         // All about Borrower Financials
@@ -523,36 +513,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             if (result.refresh) {
                 this._loanMonitoringService.getOperatingParameterPLFs(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterPLFList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    /**
-     * updateRateOfInterest()
-     * @param operation 
-     */
-    updateRateOfInterest(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedRateOfInterest': undefined
-        };
-        if (operation === 'updateRateOfInterest') {
-            data.selectedRateOfInterest = this.selectedRateOfInterest;
-        }
-        const dialogRef = this._dialogRef.open(RateOfInterestUpdateDialogComponent, {
-            panelClass: 'fuse-rate-of-interest-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getRateOfInterests(this.loanApplicationId).subscribe(data => {
-                    this.rateOfInterestList = data;
                 });
                 this.getLoanMonitor();
             }

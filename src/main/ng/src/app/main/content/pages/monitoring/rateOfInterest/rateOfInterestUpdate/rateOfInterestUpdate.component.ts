@@ -20,9 +20,14 @@ export class RateOfInterestUpdateDialogComponent {
 
     selectedRateOfInterest: RateOfInterestModel ;
 
+    rateOfInterestDisplayForm: FormGroup;
     rateOfInterestUpdateForm: FormGroup;
   
-    particulars = LoanMonitoringConstants.particulars;
+    conditionTypes: any;
+    referenceInterestRates: any;
+    referenceInterestRateSigns: any;
+    paymentForms: any;
+    interestCalculationMethods: any;
 
     /**
      * constructor()
@@ -36,23 +41,58 @@ export class RateOfInterestUpdateDialogComponent {
         public _dialogRef: MatDialogRef<RateOfInterestUpdateDialogComponent>, @Inject(MAT_DIALOG_DATA) public _dialogData: any,
         private _matSnackBar: MatSnackBar) {
 
+        _loanMonitoringService.getConditionTypes().subscribe(data => {
+            this.conditionTypes = data;
+        });
+
+        _loanMonitoringService.getReferenceInterestRates().subscribe(data => {
+            this.referenceInterestRates = data;
+        });
+
+        _loanMonitoringService.getReferenceInterestRateSigns().subscribe(data => {
+            this.referenceInterestRateSigns = data;
+        });
+
+        _loanMonitoringService.getPaymentForms().subscribe(data => {
+            this.paymentForms = data;
+        });
+
+        _loanMonitoringService.getInterestCalculationMethods().subscribe(data => {
+            this.interestCalculationMethods = data;
+        });
+
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedRateOfInterest !== undefined) {
-            this.selectedRateOfInterest = _dialogData.selectedRateOfInterest;
+            this.selectedRateOfInterest = Object.assign({}, _dialogData.selectedRateOfInterest);
             this.dialogTitle = 'Modify Rate Of Interest';
         }
         else {
             this.selectedRateOfInterest = new RateOfInterestModel({});
         }
 
-        this.rateOfInterestUpdateForm = _formBuilder.group({
-            particulars: [this.selectedRateOfInterest.particulars],
-            sanctionPreCod: [this.selectedRateOfInterest.sanctionPreCod, [Validators.pattern(MonitoringRegEx.genericAmount)]],
-            scheduledIfAny: [this.selectedRateOfInterest.scheduledIfAny],
-            sanctionPostCod: [this.selectedRateOfInterest.sanctionPostCod, [Validators.pattern(MonitoringRegEx.genericAmount)]],
-            presentRoi: [this.selectedRateOfInterest.presentRoi, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
-            freeText: [this.selectedRateOfInterest.freeText],
+        this.rateOfInterestDisplayForm = _formBuilder.group({
+            sanctionPreCod: [''],
+            sanctionPostCod: [''],
+            presentRoi: [''],
         });
+
+        this.rateOfInterestUpdateForm = _formBuilder.group({
+            conditionType: [this.selectedRateOfInterest.conditionType],
+            validFromDate: [this.selectedRateOfInterest.validFromDate],
+            interestTypeIndicator: [this.selectedRateOfInterest.interestTypeIndicator],
+            referenceInterestRate: [this.selectedRateOfInterest.referenceInterestRate],
+            refInterestSign: [this.selectedRateOfInterest.refInterestSign],
+            interestRate: [this.selectedRateOfInterest.interestRate],
+            calculationDate: [this.selectedRateOfInterest.calculationDate],
+            isCalculationDateOnMonthEnd: [this.selectedRateOfInterest.isCalculationDateOnMonthEnd],
+            dueDate: [this.selectedRateOfInterest.dueDate],
+            isDueDateOnMonthEnd: [this.selectedRateOfInterest.isDueDateOnMonthEnd],
+            interestPaymentFrequency: [this.selectedRateOfInterest.interestPaymentFrequency],
+            paymentForm: [this.selectedRateOfInterest.paymentForm],
+            interestCalculationMethod: [this.selectedRateOfInterest.interestCalculationMethod]
+        });
+
+        this.rateOfInterestUpdateForm.controls.interestRate.value
     }
 
     /**
@@ -61,6 +101,12 @@ export class RateOfInterestUpdateDialogComponent {
     submit(): void {
         if (this.rateOfInterestUpdateForm.valid) {
             var rateOfInterest: RateOfInterestModel = new RateOfInterestModel(this.rateOfInterestUpdateForm.value);
+            var dt = new Date(rateOfInterest.validFromDate);
+            rateOfInterest.validFromDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));            
+            dt = new Date(rateOfInterest.calculationDate);
+            rateOfInterest.validFromDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));            
+            dt = new Date(rateOfInterest.dueDate);
+            rateOfInterest.validFromDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate()));            
             if (this._dialogData.operation === 'addRateOfInterest') {
                 this._loanMonitoringService.saveRateOfInterest(rateOfInterest, this._dialogData.loanApplicationId).subscribe(() => {
                     this._matSnackBar.open('Rate Of Interest details added successfully.', 'OK', { duration: 7000 });
@@ -68,24 +114,24 @@ export class RateOfInterestUpdateDialogComponent {
                 });
             }
             else {
-                this.selectedRateOfInterest.particulars = rateOfInterest.particulars;
-                this.selectedRateOfInterest.sanctionPreCod = rateOfInterest.sanctionPreCod;
-                this.selectedRateOfInterest.scheduledIfAny  = rateOfInterest.scheduledIfAny;
-                this.selectedRateOfInterest.sanctionPostCod  = rateOfInterest.sanctionPostCod;
-                this.selectedRateOfInterest.presentRoi  = rateOfInterest.presentRoi;
-                this.selectedRateOfInterest.freeText  = rateOfInterest.freeText;
+                this.selectedRateOfInterest.conditionType = rateOfInterest.conditionType;
+                this.selectedRateOfInterest.validFromDate = rateOfInterest.validFromDate;
+                this.selectedRateOfInterest.interestTypeIndicator = rateOfInterest.interestTypeIndicator;
+                this.selectedRateOfInterest.referenceInterestRate = rateOfInterest.referenceInterestRate;
+                this.selectedRateOfInterest.refInterestSign = rateOfInterest.refInterestSign;
+                this.selectedRateOfInterest.interestRate = rateOfInterest.interestRate;
+                this.selectedRateOfInterest.calculationDate = rateOfInterest.calculationDate;
+                this.selectedRateOfInterest.isCalculationDateOnMonthEnd = rateOfInterest.isCalculationDateOnMonthEnd;
+                this.selectedRateOfInterest.dueDate = rateOfInterest.dueDate;
+                this.selectedRateOfInterest.isDueDateOnMonthEnd = rateOfInterest.isDueDateOnMonthEnd;
+                this.selectedRateOfInterest.interestPaymentFrequency = rateOfInterest.interestPaymentFrequency;
+                this.selectedRateOfInterest.paymentForm = rateOfInterest.paymentForm;
+                this.selectedRateOfInterest.interestCalculationMethod = rateOfInterest.interestCalculationMethod;
                 this._loanMonitoringService.updateRateOfInterest(this.selectedRateOfInterest).subscribe(() => {
                     this._matSnackBar.open('Rate Of Interest details updated successfully.', 'OK', { duration: 7000 });
                     this._dialogRef.close({ 'refresh': true });
                 });            
             }
         }
-    }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
     }
 }

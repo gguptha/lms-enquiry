@@ -170,13 +170,6 @@ export class LIEReportAndFeeUpdateDialogComponent {
     }
 
     /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
-    }
-
-    /**
      * getFileURL()
      * @param fileReference
      */

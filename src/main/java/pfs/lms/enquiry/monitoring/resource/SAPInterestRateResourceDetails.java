@@ -62,13 +62,13 @@ public class SAPInterestRateResourceDetails {
     private Character isDueDateOnMonthEnd;
 
     @JsonProperty(value = "InterestPaymentFrequency")
-    private String interestPaymentFrequency;
+    private Integer interestPaymentFrequency;
 
     @JsonProperty(value = "PaymentForm")
     private String paymentForm;
 
     @JsonProperty(value = "InterestCalculationMethod")
-    private Integer interestCalculationMethod;
+    private String interestCalculationMethod;
 
 
 }

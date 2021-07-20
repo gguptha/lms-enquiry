@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Setter
@@ -47,11 +46,11 @@ public class RateOfInterest extends AbstractEntity implements Cloneable {
 
     private Boolean isDueDateOnMonthEnd;
 
-    private String interestPaymentFrequency;
+    private Integer interestPaymentFrequency;
 
     private String paymentForm;
 
-    private Integer interestCalculationMethod;
+    private String interestCalculationMethod;
 
 //    private String particulars;
 //

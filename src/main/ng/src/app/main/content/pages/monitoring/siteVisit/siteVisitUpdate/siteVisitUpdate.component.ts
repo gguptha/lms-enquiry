@@ -78,11 +78,4 @@ export class SiteVisitUpdateDialogComponent {
             }
         }
     }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
-    }
 }

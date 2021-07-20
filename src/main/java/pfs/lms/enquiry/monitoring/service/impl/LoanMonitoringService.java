@@ -1175,14 +1175,14 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
 
         // Change Documents for Rate of Interest
-        changeDocumentService.createChangeDocument(
-                existingRateOfInterest.getLoanMonitor().getId(), existingRateOfInterest.getId(),null,
-                existingRateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                oldExistingRateOfInterest,
-                existingRateOfInterest,
-                "Updated",
-                username,
-                "Monitoring", "Rate of Interest");
+//        changeDocumentService.createChangeDocument(
+//                existingRateOfInterest.getLoanMonitor().getId(), existingRateOfInterest.getId(),null,
+//                existingRateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
+//                oldExistingRateOfInterest,
+//                existingRateOfInterest,
+//                "Updated",
+//                username,
+//                "Monitoring", "Rate of Interest");
 
 
         return existingRateOfInterest;
