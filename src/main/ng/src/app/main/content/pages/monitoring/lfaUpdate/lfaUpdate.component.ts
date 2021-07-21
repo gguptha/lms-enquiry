@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 import { LFAModel } from 'app/main/content/model/lfa.model';
-import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
 import { PartnerModel } from 'app/main/content/model/partner.model';
 
@@ -40,14 +39,12 @@ export class LFAUpdateDialogComponent implements OnInit {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedLFA !== undefined) {
-            this.selectedLFA = new LFAModel(_dialogData.selectedLFA);
+            this.selectedLFA = Object.assign({}, _dialogData.selectedLFA);
             this.dialogTitle = 'Modify LFA';
         }
         else {
             this.selectedLFA = new LFAModel({});
         }
-
-        console.log(this.selectedLFA);
 
         _loanMonitoringService.getLFAs().subscribe(response => {
             response.forEach(element => {

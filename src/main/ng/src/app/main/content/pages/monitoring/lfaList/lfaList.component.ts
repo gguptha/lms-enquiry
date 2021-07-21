@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
-import { BehaviorSubject } from 'rxjs';
+import { LoanEnquiryService } from '../../enquiry/enquiryApplication.service';
+import { LFAUpdateDialogComponent } from '../lfaUpdate/lfaUpdate.component';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 
 @Component({
@@ -10,39 +11,28 @@ import { LoanMonitoringService } from '../loanMonitoring.service';
     styleUrls: ['./lfaList.component.scss'],
     animations: fuseAnimations
 })
-export class LFAListComponent implements OnInit {
+export class LFAListComponent {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input()
-    set lfaList(lfaList: any) {
-        this.dataSource = new MatTableDataSource(lfaList);
-        this.dataSource.sort = this.sort
-    }
-
     displayedColumns = [
         'serialNumber', 'advisor', 'bpCode','name', 'dateOfAppointment', 'contractPeriodFrom', 'contractPeriodTo', 'contactNumber', 'email'
     ];
+
+    loanApplicationId: string;
 
     selectedLFA: any;
 
     /**
      * constructor()
      */
-    constructor(private _service: LoanMonitoringService) {
-        this._service.selectedLFA.next({});
-    }
-
-    /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-        /**
-         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
-         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
-         */
-        this.dataSource.sort = this.sort;
+    constructor(_loanEnquiryService: LoanEnquiryService, private _loanMonitoringService: LoanMonitoringService, private _matDialog: MatDialog) {
+        this.loanApplicationId = _loanEnquiryService.selectedLoanApplicationId.value;
+        _loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.sort = this.sort;
+        });
     }
 
     /**
@@ -50,9 +40,8 @@ export class LFAListComponent implements OnInit {
      * @param enquiry
      */
     onSelect(lfa: any): void {
-        console.log(lfa);
         this.selectedLFA = lfa;
-        this._service.selectedLFA.next(this.selectedLFA);
+        this._loanMonitoringService.selectedLFA.next(lfa);
     }
 
     /**
@@ -60,7 +49,56 @@ export class LFAListComponent implements OnInit {
      * @param lfa
      */
     getAdvisor(lfa: any): string {
-        // if lfa.advisor == xxxx
         return 'LFA';
+    }
+
+    /**
+     * addLFA()
+     */
+    addLFA(): void {
+        // Open the dialog.
+        const dialogRef = this._matDialog.open(LFAUpdateDialogComponent, {
+            panelClass: 'fuse-lfa-update-dialog',
+            width: '750px',
+            data: {
+                operation: 'addLFA',
+                loanApplicationId: this.loanApplicationId
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+                this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
+                    this._loanMonitoringService.loanMonitor.next(data);
+                });
+            }
+        });    
+    }
+
+    /**
+     * updateLFA()
+     */
+    updateLFA(): void {
+        // Open the dialog.
+        const dialogRef = this._matDialog.open(LFAUpdateDialogComponent, {
+            panelClass: 'fuse-lfa-update-dialog',
+            width: '750px',
+            data: {
+                operation: 'updateLFA',
+                loanApplicationId: this.loanApplicationId,
+                selectedLFA: this.selectedLFA
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+            }
+        });    
     }    
 }

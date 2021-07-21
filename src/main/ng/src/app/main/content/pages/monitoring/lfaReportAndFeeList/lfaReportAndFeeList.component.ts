@@ -1,7 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LFAModel } from 'app/main/content/model/lfa.model';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { Subscription } from 'rxjs';
+import { LFAReportAndFeeUpdateDialogComponent } from '../lfaReportAndFeeUpdate/lfaReportAndFeeUpdate.component';
 import { LoanMonitoringService } from '../loanMonitoring.service';
 
 @Component({
@@ -10,40 +13,35 @@ import { LoanMonitoringService } from '../loanMonitoring.service';
     styleUrls: ['./lfaReportAndFeeList.component.scss'],
     animations: fuseAnimations
 })
-export class LFAReportAndFeeListComponent implements OnInit {
+export class LFAReportAndFeeListComponent implements OnDestroy {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
-
-    @Input()
-    set lfaReportAndFeeList(list: any) {
-        this.dataSource = new MatTableDataSource(list);
-        this.dataSource.sort = this.sort
-    }
 
     displayedColumns = [
         'serialNumber', 'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
             'nextReportDate', 'download'
     ];
 
+    selectedLFA: any;
     selectedLFAReportAndFee: any;
+
+    subscriptions = new Subscription();
 
     /**
      * constructor()
      */
-    constructor(private _service: LoanMonitoringService) {
-        this._service.selectedLFAReportAndFee.next({});
-    }
+    constructor(private _loanMonitoringService: LoanMonitoringService, private _dialog: MatDialog) {
 
-    /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-        /**
-         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
-         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
-         */
-        this.dataSource.sort = this.sort;
+        this.subscriptions.add(_loanMonitoringService.selectedLFA.subscribe(data => {
+            this.selectedLFA = new LFAModel(data);
+            if (this.selectedLFA.id !== '') {
+                _loanMonitoringService.getLFAReportsAndFees(this.selectedLFA.id).subscribe(data => {
+                    this.dataSource = new MatTableDataSource(data);
+                    this.dataSource.sort = this.sort;
+                });
+            }
+        }));
     }
 
     /**
@@ -52,7 +50,6 @@ export class LFAReportAndFeeListComponent implements OnInit {
      */
     onSelect(lfaReportAndFee: any): void {
         this.selectedLFAReportAndFee = lfaReportAndFee;
-        this._service.selectedLFAReportAndFee.next(this.selectedLFAReportAndFee);
     }
 
     /**
@@ -70,5 +67,59 @@ export class LFAReportAndFeeListComponent implements OnInit {
     getReportType(reportType: string): string {
         const filtered = LoanMonitoringConstants.reportTypes.filter(obj => obj.code === reportType);
         return filtered[0].value;
+    }
+
+    /**
+     * ngOnDestroy()
+     */
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
+    }
+
+    /**
+     * addLFAReportAndFee()
+     */
+    addLFAReportAndFee(): void {
+        // Open the dialog.
+        const dialogRef = this._dialog.open(LFAReportAndFeeUpdateDialogComponent, {
+            panelClass: 'fuse-lfa-report-fee-update-dialog',
+            width: '1126px',
+            data: {
+                operation: 'addLFAReportAndFee',
+                selectedLFA: this.selectedLFA
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getLFAReportsAndFees(this.selectedLFA.id).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+            }
+        });    
+    }
+
+    /**
+     * updateLFAReportAndFee()
+     */
+    updateLFAReportAndFee(): void {
+        // Open the dialog.
+        const dialogRef = this._dialog.open(LFAReportAndFeeUpdateDialogComponent, {
+            panelClass: 'fuse-lfa-report-fee-update-dialog',
+            width: '1126px',
+            data: {
+                operation: 'updateLFAReportAndFee',
+                selectedLFA: this.selectedLFA,
+                selectedLFAReportAndFee: this.selectedLFAReportAndFee
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getLFAReportsAndFees(this.selectedLFA.id).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+            }
+        });    
     }
 }

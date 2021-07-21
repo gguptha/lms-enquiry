@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
@@ -44,7 +44,7 @@ export class LFAReportAndFeeUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         this.selectedLFA = _dialogData.selectedLFA;
         if (_dialogData.selectedLFAReportAndFee !== undefined) {
-            this.selectedLFAReportAndFee = _dialogData.selectedLFAReportAndFee;
+            this.selectedLFAReportAndFee = Object.assign({}, _dialogData.selectedLFAReportAndFee);
             this.dialogTitle = 'Modify LFA Report Submission';
         }
         else {

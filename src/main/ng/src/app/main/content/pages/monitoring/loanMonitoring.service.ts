@@ -1,7 +1,6 @@
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PartnerModel } from '../../model/partner.model';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 
@@ -13,10 +12,9 @@ export class LoanMonitoringService implements Resolve<any> {
     loanMonitor: BehaviorSubject<any> = new BehaviorSubject({});
 
     selectedLIE: BehaviorSubject<any> = new BehaviorSubject({});
+    selectedLFA: BehaviorSubject<any> = new BehaviorSubject({});
     
     // TODO to be reviewed and deleted
-    selectedLFA: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedLFAReportAndFee: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRA: BehaviorSubject<any> = new BehaviorSubject({});
     selectedTRAStatement: BehaviorSubject<any> = new BehaviorSubject({});
     selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
@@ -24,7 +22,6 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedOperatingParameterPLF: BehaviorSubject<any> = new BehaviorSubject({});
     selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     selectedPromoterFinancials: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedFinancialCovenants: BehaviorSubject<any> = new BehaviorSubject({});
     
     public banks: any;
 

@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { LoanEnquiryService } from '../../../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
+import { FinancialCovenantsUpdateDialogComponent } from '../financialCovenantsUpdate/financialCovenantsUpdate.component';
 
 @Component({
     selector: 'fuse-financial-covenants-list',
@@ -10,39 +12,28 @@ import { LoanMonitoringService } from '../../loanMonitoring.service';
     styleUrls: ['./financialCovenantsList.component.scss'],
     animations: fuseAnimations
 })
-export class FinancialCovenantsListComponent implements OnInit {
+export class FinancialCovenantsListComponent {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input()
-    set financialCovenantsList(financialCovenantsList: any) {
-        this.dataSource = new MatTableDataSource(financialCovenantsList);
-        this.dataSource.sort = this.sort
-    }
-
     displayedColumns = [
         'serialNumber', 'financialCovenantType', 'financialYear', 'debtEquityRatio','dscr', 'tolTnw', 'remarksForDeviation'
     ];
+
+    loanApplicationId: string;
 
     selectedFinancialCovenants: any;
 
     /**
      * constructor()
      */
-    constructor(private _service: LoanMonitoringService) {
-        this._service.selectedFinancialCovenants.next({});
-    }
-
-    /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-        /**
-         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
-         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
-         */
-        this.dataSource.sort = this.sort;
+    constructor(_loanEnquiryService: LoanEnquiryService, private _loanMonitoringService: LoanMonitoringService, private _dialog: MatDialog) {
+        this.loanApplicationId = _loanEnquiryService.selectedLoanApplicationId.value;
+        _loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.sort = this.sort;
+        })
     }
 
     /**
@@ -51,7 +42,6 @@ export class FinancialCovenantsListComponent implements OnInit {
      */
     onSelect(selectedFinancialCovenants: any): void {
         this.selectedFinancialCovenants = selectedFinancialCovenants;
-        this._service.selectedFinancialCovenants.next(this.selectedFinancialCovenants);
     }
 
     /**
@@ -60,5 +50,38 @@ export class FinancialCovenantsListComponent implements OnInit {
      */
     getFinancialCovenantType(financialCovenantType: any): string {
         return LoanMonitoringConstants.financialCovenantsType.filter(f => f.code === financialCovenantType)[0].value;
+    }
+
+    
+    /**
+     * updateFinancialCovenants()
+     * @param operation 
+     */
+    updateFinancialCovenants(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedFinancialCovenants': undefined
+        };
+        if (operation === 'updateFinancialCovenants') {
+            data.selectedFinancialCovenants = this.selectedFinancialCovenants;
+        }
+        const dialogRef = this._dialog.open(FinancialCovenantsUpdateDialogComponent, {
+            panelClass: 'fuse-financial-covenants-update-dialog',
+            width: '750px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+                this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
+                    this._loanMonitoringService.loanMonitor.next(data);
+                });
+            }
+        });    
     }
 }

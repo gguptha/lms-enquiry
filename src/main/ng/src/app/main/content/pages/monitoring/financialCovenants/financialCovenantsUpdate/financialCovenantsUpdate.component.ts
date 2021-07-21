@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
@@ -38,7 +38,7 @@ export class FinancialCovenantsUpdateDialogComponent {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedFinancialCovenants !== undefined) {
-            this.selectedFinancialCovenants = _dialogData.selectedFinancialCovenants;
+            this.selectedFinancialCovenants = Object.assign({}, _dialogData.selectedFinancialCovenants);
             this.dialogTitle = 'Add New Financial Covenants';
         }
         else {
