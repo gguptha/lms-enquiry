@@ -6,6 +6,7 @@ import { LoanMonitoringService } from '../../loanMonitoring.service';
 import { RateOfInterestModel } from 'app/main/content/model/rateOfInterest.model';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
 import { MonitoringRegEx } from 'app/main/content/others/monitoring.regEx';
+import { EnquiryApplicationRegEx } from 'app/main/content/others/enquiryApplication.regEx';
 
 @Component({
     selector: 'fuse-rate-of-interest-update-dialog',
@@ -82,12 +83,12 @@ export class RateOfInterestUpdateDialogComponent {
             interestTypeIndicator: [this.selectedRateOfInterest.interestTypeIndicator],
             referenceInterestRate: [this.selectedRateOfInterest.referenceInterestRate],
             refInterestSign: [this.selectedRateOfInterest.refInterestSign],
-            interestRate: [this.selectedRateOfInterest.interestRate],
+            interestRate: [this.selectedRateOfInterest.interestRate, [Validators.pattern(MonitoringRegEx.holdingPercentage)]],
             calculationDate: [this.selectedRateOfInterest.calculationDate],
             isCalculationDateOnMonthEnd: [this.selectedRateOfInterest.isCalculationDateOnMonthEnd],
             dueDate: [this.selectedRateOfInterest.dueDate],
             isDueDateOnMonthEnd: [this.selectedRateOfInterest.isDueDateOnMonthEnd],
-            interestPaymentFrequency: [this.selectedRateOfInterest.interestPaymentFrequency],
+            interestPaymentFrequency: [this.selectedRateOfInterest.interestPaymentFrequency, [Validators.pattern(MonitoringRegEx.digitsOnly)]],
             paymentForm: [this.selectedRateOfInterest.paymentForm],
             interestCalculationMethod: [this.selectedRateOfInterest.interestCalculationMethod]
         });

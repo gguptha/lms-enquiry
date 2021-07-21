@@ -71,7 +71,7 @@ export class LIEListComponent {
                 });
                 this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
                     this._loanMonitoringService.loanMonitor.next(data);
-                })
+                });
             }
         });    
     }

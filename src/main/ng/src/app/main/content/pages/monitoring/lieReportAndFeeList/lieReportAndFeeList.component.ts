@@ -19,13 +19,12 @@ export class LIEReportAndFeeListComponent implements OnDestroy {
     @ViewChild(MatSort) sort: MatSort;
 
     selectedLIE: any;
+    selectedLIEReportAndFee: any;
 
     displayedColumns = [
         'serialNumber', 'reportType', 'dateOfReceipt','invoiceDate', 'invoiceNo', 'feeAmount', 'statusOfFeeReceipt', 'statusOfFeePaid', 'documentTitle', 
             'nextReportDate', 'download'
     ];
-
-    selectedLIEReportAndFee: any;
 
     subscriptions = new Subscription()
     
@@ -41,8 +40,7 @@ export class LIEReportAndFeeListComponent implements OnDestroy {
                     this.dataSource.sort = this.sort;
                 });
             }
-        })
-)
+        }))
     }
 
     /**

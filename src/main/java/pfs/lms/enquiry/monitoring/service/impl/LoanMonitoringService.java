@@ -1493,15 +1493,15 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingFinancialCovenants = financialCovenantsRepository.save(existingFinancialCovenants);
 
 
-        // Change Documents for Promoter Details
-        changeDocumentService.createChangeDocument(
-                existingFinancialCovenants.getLoanMonitor().getId(), existingFinancialCovenants.getId(),null,
-                existingFinancialCovenants.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
-                oldFinancialCovenants,
-                "Updated",
-                username,
-                "Monitoring", "Financial Covenants");
+        // Change Documents for Financial Covenants
+//        changeDocumentService.createChangeDocument(
+//                existingFinancialCovenants.getLoanMonitor().getId(), existingFinancialCovenants.getId(),null,
+//                existingFinancialCovenants.getLoanMonitor().getLoanApplication().getLoanContractId(),
+//                null,
+//                oldFinancialCovenants,
+//                "Updated",
+//                username,
+//                "Monitoring", "Financial Covenants");
 
         return existingFinancialCovenants;
 

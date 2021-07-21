@@ -127,31 +127,11 @@
                 </div>
             </mat-tab>
 
-            <!-- LFA Details Tab - Starts Here -->
             <mat-tab label="LFA Details">
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLFA()"> Add LFA </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateLFA()" [disabled]="selectedLFA.id == ''"> Modify LFA </button>
-                </div>            
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
-                    <fuse-lfa-list [lfaList]="lfaList"></fuse-lfa-list>
-                </div>
-
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="addLFAReportAndFee()" 
-                            [disabled]="selectedLFA.id == ''"> 
-                        Add Report For LFA 
-                    </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateLFAReportAndFee()" 
-                            [disabled]="selectedLFAReportAndFee.id == ''"> 
-                        Modify Report For LFA
-                    </button>
-                </div>
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
-                    <fuse-lfa-report-fee-list [lfaReportAndFeeList]="lfaReportAndFeeList"></fuse-lfa-report-fee-list>
+                <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-lfa-list></fuse-lfa-list>
                 </div>
             </mat-tab>
-            <!-- LFA Details Tab - Ends Here -->
 
             <!-- TRA Details Tab - Starts Here -->
             <mat-tab label="TRA Statement">
@@ -279,22 +259,11 @@
             </mat-tab>
             <!-- Promoter Financials Tab - Ends Here -->
 
-            <!-- Financial Covenants Tab - Starts Here -->
-            <mat-tab label="Financial Covenants">
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateFinancialCovenants('addFinancialCovenants')"> 
-                        Add New Financial Covenant
-                    </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateFinancialCovenants('updateFinancialCovenants')" 
-                            [disabled]="selectedFinancialCovenants.id == ''"> 
-                        Modify Financial Covennat
-                    </button>
-                </div>            
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
-                    <fuse-financial-covenants-list [financialCovenantsList]="financialCovenantsList"></fuse-financial-covenants-list>
+            <mat-tab label="Financial Covenants">        
+                <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-financial-covenants-list></fuse-financial-covenants-list>
                 </div>
             </mat-tab>
-            <!-- Financial Covenants Tab - Ends Here -->
 
             <mat-tab label="Promoter Details">
                 <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">

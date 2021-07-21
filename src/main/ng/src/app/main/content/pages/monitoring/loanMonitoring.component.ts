@@ -6,25 +6,17 @@ import { Subscription } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
-import { LFAModel } from '../../model/lfa.model';
-import { LFAUpdateDialogComponent } from './lfaUpdate/lfaUpdate.component';
-import { LFAReportAndFeeModel } from '../../model/lfaReportAndFee.model';
-import { LFAReportAndFeeUpdateDialogComponent } from './lfaReportAndFeeUpdate/lfaReportAndFeeUpdate.component';
 import { TRAUpdateDialogComponent } from './trustRetentionAccount/traUpdate/traUpdate.component';
 import { TRAModel } from '../../model/tra.model';
 import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traStatementUpdate/traStatementUpdate.component';
 import { TRAStatementModel } from '../../model/traStatement.model';
 import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
 import { SecurityComplianceModel } from '../../model/securityCompliance.model';
-import { RateOfInterestUpdateDialogComponent } from './rateOfInterest/rateOfInterestUpdate/rateOfInterestUpdate.component';
 import { RateOfInterestModel } from '../../model/rateOfInterest.model';
 import { BorrowerFinancialsModel } from '../../model/borrowerFinancials.model';
 import { BorrowerFinancialsUpdateDialogComponent } from './borrowerFinancials/borrowerFinancialsUpdate/borrowerFinancialsUpdate.component';
 import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/promoterFinancialsUpdate/promoterFinancialsUpdate.component';
 import { PromoterFinancialsModel } from '../../model/promoterFinancials.model';
-import { FinancialCovenantsModel } from '../../model/financialCovenants.model';
-import { FinancialCovenantsUpdateDialogComponent } from './financialCovenants/financialCovenantsUpdate/financialCovenantsUpdate.component';
-import { PromoterDetailsModel } from '../../model/promoterDetails.model';
 import { OperatingParameterModel } from '../../model/operatingParameter';
 import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
 import { AppService } from 'app/app.service';
@@ -41,37 +33,28 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
     disableSendForApproval: boolean = false;
 
-    loanMonitor: any;
-    loanContractExtension: any = {};
-
     loanApplicationId: string;
+    loanContractExtension: any = {};
+    loanMonitor: any;
+    
     selectedEnquiry: any;
 
-    selectedLFA: LFAModel;
-    selectedLFAReportAndFee: LFAReportAndFeeModel;
     selectedTRA: TRAModel;
     selectedTRAStatement: TRAStatementModel = new TRAStatementModel({});
     selectedSecurityCompliance: SecurityComplianceModel;
     selectedRateOfInterest: RateOfInterestModel;
     selectedBorrowerFinancials: BorrowerFinancialsModel;
     selectedPromoterFinancials: PromoterFinancialsModel;
-    selectedFinancialCovenants: FinancialCovenantsModel;
-    selectedPromoterDetails: PromoterDetailsModel;
     selectedOperatingParameter: OperatingParameterModel;
     selectedOperatingParameterPLF: OperatingParameterPLFModel;
-    selectedProjectMonitoringData: any;
 
-    lfaList: any;
-    lfaReportAndFeeList: any;
     traList: any;
     traStatementList: any;
     securityComplianceList: any;
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
-    financialCovenantsList: any;
     operatingParameterList: any;
     operatingParameterPLFList: any;
-
 
     selectedEnquiryForm: FormGroup;
     boardApprovalDetailsForm: FormGroup;
@@ -116,10 +99,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                     this.loanMonitor = data;
                 })
 
-                // getLendersFinancialAdvisors
-                _loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
-                    this.lfaList = data;
-                });
                 // getTrustRetentionAccounts
                 _loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
                     this.traList = data;
@@ -137,10 +116,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
                     this.promoterFinancialsList = data;
                 })
-                // getFinancialCovenants
-                _loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
-                    this.financialCovenantsList = data;
-                })
+
                 // getOperatingParameters
                 _loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterList = data;
@@ -151,23 +127,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 })
             })
         );        
-
-        // All about LFA
-
-        this.lfaReportAndFeeList = [];
-
-        _loanMonitoringService.selectedLFA.subscribe(data => {
-            this.selectedLFA = new LFAModel(data);
-            if (this.selectedLFA.id !== '') {
-                _loanMonitoringService.getLFAReportsAndFees(this.selectedLFA.id).subscribe(data => {
-                    this.lfaReportAndFeeList = data;
-                });
-            }
-        })
-        
-        _loanMonitoringService.selectedLFAReportAndFee.subscribe(data => {
-            this.selectedLFAReportAndFee = new LFAReportAndFeeModel(data);
-        });
 
         // All about TRA
 
@@ -215,12 +174,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
         _loanMonitoringService.selectedPromoterFinancials.subscribe(data => {
             this.selectedPromoterFinancials = new PromoterFinancialsModel(data);
         })
-
-        // All about Financial Covenants
-
-        _loanMonitoringService.selectedFinancialCovenants.subscribe(data => {
-            this.selectedFinancialCovenants = new FinancialCovenantsModel(data);
-        })
     }
 
     /**
@@ -266,89 +219,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      */
     redirectToMonitorLoan(): void {
         this._router.navigate(['/enquiryReview']);
-    }
-
-    addLFA(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LFAUpdateDialogComponent, {
-            panelClass: 'fuse-lfa-update-dialog',
-            width: '750px',
-            data: {
-                operation: 'addLFA',
-                loanApplicationId: this.loanApplicationId
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
-                    this.lfaList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    updateLFA(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LFAUpdateDialogComponent, {
-            panelClass: 'fuse-lfa-update-dialog',
-            width: '750px',
-            data: {
-                operation: 'updateLFA',
-                loanApplicationId: this.loanApplicationId,
-                selectedLFA: this.selectedLFA
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLendersFinancialAdvisors(this.loanApplicationId).subscribe(data => {
-                    this.lfaList = data;
-                });
-            }
-        });    
-    }
-
-    addLFAReportAndFee(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LFAReportAndFeeUpdateDialogComponent, {
-            panelClass: 'fuse-lfa-report-fee-update-dialog',
-            width: '1126px',
-            data: {
-                operation: 'addLFAReportAndFee',
-                selectedLFA: this.selectedLFA
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLFAReportsAndFees(this.selectedLFA.id).subscribe(data => {
-                    this.lfaReportAndFeeList = data;
-                });
-            }
-        });    
-    }
-
-    updateLFAReportAndFee(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(LFAReportAndFeeUpdateDialogComponent, {
-            panelClass: 'fuse-lfa-report-fee-update-dialog',
-            width: '1126px',
-            data: {
-                operation: 'updateLFAReportAndFee',
-                selectedLFA: this.selectedLFA,
-                selectedLFAReportAndFee: this.selectedLFAReportAndFee
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getLFAReportsAndFees(this.selectedLFA.id).subscribe(data => {
-                    this.lfaReportAndFeeList = data;
-                });
-            }
-        });    
     }
 
     addTRA(): void {
@@ -578,36 +448,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             }
         });    
     }    
-
-    /**
-     * updateFinancialCovenants()
-     * @param operation 
-     */
-    updateFinancialCovenants(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedFinancialCovenants': undefined
-        };
-        if (operation === 'updateFinancialCovenants') {
-            data.selectedFinancialCovenants = this.selectedFinancialCovenants;
-        }
-        const dialogRef = this._dialogRef.open(FinancialCovenantsUpdateDialogComponent, {
-            panelClass: 'fuse-financial-covenants-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getFinancialCovenants(this.loanApplicationId).subscribe(data => {
-                    this.financialCovenantsList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
 
     /**
      * sendMonitoringForApproval()
