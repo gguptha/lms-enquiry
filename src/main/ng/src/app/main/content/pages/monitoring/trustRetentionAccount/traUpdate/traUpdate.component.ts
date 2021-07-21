@@ -43,7 +43,7 @@ export class TRAUpdateDialogComponent implements OnInit {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedTRA !== undefined) {
-            this.selectedTRA = _dialogData.selectedTRA;
+            this.selectedTRA = Object.assign({}, _dialogData.selectedTRA);
             this.dialogTitle = 'Modify TRA Account';
         }
         else {
@@ -98,7 +98,7 @@ export class TRAUpdateDialogComponent implements OnInit {
             var tra: TRAModel = new TRAModel(this.traUpdateForm.value);
             if (this._dialogData.operation === 'addTRA') {
                 this._loanMonitoringService.saveTRA(tra, this._dialogData.loanApplicationId).subscribe(() => {
-                    this._matSnackBar.open('TRA added successfully.', 'OK', { duration: 7000 });
+                    this._matSnackBar.open('TRA added successfully.', 'OK', { duration: 5000 });
                     this._dialogRef.close({ 'refresh': true });
                 });
             }
@@ -117,18 +117,11 @@ export class TRAUpdateDialogComponent implements OnInit {
                 this.selectedTRA.pfsAuthorisedPerson  = tra.pfsAuthorisedPerson;
                 this.selectedTRA.beneficiaryName  = tra.beneficiaryName;
                 this._loanMonitoringService.updateTRA(this.selectedTRA).subscribe(() => {
-                    this._matSnackBar.open('TRA updated successfully.', 'OK', { duration: 7000 });
+                    this._matSnackBar.open('TRA updated successfully.', 'OK', { duration: 5000 });
                     this._dialogRef.close({ 'refresh': true });
                 });            
             }
         }
-    }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
     }
 
     /**
@@ -138,7 +131,6 @@ export class TRAUpdateDialogComponent implements OnInit {
         const filteredBanks = this.banks.filter(bank => bank.bankKey === $event.target.value);
         if (filteredBanks.length > 0) {
             this.traUpdateForm.controls.bankKey.setValue(this.bankKeyFormControl.value);
-            console.log('bank details .....', filteredBanks[0]);
             this.traUpdateForm.controls.traBankName.setValue(filteredBanks[0].bankName);
             this.traUpdateForm.controls.branch.setValue(filteredBanks[0].bankBranch || '');
             this.traUpdateForm.controls.address.setValue(filteredBanks[0].houseNumberAndStreet);

@@ -6,10 +6,6 @@ import { Subscription } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
-import { TRAUpdateDialogComponent } from './trustRetentionAccount/traUpdate/traUpdate.component';
-import { TRAModel } from '../../model/tra.model';
-import { TRAStatementUpdateDialogComponent } from './trustRetentionAccount/traStatementUpdate/traStatementUpdate.component';
-import { TRAStatementModel } from '../../model/traStatement.model';
 import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
 import { SecurityComplianceModel } from '../../model/securityCompliance.model';
 import { RateOfInterestModel } from '../../model/rateOfInterest.model';
@@ -39,8 +35,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     
     selectedEnquiry: any;
 
-    selectedTRA: TRAModel;
-    selectedTRAStatement: TRAStatementModel = new TRAStatementModel({});
     selectedSecurityCompliance: SecurityComplianceModel;
     selectedRateOfInterest: RateOfInterestModel;
     selectedBorrowerFinancials: BorrowerFinancialsModel;
@@ -48,8 +42,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     selectedOperatingParameter: OperatingParameterModel;
     selectedOperatingParameterPLF: OperatingParameterPLFModel;
 
-    traList: any;
-    traStatementList: any;
     securityComplianceList: any;
     borrowerFinancialsList: any;
     promoterFinancialsList: any;
@@ -83,7 +75,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         this.subscriptions.add(this._loanMonitoringService.loanMonitor.subscribe(data => {
             this.loanMonitor = data;
-            console.log('updated loan monitor', this.loanMonitor);
         }));
 
         this.subscriptions.add(this._loanEnquiryService.selectedEnquiry.subscribe(data => {
@@ -99,10 +90,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                     this.loanMonitor = data;
                 })
 
-                // getTrustRetentionAccounts
-                _loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
-                    this.traList = data;
-                });
+
                 // getSecurityCompliances
                 _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
                     this.securityComplianceList = data;
@@ -127,23 +115,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 })
             })
         );        
-
-        // All about TRA
-
-        this.traStatementList = [];
-
-        _loanMonitoringService.selectedTRA.subscribe(data => {
-            this.selectedTRA = new TRAModel(data);
-            if (this.selectedTRA.id !== '') {
-                _loanMonitoringService.getTRAStatements(this.selectedTRA.id).subscribe(data => {
-                    this.traStatementList = data;
-                });
-            }
-        })
-
-        _loanMonitoringService.selectedTRAStatement.subscribe(data => {
-            this.selectedTRAStatement = new TRAStatementModel(data);
-        })
 
         // All about Security Compliance
 
@@ -219,84 +190,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      */
     redirectToMonitorLoan(): void {
         this._router.navigate(['/enquiryReview']);
-    }
-
-    addTRA(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(TRAUpdateDialogComponent, {
-            panelClass: 'fuse-tra-update-dialog',
-            width: '750px',
-            data: {
-                operation: 'addTRA',
-                loanApplicationId: this.loanApplicationId
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
-                    this.traList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    updateTRA(): void {
-        // Open the dialog.
-        const dialogRef = this._dialogRef.open(TRAUpdateDialogComponent, {
-            panelClass: 'fuse-tra-update-dialog',
-            width: '750px',
-            data: {
-                operation: 'updateTRA',
-                loanApplicationId: this.loanApplicationId,
-                selectedTRA: this.selectedTRA
-            }
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
-                    this.traList = data;
-                });
-            }
-        });    
-    }
-
-    /**
-     * updateTRAStatement()
-     * @param operation 
-     */
-    updateTRAStatement(operation: string): void {
-        // Open the dialog.
-        var data: any;
-        if (operation === 'addTRAStatement') {
-            data = {
-                'operation': operation,
-                'loanApplicationId': this.loanApplicationId,
-                'selectedTRA': this.selectedTRA
-            }
-        }
-        else {
-            data = {
-                'operation': operation,
-                'selectedTRA': this.selectedTRA,
-                'selectedTRAStatement': this.selectedTRAStatement
-            }
-        }
-        const dialogRef = this._dialogRef.open(TRAStatementUpdateDialogComponent, {
-            panelClass: 'fuse-tra-statement-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getTRAStatements(this.selectedTRA.id).subscribe(data => {
-                    this.traStatementList = data;
-                });
-            }
-        });    
     }
 
     /**

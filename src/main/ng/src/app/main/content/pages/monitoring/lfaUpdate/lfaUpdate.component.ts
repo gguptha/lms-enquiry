@@ -113,13 +113,6 @@ export class LFAUpdateDialogComponent implements OnInit {
     }
 
     /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
-    }
-
-    /**
      * getPartyNumberAndName()
      * @param party 
      */

@@ -43,7 +43,7 @@ export class TRAStatementUpdateDialogComponent {
         // Fetch selected user details from the dialog's data attribute.
         this.selectedTRA = _dialogData.selectedTRA;
         if (_dialogData.selectedTRAStatement !== undefined) {
-            this.selectedTRAStatement = _dialogData.selectedTRAStatement;
+            this.selectedTRAStatement = Object.assign({}, _dialogData.selectedTRAStatement);
             this.dialogTitle = 'Modify TRA Statement';
         }
         else {
@@ -85,7 +85,7 @@ export class TRAStatementUpdateDialogComponent {
                         (response) => {
                             traStatement.fileReference = response.fileReference;
                             this._loanMonitoringService.saveTRAStatement(traStatement, this.selectedTRA.id).subscribe(() => {
-                                this._matSnackBar.open('TRA Statement added successfully.', 'OK', { duration: 7000 });
+                                this._matSnackBar.open('TRA Statement added successfully.', 'OK', { duration: 5000 });
                                 this._dialogRef.close({ 'refresh': true });
                             });
                         },
@@ -98,7 +98,7 @@ export class TRAStatementUpdateDialogComponent {
                 else
                 {
                     this._loanMonitoringService.saveTRAStatement(traStatement, this.selectedTRA.id).subscribe(() => {
-                        this._matSnackBar.open('TRA Statement added successfully.', 'OK', { duration: 7000 });
+                        this._matSnackBar.open('TRA Statement added successfully.', 'OK', { duration: 5000 });
                         this._dialogRef.close({ 'refresh': true });
                     });
                 }
@@ -116,7 +116,7 @@ export class TRAStatementUpdateDialogComponent {
                             this.selectedTRAStatement.documentType = traStatement.documentType;
                             this.selectedTRAStatement.fileReference = response.fileReference;
                             this._loanMonitoringService.updateTRAStatement(this.selectedTRAStatement).subscribe(() => {
-                                this._matSnackBar.open('TRA Statement updated successfully.', 'OK', { duration: 7000 });
+                                this._matSnackBar.open('TRA Statement updated successfully.', 'OK', { duration: 5000 });
                                 this._dialogRef.close({ 'refresh': true });
                             });
                         },
@@ -134,7 +134,7 @@ export class TRAStatementUpdateDialogComponent {
                     this.selectedTRAStatement.periodYear = traStatement.periodYear;
                     this.selectedTRAStatement.documentType = traStatement.documentType;
                     this._loanMonitoringService.updateTRAStatement(this.selectedTRAStatement).subscribe(() => {
-                        this._matSnackBar.open('TRA Statement updated successfully.', 'OK', { duration: 7000 });
+                        this._matSnackBar.open('TRA Statement updated successfully.', 'OK', { duration: 5000 });
                         this._dialogRef.close({ 'refresh': true });
                     });
                 }

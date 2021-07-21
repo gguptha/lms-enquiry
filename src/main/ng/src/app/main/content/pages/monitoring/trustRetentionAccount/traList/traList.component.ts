@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
+import { LoanEnquiryService } from '../../../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
+import { TRAUpdateDialogComponent } from '../traUpdate/traUpdate.component';
 
 @Component({
     selector: 'fuse-tra-list',
@@ -9,40 +11,29 @@ import { LoanMonitoringService } from '../../loanMonitoring.service';
     styleUrls: ['./traList.component.scss'],
     animations: fuseAnimations
 })
-export class TRAListComponent implements OnInit {
+export class TRAListComponent {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
-
-    @Input()
-    set traList(traList: any) {
-        this.dataSource = new MatTableDataSource(traList);
-        this.dataSource.sort = this.sort
-    }
 
     displayedColumns = [
         'serialNumber', 'bankKey', 'traBankName','branch', 'address', 'beneficiaryName', 'ifscCode', 'accountNumber', 'contactName', 'typeOfAccount',
             'contactNumber', 'email', 'pfsAuthorisedPerson'
     ];
 
+    loanApplicationId: string;
+
     selectedTRA: any;
 
     /**
      * constructor()
      */
-    constructor(private _service: LoanMonitoringService) {
-        this._service.selectedTRA.next({});
-    }
-
-    /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-        /**
-         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
-         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
-         */
-        this.dataSource.sort = this.sort;
+    constructor(_loanEnquiryService: LoanEnquiryService, private _loanMonitoringService: LoanMonitoringService, private _dialog: MatDialog) {
+        this.loanApplicationId = _loanEnquiryService.selectedLoanApplicationId.value;
+        _loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.sort = this.sort;
+        });
     }
 
     /**
@@ -50,8 +41,57 @@ export class TRAListComponent implements OnInit {
      * @param enquiry
      */
     onSelect(tra: any): void {
-        console.log(tra);
         this.selectedTRA = tra;
-        this._service.selectedTRA.next(this.selectedTRA);
+        this._loanMonitoringService.selectedTRA.next(Object.assign({}, this.selectedTRA));
+    }
+
+    /**
+     * addTRA()
+     */
+    addTRA(): void {
+        // Open the dialog.
+        const dialogRef = this._dialog.open(TRAUpdateDialogComponent, {
+            panelClass: 'fuse-tra-update-dialog',
+            width: '750px',
+            data: {
+                operation: 'addTRA',
+                loanApplicationId: this.loanApplicationId
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+                this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
+                    this._loanMonitoringService.loanMonitor.next(data);
+                });
+            }
+        });    
+    }
+
+    /**
+     * updateTRA()
+     */
+    updateTRA(): void {
+        // Open the dialog.
+        const dialogRef = this._dialog.open(TRAUpdateDialogComponent, {
+            panelClass: 'fuse-tra-update-dialog',
+            width: '750px',
+            data: {
+                operation: 'updateTRA',
+                loanApplicationId: this.loanApplicationId,
+                selectedTRA: this.selectedTRA
+            }
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getTrustRetentionaccounts(this.loanApplicationId).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+            }
+        });    
     }
 }
