@@ -48,7 +48,7 @@ public class SAPInterestRateResource {
         detailedResource.setInterestTypeIndicator(rateOfInterest.getInterestTypeIndicator());
         detailedResource.setReferenceInterestRate(rateOfInterest.getReferenceInterestRate());
 
-        detailedResource.setInterestRate(String.format("%.2f",rateOfInterest.getInterestRate()));
+        detailedResource.setInterestRate(String.format("%.7f",rateOfInterest.getInterestRate()));
 
 
         if (rateOfInterest.getCalculationDate() !=null)
@@ -61,8 +61,18 @@ public class SAPInterestRateResource {
         else
             detailedResource.setIsDueDateOnMonthEnd(' ');
 
+        if (rateOfInterest.getValidFromDate() !=null)
+            detailedResource.setValidFromDate(dataConversionUtility.convertDateToSAPFormat(rateOfInterest.getValidFromDate()));
+        else
+            detailedResource.setValidFromDate(null);
+
+        if (rateOfInterest.getCalculationDate() !=null)
+            detailedResource.setCalculationDate(dataConversionUtility.convertDateToSAPFormat(rateOfInterest.getCalculationDate()));
+        else
+            detailedResource.setValidFromDate(null);
+
         if (rateOfInterest.getDueDate() !=null)
-            detailedResource.setValidFromDate(dataConversionUtility.convertDateToSAPFormat(rateOfInterest.getDueDate()));
+            detailedResource.setDueDate(dataConversionUtility.convertDateToSAPFormat(rateOfInterest.getDueDate()));
         else
             detailedResource.setValidFromDate(null);
 
@@ -71,8 +81,12 @@ public class SAPInterestRateResource {
         else
             detailedResource.setIsDueDateOnMonthEnd(' ');
 
+        if (rateOfInterest.getIsCalculationDateOnMonthEnd() == true)
+            detailedResource.setIsCalculationDateOnMonthEnd('X');
+        else
+            detailedResource.setIsDueDateOnMonthEnd(' ');
 
-        detailedResource.setInterestPaymentFrequency(rateOfInterest.getInterestPaymentFrequency());
+        detailedResource.setInterestPaymentFrequency(rateOfInterest.getInterestPaymentFrequency().toString());
         detailedResource.setPaymentForm(rateOfInterest.getPaymentForm());
         detailedResource.setInterestCalculationMethod(rateOfInterest.getInterestCalculationMethod());
 

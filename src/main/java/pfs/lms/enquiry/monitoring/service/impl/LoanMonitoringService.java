@@ -1137,7 +1137,7 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
         rateOfInterest = rateOfInterestRepository.save(rateOfInterest);
 
-        // Change Documents for Operating Parameter
+        // Change Documents for Rate of Interest
         changeDocumentService.createChangeDocument(
                 rateOfInterest.getLoanMonitor().getId(), rateOfInterest.getId(),null,
                 rateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
@@ -1175,14 +1175,14 @@ public class LoanMonitoringService implements ILoanMonitoringService {
 
 
         // Change Documents for Rate of Interest
-//        changeDocumentService.createChangeDocument(
-//                existingRateOfInterest.getLoanMonitor().getId(), existingRateOfInterest.getId(),null,
-//                existingRateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
-//                oldExistingRateOfInterest,
-//                existingRateOfInterest,
-//                "Updated",
-//                username,
-//                "Monitoring", "Rate of Interest");
+        changeDocumentService.createChangeDocument(
+                existingRateOfInterest.getLoanMonitor().getId(), existingRateOfInterest.getId(),null,
+                existingRateOfInterest.getLoanMonitor().getLoanApplication().getLoanContractId(),
+                oldExistingRateOfInterest,
+                existingRateOfInterest,
+                "Updated",
+                username,
+                "Monitoring", "Rate of Interest");
 
 
         return existingRateOfInterest;
@@ -1493,11 +1493,11 @@ public class LoanMonitoringService implements ILoanMonitoringService {
         existingFinancialCovenants = financialCovenantsRepository.save(existingFinancialCovenants);
 
 
-        // Change Documents for Promoter Details
+        // Change Documents for Financial Covenants
         changeDocumentService.createChangeDocument(
                 existingFinancialCovenants.getLoanMonitor().getId(), existingFinancialCovenants.getId(),null,
                 existingFinancialCovenants.getLoanMonitor().getLoanApplication().getLoanContractId(),
-                null,
+                existingFinancialCovenants,
                 oldFinancialCovenants,
                 "Updated",
                 username,

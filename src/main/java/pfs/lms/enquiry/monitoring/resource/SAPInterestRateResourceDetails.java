@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import pfs.lms.enquiry.domain.ConditionType;
+import pfs.lms.enquiry.domain.InterestCalculationMethod;
+import pfs.lms.enquiry.domain.PaymentForm;
+import pfs.lms.enquiry.domain.ReferenceInterestSign;
 
 import java.util.Date;
 
@@ -32,37 +36,38 @@ public class SAPInterestRateResourceDetails {
     @JsonProperty(value = "ValidFromDate")
     private String validFromDate;
 
+
     // 0 - Fixed
     // 1 - Reference Int. Rate
     @JsonProperty(value = "InterestTypeIndicator")
     private Character interestTypeIndicator;
 
-    @JsonProperty(value = "ReferenceInterestRate")
+    @JsonProperty(value = "ReferenceInterestType")
     private String referenceInterestRate;
 
     // +  - Plus
     // -  - Minus
     // *  - Multiply
-    @JsonProperty(value = "RefInterestSign")
+    @JsonProperty(value = "ReferenceInterestSign")
     private String refInterestSign;
 
-    @JsonProperty(value = "InterestRate")
+    @JsonProperty(value = "InterestRatePct")
     private String interestRate;
 
     @JsonProperty(value = "CalculationDate")
-    private Date calculationDate;
+    private String calculationDate;
 
     @JsonProperty(value = "IsCalculationDateOnMonthEnd")
     private Character isCalculationDateOnMonthEnd;
 
     @JsonProperty(value = "DueDate")
-    private Date dueDate;
+    private String dueDate;
 
     @JsonProperty(value = "IsDueDateOnMonthEnd")
     private Character isDueDateOnMonthEnd;
 
     @JsonProperty(value = "InterestPaymentFrequency")
-    private Integer interestPaymentFrequency;
+    private String interestPaymentFrequency;
 
     @JsonProperty(value = "PaymentForm")
     private String paymentForm;
