@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { fuseAnimations } from '@fuse/animations';
 import { LoanMonitoringConstants } from 'app/main/content/model/loanMonitoringConstants';
+import { LoanEnquiryService } from '../../../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from '../../loanMonitoring.service';
+import { SecurityComplianceUpdateDialogComponent } from '../securityComplianceUpdate/securityComplianceUpdate.component';
 
 @Component({
     selector: 'fuse-security-compliance-list',
@@ -10,39 +12,29 @@ import { LoanMonitoringService } from '../../loanMonitoring.service';
     styleUrls: ['./securityComplianceList.component.scss'],
     animations: fuseAnimations
 })
-export class SecurityComplianceListComponent implements OnInit {
+export class SecurityComplianceListComponent {
 
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatSort) sort: MatSort;
-
-    @Input()
-    set securityComplianceList(securityComplianceList: any) {
-        this.dataSource = new MatTableDataSource(securityComplianceList);
-        this.dataSource.sort = this.sort
-    }
 
     displayedColumns = [
         'serialNumber', 'particulars', 'qty', 'faceValue','percentage', 'applicability', 'timelines', 'dateOfCreation', 'validityDate', 'value',
             'securityPerfectionDate', 'remarks'
     ];
 
+    loanApplicationId: string;
+
     selectedSecurityCompliance: any;
 
     /**
      * constructor()
      */
-    constructor(private _service: LoanMonitoringService) {
-    }
-
-    /**
-     * ngOnInit()
-     */
-    ngOnInit(): void {
-        /**
-         * this.sort will not be initialized in the constructor phase. It will be undefined and hence sorting
-         * will not work. The below line has to be in ngOnInit() which is executed after all initializations.
-         */
-        this.dataSource.sort = this.sort;
+    constructor(_loanEnquiryService: LoanEnquiryService, private _loanMonitoringService: LoanMonitoringService, private _dialog: MatDialog) {
+        this.loanApplicationId = _loanEnquiryService.selectedLoanApplicationId.value;
+        _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
+            this.dataSource = new MatTableDataSource(data);
+            this.dataSource.sort = this.sort;
+        });
     }
 
     /**
@@ -51,7 +43,6 @@ export class SecurityComplianceListComponent implements OnInit {
      */
     onSelect(securityCompliance: any): void {
         this.selectedSecurityCompliance = securityCompliance;
-        this._service.selectedSecurityCompliance.next(this.selectedSecurityCompliance);
     }
 
     /**
@@ -72,5 +63,37 @@ export class SecurityComplianceListComponent implements OnInit {
      */
     getApplicability(applicabilityCode: any): string {
         return LoanMonitoringConstants.applicability.filter(f => f.code === applicabilityCode)[0].value;
-    }  
+    }
+
+    /**
+     * updateSecurityCompliance()
+     * @param operation 
+     */
+    updateSecurityCompliance(operation: string): void {
+        // Open the dialog.
+        var data = {
+            'operation': operation,
+            'loanApplicationId': this.loanApplicationId,
+            'selectedSecurityCompliance': undefined
+        };
+        if (operation === 'updateSecurityCompliance') {
+            data.selectedSecurityCompliance = this.selectedSecurityCompliance;
+        }
+        const dialogRef = this._dialog.open(SecurityComplianceUpdateDialogComponent, {
+            panelClass: 'fuse-security-compliance-update-dialog',
+            width: '1000px',
+            data: data
+        });
+        // Subscribe to the dialog close event to intercept the action taken.
+        dialogRef.afterClosed().subscribe((result) => { 
+            if (result.refresh) {
+                this._loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
+                    this.dataSource.data = data;
+                });
+                this._loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
+                    this._loanMonitoringService.loanMonitor.next(data);
+                });
+            }
+        });    
+    }
 }

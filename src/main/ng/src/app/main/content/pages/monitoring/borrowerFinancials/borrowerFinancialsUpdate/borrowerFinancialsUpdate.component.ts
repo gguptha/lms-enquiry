@@ -36,7 +36,7 @@ export class BorrowerFinancialsUpdateDialogComponent {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedFinancials !== undefined) {
-            this.selectedFinancials = _dialogData.selectedFinancials;
+            this.selectedFinancials = Object.assign({}, _dialogData.selectedFinancials);
             this.dialogTitle = 'Modify Borrower Financials';
         }
         else {
@@ -128,14 +128,7 @@ export class BorrowerFinancialsUpdateDialogComponent {
             }
         }
     }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
-    }
-    
+  
     /**
      * getFileURL()
      * @param fileReference

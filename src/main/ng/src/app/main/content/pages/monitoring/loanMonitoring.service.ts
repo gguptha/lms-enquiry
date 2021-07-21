@@ -16,11 +16,8 @@ export class LoanMonitoringService implements Resolve<any> {
     selectedTRA: BehaviorSubject<any> = new BehaviorSubject({});
     
     // TODO to be reviewed and deleted
-    selectedSecurityCompliance: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameter: BehaviorSubject<any> = new BehaviorSubject({});
     selectedOperatingParameterPLF: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedBorrowerFinancials: BehaviorSubject<any> = new BehaviorSubject({});
-    selectedPromoterFinancials: BehaviorSubject<any> = new BehaviorSubject({});
     
     public banks: any;
 

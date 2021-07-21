@@ -139,30 +139,17 @@
                 </div>
             </mat-tab>
             
-            <!-- Terms & Conditions Modification Tab - Starts Here -->
             <mat-tab label="T&C Modification">
                 <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
                     <fuse-tandc-list></fuse-tandc-list>
                 </div>
             </mat-tab>
-            <!-- Terms & Conditions Modification Tab - Ends Here -->
 
-            <!-- Security Compliance Tab - Starts Here -->
             <mat-tab label="Security Compliance">
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateSecurityCompliance('addSecurityCompliance')"> 
-                        Add New Security
-                    </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateSecurityCompliance('updateSecurityCompliance')" 
-                            [disabled]="selectedSecurityCompliance.id == ''"> 
-                        Modify Security
-                    </button>
-                </div>            
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
-                    <fuse-security-compliance-list [securityComplianceList]="securityComplianceList"></fuse-security-compliance-list>
+                <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-security-compliance-list></fuse-security-compliance-list>
                 </div>
             </mat-tab>
-            <!-- Security Compliance Tab - Ends Here -->            
 
             <mat-tab label="Site Visit">          
                 <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
@@ -205,39 +192,17 @@
                 </div>
             </mat-tab>
 
-            <!-- Borrower Financials Tab - Starts Here -->
-            <mat-tab label="Borrower Financials">
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateBorrowerFinancials('addFinancials')"> 
-                        Add New Financial Details
-                    </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updateBorrowerFinancials('updateFinancials')" 
-                            [disabled]="selectedBorrowerFinancials.id == ''"> 
-                        Modify Financial Details
-                    </button>
-                </div>            
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
-                    <fuse-borrower-financials-list [borrowerFinancialsList]="borrowerFinancialsList"></fuse-borrower-financials-list>
+            <mat-tab label="Borrower Financials">           
+                <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-borrower-financials-list></fuse-borrower-financials-list>
                 </div>
             </mat-tab>
-            <!-- Borrower Financials Tab - Ends Here -->
 
-            <!-- Promoter Financials Tab - Starts Here -->
-            <mat-tab label="Promoter Financials">
-                <div class="toolbar" fxLayout="row" class="mt-16 mb-16">
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updatePromoterFinancials('addFinancials')"> 
-                        Add New Financial Details
-                    </button>
-                    <button class="mr-8 btn" mat-raised-button color="accent" (click)="updatePromoterFinancials('updateFinancials')" 
-                            [disabled]="selectedPromoterFinancials.id == ''"> 
-                        Modify Financial Details
-                    </button>
-                </div>            
-                <div class="content-card mat-white-bg mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
-                    <fuse-promoter-financials-list [promoterFinancialsList]="promoterFinancialsList"></fuse-promoter-financials-list>
+            <mat-tab label="Promoter Financials">           
+                <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">
+                    <fuse-promoter-financials-list></fuse-promoter-financials-list>
                 </div>
             </mat-tab>
-            <!-- Promoter Financials Tab - Ends Here -->
 
             <mat-tab label="Financial Covenants">        
                 <div class="content-card mat-elevation-z4" fusePerfectScrollbar style="width: 100%">

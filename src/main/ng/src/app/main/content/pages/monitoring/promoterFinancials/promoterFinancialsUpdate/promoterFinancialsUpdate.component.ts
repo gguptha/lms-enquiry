@@ -36,7 +36,7 @@ export class PromoterFinancialsUpdateDialogComponent {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedFinancials !== undefined) {
-            this.selectedFinancials = _dialogData.selectedFinancials;
+            this.selectedFinancials = Object.assign({}, _dialogData.selectedFinancials);
             this.dialogTitle = 'Modify Promoter Financials';
         }
         else {
@@ -124,12 +124,5 @@ export class PromoterFinancialsUpdateDialogComponent {
                 });
             }
         }
-    }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
     }
 }

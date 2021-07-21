@@ -6,13 +6,6 @@ import { Subscription } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
-import { SecurityComplianceUpdateDialogComponent } from './securityCompliance/securityComplianceUpdate/securityComplianceUpdate.component';
-import { SecurityComplianceModel } from '../../model/securityCompliance.model';
-import { RateOfInterestModel } from '../../model/rateOfInterest.model';
-import { BorrowerFinancialsModel } from '../../model/borrowerFinancials.model';
-import { BorrowerFinancialsUpdateDialogComponent } from './borrowerFinancials/borrowerFinancialsUpdate/borrowerFinancialsUpdate.component';
-import { PromoterFinancialsUpdateDialogComponent } from './promoterFinancials/promoterFinancialsUpdate/promoterFinancialsUpdate.component';
-import { PromoterFinancialsModel } from '../../model/promoterFinancials.model';
 import { OperatingParameterModel } from '../../model/operatingParameter';
 import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
 import { AppService } from 'app/app.service';
@@ -35,16 +28,9 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     
     selectedEnquiry: any;
 
-    selectedSecurityCompliance: SecurityComplianceModel;
-    selectedRateOfInterest: RateOfInterestModel;
-    selectedBorrowerFinancials: BorrowerFinancialsModel;
-    selectedPromoterFinancials: PromoterFinancialsModel;
     selectedOperatingParameter: OperatingParameterModel;
     selectedOperatingParameterPLF: OperatingParameterPLFModel;
 
-    securityComplianceList: any;
-    borrowerFinancialsList: any;
-    promoterFinancialsList: any;
     operatingParameterList: any;
     operatingParameterPLFList: any;
 
@@ -89,22 +75,7 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
                     this.loanMonitor = data;
                 })
-
-
-                // getSecurityCompliances
-                _loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
-                    this.securityComplianceList = data;
-                })
-        
-                // getBorrowerFinancials
-                _loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
-                    this.borrowerFinancialsList = data;
-                })
-                // getPromoterFinancials
-                _loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
-                    this.promoterFinancialsList = data;
-                })
-
+       
                 // getOperatingParameters
                 _loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
                     this.operatingParameterList = data;
@@ -116,12 +87,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             })
         );        
 
-        // All about Security Compliance
-
-        _loanMonitoringService.selectedSecurityCompliance.subscribe(data => {
-            this.selectedSecurityCompliance = new SecurityComplianceModel(data);
-        })
-
         // All about Operating Parameter
 
         _loanMonitoringService.selectedOperatingParameter.subscribe(data => {
@@ -132,18 +97,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
 
         _loanMonitoringService.selectedOperatingParameterPLF.subscribe(data => {
             this.selectedOperatingParameterPLF = new OperatingParameterPLFModel(data);
-        })
-
-        // All about Borrower Financials
-
-        _loanMonitoringService.selectedBorrowerFinancials.subscribe(data => {
-            this.selectedBorrowerFinancials = new BorrowerFinancialsModel(data);
-        })        
-
-        // All about Promoter Financials
-
-        _loanMonitoringService.selectedPromoterFinancials.subscribe(data => {
-            this.selectedPromoterFinancials = new PromoterFinancialsModel(data);
         })
     }
 
@@ -190,36 +143,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      */
     redirectToMonitorLoan(): void {
         this._router.navigate(['/enquiryReview']);
-    }
-
-    /**
-     * updateSecurityCompliance()
-     * @param operation 
-     */
-    updateSecurityCompliance(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedSecurityCompliance': undefined
-        };
-        if (operation === 'updateSecurityCompliance') {
-            data.selectedSecurityCompliance = this.selectedSecurityCompliance;
-        }
-        const dialogRef = this._dialogRef.open(SecurityComplianceUpdateDialogComponent, {
-            panelClass: 'fuse-security-compliance-update-dialog',
-            width: '1000px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getSecurityCompliances(this.loanApplicationId).subscribe(data => {
-                    this.securityComplianceList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
     }
 
     /**
@@ -281,66 +204,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
             }
         });    
     }
-
-    /**
-     * updateBorrowerFinancials()
-     * @param operation 
-     */
-    updateBorrowerFinancials(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedFinancials': undefined
-        };
-        if (operation === 'updateFinancials') {
-            data.selectedFinancials = this.selectedBorrowerFinancials;
-        }
-        const dialogRef = this._dialogRef.open(BorrowerFinancialsUpdateDialogComponent, {
-            panelClass: 'fuse-borrower-financials-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getBorrowerFinancials(this.loanApplicationId).subscribe(data => {
-                    this.borrowerFinancialsList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    /**
-     * updatePromoterFinancials()
-     * @param operation 
-     */
-    updatePromoterFinancials(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedFinancials': undefined
-        };
-        if (operation === 'updateFinancials') {
-            data.selectedFinancials = this.selectedPromoterFinancials;
-        }
-        const dialogRef = this._dialogRef.open(PromoterFinancialsUpdateDialogComponent, {
-            panelClass: 'fuse-promoter-financials-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getPromoterFinancials(this.loanApplicationId).subscribe(data => {
-                    this.promoterFinancialsList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }    
 
     /**
      * sendMonitoringForApproval()

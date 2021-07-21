@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
@@ -44,7 +44,7 @@ export class SecurityComplianceUpdateDialogComponent {
 
         // Fetch selected user details from the dialog's data attribute.
         if (_dialogData.selectedSecurityCompliance !== undefined) {
-            this.selectedSecurityCompliance = _dialogData.selectedSecurityCompliance;
+            this.selectedSecurityCompliance = Object.assign({}, _dialogData.selectedSecurityCompliance);
             this.dialogTitle = 'Modify Security Compliance Maintenance';
             
             // populate collateral agreement types
@@ -145,12 +145,5 @@ export class SecurityComplianceUpdateDialogComponent {
         this.collateralAgreementTypes = LoanMonitoringConstants.collateralAgreementTypes.filter(obj => {
             return obj.objectType === event.value;
         });
-    }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
     }
 }
