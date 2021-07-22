@@ -6,11 +6,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { LoanEnquiryService } from '../enquiry/enquiryApplication.service';
 import { LoanMonitoringService } from './loanMonitoring.service';
-import { OperatingParameterModel } from '../../model/operatingParameter';
-import { OperatingParameterUpdateDialogComponent } from './operatingParameter/operatingParameterUpdate/operatingParameterUpdate.component';
 import { AppService } from 'app/app.service';
-import { OperatingParameterPLFUpdateDialogComponent } from './operatingParameterPLF/operatingParameterPLFUpdate/operatingParameterPLFUpdate.component';
-import { OperatingParameterPLFModel } from '../../model/operatingParameterPLF';
 
 @Component({
     selector: 'fuse-loanmonitoring',
@@ -27,12 +23,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
     loanMonitor: any;
     
     selectedEnquiry: any;
-
-    selectedOperatingParameter: OperatingParameterModel;
-    selectedOperatingParameterPLF: OperatingParameterPLFModel;
-
-    operatingParameterList: any;
-    operatingParameterPLFList: any;
 
     selectedEnquiryForm: FormGroup;
     boardApprovalDetailsForm: FormGroup;
@@ -75,29 +65,8 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
                 _loanMonitoringService.getLoanMonitor(this.loanApplicationId).subscribe(data => {
                     this.loanMonitor = data;
                 })
-       
-                // getOperatingParameters
-                _loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
-                    this.operatingParameterList = data;
-                })
-                // getOperatingParameterPLFs
-                _loanMonitoringService.getOperatingParameterPLFs(this.loanApplicationId).subscribe(data => {
-                    this.operatingParameterPLFList = data;
-                })
             })
-        );        
-
-        // All about Operating Parameter
-
-        _loanMonitoringService.selectedOperatingParameter.subscribe(data => {
-            this.selectedOperatingParameter = new OperatingParameterModel(data);
-        })
-
-        // All about Operating Parameter PLF
-
-        _loanMonitoringService.selectedOperatingParameterPLF.subscribe(data => {
-            this.selectedOperatingParameterPLF = new OperatingParameterPLFModel(data);
-        })
+        );
     }
 
     /**
@@ -143,66 +112,6 @@ export class LoanMonitoringComponent implements OnInit, OnDestroy {
      */
     redirectToMonitorLoan(): void {
         this._router.navigate(['/enquiryReview']);
-    }
-
-    /**
-     * updateOperatingParameter()
-     * @param operation 
-     */
-    updateOperatingParameter(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedOperatingParameter': undefined
-        };
-        if (operation === 'updateOperatingParameter') {
-            data.selectedOperatingParameter = this.selectedOperatingParameter;
-        }
-        const dialogRef = this._dialogRef.open(OperatingParameterUpdateDialogComponent, {
-            panelClass: 'fuse-operating-parameter-update-dialog',
-            width: '1000px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getOperatingParameters(this.loanApplicationId).subscribe(data => {
-                    this.operatingParameterList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
-    }
-
-    /**
-     * updateOperatingParameterPLF()
-     * @param operation 
-     */
-    updateOperatingParameterPLF(operation: string): void {
-        // Open the dialog.
-        var data = {
-            'operation': operation,
-            'loanApplicationId': this.loanApplicationId,
-            'selectedOperatingParameterPLF': undefined
-        };
-        if (operation === 'updateOperatingParameterPLF') {
-            data.selectedOperatingParameterPLF = this.selectedOperatingParameterPLF;
-        }
-        const dialogRef = this._dialogRef.open(OperatingParameterPLFUpdateDialogComponent, {
-            panelClass: 'fuse-operating-parameter-plf-update-dialog',
-            width: '750px',
-            data: data
-        });
-        // Subscribe to the dialog close event to intercept the action taken.
-        dialogRef.afterClosed().subscribe((result) => { 
-            if (result.refresh) {
-                this._loanMonitoringService.getOperatingParameterPLFs(this.loanApplicationId).subscribe(data => {
-                    this.operatingParameterPLFList = data;
-                });
-                this.getLoanMonitor();
-            }
-        });    
     }
 
     /**

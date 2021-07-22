@@ -35,7 +35,7 @@ export class OperatingParameterPLFUpdateDialogComponent {
 
         // Fetch selected operating parameter details from the dialog's data attribute.
         if (_dialogData.selectedOperatingParameterPLF !== undefined) {
-            this.selectedOperatingParameterPLF = _dialogData.selectedOperatingParameterPLF;
+            this.selectedOperatingParameterPLF = Object.assign({}, _dialogData.selectedOperatingParameterPLF);
             this.dialogTitle = 'Modify Operating Parameter Details';
         }
         else {
@@ -59,24 +59,17 @@ export class OperatingParameterPLFUpdateDialogComponent {
             var operatingParameterPLF: OperatingParameterPLFModel = new OperatingParameterPLFModel(this.operatingParameterPLFUpdateForm.value);
             if (this._dialogData.operation === 'addOperatingParameterPLF') {
                 this._loanMonitoringService.saveOperatingParameterPLF(operatingParameterPLF, this._dialogData.loanApplicationId).subscribe(() => {
-                    this._matSnackBar.open('Operating Parameter PLF details added successfully.', 'OK', { duration: 7000 });
+                    this._matSnackBar.open('Operating Parameter PLF details added successfully.', 'OK', { duration: 5000 });
                     this._dialogRef.close({ 'refresh': true });
                 });
             }
             else {
                 operatingParameterPLF.id = this.selectedOperatingParameterPLF.id;
                 this._loanMonitoringService.updateOperatingParameterPLF(operatingParameterPLF).subscribe(() => {
-                    this._matSnackBar.open('Operating Parameter PLF details updated successfully.', 'OK', { duration: 7000 });
+                    this._matSnackBar.open('Operating Parameter PLF details updated successfully.', 'OK', { duration: 5000 });
                     this._dialogRef.close({ 'refresh': true });
                 });
             }         
         }
     }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
-    }   
 }

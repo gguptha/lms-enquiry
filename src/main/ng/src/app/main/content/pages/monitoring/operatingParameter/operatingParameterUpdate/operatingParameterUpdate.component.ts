@@ -39,7 +39,7 @@ export class OperatingParameterUpdateDialogComponent {
 
         // Fetch selected operating parameter details from the dialog's data attribute.
         if (_dialogData.selectedOperatingParameter !== undefined) {
-            this.selectedOperatingParameter = _dialogData.selectedOperatingParameter;
+            this.selectedOperatingParameter = Object.assign({}, _dialogData.selectedOperatingParameter);
             this.dialogTitle = 'Modify Operating Parameter Details';
         }
         else {
@@ -130,13 +130,6 @@ export class OperatingParameterUpdateDialogComponent {
                 }         
             }
         }
-    }
-
-    /**
-     * closeClick()
-     */
-    closeClick(): void {
-        this._dialogRef.close({ 'refresh': false });
     }
     
     /**
